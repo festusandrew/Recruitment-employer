@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router";
 import { Sidebar } from "./components/Sidebar";
 import { AdminSidebar } from "./components/AdminSidebar";
 import { Header } from "./components/Header";
@@ -28,8 +29,17 @@ import { ActivityPage } from "./components/pages/ActivityPage";
 import { TasksPage } from "./components/pages/TasksPage";
 
 export default function App() {
-    const [activePage, setActivePage] = useState("dashboard");
-    const [isAdminMode, setIsAdminMode] = useState(false);
+    const location = useLocation();
+    const navigate = useNavigate();
+
+    const path = location.pathname === "/" ? "dashboard" : location.pathname.slice(1);
+    const activePage = path;
+
+    const setActivePage = (page: string) => {
+        navigate(`/${page}`);
+    };
+
+    const [isAdminMode, setIsAdminMode] = useState(() => window.location.pathname.startsWith("/admin-"));
     const [isAddJobModalOpen, setIsAddJobModalOpen] = useState(false);
     const [isCandidateModalOpen, setIsCandidateModalOpen] = useState(false);
     const [isScheduleInterviewModalOpen, setIsScheduleInterviewModalOpen] = useState(false);
@@ -38,6 +48,14 @@ export default function App() {
     const [viewingApplicantProfile, setViewingApplicantProfile] = useState(false);
     const [selectedApplicant, setSelectedApplicant] = useState<any>(null);
     const [selectedPipelineJob, setSelectedPipelineJob] = useState<any>(null);
+
+    useEffect(() => {
+        if (location.pathname.startsWith("/admin-")) {
+            setIsAdminMode(true);
+        } else {
+            setIsAdminMode(false);
+        }
+    }, [location.pathname]);
 
     const handleViewCandidate = (candidate: any) => {
         handleViewApplicantProfile({
@@ -66,20 +84,17 @@ export default function App() {
     };
 
     const handleToggleAdminMode = () => {
-        setIsAdminMode(!isAdminMode);
-        // When switching to admin mode, go to admin dashboard
         if (!isAdminMode) {
             setActivePage("admin-dashboard");
         } else {
-            // When exiting admin mode, go back to regular dashboard
             setActivePage("dashboard");
         }
     };
 
     const handleExitAdminMode = () => {
-        setIsAdminMode(false);
         setActivePage("dashboard");
     };
+
 
     const renderPage = () => {
         if (viewingApplicantProfile) {
