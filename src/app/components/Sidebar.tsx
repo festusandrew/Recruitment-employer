@@ -48,14 +48,14 @@ export function Sidebar({ activePage, onNavigate }: SidebarProps) {
 
     return (
         <aside 
-            className={`bg-[#800020] border-r border-[#600018] flex flex-col h-screen sticky top-0 transition-all duration-300 relative ${
+            className={`bg-[#800020] border-r border-[#600018] flex flex-col h-screen sticky top-0 z-50 transition-all duration-300 relative ${
                 isCollapsed ? "w-[80px]" : "w-[260px]"
             }`}
         >
             {/* Collapse/Expand Toggle Button */}
             <button
                 onClick={() => setIsCollapsed(!isCollapsed)}
-                className="absolute -right-3 top-7 z-20 flex items-center justify-center w-6 h-6 rounded-full bg-[#600018] border border-gray-300 text-white hover:bg-[#A52A2A] transition-all shadow-md"
+                className="absolute -right-3 top-7 z-[999] flex items-center justify-center w-6 h-6 rounded-full bg-[#600018] border border-gray-300 text-white hover:bg-[#A52A2A] transition-all shadow-md"
                 title={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
             >
                 {isCollapsed ? <ChevronRight className="w-3.5 h-3.5" /> : <ChevronLeft className="w-3.5 h-3.5" />}
