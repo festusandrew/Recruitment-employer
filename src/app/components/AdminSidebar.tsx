@@ -39,7 +39,7 @@ export function AdminSidebar({ activePage, onNavigate, onExitAdminMode }: AdminS
             </div>
 
             {/* Admin Navigation */}
-            <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
+            <nav className="flex-1 p-4 space-y-1 overflow-y-auto no-scrollbar">
                 {adminNavItems.map((item) => {
                     const Icon = item.icon;
                     const isActive = activePage === item.page;
