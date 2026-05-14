@@ -1,0 +1,24 @@
+/* Maroon Color Palette for MployUs */
+:root {
+    /* Primary Maroon Colors */
+    --maroon-900: #4A0D0D;
+    /* Darkest maroon */
+    --maroon-800: #600018;
+    /* Dark maroon for borders */
+    --maroon-700: #800020;
+    /* Primary maroon */
+    --maroon-600: #8B0000;
+    /* Dark red maroon */
+    --maroon-500: #A52A2A;
+    /* Brown maroon */
+    --maroon-400: #B22222;
+    /* Fire brick */
+    --maroon-300: #CD5C5C;
+    /* Indian red */
+    --maroon-200: #E9967A;
+    /* Dark salmon */
+    --maroon-100: #FFA07A;
+    /* Light salmon */
+    --maroon-50: #F5E6E8;
+    /* Very light pink-maroon */
+}
