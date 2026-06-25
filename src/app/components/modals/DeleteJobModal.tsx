@@ -30,7 +30,7 @@ export function DeleteJobModal({ isOpen, onClose, onConfirm, jobTitle, applicant
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-            <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg overflow-hidden">
+            <div className="bg-white rounded-2xl  w-full max-w-lg overflow-hidden">
                 {/* Header */}
                 <div className="flex items-center justify-between p-6 border-b border-red-200 bg-red-50">
                     <div className="flex items-center gap-3">
@@ -128,3 +128,6 @@ export function DeleteJobModal({ isOpen, onClose, onConfirm, jobTitle, applicant
         </div>
     );
 }
+
+
+

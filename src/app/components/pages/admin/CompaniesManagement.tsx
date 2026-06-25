@@ -302,7 +302,7 @@ export function CompaniesManagement() {
                                 <tr key={company.id} className="hover:bg-gray-50">
                                     <td className="px-6 py-4 whitespace-nowrap">
                                         <div className="flex items-center gap-3">
-                                            <div className="w-10 h-10 bg-gradient-to-br from-[#7C3AED] to-[#9333EA] rounded-lg flex items-center justify-center">
+                                            <div className="w-10 h-10 bg-primary   rounded-lg flex items-center justify-center">
                                                 <span className="text-white text-sm">{company.logo}</span>
                                             </div>
                                             <div>
@@ -395,3 +395,5 @@ export function CompaniesManagement() {
         </div>
     );
 }
+
+

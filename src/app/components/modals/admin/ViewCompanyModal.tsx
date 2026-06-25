@@ -42,7 +42,7 @@ export function ViewCompanyModal({ isOpen, onClose, company, onEdit, onSuspend }
                 {/* Header */}
                 <div className="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between">
                     <div className="flex items-center gap-4">
-                        <div className="w-14 h-14 bg-gradient-to-br from-[#7C3AED] to-[#9333EA] rounded-lg flex items-center justify-center">
+                        <div className="w-14 h-14 bg-primary   rounded-lg flex items-center justify-center">
                             <span className="text-white text-xl">{company.logo}</span>
                         </div>
                         <div>
@@ -197,3 +197,5 @@ export function ViewCompanyModal({ isOpen, onClose, company, onEdit, onSuspend }
         </div>
     );
 }
+
+

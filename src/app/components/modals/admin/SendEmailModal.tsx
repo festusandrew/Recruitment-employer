@@ -186,3 +186,5 @@ export function SendEmailModal({ isOpen, onClose, company, onSend }: SendEmailMo
         </div>
     );
 }
+
+

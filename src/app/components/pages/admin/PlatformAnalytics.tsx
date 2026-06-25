@@ -60,7 +60,7 @@ export function PlatformAnalytics() {
                     return (
                         <div
                             key={index}
-                            className="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow"
+                            className="bg-white border border-gray-200 rounded-lg p-6 hover: transition-shadow"
                         >
                             <div className="flex items-center justify-between mb-4">
                                 <div className={`w-12 h-12 ${metric.color} rounded-lg flex items-center justify-center`}>
@@ -191,3 +191,6 @@ export function PlatformAnalytics() {
         </div>
     );
 }
+
+
+

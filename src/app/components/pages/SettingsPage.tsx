@@ -1,5 +1,6 @@
 import { Bell, Globe, Lock, Palette, Mail, Building, CreditCard, CheckCircle2, X, Check, FileText, Download, ArrowRight, Sparkles } from "lucide-react";
 import { useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
 
 export function SettingsPage() {
     const [toast, setToast] = useState<{ message: string; type: "success" | "info" } | null>(null);
@@ -7,6 +8,16 @@ export function SettingsPage() {
     const [activeModal, setActiveModal] = useState<"managePlan" | "billingHistory" | null>(null);
     const [currentPlan, setCurrentPlan] = useState<string>("Professional");
     const [billingCycle, setBillingCycle] = useState<"monthly" | "annual">("monthly");
+
+    // Notification toggles state
+    const [notifications, setNotifications] = useState({
+        applications: true,
+        reminders: true,
+        deadlines: true,
+        activity: false,
+        autoResponse: true,
+        interviewConfirm: true
+    });
 
     const showToast = (message: string, type: "success" | "info" = "success") => {
         setToast({ message, type });
@@ -18,11 +29,15 @@ export function SettingsPage() {
         setTimeout(() => {
             setIsSaving(false);
             showToast("Company information saved successfully.");
-        }, 600);
+        }, 800);
     };
 
-    const handleToggle = (setting: string) => {
-        showToast(`${setting} updated.`);
+    const handleToggle = (key: keyof typeof notifications, label: string) => {
+        setNotifications(prev => {
+            const nextState = !prev[key];
+            showToast(`${label} ${nextState ? "enabled" : "disabled"}.`);
+            return { ...prev, [key]: nextState };
+        });
     };
 
     const handleAction = (action: string) => {
@@ -32,7 +47,7 @@ export function SettingsPage() {
     const handleSelectPlan = (planName: string) => {
         setCurrentPlan(planName);
         setActiveModal(null);
-        showToast(`Successfully updated subscription to ${planName} Plan!`);
+        showToast(`Subscription updated to ${planName} Plan!`);
     };
 
     const invoices = [
@@ -51,7 +66,7 @@ export function SettingsPage() {
             description: "Perfect for growing teams hiring up to 5 roles simultaneously.",
             features: [
                 "Up to 5 active job postings",
-                "Basic candidate pipeline tracking",
+                "Basic applicant pipeline tracking",
                 "Email template management",
                 "Standard email support"
             ]
@@ -85,275 +100,285 @@ export function SettingsPage() {
         }
     ];
 
+    // Helper component for premium custom switches
+    const CustomSwitch = ({ checked, onChange }: { checked: boolean; onChange: () => void }) => (
+        <div 
+            onClick={onChange}
+            className={`w-11 h-6 rounded-full p-0.5 cursor-pointer transition-colors duration-200 ${checked ? "bg-[#800020]" : "bg-gray-200"}`}
+        >
+            <motion.div 
+                layout
+                className="w-5 h-5 rounded-full bg-white "
+                animate={{ x: checked ? 20 : 0 }}
+                transition={{ type: "spring", stiffness: 500, damping: 30 }}
+            />
+        </div>
+    );
+
     return (
-        <div className="p-8 relative">
+        <div className="p-8 relative text-left">
             <div className="max-w-[1200px] mx-auto">
                 {/* Header */}
-                <div className="mb-6">
-                    <h1 className="text-gray-900 mb-2 text-2xl font-bold">Settings</h1>
-                    <p className="text-gray-600">Manage your workspace preferences and configurations</p>
+                <div className="mb-8">
+                    <h1 className="text-3xl font-black text-gray-900 tracking-tight">Workspace Settings</h1>
+                    <p className="text-sm text-gray-500 mt-1 font-medium">Manage your company credentials, billing history, subscription plans, and notification routing.</p>
                 </div>
 
                 {/* Settings Categories */}
                 <div className="space-y-6">
                     {/* Company Information */}
-                    <div className="bg-white rounded-xl border border-gray-200/80 shadow-sm">
-                        <div className="p-6 border-b border-gray-200">
+                    <div className="bg-white rounded-2xl border border-gray-200/80 ">
+                        <div className="p-6 border-b border-gray-100">
                             <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 bg-[#F5E6E8] rounded-lg flex items-center justify-center">
+                                <div className="w-10 h-10 bg-[#F5E6E8] rounded-xl flex items-center justify-center border border-[#800020]/10">
                                     <Building className="w-5 h-5 text-[#800020]" />
                                 </div>
                                 <div>
-                                    <h2 className="text-gray-900 font-semibold">Company Information</h2>
-                                    <p className="text-sm text-gray-500">Update your company details</p>
+                                    <h2 className="text-gray-900 font-bold text-base">Company Profile</h2>
+                                    <p className="text-xs text-gray-400 font-bold uppercase tracking-wider mt-0.5">Update corporate branding & website details</p>
                                 </div>
                             </div>
                         </div>
-                        <div className="p-6 space-y-4">
-                            <div className="grid grid-cols-2 gap-4">
+                        <div className="p-6 space-y-5">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-2">Company Name</label>
+                                    <label className="block text-sm font-bold text-gray-700 mb-2">Company Name</label>
                                     <input
                                         type="text"
                                         defaultValue="MployUs Inc."
-                                        className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#800020] focus:border-transparent"
+                                        className="w-full px-4 py-2.5 border border-gray-300 rounded-xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-[#800020] bg-white "
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-2">Industry</label>
+                                    <label className="block text-sm font-bold text-gray-700 mb-2">Industry Sector</label>
                                     <input
                                         type="text"
-                                        defaultValue="Technology"
-                                        className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#800020] focus:border-transparent"
+                                        defaultValue="Technology & Software"
+                                        className="w-full px-4 py-2.5 border border-gray-300 rounded-xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-[#800020] bg-white "
                                     />
                                 </div>
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">Website</label>
+                                <label className="block text-sm font-bold text-gray-700 mb-2">Website URL</label>
                                 <input
                                     type="url"
                                     defaultValue="https://mployus.com"
-                                    className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#800020] focus:border-transparent"
+                                    className="w-full px-4 py-2.5 border border-gray-300 rounded-xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-[#800020] bg-white "
                                 />
                             </div>
-                            <button
+                            <motion.button
+                                whileHover={{ scale: 1.02 }}
+                                whileTap={{ scale: 0.98 }}
                                 onClick={handleSaveCompanyInfo}
                                 disabled={isSaving}
-                                className="px-5 py-2.5 bg-[#800020] text-white rounded-lg hover:bg-[#600018] transition-colors font-medium flex items-center justify-center min-w-[140px] cursor-pointer"
+                                className="px-5 py-3 bg-primary   text-white rounded-xl hover: transition-all font-bold text-sm flex items-center justify-center min-w-[140px] cursor-pointer "
                             >
                                 {isSaving ? (
                                     <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
                                 ) : (
-                                    "Save Changes"
+                                    "Save Details"
                                 )}
-                            </button>
+                            </motion.button>
                         </div>
                     </div>
 
                     {/* Notifications */}
-                    <div className="bg-white rounded-xl border border-gray-200/80 shadow-sm">
-                        <div className="p-6 border-b border-gray-200">
+                    <div className="bg-white rounded-2xl border border-gray-200/80 ">
+                        <div className="p-6 border-b border-gray-100">
                             <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
-                                    <Bell className="w-5 h-5 text-purple-600" />
+                                <div className="w-10 h-10 bg-purple-50 rounded-xl flex items-center justify-center border border-purple-100">
+                                    <Bell className="w-5 h-5 text-purple-700" />
                                 </div>
                                 <div>
-                                    <h2 className="text-gray-900 font-semibold">Notifications</h2>
-                                    <p className="text-sm text-gray-500">Configure your notification preferences</p>
+                                    <h2 className="text-gray-900 font-bold text-base">Alerts & Notifications</h2>
+                                    <p className="text-xs text-gray-400 font-bold uppercase tracking-wider mt-0.5">Customize real-time dispatch routes</p>
                                 </div>
                             </div>
                         </div>
                         <div className="p-6 space-y-4">
-                            <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                            <div className="flex items-center justify-between p-4 bg-gray-50/50 rounded-xl border border-gray-200/60">
                                 <div>
-                                    <p className="text-sm font-medium text-gray-900">New Applications</p>
-                                    <p className="text-xs text-gray-500 mt-1">Get notified when someone applies to your jobs</p>
+                                    <p className="text-sm font-bold text-gray-900">New Job Applications</p>
+                                    <p className="text-xs text-gray-500 mt-1 font-medium">Trigger instant alerts when applicants apply to open roles.</p>
                                 </div>
-                                <input type="checkbox" defaultChecked onChange={() => handleToggle("New Applications")} className="w-5 h-5 text-[#800020] rounded cursor-pointer accent-[#800020]" />
+                                <CustomSwitch 
+                                    checked={notifications.applications} 
+                                    onChange={() => handleToggle("applications", "New application alerts")} 
+                                />
                             </div>
-                            <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                            <div className="flex items-center justify-between p-4 bg-gray-50/50 rounded-xl border border-gray-200/60">
                                 <div>
-                                    <p className="text-sm font-medium text-gray-900">Interview Reminders</p>
-                                    <p className="text-xs text-gray-500 mt-1">Receive reminders about upcoming interviews</p>
+                                    <p className="text-sm font-bold text-gray-900">Interview Reminders</p>
+                                    <p className="text-xs text-gray-500 mt-1 font-medium">Receive automated reminders 15 minutes before calendar schedules.</p>
                                 </div>
-                                <input type="checkbox" defaultChecked onChange={() => handleToggle("Interview Reminders")} className="w-5 h-5 text-[#800020] rounded cursor-pointer accent-[#800020]" />
+                                <CustomSwitch 
+                                    checked={notifications.reminders} 
+                                    onChange={() => handleToggle("reminders", "Interview reminders")} 
+                                />
                             </div>
-                            <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                            <div className="flex items-center justify-between p-4 bg-gray-50/50 rounded-xl border border-gray-200/60">
                                 <div>
-                                    <p className="text-sm font-medium text-gray-900">Task Deadlines</p>
-                                    <p className="text-xs text-gray-500 mt-1">Get notified about approaching task deadlines</p>
+                                    <p className="text-sm font-bold text-gray-900">Task Deadlines</p>
+                                    <p className="text-xs text-gray-500 mt-1 font-medium">Get notified about upcoming due action items.</p>
                                 </div>
-                                <input type="checkbox" defaultChecked onChange={() => handleToggle("Task Deadlines")} className="w-5 h-5 text-[#800020] rounded cursor-pointer accent-[#800020]" />
+                                <CustomSwitch 
+                                    checked={notifications.deadlines} 
+                                    onChange={() => handleToggle("deadlines", "Task deadline alerts")} 
+                                />
                             </div>
-                            <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                            <div className="flex items-center justify-between p-4 bg-gray-50/50 rounded-xl border border-gray-200/60">
                                 <div>
-                                    <p className="text-sm font-medium text-gray-900">Team Activity</p>
-                                    <p className="text-xs text-gray-500 mt-1">Updates about team member actions</p>
+                                    <p className="text-sm font-bold text-gray-900">Recruiter Team Activity</p>
+                                    <p className="text-xs text-gray-500 mt-1 font-medium">Receive weekly logs summarizing other recruiters' activities.</p>
                                 </div>
-                                <input type="checkbox" onChange={() => handleToggle("Team Activity")} className="w-5 h-5 text-[#800020] rounded cursor-pointer accent-[#800020]" />
+                                <CustomSwitch 
+                                    checked={notifications.activity} 
+                                    onChange={() => handleToggle("activity", "Team activity logs")} 
+                                />
                             </div>
                         </div>
                     </div>
 
-                    {/* Email Settings */}
-                    <div className="bg-white rounded-xl border border-gray-200/80 shadow-sm">
-                        <div className="p-6 border-b border-gray-200">
+                    {/* Email Automation Settings */}
+                    <div className="bg-white rounded-2xl border border-gray-200/80 ">
+                        <div className="p-6 border-b border-gray-100">
                             <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
-                                    <Mail className="w-5 h-5 text-green-600" />
+                                <div className="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center border border-green-100">
+                                    <Mail className="w-5 h-5 text-green-700" />
                                 </div>
                                 <div>
-                                    <h2 className="text-gray-900 font-semibold">Email Settings</h2>
-                                    <p className="text-sm text-gray-500">Manage email templates and automation</p>
+                                    <h2 className="text-gray-900 font-bold text-base">Hiring Automation</h2>
+                                    <p className="text-xs text-gray-400 font-bold uppercase tracking-wider mt-0.5">Automate applicant messaging triggers</p>
                                 </div>
                             </div>
                         </div>
                         <div className="p-6 space-y-4">
-                            <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                            <div className="flex items-center justify-between p-4 bg-gray-50/50 rounded-xl border border-gray-200/60">
                                 <div>
-                                    <p className="text-sm font-medium text-gray-900">Auto-response to Applications</p>
-                                    <p className="text-xs text-gray-500 mt-1">Automatically send confirmation emails</p>
+                                    <p className="text-sm font-bold text-gray-900">Auto-respond to Applications</p>
+                                    <p className="text-xs text-gray-500 mt-1 font-medium">Send confirmation receipt templates instantly when a resume is submitted.</p>
                                 </div>
-                                <input type="checkbox" defaultChecked onChange={() => handleToggle("Auto-response setting")} className="w-5 h-5 text-[#800020] rounded cursor-pointer accent-[#800020]" />
+                                <CustomSwitch 
+                                    checked={notifications.autoResponse} 
+                                    onChange={() => handleToggle("autoResponse", "Application auto-response")} 
+                                />
                             </div>
-                            <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                            <div className="flex items-center justify-between p-4 bg-gray-50/50 rounded-xl border border-gray-200/60">
                                 <div>
-                                    <p className="text-sm font-medium text-gray-900">Interview Confirmation Emails</p>
-                                    <p className="text-xs text-gray-500 mt-1">Send automated interview confirmations</p>
+                                    <p className="text-sm font-bold text-gray-900">Interview Confirmation Emails</p>
+                                    <p className="text-xs text-gray-500 mt-1 font-medium">Send detailed calendar specs and room URLs on coordination events.</p>
                                 </div>
-                                <input type="checkbox" defaultChecked onChange={() => handleToggle("Interview confirmation setting")} className="w-5 h-5 text-[#800020] rounded cursor-pointer accent-[#800020]" />
+                                <CustomSwitch 
+                                    checked={notifications.interviewConfirm} 
+                                    onChange={() => handleToggle("interviewConfirm", "Interview confirmations")} 
+                                />
                             </div>
                             <button
                                 onClick={() => handleAction("Edit Email Templates")}
-                                className="text-[#800020] font-medium hover:text-[#600018] text-sm flex items-center gap-1 cursor-pointer"
+                                className="text-[#800020] font-black hover:text-[#600018] text-sm flex items-center gap-1 cursor-pointer w-fit mt-2 pl-1"
                             >
-                                Edit Email Templates →
+                                Customize Automation Templates →
                             </button>
                         </div>
                     </div>
 
-                    {/* Security & Privacy */}
-                    <div className="bg-white rounded-xl border border-gray-200/80 shadow-sm">
-                        <div className="p-6 border-b border-gray-200">
+                    {/* Security & Access Keys */}
+                    <div className="bg-white rounded-2xl border border-gray-200/80 ">
+                        <div className="p-6 border-b border-gray-100">
                             <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center">
+                                <div className="w-10 h-10 bg-red-50 rounded-xl flex items-center justify-center border border-red-100">
                                     <Lock className="w-5 h-5 text-red-600" />
                                 </div>
                                 <div>
-                                    <h2 className="text-gray-900 font-semibold">Security & Privacy</h2>
-                                    <p className="text-sm text-gray-500">Manage account security settings</p>
+                                    <h2 className="text-gray-900 font-bold text-base">Security & Access Keys</h2>
+                                    <p className="text-xs text-gray-400 font-bold uppercase tracking-wider mt-0.5">Protect team credentials and 2FA keys</p>
                                 </div>
                             </div>
                         </div>
-                        <div className="p-6 space-y-4">
-                            <div className="flex items-center justify-between">
+                        <div className="p-6 divide-y divide-gray-100">
+                            <div className="flex items-center justify-between py-4 first:pt-0">
                                 <div>
-                                    <p className="text-sm font-medium text-gray-900">Two-Factor Authentication</p>
-                                    <p className="text-xs text-gray-500 mt-1">Add an extra layer of security</p>
+                                    <p className="text-sm font-bold text-gray-900">Two-Factor Authentication (2FA)</p>
+                                    <p className="text-xs text-gray-500 mt-0.5 font-medium">Enforce Google Authenticator keys on workspace logins.</p>
                                 </div>
-                                <button
+                                <motion.button
+                                    whileHover={{ scale: 1.02 }}
+                                    whileTap={{ scale: 0.98 }}
                                     onClick={() => handleAction("Two-Factor Authentication setup")}
-                                    className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50 transition-colors cursor-pointer"
+                                    className="px-4.5 py-2 border border-gray-300 text-gray-700 rounded-xl text-xs font-bold hover:bg-gray-50 transition-all cursor-pointer "
                                 >
-                                    Enable
-                                </button>
+                                    Configure 2FA
+ </motion.button>
                             </div>
-                            <div className="flex items-center justify-between">
+                            <div className="flex items-center justify-between py-4">
                                 <div>
-                                    <p className="text-sm font-medium text-gray-900">Change Password</p>
-                                    <p className="text-xs text-gray-500 mt-1">Update your account password</p>
+                                    <p className="text-sm font-bold text-gray-900">Master Password</p>
+                                    <p className="text-xs text-gray-500 mt-0.5 font-medium">Change your workspace access password.</p>
                                 </div>
-                                <button
+                                <motion.button
+                                    whileHover={{ scale: 1.02 }}
+                                    whileTap={{ scale: 0.98 }}
                                     onClick={() => handleAction("Password Update flow")}
-                                    className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50 transition-colors cursor-pointer"
+                                    className="px-4.5 py-2 border border-gray-300 text-gray-700 rounded-xl text-xs font-bold hover:bg-gray-50 transition-all cursor-pointer "
                                 >
-                                    Update
-                                </button>
+                                    Update Password
+                                </motion.button>
                             </div>
-                            <div className="flex items-center justify-between">
+                            <div className="flex items-center justify-between py-4 last:pb-0">
                                 <div>
-                                    <p className="text-sm font-medium text-gray-900">Active Sessions</p>
-                                    <p className="text-xs text-gray-500 mt-1">Manage your logged-in devices</p>
+                                    <p className="text-sm font-bold text-gray-900">Active Recruiter Sessions</p>
+                                    <p className="text-xs text-gray-500 mt-0.5 font-medium">Manage and revoke active logging instances on other devices.</p>
                                 </div>
-                                <button
+                                <motion.button
+                                    whileHover={{ scale: 1.02 }}
+                                    whileTap={{ scale: 0.98 }}
                                     onClick={() => handleAction("Active Sessions view")}
-                                    className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50 transition-colors cursor-pointer"
+                                    className="px-4.5 py-2 border border-gray-300 text-gray-700 rounded-xl text-xs font-bold hover:bg-gray-50 transition-all cursor-pointer "
                                 >
-                                    View
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Appearance */}
-                    <div className="bg-white rounded-xl border border-gray-200/80 shadow-sm">
-                        <div className="p-6 border-b border-gray-200">
-                            <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center">
-                                    <Palette className="w-5 h-5 text-orange-600" />
-                                </div>
-                                <div>
-                                    <h2 className="text-gray-900 font-semibold">Appearance</h2>
-                                    <p className="text-sm text-gray-500">Customize how MployUs looks</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="p-6 space-y-4">
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-3">Theme</label>
-                                <div className="flex gap-3">
-                                    <button className="flex-1 p-4 border-2 border-[#800020] rounded-lg bg-[#F5E6E8]">
-                                        <p className="text-sm font-medium text-gray-900 mb-1">Light Mode</p>
-                                        <p className="text-xs text-gray-500">Current theme</p>
-                                    </button>
-                                    <button
-                                        onClick={() => handleAction("Dark Mode toggle")}
-                                        className="flex-1 p-4 border-2 border-gray-300 rounded-lg bg-gray-900 hover:border-gray-400 transition-colors cursor-pointer"
-                                    >
-                                        <p className="text-sm font-medium text-white mb-1">Dark Mode</p>
-                                        <p className="text-xs text-gray-400">Coming soon</p>
-                                    </button>
-                                </div>
+                                    Audit Devices
+                                </motion.button>
                             </div>
                         </div>
                     </div>
 
                     {/* Billing */}
-                    <div className="bg-white rounded-xl border border-gray-200/80 shadow-sm">
-                        <div className="p-6 border-b border-gray-200">
+                    <div className="bg-white rounded-2xl border border-gray-200/80 ">
+                        <div className="p-6 border-b border-gray-100">
                             <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 bg-yellow-100 rounded-lg flex items-center justify-center">
-                                    <CreditCard className="w-5 h-5 text-yellow-600" />
+                                <div className="w-10 h-10 bg-amber-50 rounded-xl flex items-center justify-center border border-amber-100">
+                                    <CreditCard className="w-5 h-5 text-amber-700" />
                                 </div>
                                 <div>
-                                    <h2 className="text-gray-900 font-semibold">Billing & Subscription</h2>
-                                    <p className="text-sm text-gray-500">Manage your plan and payment methods</p>
+                                    <h2 className="text-gray-900 font-bold text-base">Billing & Workspace Subscription</h2>
+                                    <p className="text-xs text-gray-400 font-bold uppercase tracking-wider mt-0.5">Manage licenses, renewals, and payment cards</p>
                                 </div>
                             </div>
                         </div>
                         <div className="p-6">
-                            <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg mb-4 border border-gray-200/60">
-                                <div>
+                            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-5 bg-[#F5E6E8]/30 rounded-2xl mb-4 border border-[#800020]/10">
+                                <div className="mb-4 sm:mb-0">
                                     <div className="flex items-center gap-2">
-                                        <p className="text-sm font-bold text-gray-900">Current Plan: {currentPlan}</p>
-                                        <span className="px-2 py-0.5 rounded-full bg-green-100 text-green-800 text-xs font-bold flex items-center gap-1">
+                                        <p className="text-base font-black text-gray-900">Current Plan: <span className="text-[#800020]">{currentPlan}</span></p>
+                                        <span className="px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-black uppercase tracking-wide flex items-center gap-1 border border-emerald-200">
                                             <Sparkles className="w-3 h-3" /> Active
                                         </span>
                                     </div>
-                                    <p className="text-xs text-gray-500 mt-1">Next billing cycle renewal: Dec 28, 2026</p>
+                                    <p className="text-xs text-gray-400 mt-1.5 font-bold">Auto-renewal payment due: Dec 28, 2026</p>
                                 </div>
-                                <button
+                                <motion.button
+                                    whileHover={{ scale: 1.02 }}
+                                    whileTap={{ scale: 0.98 }}
                                     onClick={() => setActiveModal("managePlan")}
-                                    className="px-5 py-2.5 bg-[#800020] text-white rounded-lg text-sm font-bold hover:bg-[#600018] transition-colors shadow-xs cursor-pointer flex items-center gap-1.5"
+                                    className="px-5 py-3 bg-primary   text-white rounded-xl text-sm font-bold transition-all  cursor-pointer flex items-center gap-1.5 border border-[#800020]/10"
                                 >
-                                    Manage Plan
-                                </button>
+                                    Scale Workspace Plan
+                                </motion.button>
                             </div>
                             <button
                                 onClick={() => setActiveModal("billingHistory")}
-                                className="text-[#800020] font-bold hover:text-[#600018] text-sm flex items-center gap-1 cursor-pointer"
+                                className="text-[#800020] font-black hover:text-[#600018] text-sm flex items-center gap-1 cursor-pointer pl-1 mt-2"
                             >
-                                View Billing History →
+                                View Invoices & Payment History →
                             </button>
                         </div>
                     </div>
@@ -361,190 +386,226 @@ export function SettingsPage() {
             </div>
 
             {/* Manage Subscription Plan Modal */}
-            {activeModal === "managePlan" && (
-                <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-in fade-in duration-150">
-                    <div className="bg-white rounded-2xl max-w-5xl w-full p-8 shadow-2xl border border-gray-100 animate-in zoom-in-95 duration-200 max-h-[90vh] overflow-y-auto text-left">
-                        <div className="flex items-center justify-between mb-6 pb-4 border-b border-gray-100">
-                            <div>
-                                <h3 className="text-2xl font-bold text-gray-900">Manage Workspace Plan</h3>
-                                <p className="text-sm text-gray-500 mt-1">Upgrade or scale your plan to match your team's recruitment goals.</p>
-                            </div>
-                            <button
-                                onClick={() => setActiveModal(null)}
-                                className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-xl transition-colors cursor-pointer"
-                            >
-                                <X className="w-6 h-6" />
-                            </button>
-                        </div>
-
-                        {/* Billing Cycle Selector */}
-                        <div className="flex justify-center mb-8">
-                            <div className="bg-gray-100 p-1.5 rounded-xl flex items-center gap-2 border border-gray-200 shadow-inner">
-                                <button
-                                    onClick={() => setBillingCycle("monthly")}
-                                    className={`px-5 py-2 rounded-lg text-sm font-bold transition-all cursor-pointer ${billingCycle === "monthly" ? "bg-white text-gray-900 shadow-xs" : "text-gray-500 hover:text-gray-900"}`}
-                                >
-                                    Monthly Billing
-                                </button>
-                                <button
-                                    onClick={() => setBillingCycle("annual")}
-                                    className={`px-5 py-2 rounded-lg text-sm font-bold transition-all cursor-pointer flex items-center gap-2 ${billingCycle === "annual" ? "bg-[#800020] text-white shadow-xs" : "text-gray-500 hover:text-gray-900"}`}
-                                >
-                                    Annual Billing <span className="px-2 py-0.5 bg-green-500 text-white text-[10px] uppercase font-extrabold rounded-full animate-pulse">Save 20%</span>
-                                </button>
-                            </div>
-                        </div>
-
-                        {/* Tiers Grid */}
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                            {plans.map((plan) => {
-                                const isActivePlan = currentPlan === plan.name;
-                                return (
-                                    <div
-                                        key={plan.name}
-                                        className={`rounded-2xl p-6 border flex flex-col justify-between transition-all relative ${plan.popular ? "border-[#800020] ring-2 ring-[#800020]/20 bg-rose-50/10 shadow-md" : "border-gray-200 bg-white"}`}
-                                    >
-                                        {plan.popular && (
-                                            <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-[#800020] text-white font-bold text-xs uppercase tracking-wide rounded-full shadow-xs">
-                                                Most Popular
-                                            </div>
-                                        )}
-
-                                        <div>
-                                            <div className="flex items-center justify-between mb-2">
-                                                <h4 className="text-xl font-bold text-gray-900">{plan.name}</h4>
-                                                {isActivePlan && (
-                                                    <span className="px-2.5 py-1 bg-green-100 text-green-800 text-xs font-bold rounded-lg border border-green-200">
-                                                        Active Plan
-                                                    </span>
-                                                )}
-                                            </div>
-                                            <p className="text-xs text-gray-500 min-h-[32px] mb-6">{plan.description}</p>
-
-                                            <div className="mb-6 flex items-baseline gap-1">
-                                                <span className="text-4xl font-extrabold text-gray-900">
-                                                    {billingCycle === "monthly" ? plan.priceMonthly : plan.priceAnnual}
-                                                </span>
-                                                <span className="text-xs text-gray-500 font-semibold">/ month</span>
-                                            </div>
-
-                                            <div className="space-y-3 mb-8">
-                                                <p className="text-xs font-bold text-gray-900 tracking-wider uppercase">Included Features:</p>
-                                                {plan.features.map((feat, idx) => (
-                                                    <div key={idx} className="flex items-start gap-2.5 text-xs text-gray-600 font-medium">
-                                                        <Check className="w-4 h-4 text-emerald-500 flex-shrink-0 mt-0.5" />
-                                                        <span>{feat}</span>
-                                                    </div>
-                                                ))}
-                                            </div>
-                                        </div>
-
-                                        <button
-                                            onClick={() => handleSelectPlan(plan.name)}
-                                            disabled={isActivePlan}
-                                            className={`w-full py-3 px-4 rounded-xl font-bold text-sm transition-all cursor-pointer flex items-center justify-center gap-2 ${isActivePlan ? "bg-green-500 text-white cursor-default shadow-xs" : plan.popular ? "bg-[#800020] hover:bg-[#600018] text-white shadow-md" : "bg-gray-100 hover:bg-gray-200 text-gray-800"}`}
-                                        >
-                                            {isActivePlan ? (
-                                                <>
-                                                    <Check className="w-4 h-4" /> Current Selection
-                                                </>
-                                            ) : (
-                                                <>
-                                                    Select {plan.name} Plan <ArrowRight className="w-4 h-4" />
-                                                </>
-                                            )}
-                                        </button>
-                                    </div>
-                                );
-                            })}
-                        </div>
-                    </div>
-                </div>
-            )}
-
-            {/* View Billing History Modal */}
-            {activeModal === "billingHistory" && (
-                <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-in fade-in duration-150">
-                    <div className="bg-white rounded-2xl max-w-3xl w-full p-8 shadow-2xl border border-gray-100 animate-in zoom-in-95 duration-200 max-h-[85vh] flex flex-col text-left">
-                        <div className="flex items-center justify-between mb-6 pb-4 border-b border-gray-100 flex-shrink-0">
-                            <div>
-                                <h3 className="text-2xl font-bold text-gray-900">Billing & Invoice History</h3>
-                                <p className="text-sm text-gray-500 mt-1">Review your past workspace payments and download PDF receipts.</p>
-                            </div>
-                            <div className="flex items-center gap-3">
-                                <button
-                                    onClick={() => showToast("Downloading all workspace invoices...")}
-                                    className="px-4 py-2 border border-gray-300 text-gray-700 hover:bg-gray-50 rounded-xl font-bold text-xs flex items-center gap-1.5 transition-colors cursor-pointer"
-                                >
-                                    <Download className="w-4 h-4 text-gray-500" /> Download All
-                                </button>
+            <AnimatePresence>
+                {activeModal === "managePlan" && (
+                    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+                        <motion.div 
+                            initial={{ opacity: 0, scale: 0.96, y: 15 }}
+                            animate={{ opacity: 1, scale: 1, y: 0 }}
+                            exit={{ opacity: 0, scale: 0.96, y: 15 }}
+                            className="bg-white rounded-2xl max-w-5xl w-full p-8  border border-gray-100 max-h-[90vh] overflow-y-auto"
+                        >
+                            <div className="flex items-center justify-between mb-6 pb-4 border-b border-gray-100">
+                                <div>
+                                    <h3 className="text-2xl font-black text-gray-900 flex items-center gap-2">
+                                        Scale Subscription Plan
+                                        <Sparkles className="w-5 h-5 text-[#800020]" />
+                                    </h3>
+                                    <p className="text-sm text-gray-500 mt-1 font-semibold">Scale recruitment tools and user licenses to align with your organization hiring target.</p>
+                                </div>
                                 <button
                                     onClick={() => setActiveModal(null)}
-                                    className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-xl transition-colors cursor-pointer"
+                                    className="p-2.5 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-xl transition-colors cursor-pointer border border-gray-200"
                                 >
                                     <X className="w-6 h-6" />
                                 </button>
                             </div>
-                        </div>
 
-                        {/* Invoices List */}
-                        <div className="flex-1 overflow-y-auto space-y-3 pr-2">
-                            {invoices.map((inv) => (
-                                <div
-                                    key={inv.id}
-                                    className="flex items-center justify-between p-4 bg-gray-50/80 hover:bg-gray-50 rounded-xl border border-gray-200/60 transition-all"
-                                >
-                                    <div className="flex items-center gap-4">
-                                        <div className="w-10 h-10 bg-yellow-50 rounded-xl flex items-center justify-center text-yellow-600 flex-shrink-0 border border-yellow-100">
-                                            <FileText className="w-5 h-5" />
+                            {/* Billing Cycle Selector */}
+                            <div className="flex justify-center mb-8">
+                                <div className="bg-gray-100 p-1.5 rounded-2xl flex items-center gap-2 border border-gray-200 ">
+                                    <button
+                                        onClick={() => setBillingCycle("monthly")}
+                                        className={`px-5 py-2 rounded-xl text-xs font-black transition-all cursor-pointer ${billingCycle === "monthly" ? "bg-white text-gray-900  border border-gray-200" : "text-gray-500 hover:text-gray-950"}`}
+                                    >
+                                        Monthly Billing
+                                    </button>
+                                    <button
+                                        onClick={() => setBillingCycle("annual")}
+                                        className={`px-5 py-2 rounded-xl text-xs font-black transition-all cursor-pointer flex items-center gap-1.5 ${billingCycle === "annual" ? "bg-[#800020] text-white " : "text-gray-500 hover:text-gray-950"}`}
+                                    >
+                                        Annual Billing <span className="px-2 py-0.5 bg-green-500 text-white text-[9px] uppercase font-black rounded-full animate-pulse">Save 20%</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            {/* Tiers Grid */}
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4">
+                                {plans.map((plan) => {
+                                    const isActivePlan = currentPlan === plan.name;
+                                    return (
+                                        <div
+                                            key={plan.name}
+                                            className={`rounded-2xl p-6 border flex flex-col justify-between transition-all relative ${plan.popular ? "border-[#800020] ring-4 ring-[#800020]/10 bg-rose-50/5 " : "border-gray-200 bg-white"}`}
+                                        >
+                                            {plan.popular && (
+                                                <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3.5 py-1 bg-[#800020] text-white font-black text-[10px] uppercase tracking-wider rounded-full ">
+                                                    Most Popular
+                                                </div>
+                                            )}
+
+                                            <div>
+                                                <div className="flex items-center justify-between mb-3">
+                                                    <h4 className="text-xl font-black text-gray-900">{plan.name}</h4>
+                                                    {isActivePlan && (
+                                                        <span className="px-2.5 py-0.5 bg-emerald-100 text-emerald-800 text-[10px] font-black rounded-md border border-emerald-200 uppercase tracking-wide">
+                                                            Active Plan
+                                                        </span>
+                                                    )}
+                                                </div>
+                                                <p className="text-xs text-gray-400 min-h-[36px] mb-6 font-bold leading-relaxed">{plan.description}</p>
+
+                                                <div className="mb-6 flex items-baseline gap-1 bg-gray-50 p-3.5 rounded-xl border border-gray-100">
+                                                    <span className="text-4xl font-black text-gray-900">
+                                                        {billingCycle === "monthly" ? plan.priceMonthly : plan.priceAnnual}
+                                                    </span>
+                                                    <span className="text-xs text-gray-400 font-bold">/ month</span>
+                                                </div>
+
+                                                <div className="space-y-3 mb-8 text-left">
+                                                    <p className="text-[10px] font-black text-gray-400 tracking-wider uppercase">Features Included:</p>
+                                                    {plan.features.map((feat, idx) => (
+                                                        <div key={idx} className="flex items-start gap-2 text-xs text-gray-600 font-semibold">
+                                                            <Check className="w-4 h-4 text-emerald-500 flex-shrink-0 mt-0.5" />
+                                                            <span>{feat}</span>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </div>
+
+                                            <motion.button
+                                                whileHover={{ scale: isActivePlan ? 1 : 1.02 }}
+                                                whileTap={{ scale: isActivePlan ? 1 : 0.98 }}
+                                                onClick={() => handleSelectPlan(plan.name)}
+                                                disabled={isActivePlan}
+                                                className={`w-full py-3 px-4 rounded-xl font-bold text-sm transition-all cursor-pointer flex items-center justify-center gap-2 ${isActivePlan ? "bg-green-500 text-white cursor-default  border border-green-600" : plan.popular ? "bg-[#800020] hover:bg-[#600018] text-white  border border-[#800020]/10" : "bg-gray-100 hover:bg-gray-200 text-gray-800"}`}
+                                            >
+                                                {isActivePlan ? (
+                                                    <>
+                                                        <Check className="w-4 h-4 stroke-[3]" /> Current Active Plan
+                                                    </>
+                                                ) : (
+                                                    <>
+                                                        Select {plan.name} <ArrowRight className="w-4 h-4" />
+                                                    </>
+                                                )}
+                                            </motion.button>
                                         </div>
-                                        <div>
-                                            <div className="flex items-center gap-2">
-                                                <h4 className="font-bold text-gray-900 text-sm">{inv.plan}</h4>
-                                                <span className="text-[11px] font-mono px-2 py-0.5 bg-gray-200/80 text-gray-700 font-bold rounded">
-                                                    {inv.id}
+                                    );
+                                })}
+                            </div>
+                        </motion.div>
+                    </div>
+                )}
+            </AnimatePresence>
+
+            {/* View Billing History Modal */}
+            <AnimatePresence>
+                {activeModal === "billingHistory" && (
+                    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+                        <motion.div 
+                            initial={{ opacity: 0, scale: 0.96, y: 15 }}
+                            animate={{ opacity: 1, scale: 1, y: 0 }}
+                            exit={{ opacity: 0, scale: 0.96, y: 15 }}
+                            className="bg-white rounded-2xl max-w-3xl w-full p-8  border border-gray-100 max-h-[85vh] flex flex-col"
+                        >
+                            <div className="flex items-center justify-between mb-6 pb-4 border-b border-gray-100 flex-shrink-0">
+                                <div>
+                                    <h3 className="text-2xl font-black text-gray-900">Invoice Registry</h3>
+                                    <p className="text-sm text-gray-500 mt-1 font-semibold">Verify past transactions and download PDF records.</p>
+                                </div>
+                                <div className="flex items-center gap-3">
+                                    <button
+                                        onClick={() => showToast("All invoices downloaded as a zip folder.")}
+                                        className="px-4 py-2 border border-gray-300 text-gray-700 hover:bg-gray-50 rounded-xl font-bold text-xs flex items-center gap-1.5 transition-colors cursor-pointer "
+                                    >
+                                        <Download className="w-4 h-4 text-gray-500" /> Save All
+                                    </button>
+                                    <button
+                                        onClick={() => setActiveModal(null)}
+                                        className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-xl transition-colors cursor-pointer border border-gray-200"
+                                    >
+                                        <X className="w-6 h-6" />
+                                    </button>
+                                </div>
+                            </div>
+
+                            {/* Invoices List */}
+                            <div className="flex-1 overflow-y-auto space-y-3 pr-1.5 text-left">
+                                {invoices.map((inv) => (
+                                    <div
+                                        key={inv.id}
+                                        className="flex items-center justify-between p-4.5 bg-gray-50/60 hover:bg-gray-50 rounded-2xl border border-gray-200/60 transition-all"
+                                    >
+                                        <div className="flex items-center gap-4">
+                                            <div className="w-10 h-10 bg-amber-50 rounded-xl flex items-center justify-center text-amber-700 flex-shrink-0 border border-amber-100 ">
+                                                <FileText className="w-5 h-5" />
+                                            </div>
+                                            <div>
+                                                <div className="flex items-center gap-2">
+                                                    <h4 className="font-bold text-gray-900 text-sm">{inv.plan}</h4>
+                                                    <span className="text-[10px] font-mono px-2 py-0.5 bg-gray-200 text-gray-700 font-bold rounded">
+                                                        {inv.id}
+                                                    </span>
+                                                </div>
+                                                <p className="text-xs text-gray-500 font-semibold mt-0.5">Paid on {inv.date}</p>
+                                            </div>
+                                        </div>
+                                        <div className="flex items-center gap-4">
+                                            <div className="text-right">
+                                                <p className="text-sm font-black text-gray-950">{inv.amount}</p>
+                                                <span className="inline-flex items-center px-2 py-0.5 rounded font-black text-[9px] bg-green-100 text-green-800 border border-green-200 uppercase tracking-wider mt-0.5">
+                                                    {inv.status}
                                                 </span>
                                             </div>
-                                            <p className="text-xs text-gray-500 font-medium mt-0.5">Billed on {inv.date}</p>
+                                            <button
+                                                onClick={() => showToast(`Receipt ${inv.id} download initiated.`)}
+                                                className="p-2.5 bg-white hover:bg-gray-150 text-gray-600 rounded-xl border border-gray-200  transition-colors cursor-pointer"
+                                                title="Save PDF"
+                                            >
+                                                <Download className="w-4 h-4" />
+                                            </button>
                                         </div>
                                     </div>
-                                    <div className="flex items-center gap-4">
-                                        <div className="text-right">
-                                            <p className="text-sm font-extrabold text-gray-900">{inv.amount}</p>
-                                            <span className="inline-flex items-center px-2 py-0.5 rounded font-bold text-[10px] bg-emerald-100 text-emerald-800">
-                                                {inv.status}
-                                            </span>
-                                        </div>
-                                        <button
-                                            onClick={() => showToast(`Receipt ${inv.id} download started.`)}
-                                            className="p-2 bg-white hover:bg-gray-100 text-gray-600 rounded-lg border border-gray-200 shadow-2xs transition-colors cursor-pointer"
-                                            title="Download Receipt"
-                                        >
-                                            <Download className="w-4 h-4" />
-                                        </button>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
+                                ))}
+                            </div>
 
-                        <div className="mt-6 pt-4 border-t border-gray-100 flex items-center justify-between text-xs text-gray-500 font-medium flex-shrink-0">
-                            <span>Showing all 5 billing invoices</span>
-                            <span>Secure payments encrypted by Stripe</span>
-                        </div>
+                            <div className="mt-6 pt-4 border-t border-gray-100 flex items-center justify-between text-xs text-gray-400 font-bold flex-shrink-0">
+                                <span>Showing 5 invoices</span>
+                                <span>Secure transaction management backed by Stripe</span>
+                            </div>
+                        </motion.div>
                     </div>
-                </div>
-            )}
+                )}
+            </AnimatePresence>
 
             {/* Toast Notification */}
-            {toast && (
-                <div className={`fixed bottom-6 right-6 px-4 py-3 rounded-lg shadow-lg flex items-center gap-3 transform transition-all duration-300 ease-out z-50 ${toast.type === "success" ? "bg-green-50 border border-green-200" : "bg-blue-50 border border-blue-200"
-                    }`}>
-                    {toast.type === "success" && <CheckCircle2 className="w-5 h-5 text-green-600" />}
-                    <p className={`text-sm font-medium ${toast.type === "success" ? "text-green-800" : "text-blue-800"}`}>
-                        {toast.message}
-                    </p>
-                </div>
-            )}
+            <AnimatePresence>
+                {toast && (
+                    <motion.div 
+                        initial={{ opacity: 0, y: 30, scale: 0.9 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 20, scale: 0.9 }}
+                        className={`fixed bottom-6 right-6 px-4 py-3 rounded-xl  flex items-center gap-3 z-50 ${toast.type === "success" ? "bg-gray-900 border border-white/10 text-white" : "bg-blue-50 border border-blue-200 text-blue-800"
+                        }`}
+                    >
+                        {toast.type === "success" ? (
+                            <div className="w-5 h-5 bg-emerald-500 rounded-full flex items-center justify-center text-white flex-shrink-0">
+                                <Check className="w-3.5 h-3.5 stroke-[3]" />
+                            </div>
+                        ) : (
+                            <div className="w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center text-white flex-shrink-0">
+                                <CheckCircle2 className="w-3.5 h-3.5" />
+                            </div>
+                        )}
+                        <p className="text-xs font-black">
+                            {toast.message}
+                        </p>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </div>
     );
 }
+
+

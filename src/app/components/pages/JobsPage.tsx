@@ -1,4 +1,4 @@
-import { Briefcase, Search, Filter, Plus, MapPin, Clock, Users, MoreVertical, Check, LayoutGrid, List } from "lucide-react";
+import { Briefcase, Search, Filter, Plus, MapPin, Clock, Users, MoreVertical, Check, LayoutGrid, List, Sparkles, AlertCircle } from "lucide-react";
 import { useState } from "react";
 import { EditJobModal } from "../modals/EditJobModal";
 import { ShareJobModal } from "../modals/ShareJobModal";
@@ -9,8 +9,9 @@ import { DeleteJobModal } from "../modals/DeleteJobModal";
 import { BulkJobActionsModal } from "../modals/BulkJobActionsModal";
 import { JobDetailsPage } from "./JobDetailsPage";
 import { ViewApplicantsPage } from "./ViewApplicantsPage";
+import { motion, AnimatePresence } from "motion/react";
 
-const jobs = [
+const initialJobs = [
     { id: 1, title: "Senior Product Designer", department: "Design", location: "Remote", type: "Full-time", applicants: 45, status: "Active", posted: "2 days ago", salary: "€100,000 - €150,000", experience: "5+ years" },
     { id: 2, title: "Frontend Developer", department: "Engineering", location: "New York, NY", type: "Full-time", applicants: 32, status: "Active", posted: "5 days ago", salary: "€90,000 - €140,000", experience: "3-5 years" },
     { id: 3, title: "Marketing Manager", department: "Marketing", location: "San Francisco, CA", type: "Full-time", applicants: 28, status: "Active", posted: "1 week ago", salary: "€85,000 - €125,000", experience: "5+ years" },
@@ -24,14 +25,16 @@ const jobs = [
 interface JobsPageProps {
     onAddJob: () => void;
     onViewApplicantProfile?: (applicant: any) => void;
+    onViewPipeline?: (job: any) => void;
 }
 
-export function JobsPage({ onAddJob, onViewApplicantProfile }: JobsPageProps) {
+export function JobsPage({ onAddJob, onViewApplicantProfile, onViewPipeline }: JobsPageProps) {
     const [selectedJob, setSelectedJob] = useState<any>(null);
     const [activeView, setActiveView] = useState<"list" | "details" | "applicants">("list");
-    const [jobsList, setJobsList] = useState<any[]>(jobs);
+    const [jobsList, setJobsList] = useState<any[]>(initialJobs);
     const [selectedJobs, setSelectedJobs] = useState<number[]>([]);
     const [viewMode, setViewMode] = useState<"list" | "grid">("list");
+    const [filterStatus, setFilterStatus] = useState<string>("All");
 
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [isShareModalOpen, setIsShareModalOpen] = useState(false);
@@ -40,6 +43,7 @@ export function JobsPage({ onAddJob, onViewApplicantProfile }: JobsPageProps) {
     const [isDuplicateModalOpen, setIsDuplicateModalOpen] = useState(false);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [isBulkActionsModalOpen, setIsBulkActionsModalOpen] = useState(false);
+    const [searchQuery, setSearchQuery] = useState("");
 
     const handleJobClick = (job: any) => {
         setSelectedJob(job);
@@ -57,8 +61,12 @@ export function JobsPage({ onAddJob, onViewApplicantProfile }: JobsPageProps) {
     };
 
     const handleViewApplicants = (job: any) => {
-        setSelectedJob(job);
-        setActiveView("applicants");
+        if (onViewPipeline) {
+            onViewPipeline(job);
+        } else {
+            setSelectedJob(job);
+            setActiveView("applicants");
+        }
     };
 
     const handleActionsClick = (job: any) => {
@@ -75,10 +83,34 @@ export function JobsPage({ onAddJob, onViewApplicantProfile }: JobsPageProps) {
     };
 
     const toggleSelectAll = () => {
-        if (selectedJobs.length === jobsList.length) {
+        if (selectedJobs.length === filteredJobs.length) {
             setSelectedJobs([]);
         } else {
-            setSelectedJobs(jobsList.map(j => j.id));
+            setSelectedJobs(filteredJobs.map(j => j.id));
+        }
+    };
+
+    // Filter and search logic
+    const filteredJobs = jobsList.filter(job => {
+        const matchesSearch = job.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            job.department.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            job.location.toLowerCase().includes(searchQuery.toLowerCase());
+        
+        const matchesStatus = filterStatus === "All" || job.status === filterStatus;
+        
+        return matchesSearch && matchesStatus;
+    });
+
+    const getStatusTheme = (status: string) => {
+        switch (status) {
+            case "Active":
+                return "bg-emerald-50 text-emerald-700 border-emerald-200/60";
+            case "Draft":
+                return "bg-gray-100 text-gray-700 border-gray-250/60";
+            case "On Hold":
+                return "bg-amber-50 text-amber-700 border-amber-200/60";
+            default:
+                return "bg-rose-50 text-rose-700 border-rose-200/60";
         }
     };
 
@@ -108,275 +140,330 @@ export function JobsPage({ onAddJob, onViewApplicantProfile }: JobsPageProps) {
                     }}
                 />
             ) : (
-                <div className="p-8">
-                    <div className="max-w-[1600px] mx-auto">
+                <div className="p-8 text-left bg-gray-50/30 min-h-full">
+                    <div className="max-w-[1600px] mx-auto space-y-6">
                         {/* Header */}
-                        <div className="flex items-center justify-between mb-6">
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                             <div>
-                                <h1 className="text-gray-900 mb-2 text-2xl font-semibold">All Jobs</h1>
-                                <p className="text-gray-600">Manage your job postings and openings</p>
+                                <h1 className="text-gray-950 font-extrabold text-2xl tracking-tight leading-none flex items-center gap-2">
+                                    <Briefcase className="w-6 h-6 text-[#800020]" />
+                                    Job Directory
+                                </h1>
+                                <p className="text-xs text-gray-400 font-semibold mt-1 uppercase tracking-wider">Manage your active listings, applicants, and pipeline structures</p>
                             </div>
                             <div className="flex items-center gap-3">
                                 {selectedJobs.length > 0 && (
-                                    <button
+                                    <motion.button
+                                        initial={{ scale: 0.9, opacity: 0 }}
+                                        animate={{ scale: 1, opacity: 1 }}
                                         onClick={() => setIsBulkActionsModalOpen(true)}
-                                        className="flex items-center gap-2 px-5 py-2.5 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-medium text-sm"
+                                        className="flex items-center gap-2 px-5 py-2.5 border border-gray-200 text-gray-700 bg-white rounded-xl hover:bg-gray-50 transition-all font-bold text-xs  cursor-pointer"
                                     >
-                                        <Check className="w-4 h-4" />
+                                        <Check className="w-4 h-4 text-[#800020]" />
                                         Bulk Actions ({selectedJobs.length})
-                                    </button>
+                                    </motion.button>
                                 )}
-                                <button
+                                <motion.button
+                                    whileHover={{ scale: 1.02 }}
+                                    whileTap={{ scale: 0.98 }}
                                     onClick={onAddJob}
-                                    className="flex items-center gap-2 px-5 py-2.5 bg-[#800020] text-white rounded-lg hover:bg-[#600018] transition-colors font-medium text-sm"
+                                    className="flex items-center gap-2 px-5 py-3 bg-[#800020] hover:bg-[#600018] text-white rounded-xl transition-all font-extrabold text-xs  border border-[#800020]/10 hover: cursor-pointer tracking-wider"
                                 >
-                                    <Plus className="w-4 h-4" />
-                                    Post New Job
-                                </button>
+                                    <Plus className="w-4 h-4 text-orange-300" />
+                                    POST NEW JOB
+                                </motion.button>
                             </div>
                         </div>
 
                         {/* Search & Filters */}
-                        <div className="bg-white rounded-xl border border-gray-200/80 shadow-sm p-6 mb-6">
-                            <div className="flex gap-4">
+                        <div className="bg-white/80 backdrop-blur-xs rounded-2xl border border-gray-150  p-6">
+                            <div className="flex flex-col md:flex-row gap-4">
                                 <div className="flex-1 relative">
-                                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-450" />
                                     <input
                                         type="text"
                                         placeholder="Search jobs by title, department, or location..."
-                                        className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#800020] focus:border-transparent"
+                                        value={searchQuery}
+                                        onChange={(e) => setSearchQuery(e.target.value)}
+                                        className="w-full pl-11 pr-4 py-3 bg-gray-50/50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#800020]/15 focus:border-[#800020] focus:bg-white transition-all text-xs font-medium"
                                     />
                                 </div>
                                 <button
                                     onClick={() => setIsFiltersModalOpen(true)}
-                                    className="flex items-center gap-2 px-5 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-medium text-sm"
+                                    className="flex items-center justify-center gap-2 px-5 py-3 border border-gray-200 bg-white text-gray-700 rounded-xl hover:bg-gray-50 transition-all font-bold text-xs  cursor-pointer"
                                 >
-                                    <Filter className="w-4 h-4" />
-                                    Filters
+                                    <Filter className="w-4 h-4 text-[#800020]" />
+                                    Advanced Filters
                                 </button>
                             </div>
 
                             {/* Quick Filters */}
-                            <div className="flex gap-2 mt-4">
-                                <button className="px-4 py-2 bg-[#800020] text-white rounded-lg text-sm font-medium">All Jobs</button>
-                                <button className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-200 transition-colors">Active</button>
-                                <button className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-200 transition-colors">Draft</button>
-                                <button className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-200 transition-colors">On Hold</button>
-                                <button className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-200 transition-colors">Closed</button>
+                            <div className="flex flex-wrap gap-2 mt-5 pt-4 border-t border-gray-100">
+                                {["All", "Active", "Draft", "On Hold", "Closed"].map((status) => (
+                                    <button
+                                        key={status}
+                                        onClick={() => setFilterStatus(status)}
+                                        className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                                            filterStatus === status
+                                                ? "bg-[#800020] text-white  hover:bg-[#600018]"
+                                                : "bg-gray-50 hover:bg-gray-100 border border-gray-200/40 text-gray-600"
+                                        }`}
+                                    >
+                                        {status} Jobs
+                                    </button>
+                                ))}
                             </div>
                         </div>
 
                         {/* View Toggle & Select All */}
-                        <div className="flex items-center justify-between mb-4">
-                            {jobsList.length > 0 && (
-                                <label className="flex items-center gap-2 cursor-pointer">
+                        <div className="flex items-center justify-between">
+                            {filteredJobs.length > 0 ? (
+                                <label className="flex items-center gap-2.5 cursor-pointer select-none">
                                     <input
                                         type="checkbox"
-                                        checked={selectedJobs.length === jobsList.length}
+                                        checked={selectedJobs.length === filteredJobs.length && filteredJobs.length > 0}
                                         onChange={toggleSelectAll}
-                                        className="w-4 h-4 text-[#800020] rounded focus:ring-[#800020]"
+                                        className="w-4 h-4 text-[#800020] border-gray-350 rounded focus:ring-[#800020]"
                                     />
-                                    <span className="text-sm font-medium text-gray-600">Select all jobs</span>
+                                    <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">Select all shown ({filteredJobs.length})</span>
                                 </label>
+                            ) : (
+                                <div />
                             )}
 
                             {/* View Toggle */}
-                            <div className="flex items-center gap-2 bg-white border border-gray-200 rounded-lg p-1">
+                            <div className="flex items-center gap-1.5 bg-gray-100/75 p-1 rounded-xl border border-gray-200/50">
                                 <button
                                     onClick={() => setViewMode("list")}
-                                    className={`flex items-center gap-2 px-3 py-1.5 rounded-md transition-colors ${viewMode === "list"
-                                            ? "bg-[#800020] text-white"
-                                            : "text-gray-600 hover:bg-gray-100"
-                                        }`}
+                                    className={`flex items-center gap-1.5 px-3.5 py-2 rounded-lg transition-all text-xs font-bold cursor-pointer ${
+                                        viewMode === "list"
+                                            ? "bg-[#800020] text-white "
+                                            : "text-gray-500 hover:text-gray-900"
+                                    }`}
                                 >
-                                    <List className="w-4 h-4" />
-                                    <span className="text-sm font-medium">List</span>
+                                    <List className="w-3.5 h-3.5" />
+                                    <span>List</span>
                                 </button>
                                 <button
                                     onClick={() => setViewMode("grid")}
-                                    className={`flex items-center gap-2 px-3 py-1.5 rounded-md transition-colors ${viewMode === "grid"
-                                            ? "bg-[#800020] text-white"
-                                            : "text-gray-600 hover:bg-gray-100"
-                                        }`}
+                                    className={`flex items-center gap-1.5 px-3.5 py-2 rounded-lg transition-all text-xs font-bold cursor-pointer ${
+                                        viewMode === "grid"
+                                            ? "bg-[#800020] text-white "
+                                            : "text-gray-500 hover:text-gray-900"
+                                    }`}
                                 >
-                                    <LayoutGrid className="w-4 h-4" />
-                                    <span className="text-sm font-medium">Grid</span>
+                                    <LayoutGrid className="w-3.5 h-3.5" />
+                                    <span>Grid</span>
                                 </button>
                             </div>
                         </div>
 
                         {/* Jobs List View */}
-                        {viewMode === "list" && (
-                            <div className="space-y-4">
-                                {jobsList.map((job) => (
-                                    <div
-                                        key={job.id}
-                                        className="bg-white rounded-xl border border-gray-200/80 shadow-sm hover:shadow-md transition-all duration-200 p-6"
-                                    >
-                                        <div className="flex items-start justify-between">
-                                            <div className="flex items-center gap-4 flex-1">
-                                                <input
-                                                    type="checkbox"
-                                                    checked={selectedJobs.includes(job.id)}
-                                                    onChange={() => toggleJobSelection(job.id)}
-                                                    className="w-5 h-5 text-[#800020] rounded mt-1 focus:ring-[#800020]"
-                                                />
-                                                <div className="w-12 h-12 bg-[#800020]/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                                                    <Briefcase className="w-6 h-6 text-[#800020]" />
-                                                </div>
-                                                <div className="flex-1">
-                                                    <div className="flex items-center gap-3 mb-2">
-                                                        <h3
-                                                            className="text-lg font-semibold text-gray-900 cursor-pointer hover:text-[#800020] transition-colors"
-                                                            onClick={() => handleJobClick(job)}
-                                                        >
-                                                            {job.title}
-                                                        </h3>
-                                                        <span className={`px-3 py-1 rounded-full text-xs font-medium border ${job.status === "Active" ? "bg-green-50 text-green-700 border-green-200" :
-                                                                job.status === "Draft" ? "bg-gray-50 text-gray-700 border-gray-200" :
-                                                                    "bg-orange-50 text-orange-700 border-orange-200"
-                                                            }`}>
-                                                            {job.status}
-                                                        </span>
+                        <AnimatePresence mode="popLayout">
+                            {viewMode === "list" && (
+                                <motion.div className="space-y-4">
+                                    {filteredJobs.map((job) => {
+                                        const isSelected = selectedJobs.includes(job.id);
+                                        return (
+                                            <motion.div
+                                                key={job.id}
+                                                initial={{ opacity: 0, y: 10 }}
+                                                animate={{ opacity: 1, y: 0 }}
+                                                exit={{ opacity: 0, scale: 0.98 }}
+                                                className={`bg-white rounded-2xl border transition-all p-6  flex items-center justify-between ${
+                                                    isSelected ? "border-[#800020]/30 bg-[#800020]/10" : "border-gray-150 hover:border-gray-250"
+                                                }`}
+                                            >
+                                                <div className="flex items-start gap-4 flex-1 min-w-0">
+                                                    <input
+                                                        type="checkbox"
+                                                        checked={isSelected}
+                                                        onChange={() => toggleJobSelection(job.id)}
+                                                        className="w-5 h-5 text-[#800020] border-gray-300 rounded mt-1.5 focus:ring-[#800020] cursor-pointer"
+                                                    />
+                                                    <div className="w-12 h-12 bg-rose-50 border border-rose-100 rounded-xl flex items-center justify-center flex-shrink-0 text-[#800020]">
+                                                        <Briefcase className="w-5 h-5" />
                                                     </div>
-                                                    <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
-                                                        <span className="flex items-center gap-1.5">
-                                                            <Briefcase className="w-4 h-4" />
-                                                            {job.department}
-                                                        </span>
-                                                        <span className="flex items-center gap-1.5">
-                                                            <MapPin className="w-4 h-4" />
-                                                            {job.location}
-                                                        </span>
-                                                        <span className="flex items-center gap-1.5">
-                                                            <Clock className="w-4 h-4" />
-                                                            {job.type}
-                                                        </span>
-                                                        <span className="flex items-center gap-1.5">
-                                                            <Users className="w-4 h-4" />
-                                                            {job.applicants} applicants
-                                                        </span>
+                                                    <div className="flex-1 min-w-0">
+                                                        <div className="flex items-center gap-3.5 mb-2.5 flex-wrap">
+                                                            <h3
+                                                                className="text-base font-extrabold text-gray-900 cursor-pointer hover:text-[#800020] transition-colors truncate"
+                                                                onClick={() => handleJobClick(job)}
+                                                            >
+                                                                {job.title}
+                                                            </h3>
+                                                            <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold border uppercase tracking-wider ${getStatusTheme(job.status)}`}>
+                                                                {job.status}
+                                                            </span>
+                                                        </div>
+                                                        <div className="flex items-center flex-wrap gap-x-4 gap-y-2 text-xs text-gray-500 font-semibold mb-4">
+                                                            <span className="flex items-center gap-1.5">
+                                                                <Briefcase className="w-3.5 h-3.5 text-gray-400" />
+                                                                {job.department}
+                                                            </span>
+                                                            <span className="flex items-center gap-1.5">
+                                                                <MapPin className="w-3.5 h-3.5 text-gray-400" />
+                                                                {job.location}
+                                                            </span>
+                                                            <span className="flex items-center gap-1.5">
+                                                                <Clock className="w-3.5 h-3.5 text-gray-400" />
+                                                                {job.type}
+                                                            </span>
+                                                            <span className="flex items-center gap-1.5 px-2 py-0.5 bg-[#800020]/5 text-[#800020] border border-[#800020]/10 rounded-lg">
+                                                                <Users className="w-3.5 h-3.5 text-[#800020]" />
+                                                                {job.applicants} Applicants
+                                                            </span>
+                                                        </div>
+                                                        <div className="flex items-center gap-3 flex-wrap">
+                                                            <motion.button
+                                                                whileHover={{ scale: 1.02 }}
+                                                                whileTap={{ scale: 0.98 }}
+                                                                onClick={() => handleJobClick(job)}
+                                                                className="px-4 py-2 bg-[#800020] text-white rounded-xl text-xs font-bold hover:bg-[#600018] transition-all  cursor-pointer"
+                                                            >
+                                                                View Details
+                                                            </motion.button>
+                                                            <motion.button
+                                                                whileHover={{ scale: 1.02 }}
+                                                                whileTap={{ scale: 0.98 }}
+                                                                onClick={() => handleViewApplicants(job)}
+                                                                className="px-4 py-2 border border-gray-200 text-gray-700 bg-white hover:bg-gray-50 rounded-xl text-xs font-bold transition-all  cursor-pointer"
+                                                            >
+                                                                View Pipeline
+                                                            </motion.button>
+                                                            <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider ml-1.5">Published {job.posted}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <button
+                                                    onClick={() => handleActionsClick(job)}
+                                                    className="w-9 h-9 flex items-center justify-center rounded-xl hover:bg-gray-150 transition-colors cursor-pointer text-gray-400 hover:text-gray-900"
+                                                >
+                                                    <MoreVertical className="w-4 h-4" />
+                                                </button>
+                                            </motion.div>
+                                        );
+                                    })}
+                                </motion.div>
+                            )}
+
+                            {viewMode === "grid" && (
+                                <motion.div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                    {filteredJobs.map((job) => {
+                                        const isSelected = selectedJobs.includes(job.id);
+                                        return (
+                                            <motion.div
+                                                key={job.id}
+                                                initial={{ opacity: 0, scale: 0.97 }}
+                                                animate={{ opacity: 1, scale: 1 }}
+                                                exit={{ opacity: 0, scale: 0.97 }}
+                                                className={`bg-white rounded-2xl border transition-all p-6  relative flex flex-col h-full ${
+                                                    isSelected ? "border-[#800020]/30 bg-[#800020]/10" : "border-gray-150 hover:border-gray-250"
+                                                }`}
+                                            >
+                                                {/* Checkbox */}
+                                                <div className="absolute top-4 left-4">
+                                                    <input
+                                                        type="checkbox"
+                                                        checked={isSelected}
+                                                        onChange={() => toggleJobSelection(job.id)}
+                                                        className="w-5 h-5 text-[#800020] border-gray-300 rounded focus:ring-[#800020] cursor-pointer"
+                                                    />
+                                                </div>
+
+                                                {/* Actions Menu */}
+                                                <div className="absolute top-4 right-4">
+                                                    <button
+                                                        onClick={() => handleActionsClick(job)}
+                                                        className="w-9 h-9 flex items-center justify-center rounded-xl hover:bg-gray-100 transition-colors cursor-pointer text-gray-400 hover:text-gray-950"
+                                                    >
+                                                        <MoreVertical className="w-4 h-4" />
+                                                    </button>
+                                                </div>
+
+                                                {/* Icon */}
+                                                <div className="flex justify-center mb-4 mt-2">
+                                                    <div className="w-14 h-14 bg-rose-50 border border-rose-100 text-[#800020] rounded-2xl flex items-center justify-center">
+                                                        <Briefcase className="w-6 h-6" />
+                                                    </div>
+                                                </div>
+
+                                                {/* Job Title & Status */}
+                                                <div className="text-center mb-5 min-h-[70px] flex flex-col items-center justify-center">
+                                                    <h3
+                                                        className="text-sm font-extrabold text-gray-900 mb-2 cursor-pointer hover:text-[#800020] transition-colors leading-snug line-clamp-2"
+                                                        onClick={() => handleJobClick(job)}
+                                                    >
+                                                        {job.title}
+                                                    </h3>
+                                                    <span className={`inline-block px-2.5 py-0.5 rounded-full text-[9px] font-bold border uppercase tracking-wider ${getStatusTheme(job.status)}`}>
+                                                        {job.status}
+                                                    </span>
+                                                </div>
+
+                                                {/* Job Details */}
+                                                <div className="space-y-3 mb-6 flex-1 text-xs font-semibold text-gray-500 border-t border-b border-gray-100 py-4">
+                                                    <div className="flex items-center gap-3">
+                                                        <Briefcase className="w-3.5 h-3.5 flex-shrink-0 text-gray-450" />
+                                                        <span className="truncate">{job.department}</span>
                                                     </div>
                                                     <div className="flex items-center gap-3">
-                                                        <button
-                                                            onClick={() => handleJobClick(job)}
-                                                            className="px-4 py-2 bg-[#800020] text-white rounded-lg text-sm font-medium hover:bg-[#600018] transition-colors"
-                                                        >
-                                                            View Details
-                                                        </button>
-                                                        <button
-                                                            onClick={() => handleViewApplicants(job)}
-                                                            className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50 transition-colors"
-                                                        >
-                                                            View Applicants
-                                                        </button>
-                                                        <span className="text-sm text-gray-500 ml-2">Posted {job.posted}</span>
+                                                        <MapPin className="w-3.5 h-3.5 flex-shrink-0 text-gray-450" />
+                                                        <span className="truncate">{job.location}</span>
+                                                    </div>
+                                                    <div className="flex items-center gap-3">
+                                                        <Clock className="w-3.5 h-3.5 flex-shrink-0 text-gray-455" />
+                                                        <span>{job.type}</span>
+                                                    </div>
+                                                    <div className="flex items-center gap-3 text-[#800020]">
+                                                        <Users className="w-3.5 h-3.5 flex-shrink-0 text-[#800020]" />
+                                                        <span>{job.applicants} Applicants in Pipeline</span>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <button
-                                                onClick={() => handleActionsClick(job)}
-                                                className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-100 transition-colors"
-                                            >
-                                                <MoreVertical className="w-5 h-5 text-gray-500" />
-                                            </button>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        )}
 
-                        {/* Jobs Grid View */}
-                        {viewMode === "grid" && (
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                {jobsList.map((job) => (
-                                    <div
-                                        key={job.id}
-                                        className="bg-white rounded-xl border border-gray-200/80 shadow-sm hover:shadow-md transition-all duration-200 p-6 relative flex flex-col h-full"
-                                    >
-                                        {/* Checkbox */}
-                                        <div className="absolute top-4 left-4">
-                                            <input
-                                                type="checkbox"
-                                                checked={selectedJobs.includes(job.id)}
-                                                onChange={() => toggleJobSelection(job.id)}
-                                                className="w-5 h-5 text-[#800020] rounded focus:ring-[#800020]"
-                                            />
-                                        </div>
+                                                {/* Posted Date */}
+                                                <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider text-center mb-4">Published {job.posted}</p>
 
-                                        {/* Actions Menu */}
-                                        <div className="absolute top-4 right-4">
-                                            <button
-                                                onClick={() => handleActionsClick(job)}
-                                                className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-100 transition-colors"
-                                            >
-                                                <MoreVertical className="w-5 h-5 text-gray-500" />
-                                            </button>
-                                        </div>
+                                                {/* Actions */}
+                                                <div className="space-y-2 mt-auto">
+                                                    <motion.button
+                                                        whileHover={{ scale: 1.01 }}
+                                                        whileTap={{ scale: 0.99 }}
+                                                        onClick={() => handleJobClick(job)}
+                                                        className="w-full py-2.5 bg-[#800020] text-white rounded-xl text-xs font-bold hover:bg-[#600018] transition-all  cursor-pointer"
+                                                    >
+                                                        View Details
+                                                    </motion.button>
+                                                    <motion.button
+                                                        whileHover={{ scale: 1.01 }}
+                                                        whileTap={{ scale: 0.99 }}
+                                                        onClick={() => handleViewApplicants(job)}
+                                                        className="w-full py-2.5 border border-gray-200 text-gray-700 bg-white hover:bg-gray-50 rounded-xl text-xs font-bold transition-all  cursor-pointer"
+                                                    >
+                                                        View Pipeline
+                                                    </motion.button>
+                                                </div>
+                                            </motion.div>
+                                        );
+                                    })}
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
 
-                                        {/* Icon */}
-                                        <div className="flex justify-center mb-4 mt-2">
-                                            <div className="w-16 h-16 bg-[#800020]/10 rounded-xl flex items-center justify-center">
-                                                <Briefcase className="w-8 h-8 text-[#800020]" />
-                                            </div>
-                                        </div>
-
-                                        {/* Job Title & Status */}
-                                        <div className="text-center mb-6">
-                                            <h3
-                                                className="text-lg font-semibold text-gray-900 mb-3 cursor-pointer hover:text-[#800020] transition-colors"
-                                                onClick={() => handleJobClick(job)}
-                                            >
-                                                {job.title}
-                                            </h3>
-                                            <span className={`inline-block px-3 py-1 rounded-full text-xs font-medium border ${job.status === "Active" ? "bg-green-50 text-green-700 border-green-200" :
-                                                    job.status === "Draft" ? "bg-gray-50 text-gray-700 border-gray-200" :
-                                                        "bg-orange-50 text-orange-700 border-orange-200"
-                                                }`}>
-                                                {job.status}
-                                            </span>
-                                        </div>
-
-                                        {/* Job Details */}
-                                        <div className="space-y-3 mb-6 flex-1">
-                                            <div className="flex items-center gap-3 text-sm text-gray-600">
-                                                <Briefcase className="w-4 h-4 flex-shrink-0 text-gray-400" />
-                                                <span className="truncate">{job.department}</span>
-                                            </div>
-                                            <div className="flex items-center gap-3 text-sm text-gray-600">
-                                                <MapPin className="w-4 h-4 flex-shrink-0 text-gray-400" />
-                                                <span className="truncate">{job.location}</span>
-                                            </div>
-                                            <div className="flex items-center gap-3 text-sm text-gray-600">
-                                                <Clock className="w-4 h-4 flex-shrink-0 text-gray-400" />
-                                                <span>{job.type}</span>
-                                            </div>
-                                            <div className="flex items-center gap-3 text-sm text-gray-600">
-                                                <Users className="w-4 h-4 flex-shrink-0 text-gray-400" />
-                                                <span>{job.applicants} applicants</span>
-                                            </div>
-                                        </div>
-
-                                        {/* Posted Date */}
-                                        <p className="text-xs text-gray-500 text-center mb-4">Posted {job.posted}</p>
-
-                                        {/* Actions */}
-                                        <div className="space-y-2 mt-auto">
-                                            <button
-                                                onClick={() => handleJobClick(job)}
-                                                className="w-full px-4 py-2 bg-[#800020] text-white rounded-lg text-sm font-medium hover:bg-[#600018] transition-colors"
-                                            >
-                                                View Details
-                                            </button>
-                                            <button
-                                                onClick={() => handleViewApplicants(job)}
-                                                className="w-full px-4 py-2 border border-gray-300 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50 transition-colors"
-                                            >
-                                                View Applicants
-                                            </button>
-                                        </div>
-                                    </div>
-                                ))}
+                        {/* Empty State */}
+                        {filteredJobs.length === 0 && (
+                            <div className="bg-white border border-gray-200 rounded-2xl p-12 text-center ">
+                                <div className="w-14 h-14 bg-gray-50 border border-gray-150 rounded-2xl flex items-center justify-center text-gray-400 mx-auto mb-4">
+                                    <AlertCircle className="w-6 h-6" />
+                                </div>
+                                <h3 className="text-base font-extrabold text-gray-900 mb-1">No Jobs Found</h3>
+                                <p className="text-xs text-gray-550 max-w-md mx-auto">We couldn't find any job postings matching "{searchQuery}" or the selected status.</p>
+                                <button
+                                    onClick={() => { setSearchQuery(""); setFilterStatus("All"); }}
+                                    className="mt-4 px-4 py-2 bg-[#800020] text-white text-xs font-bold rounded-xl hover:bg-[#600018] transition-colors cursor-pointer"
+                                >
+                                    Clear Filters
+                                </button>
                             </div>
                         )}
                     </div>
@@ -412,7 +499,7 @@ export function JobsPage({ onAddJob, onViewApplicantProfile }: JobsPageProps) {
                 isOpen={isFiltersModalOpen}
                 onClose={() => setIsFiltersModalOpen(false)}
                 onApplyFilters={(filters) => {
-                    console.log("Applied filters:", filters);
+
                 }}
             />
 
@@ -435,11 +522,11 @@ export function JobsPage({ onAddJob, onViewApplicantProfile }: JobsPageProps) {
                     setIsDuplicateModalOpen(true);
                 }}
                 onPauseActivate={() => {
-                    console.log("Toggle pause/activate");
+
                     setIsActionsModalOpen(false);
                 }}
                 onArchive={() => {
-                    console.log("Archive job");
+
                     setIsActionsModalOpen(false);
                 }}
                 onDelete={() => {
@@ -466,7 +553,7 @@ export function JobsPage({ onAddJob, onViewApplicantProfile }: JobsPageProps) {
                     if (activeView === "list") setSelectedJob(null);
                 }}
                 onConfirm={() => {
-                    console.log("Job deleted");
+
                 }}
                 jobTitle={selectedJob?.title}
                 applicantCount={selectedJob?.applicants}
@@ -477,10 +564,12 @@ export function JobsPage({ onAddJob, onViewApplicantProfile }: JobsPageProps) {
                 onClose={() => setIsBulkActionsModalOpen(false)}
                 selectedCount={selectedJobs.length}
                 onApply={(action) => {
-                    console.log("Bulk action applied:", action, selectedJobs);
+
                     setSelectedJobs([]);
                 }}
             />
         </>
     );
 }
+
+

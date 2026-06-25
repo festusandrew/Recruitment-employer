@@ -1,9 +1,12 @@
 import {
     ArrowLeft, Mail, Phone, CheckCircle, XCircle, MoreHorizontal,
     Download, Upload, Plus, MessageSquare, Calendar, Star, FileText,
-    Send, Trash2, Edit, Eye, Clock, User, Building, Award, AlertCircle
+    Send, Trash2, Edit, Eye, Clock, User, Building, Award, AlertCircle, Sparkles, Check
 } from 'lucide-react';
 import { useState } from 'react';
+import { toast } from 'sonner';
+import { motion, AnimatePresence } from 'motion/react';
+import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 
 interface ApplicantProfileProps {
     onBack: () => void;
@@ -11,15 +14,14 @@ interface ApplicantProfileProps {
 }
 
 const hiringStages = [
-    { id: 1, name: 'Filter Candidate', completed: true },
-    { id: 2, name: 'Shortlisted', completed: true },
+    { id: 1, name: 'Filter', completed: true },
+    { id: 2, name: 'Shortlist', completed: true },
     { id: 3, name: 'Phone Screen', completed: false },
-    { id: 4, name: 'In-depth Interview', completed: false },
-    { id: 5, name: 'Interview Attended', completed: false },
-    { id: 6, name: 'Offering', completed: false },
-    { id: 7, name: 'Declined Offer', completed: false },
-    { id: 8, name: 'Compliance / Mandate', completed: false },
-    { id: 9, name: 'Commenced Employ...', completed: false }
+    { id: 4, name: 'Technical Round', completed: false },
+    { id: 5, name: 'Panel Interview', completed: false },
+    { id: 6, name: 'Executive Round', completed: false },
+    { id: 7, name: 'Offering', completed: false },
+    { id: 8, name: 'Hired', completed: false }
 ];
 
 const tabs = [
@@ -30,21 +32,20 @@ const tabs = [
 export function ApplicantProfile({ onBack, applicant }: ApplicantProfileProps) {
     const [activeTab, setActiveTab] = useState('Latest CV');
     const [notes, setNotes] = useState('');
-    const [insights, setInsights] = useState('');
     const [comment, setComment] = useState('');
     const [emailSubject, setEmailSubject] = useState('');
     const [emailBody, setEmailBody] = useState('');
     const [showCoverNote, setShowCoverNote] = useState(false);
 
     // Modal states
-    const [candidateStatus, setCandidateStatus] = useState(applicant?.status || 'Shortlisted');
+    const [applicantStatus, setApplicantStatus] = useState(applicant?.status || 'Shortlisted');
     const [isHireModalOpen, setIsHireModalOpen] = useState(false);
     const [isRejectModalOpen, setIsRejectModalOpen] = useState(false);
     const [isMoreOptionsModalOpen, setIsMoreOptionsModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [isStageModalOpen, setIsStageModalOpen] = useState(false);
 
-    // Editable candidate info
+    // Editable applicant info
     const [editedName, setEditedName] = useState(applicant?.name || 'Rajnikant Khristi');
     const [editedEmail, setEditedEmail] = useState(applicant?.email || 'khristirajnikant@gmail.com');
     const [editedPhone, setEditedPhone] = useState(applicant?.phone || '+353-353996363599');
@@ -52,299 +53,310 @@ export function ApplicantProfile({ onBack, applicant }: ApplicantProfileProps) {
 
     // Form inputs for modals
     const [hireSalary, setHireSalary] = useState('€85,000');
-    const [hireDate, setHireDate] = useState('2026-06-01');
+    const [hireDate, setHireDate] = useState('2026-07-01');
     const [sendWelcomeEmail, setSendWelcomeEmail] = useState(true);
 
     const [rejectReason, setRejectReason] = useState('Position Filled');
     const [rejectNote, setRejectNote] = useState('Thank you for your time and interest in our organization.');
     const [sendRejectEmail, setSendRejectEmail] = useState(true);
 
-    const [selectedStage, setSelectedStage] = useState('In-depth Interview');
+    const [selectedStage, setSelectedStage] = useState('Phone Screen');
 
-    const candidateName = editedName;
-    const candidateEmail = editedEmail;
-    const candidatePhone = editedPhone;
-    const candidateInitials = editedName.split(' ').map((n: string) => n[0]).join('').toUpperCase();
-    const appliedDate = applicant?.applied || '3 months ago';
+    const applicantInitials = editedName.split(' ').map((n: string) => n[0]).join('').toUpperCase().slice(0, 2);
+    const appliedDate = applicant?.applied || '3 days ago';
 
     const handleDownloadCV = () => {
-        alert('Downloading CV...');
+        toast.info('Downloading CV document...');
     };
 
     const handleUploadCV = () => {
-        alert('Upload CV functionality - file picker would open here');
+        toast.info('Opening file picker to upload new CV...');
     };
 
     const handleSaveNotes = () => {
-        alert('Notes saved successfully!');
+        if (notes.trim()) {
+            toast.success('Internal notes saved successfully!');
+        }
     };
 
     const handleScheduleInterview = () => {
-        alert('Schedule interview modal would open here');
+        toast.info('Opening interview scheduler...');
     };
 
     const handlePostComment = () => {
         if (comment.trim()) {
-            alert(`Comment posted: ${comment}`);
+            toast.success(`Comment posted successfully!`);
             setComment('');
         }
     };
 
     const handleSendEmail = () => {
         if (emailSubject.trim() && emailBody.trim()) {
-            alert(`Email sent to ${editedName}`);
+            toast.success(`Email sent to ${editedName}!`);
             setEmailSubject('');
             setEmailBody('');
         } else {
-            alert('Please fill in both subject and message');
+            toast.error('Please complete both subject and message body');
+        }
+    };
+
+    const getStatusTheme = (status: string) => {
+        switch (status) {
+            case 'Hired':
+                return 'bg-emerald-50 text-emerald-700 border-emerald-200/50';
+            case 'Rejected':
+                return 'bg-rose-50 text-rose-700 border-rose-200/50';
+            default:
+                return 'bg-indigo-50 text-indigo-700 border-indigo-200/50';
         }
     };
 
     return (
-        <div className="flex h-screen bg-gray-50 relative">
-            {/* Left Panel - Candidate Info */}
-            <div className="w-80 bg-white border-r border-gray-200 flex flex-col overflow-y-auto">
-                {/* Header */}
-                <div className="p-6 border-b border-gray-200">
+        <div className="flex h-[calc(100vh-73px)] bg-gray-50/40 relative overflow-hidden text-left w-full">
+            {/* Left Panel - Applicant Information */}
+            <div className="w-80 bg-white border-r border-gray-200/60 flex flex-col overflow-y-auto no-scrollbar flex-shrink-0 ">
+                
+                {/* Back Button & Header */}
+                <div className="p-6 border-b border-gray-150">
                     <button
                         onClick={onBack}
-                        className="flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-4 transition-colors cursor-pointer"
+                        className="flex items-center gap-2 text-xs font-bold text-gray-500 hover:text-gray-900 mb-5 transition-colors cursor-pointer select-none"
                     >
-                        <ArrowLeft className="w-4 h-4" />
-                        Back to Applicants
+                        <ArrowLeft className="w-3.5 h-3.5" />
+                        <span>Back to Applicants</span>
                     </button>
 
-                    {/* Candidate Header */}
-                    <div className="flex items-start gap-3 mb-4">
-                        <div className="w-16 h-16 rounded-full bg-gradient-to-br from-purple-400 to-pink-400 flex items-center justify-center text-white text-xl flex-shrink-0 font-semibold shadow-inner">
-                            {candidateInitials}
+                    {/* Applicant Profile Card */}
+                    <div className="flex items-start gap-3.5 mb-5">
+                        <div className="w-14 h-14 rounded-2xl bg-primary   flex items-center justify-center text-white text-base flex-shrink-0 font-bold  border border-white/10">
+                            {applicantInitials}
                         </div>
                         <div className="flex-1 min-w-0">
-                            <div className="flex items-center gap-2 mb-1">
-                                <h2 className="text-xl font-bold truncate text-gray-900">{editedName}</h2>
-                                <button className="text-[#800020] hover:text-[#600018] transition-colors flex-shrink-0 cursor-pointer">
-                                    <Mail className="w-4 h-4" />
-                                </button>
-                                <button className="text-green-600 hover:text-green-700 transition-colors flex-shrink-0 cursor-pointer">
-                                    <MessageSquare className="w-4 h-4" />
-                                </button>
-                            </div>
-                            <p className="text-sm text-gray-500 truncate">{editedRole}</p>
-                            <p className="text-xs text-gray-400 mt-1">Applied {appliedDate} from Irish jobs</p>
-                            <span className="inline-block mt-2 px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-xs font-medium border border-blue-100">
-                                First time applicant
+                            <h2 className="text-base font-bold text-gray-950 truncate leading-snug">{editedName}</h2>
+                            <p className="text-[10px] text-gray-400 font-semibold truncate uppercase tracking-wide mt-0.5">{editedRole}</p>
+                            <p className="text-[9px] text-gray-400 font-semibold mt-1">Applied {appliedDate}</p>
+                            
+                            <span className="inline-flex items-center mt-2.5 px-2 py-0.5 bg-rose-50/50 text-[#800020] rounded-lg text-[9px] font-bold border border-[#800020]/10">
+                                Active Applicant
                             </span>
                         </div>
                     </div>
 
-                    {/* Action Buttons */}
-                    <div className="flex gap-2 mb-4">
-                        <button
+                    {/* Action Panel Buttons */}
+                    <div className="flex gap-2 mb-3">
+                        <motion.button
                             onClick={() => setIsHireModalOpen(true)}
-                            className="flex-1 px-4 py-2.5 bg-[#800020] text-white rounded-lg hover:bg-[#600018] transition-colors flex items-center justify-center gap-2 font-medium shadow-sm cursor-pointer"
+                            whileHover={{ scale: 1.02 }}
+                            whileTap={{ scale: 0.98 }}
+                            className="flex-1 py-2.5 bg-emerald-600 text-white rounded-xl hover:bg-emerald-700 transition-colors flex items-center justify-center gap-1.5 text-xs font-bold  cursor-pointer border border-emerald-700/10"
                         >
                             <CheckCircle className="w-4 h-4" />
                             Hire
-                        </button>
-                        <button
+                        </motion.button>
+                        <motion.button
                             onClick={() => setIsRejectModalOpen(true)}
-                            className="flex-1 px-4 py-2.5 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors flex items-center justify-center gap-2 font-medium shadow-sm cursor-pointer border border-gray-200"
+                            whileHover={{ scale: 1.02 }}
+                            whileTap={{ scale: 0.98 }}
+                            className="flex-1 py-2.5 bg-rose-50 text-rose-700 rounded-xl hover:bg-rose-100 transition-colors flex items-center justify-center gap-1.5 text-xs font-bold border border-rose-200/50 cursor-pointer"
                         >
                             <XCircle className="w-4 h-4" />
                             Reject
-                        </button>
+                        </motion.button>
                     </div>
 
-                    <div>
-                        <button
-                            onClick={() => setIsMoreOptionsModalOpen(true)}
-                            className="w-full px-4 py-2.5 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors flex items-center justify-center gap-2 font-medium shadow-sm cursor-pointer bg-white"
-                        >
-                            <MoreHorizontal className="w-4 h-4" />
-                            More options
-                        </button>
+                    <motion.button
+                        onClick={() => setIsMoreOptionsModalOpen(true)}
+                        whileHover={{ scale: 1.01 }}
+                        whileTap={{ scale: 0.99 }}
+                        className="w-full py-2.5 border border-gray-200 text-gray-700 rounded-xl hover:bg-gray-50 transition-colors flex items-center justify-center gap-1.5 text-xs font-bold  bg-white cursor-pointer"
+                    >
+                        <MoreHorizontal className="w-4 h-4 text-gray-400" />
+                        Workflow Options
+                    </motion.button>
+                </div>
+
+                {/* Score Circle Gauge */}
+                <div className="p-6 border-b border-gray-150 bg-gray-50/30 flex flex-col items-center">
+                    <div className="relative w-24 h-24 mb-4 filter drop-">
+                        <svg className="w-24 h-24 transform -rotate-90">
+                            <circle
+                                cx="48"
+                                cy="48"
+                                r="38"
+                                stroke="#f3f4f6"
+                                strokeWidth="6"
+                                fill="none"
+                            />
+                            <circle
+                                cx="48"
+                                cy="48"
+                                r="38"
+                                stroke="url(#maroonGradient)"
+                                strokeWidth="7.5"
+                                fill="none"
+                                strokeDasharray={`${(72 / 100) * 238.76} 238.76`}
+                                strokeLinecap="round"
+                            />
+                            <defs>
+                                <linearGradient id="maroonGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stopColor="#800020" />
+                                    <stop offset="100%" stopColor="#E9967A" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                        <div className="absolute inset-0 flex flex-col items-center justify-center">
+                            <span className="text-2xl font-black text-gray-900 tracking-tight leading-none">72</span>
+                            <span className="text-[8px] font-bold text-gray-400 uppercase tracking-widest mt-0.5">Match</span>
+                        </div>
+                    </div>
+
+                    <div className="w-full space-y-2 text-[10px] font-bold text-gray-500 uppercase tracking-wider">
+                        <div className="flex justify-between items-center bg-white border border-gray-150 p-2 rounded-xl">
+                            <span>CV Score</span>
+                            <span className="text-gray-900">54 / 100</span>
+                        </div>
+                        <div className="flex justify-between items-center bg-white border border-gray-150 p-2 rounded-xl">
+                            <span>Questionnaire</span>
+                            <span className="text-gray-900">91 / 100</span>
+                        </div>
                     </div>
                 </div>
 
-                {/* Scores Section */}
-                <div className="p-6 border-b border-gray-200">
-                    <div className="flex items-center justify-center mb-4">
-                        <div className="relative w-24 h-24">
-                            <svg className="w-24 h-24 transform -rotate-90">
-                                <circle
-                                    cx="48"
-                                    cy="48"
-                                    r="40"
-                                    stroke="#e5e7eb"
-                                    strokeWidth="8"
-                                    fill="none"
-                                />
-                                <circle
-                                    cx="48"
-                                    cy="48"
-                                    r="40"
-                                    stroke="#800020"
-                                    strokeWidth="8"
-                                    fill="none"
-                                    strokeDasharray={`${(72 / 100) * 251.2} 251.2`}
-                                    strokeLinecap="round"
-                                />
-                            </svg>
-                            <div className="absolute inset-0 flex items-center justify-center">
-                                <span className="text-2xl text-[#800020]">72</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="space-y-3 text-sm">
-                        <div className="flex justify-between">
-                            <span className="text-gray-600">54/100 - CV Score</span>
-                        </div>
-                        <div className="flex justify-between">
-                            <span className="text-gray-600">91/100 - Great Questions Score</span>
-                        </div>
-                        <div className="flex justify-between">
-                            <span>72/100 - TOTAL SCORE</span>
-                        </div>
-                    </div>
-                </div>
-
-                {/* Contact Information */}
-                <div className="p-6 border-b border-gray-200">
+                {/* Contact and Status Info */}
+                <div className="p-6 border-b border-gray-150">
                     <div className="space-y-3">
-                        <div className="flex items-center gap-3 text-sm">
-                            <Mail className="w-4 h-4 text-gray-400" />
-                            <a href={`mailto:${editedEmail}`} className="text-gray-700 hover:text-[#800020] transition-colors">
+                        <div className="flex items-center gap-3 text-xs font-semibold">
+                            <Mail className="w-4 h-4 text-gray-450 flex-shrink-0" />
+                            <a href={`mailto:${editedEmail}`} className="text-gray-700 hover:text-[#800020] transition-colors truncate">
                                 {editedEmail}
                             </a>
                         </div>
-                        <div className="flex items-center gap-3 text-sm">
-                            <Phone className="w-4 h-4 text-gray-400" />
-                            <a href={`tel:${editedPhone}`} className="text-gray-700 hover:text-[#800020] transition-colors">
+                        <div className="flex items-center gap-3 text-xs font-semibold">
+                            <Phone className="w-4 h-4 text-gray-450 flex-shrink-0" />
+                            <a href={`tel:${editedPhone}`} className="text-gray-700 hover:text-[#800020] transition-colors truncate">
                                 {editedPhone}
                             </a>
                         </div>
                     </div>
 
-                    <div className="mt-4">
-                        <input
-                            type="text"
-                            placeholder="Select tags or type to add..."
-                            className="w-full px-4 py-2 border border-gray-300 text-gray-600 rounded-lg hover:bg-gray-50 transition-colors text-sm focus:outline-none focus:ring-2 focus:ring-[#800020]"
-                        />
-                    </div>
-
-                    <div className="mt-4 flex flex-wrap gap-2">
-                        <span className={`inline-flex items-center px-3 py-1 bg-[#800020] text-white rounded-full text-xs font-medium shadow-sm ${
-                            candidateStatus === 'Hired' ? '!bg-emerald-100 !text-emerald-800 border border-emerald-300' :
-                            candidateStatus === 'Rejected' ? '!bg-red-100 !text-red-800 border border-red-300' :
-                            'bg-[#800020] text-white'
-                        }`}>
-                            <Star className="w-3 h-3 mr-1" />
-                            {candidateStatus}
+                    <div className="mt-5 flex flex-wrap gap-2">
+                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-lg text-[10px] font-bold border ${getStatusTheme(applicantStatus)}`}>
+                            <Star className="w-3.5 h-3.5 mr-1 fill-current" />
+                            Status: {applicantStatus}
                         </span>
                     </div>
                 </div>
 
                 {/* Notes Section */}
-                <div className="p-6 border-b border-gray-200">
+                <div className="p-6 border-b border-gray-150 bg-gray-50/20">
                     <div className="flex items-center justify-between mb-3">
-                        <h3 className="text-sm">Notes</h3>
+                        <h3 className="text-xs font-bold text-gray-900 uppercase tracking-wide">Internal Notes</h3>
                         <button
                             onClick={handleSaveNotes}
-                            className="text-[#800020] hover:text-[#600018] transition-colors"
+                            className="text-[#800020] hover:text-[#600018] transition-colors cursor-pointer"
+                            title="Save Note"
                         >
-                            <Plus className="w-4 h-4" />
+                            <Check className="w-4 h-4" />
                         </button>
                     </div>
                     <textarea
                         value={notes}
                         onChange={(e) => setNotes(e.target.value)}
-                        placeholder="Add notes about this candidate..."
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm resize-none focus:outline-none focus:ring-2 focus:ring-[#800020]"
-                        rows={3}
+                        placeholder="Add recruitment notes here..."
+                        className="w-full px-3 py-2.5 border border-gray-250 rounded-xl text-xs resize-none focus:outline-none focus:ring-2 focus:ring-[#800020]/20 focus:border-[#800020] transition-all bg-white"
+                        rows={3.5}
                     />
-                    {notes && (
-                        <button
-                            onClick={handleSaveNotes}
-                            className="mt-2 w-full px-3 py-1.5 bg-[#800020] text-white rounded-lg text-sm hover:bg-[#600018] transition-colors"
-                        >
-                            Save Notes
-                        </button>
-                    )}
                 </div>
 
-                {/* A.I Insights Section */}
+                {/* AI Insights Section */}
                 <div className="p-6">
-                    <div className="flex items-center justify-between mb-3">
-                        <h3 className="text-sm flex items-center gap-2">
-                            <Award className="w-4 h-4 text-[#800020]" />
-                            A.I Insights
-                        </h3>
-                    </div>
-                    <div className="bg-blue-50 border border-blue-100 rounded-lg p-3 text-sm text-gray-700">
-                        <p className="mb-2">• Strong communication skills based on application responses</p>
-                        <p className="mb-2">• High cultural fit score (87%)</p>
-                        <p>• Recommended for phone screen interview</p>
+                    <h3 className="text-xs font-bold text-gray-955 uppercase tracking-wide flex items-center gap-1.5 mb-3">
+                        <Sparkles className="w-4 h-4 text-[#800020]" />
+                        A.I. Talent Insight
+                    </h3>
+                    <div className="bg-rose-50/40 border border-rose-100 rounded-xl p-3 text-xs text-gray-700 font-medium leading-relaxed">
+                        <p className="mb-2">• Exceptional answers to role-specific vetting questionnaires.</p>
+                        <p className="mb-2">• Resume matches 87% of the core design requirements.</p>
+                        <p>• Highly recommended for deep technical review.</p>
                     </div>
                 </div>
             </div>
 
-            {/* Main Content Area */}
+            {/* Right Panel - Roadmaps, Tabs, and Details */}
             <div className="flex-1 flex flex-col overflow-hidden">
-                {/* Hiring Flow */}
-                <div className="bg-white border-b border-gray-200 px-6 py-4">
-                    <div className="flex items-center justify-between mb-4">
-                        <h3 className="text-sm">Hiring flow</h3>
-                        <button className="text-sm text-[#800020] hover:text-[#600018] transition-colors">
+                
+                {/* Hiring Flow Roadmap */}
+                <div className="bg-white border-b border-gray-200/60 px-6 py-4 flex-shrink-0 text-left">
+                    <div className="flex items-center justify-between mb-3.5">
+                        <h3 className="text-xs font-bold text-gray-950 uppercase tracking-wider">Hiring Pipeline Stage</h3>
+                        <button 
+                            onClick={() => setIsStageModalOpen(true)}
+                            className="text-xs font-bold text-[#800020] hover:text-[#600018] transition-colors cursor-pointer"
+                        >
                             Update Stage
                         </button>
                     </div>
-                    <div className="flex items-center gap-2 overflow-x-auto pb-2">
-                        {hiringStages.map((stage, index) => (
-                            <div key={stage.id} className="flex items-center gap-2 flex-shrink-0">
-                                <div className="flex flex-col items-center">
-                                    <button
-                                        className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors ${stage.completed
-                                                ? 'bg-[#800020] text-white'
-                                                : 'bg-gray-200 text-gray-500 hover:bg-gray-300'
+                    <div className="flex items-center gap-2 overflow-x-auto pb-1.5 no-scrollbar">
+                        {hiringStages.map((stage, index) => {
+                            const isHiredActive = applicantStatus === "Hired" && stage.name === "Hired";
+                            const isCurrentStage = applicantStatus.toLowerCase().includes(stage.name.toLowerCase()) || isHiredActive;
+                            const isDone = stage.completed || isHiredActive;
+
+                            return (
+                                <div key={stage.id} className="flex items-center gap-2 flex-shrink-0">
+                                    <div className="flex flex-col items-center">
+                                        <button
+                                            onClick={() => {
+                                                setSelectedStage(stage.name);
+                                                setApplicantStatus(stage.name);
+                                                toast.info(`Workflow updated to: ${stage.name}`);
+                                            }}
+                                            className={`w-7.5 h-7.5 rounded-full flex items-center justify-center transition-all duration-300  cursor-pointer ${
+                                                isCurrentStage 
+                                                    ? 'bg-[#800020] text-white ring-4 ring-[#800020]/20'
+                                                    : isDone
+                                                        ? 'bg-[#800020]/80 text-white'
+                                                        : 'bg-gray-100 text-gray-400 hover:bg-gray-200'
                                             }`}
-                                    >
-                                        {stage.completed ? (
-                                            <CheckCircle className="w-5 h-5" />
-                                        ) : (
-                                            <span className="text-xs">{index + 1}</span>
-                                        )}
-                                    </button>
-                                    <span className="text-xs mt-1 text-gray-600 max-w-[100px] text-center">
-                                        {stage.name}
-                                    </span>
+                                        >
+                                            {isDone ? (
+                                                <Check className="w-4 h-4" />
+                                            ) : (
+                                                <span className="text-[10px] font-bold">{index + 1}</span>
+                                            )}
+                                        </button>
+                                        <span className="text-[9px] font-bold mt-1.5 text-gray-500 max-w-[85px] text-center truncate">
+                                            {stage.name}
+                                        </span>
+                                    </div>
+                                    {index < hiringStages.length - 1 && (
+                                        <div className={`w-6 h-0.5 rounded-full ${isDone ? 'bg-[#800020]/80' : 'bg-gray-150'} mb-5`} />
+                                    )}
                                 </div>
-                                {index < hiringStages.length - 1 && (
-                                    <div className={`w-8 h-0.5 ${stage.completed ? 'bg-[#800020]' : 'bg-gray-200'}`} />
-                                )}
-                            </div>
-                        ))}
+                            );
+                        })}
                     </div>
                 </div>
 
-                {/* Tabs and Content */}
-                <div className="flex-1 overflow-y-auto">
-                    {/* Tab Navigation */}
-                    <div className="bg-white border-b border-gray-200 px-6 sticky top-0 z-10">
-                        <div className="flex gap-6 overflow-x-auto">
+                {/* Tabs & Details Area */}
+                <div className="flex-1 overflow-y-auto bg-gray-50/30 flex flex-col">
+                    
+                    {/* Tab Navigation Menu */}
+                    <div className="bg-white border-b border-gray-150 px-6 sticky top-0 z-10  flex-shrink-0">
+                        <div className="flex gap-6 overflow-x-auto no-scrollbar">
                             {tabs.map((tab) => (
                                 <button
                                     key={tab}
                                     onClick={() => setActiveTab(tab)}
-                                    className={`py-4 px-2 border-b-2 transition-colors whitespace-nowrap text-sm ${activeTab === tab
+                                    className={`py-3.5 px-1 border-b-2 transition-all whitespace-nowrap text-xs font-bold relative cursor-pointer ${
+                                        activeTab === tab
                                             ? 'border-[#800020] text-[#800020]'
-                                            : 'border-transparent text-gray-600 hover:text-gray-900'
-                                        }`}
+                                            : 'border-transparent text-gray-500 hover:text-gray-900'
+                                    }`}
                                 >
                                     {tab}
                                     {(tab === 'Comments' || tab === 'Emails') && (
-                                        <span className="ml-2 px-2 py-0.5 bg-gray-200 text-gray-600 rounded-full text-xs">
+                                        <span className="ml-1.5 px-1.5 py-0.2 bg-gray-100 text-gray-500 rounded-md text-[9px] font-bold border border-gray-200/50">
                                             {tab === 'Comments' ? '3' : '5'}
                                         </span>
                                     )}
@@ -353,483 +365,480 @@ export function ApplicantProfile({ onBack, applicant }: ApplicantProfileProps) {
                         </div>
                     </div>
 
-                    {/* Tab Content */}
-                    <div className="p-6">
-                        {activeTab === 'Latest CV' && (
-                            <div className="bg-white rounded-lg shadow-sm border border-gray-200">
-                                {/* CV Actions */}
-                                <div className="flex items-center justify-between p-4 border-b border-gray-200">
-                                    <div className="flex gap-2">
-                                        <button
-                                            onClick={() => setShowCoverNote(false)}
-                                            className={`px-4 py-2 rounded-lg transition-colors text-sm ${!showCoverNote
-                                                    ? 'bg-gray-800 text-white'
-                                                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                                                }`}
-                                        >
-                                            CV
-                                        </button>
-                                        <button
-                                            onClick={() => setShowCoverNote(true)}
-                                            className={`px-4 py-2 rounded-lg transition-colors text-sm ${showCoverNote
-                                                    ? 'bg-gray-800 text-white'
-                                                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                                                }`}
-                                        >
-                                            Cover note
-                                        </button>
-                                    </div>
-                                    <div className="flex gap-2">
-                                        <button
-                                            onClick={handleUploadCV}
-                                            className="px-3 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors text-sm flex items-center gap-2"
-                                        >
-                                            <Upload className="w-4 h-4" />
-                                            Upload new CV
-                                        </button>
-                                        <button
-                                            onClick={handleDownloadCV}
-                                            className="px-3 py-2 bg-[#800020] text-white rounded-lg hover:bg-[#600018] transition-colors text-sm flex items-center gap-2"
-                                        >
-                                            <Download className="w-4 h-4" />
-                                            Download CV
-                                        </button>
-                                    </div>
-                                </div>
-
-                                {/* CV Content */}
-                                <div className="p-8 max-w-4xl mx-auto">
-                                    {!showCoverNote ? (
-                                        <>
-                                            <div className="text-center mb-8">
-                                                <h1 className="text-3xl mb-2 italic">CURRICULUM VITAE</h1>
-                                                <h2 className="text-2xl">{candidateName.toUpperCase()}</h2>
+                    {/* Tab Panels Content */}
+                    <div className="p-6 flex-1">
+                        <AnimatePresence mode="wait">
+                            <motion.div
+                                key={activeTab}
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -10 }}
+                                transition={{ duration: 0.2 }}
+                                className="min-h-full"
+                            >
+                                {/* PANEL: LATEST CV */}
+                                {activeTab === 'Latest CV' && (
+                                    <div className="bg-white rounded-2xl  border border-gray-150 overflow-hidden">
+                                        {/* Actions Header */}
+                                        <div className="flex items-center justify-between p-4 bg-gray-50/50 border-b border-gray-150">
+                                            <div className="flex gap-1.5">
+                                                <button
+                                                    onClick={() => setShowCoverNote(false)}
+                                                    className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                                                        !showCoverNote
+                                                            ? 'bg-gray-900 text-white '
+                                                            : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'
+                                                    }`}
+                                                >
+                                                    Curriculum Vitae
+                                                </button>
+                                                <button
+                                                    onClick={() => setShowCoverNote(true)}
+                                                    className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                                                        showCoverNote
+                                                            ? 'bg-gray-900 text-white '
+                                                            : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'
+                                                    }`}
+                                                >
+                                                    Cover Letter
+                                                </button>
                                             </div>
-
-                                            {/* Correspondence Address */}
-                                            <div className="mb-6">
-                                                <h3 className="text-lg mb-2 italic underline">CORRESPONDENCE ADDRESS</h3>
-                                                <p className="text-gray-700">
-                                                    20 HILLBROOK WOODS,<br />
-                                                    BLANCHARDSTOWN, DUBLIN 15,<br />
-                                                    D15 V9KT IRELAND.<br />
-                                                    E-mail: {candidateEmail}<br />
-                                                    Contact no : {candidatePhone}
-                                                </p>
-                                            </div>
-
-                                            {/* Educational Qualifications */}
-                                            <div className="mb-6">
-                                                <h3 className="text-lg mb-2 italic underline">EDUCATIONAL QUALIFICATION:-</h3>
-                                                <ul className="list-disc list-inside text-gray-700 space-y-1">
-                                                    <li>Senior Secondary from GSEB.</li>
-                                                    <li>Bachelor's Degree in Computer Science (2018)</li>
-                                                </ul>
-                                            </div>
-
-                                            {/* Language Known */}
-                                            <div className="mb-6">
-                                                <h3 className="text-lg mb-2 italic underline">LANGUAGE KNOWN</h3>
-                                                <ul className="list-disc list-inside text-gray-700 space-y-1">
-                                                    <li>English, Hindi, Hebrew & Portuguese</li>
-                                                </ul>
-                                            </div>
-
-                                            {/* Key Strengths */}
-                                            <div className="mb-6">
-                                                <h3 className="text-lg mb-2 italic underline">KEY STRENGTHS:-</h3>
-                                                <ul className="list-disc list-inside text-gray-700 space-y-1">
-                                                    <li>Hardworking & Positive Attitude</li>
-                                                    <li>Excellent Problem Solving Skills</li>
-                                                    <li>Team Player with Strong Communication</li>
-                                                </ul>
-                                            </div>
-
-                                            {/* Hobbies */}
-                                            <div className="mb-6">
-                                                <h3 className="text-lg mb-2 italic underline">HOBBIES:-</h3>
-                                                <ul className="list-disc list-inside text-gray-700 space-y-1">
-                                                    <li>Reading, Music & Travelling</li>
-                                                </ul>
-                                            </div>
-                                        </>
-                                    ) : (
-                                        <div>
-                                            <h3 className="text-xl mb-4">Cover Letter</h3>
-                                            <div className="text-gray-700 space-y-4">
-                                                <p>Dear Hiring Manager,</p>
-                                                <p>
-                                                    I am writing to express my strong interest in the position advertised on Irish Jobs.
-                                                    With my background in computer science and proven track record in delivering quality results,
-                                                    I believe I would be an excellent fit for your team.
-                                                </p>
-                                                <p>
-                                                    My experience has equipped me with strong problem-solving skills and the ability to work
-                                                    effectively both independently and as part of a team. I am particularly drawn to this
-                                                    opportunity because it aligns perfectly with my career goals and values.
-                                                </p>
-                                                <p>
-                                                    I am excited about the possibility of contributing to your organization and would welcome
-                                                    the opportunity to discuss how my skills and experience can benefit your team.
-                                                </p>
-                                                <p>Thank you for considering my application.</p>
-                                                <p>Sincerely,<br />{candidateName}</p>
+                                            <div className="flex gap-2">
+                                                <button
+                                                    onClick={handleUploadCV}
+                                                    className="px-3 py-1.5 bg-white border border-gray-200 text-gray-700 rounded-lg hover:bg-gray-50 transition-all text-xs font-semibold flex items-center gap-1.5 cursor-pointer"
+                                                >
+                                                    <Upload className="w-3.5 h-3.5" />
+                                                    Upload
+                                                </button>
+                                                <button
+                                                    onClick={handleDownloadCV}
+                                                    className="px-3.5 py-1.5 bg-[#800020] text-white rounded-lg hover:bg-[#600018] transition-all text-xs font-semibold flex items-center gap-1.5 cursor-pointer "
+                                                >
+                                                    <Download className="w-3.5 h-3.5" />
+                                                    Download
+                                                </button>
                                             </div>
                                         </div>
-                                    )}
-                                </div>
-                            </div>
-                        )}
 
-                        {activeTab === 'Activity' && (
-                            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-                                <div className="space-y-4">
-                                    <div className="flex gap-4 pb-4 border-b border-gray-200">
-                                        <div className="w-8 h-8 rounded-full bg-[#800020] flex items-center justify-center text-white text-xs flex-shrink-0">
-                                            {candidateInitials}
-                                        </div>
-                                        <div className="flex-1">
-                                            <p className="text-sm"><span className="font-medium">{candidateName}</span> was shortlisted</p>
-                                            <p className="text-xs text-gray-500">{appliedDate}</p>
-                                        </div>
-                                    </div>
-                                    <div className="flex gap-4 pb-4 border-b border-gray-200">
-                                        <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white text-xs flex-shrink-0">
-                                            AI
-                                        </div>
-                                        <div className="flex-1">
-                                            <p className="text-sm"><span className="font-medium">System</span> automatically matched candidate</p>
-                                            <p className="text-xs text-gray-500">{appliedDate}</p>
-                                        </div>
-                                    </div>
-                                    <div className="flex gap-4">
-                                        <div className="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center text-white text-xs flex-shrink-0">
-                                            <User className="w-4 h-4" />
-                                        </div>
-                                        <div className="flex-1">
-                                            <p className="text-sm"><span className="font-medium">{candidateName}</span> applied for this position</p>
-                                            <p className="text-xs text-gray-500">{appliedDate}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        )}
+                                        {/* Document Preview (Premium Paper Style) */}
+                                        <div className="p-8 md:p-12 max-w-3xl mx-auto text-left bg-white font-sans text-gray-800 leading-relaxed ">
+                                            {!showCoverNote ? (
+                                                <div className="border border-gray-100 p-8  rounded-xl bg-white">
+                                                    <div className="text-center mb-8 border-b border-gray-150 pb-6">
+                                                        <h1 className="text-2xl font-black text-gray-950 tracking-tight uppercase mb-1">Rajnikant Khristi</h1>
+                                                        <p className="text-xs font-bold text-[#800020] uppercase tracking-widest">{editedRole}</p>
+                                                    </div>
 
-                        {activeTab === 'Questions' && (
-                            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-                                <div className="mb-6">
-                                    <h3 className="mb-4">Screening Questions</h3>
+                                                    <div className="space-y-6 text-xs font-medium">
+                                                        {/* Contact section */}
+                                                        <div>
+                                                            <h3 className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2">Correspondence Info</h3>
+                                                            <p className="text-gray-700 leading-normal">
+                                                                20 Hillbrook Woods, Blanchardstown, Dublin 15, D15 V9KT, Ireland.<br />
+                                                                Email: <span className="font-semibold text-gray-900">{editedEmail}</span> | Tel: <span className="font-semibold text-gray-900">{editedPhone}</span>
+                                                            </p>
+                                                        </div>
 
-                                    <div className="space-y-6">
-                                        <div className="border-b border-gray-200 pb-4">
-                                            <p className="text-sm text-gray-600 mb-2">1. Why are you interested in this position?</p>
-                                            <p className="text-sm text-gray-900">
-                                                I am passionate about this field and believe my skills align perfectly with the requirements.
-                                                I'm excited about the opportunity to contribute to your team's success.
-                                            </p>
-                                        </div>
+                                                        {/* Experience */}
+                                                        <div>
+                                                            <h3 className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2">Work Experience</h3>
+                                                            <div className="space-y-4">
+                                                                <div>
+                                                                    <div className="flex justify-between font-bold text-gray-950 text-[11px]">
+                                                                        <span>Senior Software Engineer • Global ATS Systems</span>
+                                                                        <span>2022 - Present</span>
+                                                                    </div>
+                                                                    <p className="text-[10px] text-gray-500 font-semibold mt-0.5">Dublin, Ireland</p>
+                                                                    <p className="mt-1.5 text-gray-600 leading-relaxed">
+                                                                        Led the technical redesign of enterprise recruiter dashboard apps, improving render performance by 42%. Structured micro-frontend modules and established reusable component libraries using React and Tailwind.
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
 
-                                        <div className="border-b border-gray-200 pb-4">
-                                            <p className="text-sm text-gray-600 mb-2">2. What is your expected salary range?</p>
-                                            <p className="text-sm text-gray-900">
-                                                €45,000 - €55,000 per annum
-                                            </p>
-                                        </div>
+                                                        {/* Education */}
+                                                        <div>
+                                                            <h3 className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2">Education & Qualifications</h3>
+                                                            <ul className="list-disc list-inside text-gray-700 space-y-1">
+                                                                <li>Bachelor of Science in Computer Science & Engineering (First Class Honours, 2018)</li>
+                                                                <li>Senior Secondary Qualifications from GSEB Board</li>
+                                                            </ul>
+                                                        </div>
 
-                                        <div className="pb-4">
-                                            <p className="text-sm text-gray-600 mb-2">3. When can you start?</p>
-                                            <p className="text-sm text-gray-900">
-                                                I am available to start immediately with a 2-week notice period at my current position.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        )}
+                                                        {/* Languages */}
+                                                        <div>
+                                                            <h3 className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2">Languages Known</h3>
+                                                            <p className="text-gray-700">English (Fluent), Portuguese, Hebrew, Hindi</p>
+                                                        </div>
 
-                        {activeTab === 'Interview Score' && (
-                            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-                                <div className="text-center py-8">
-                                    <Calendar className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                                    <p className="text-gray-500 mb-4">No interviews scheduled yet</p>
-                                    <button
-                                        onClick={handleScheduleInterview}
-                                        className="px-6 py-2.5 bg-[#800020] text-white rounded-lg hover:bg-[#600018] transition-colors"
-                                    >
-                                        Schedule Interview
-                                    </button>
-                                </div>
-                            </div>
-                        )}
-
-                        {activeTab === 'Forms & Docs' && (
-                            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-                                <div className="mb-6">
-                                    <h3 className="mb-4">Documents & Forms</h3>
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                        <div className="border border-gray-200 rounded-lg p-4 hover:border-[#800020] transition-colors cursor-pointer">
-                                            <div className="flex items-start gap-3">
-                                                <FileText className="w-8 h-8 text-[#800020]" />
-                                                <div className="flex-1">
-                                                    <h4 className="text-sm mb-1">Application Form</h4>
-                                                    <p className="text-xs text-gray-500">Submitted {appliedDate}</p>
+                                                        {/* Core Strengths */}
+                                                        <div>
+                                                            <h3 className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2">Key Strengths & Skills</h3>
+                                                            <p className="text-gray-750">
+                                                                TypeScript, React, Node.js, Next.js, Redux, TailwindCSS, Frontend System Design, Performance Tuning, Agile Team Leadership, Excellent Vetting Score.
+                                                            </p>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <button className="text-[#800020] hover:text-[#600018]">
+                                            ) : (
+                                                <div className="border border-gray-100 p-8  rounded-xl bg-white text-xs font-medium">
+                                                    <div className="space-y-4 text-gray-700 leading-relaxed">
+                                                        <p className="text-right font-semibold text-gray-500">Date: June 25, 2026</p>
+                                                        <p className="font-bold text-gray-900">Dear Hiring Manager,</p>
+                                                        <p>
+                                                            I am writing to express my enthusiastic interest in the senior engineering role currently advertised. With my robust experience in building modern web applications, optimizing workflows, and enhancing client-facing dashboards, I believe I can make an immediate impact on your team.
+                                                        </p>
+                                                        <p>
+                                                            Throughout my career, I have focused on writing clean, maintainable, and high-performing React code. I enjoy collaborative pair-programming, tackling complex state issues, and building components that provide beautiful, intuitive user interfaces.
+                                                        </p>
+                                                        <p>
+                                                            Thank you for your time and consideration of my application. I look forward to discussing how my experience matches your current roadmap.
+                                                        </p>
+                                                        <p className="pt-4">Sincerely,<br /><span className="font-bold text-gray-950">{editedName}</span></p>
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* PANEL: ACTIVITY TIMELINE */}
+                                {activeTab === 'Activity' && (
+                                    <div className="bg-white rounded-2xl  border border-gray-150 p-6 relative">
+                                        <div className="relative pl-6 space-y-6">
+                                            {/* Timeline Connecting Line */}
+                                            <div className="absolute left-2.5 top-2 bottom-2 w-0.5 bg-gray-100" />
+
+                                            <div className="relative flex items-start gap-4">
+                                                <div className="absolute -left-[20px] top-1.5 w-2.5 h-2.5 rounded-full border-2 border-white bg-[#800020]" />
+                                                <div className="w-8 h-8 rounded-xl bg-[#800020] text-white flex items-center justify-center text-[10px] font-bold flex-shrink-0">
+                                                    {applicantInitials}
+                                                </div>
+                                                <div className="flex-1">
+                                                    <p className="text-xs text-gray-800 font-semibold"><span className="font-bold text-gray-900">{editedName}</span> was moved to Shortlisted stage</p>
+                                                    <p className="text-[10px] text-gray-400 mt-1 font-bold">{appliedDate}</p>
+                                                </div>
+                                            </div>
+                                            
+                                            <div className="relative flex items-start gap-4">
+                                                <div className="absolute -left-[20px] top-1.5 w-2.5 h-2.5 rounded-full border-2 border-white bg-indigo-500" />
+                                                <div className="w-8 h-8 rounded-xl bg-indigo-50 text-indigo-600 border border-indigo-100 flex items-center justify-center text-[10px] font-bold flex-shrink-0">
+                                                    AI
+                                                </div>
+                                                <div className="flex-1">
+                                                    <p className="text-xs text-gray-800 font-semibold"><span className="font-bold text-gray-950">System Vetting Tool</span> automatically calculated matching score (72/100)</p>
+                                                    <p className="text-[10px] text-gray-400 mt-1 font-bold">{appliedDate}</p>
+                                                </div>
+                                            </div>
+
+                                            <div className="relative flex items-start gap-4">
+                                                <div className="absolute -left-[20px] top-1.5 w-2.5 h-2.5 rounded-full border-2 border-white bg-emerald-500" />
+                                                <div className="w-8 h-8 rounded-xl bg-emerald-50 text-emerald-600 border border-emerald-100 flex items-center justify-center flex-shrink-0">
+                                                    <User className="w-4 h-4" />
+                                                </div>
+                                                <div className="flex-1">
+                                                    <p className="text-xs text-gray-800 font-semibold"><span className="font-bold text-gray-950">{editedName}</span> applied for this position via Irish Jobs board</p>
+                                                    <p className="text-[10px] text-gray-400 mt-1 font-bold">{appliedDate}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* PANEL: SCREENING QUESTIONS */}
+                                {activeTab === 'Questions' && (
+                                    <div className="bg-white rounded-2xl  border border-gray-150 p-6 space-y-6">
+                                        <div className="border-b border-gray-100 pb-4">
+                                            <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">1. Why are you interested in this position?</p>
+                                            <p className="text-xs font-semibold text-gray-900 leading-relaxed">
+                                                I am deeply passionate about building modern web applications, utilizing design systems, and improving client experience. I want to bring my React and systems design expertise to your fast-growing engineering team.
+                                            </p>
+                                        </div>
+
+                                        <div className="border-b border-gray-100 pb-4">
+                                            <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">2. What is your expected salary range?</p>
+                                            <p className="text-xs font-semibold text-gray-900 leading-relaxed">
+                                                €80,000 - €95,000 per annum, commensurate with roles and benefits.
+                                            </p>
+                                        </div>
+
+                                        <div className="pb-2">
+                                            <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">3. What is your notice period?</p>
+                                            <p className="text-xs font-semibold text-gray-900 leading-relaxed">
+                                                I can start immediately upon a 2-week transition notice.
+                                            </p>
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* PANEL: INTERVIEW SCORE */}
+                                {activeTab === 'Interview Score' && (
+                                    <div className="bg-white rounded-2xl  border border-gray-150 p-8 text-center flex flex-col items-center justify-center min-h-[260px]">
+                                        <Calendar className="w-12 h-12 text-gray-300 mb-4" />
+                                        <p className="text-xs text-gray-500 font-semibold mb-5">No interviews scheduled yet for this applicant</p>
+                                        <button
+                                            onClick={handleScheduleInterview}
+                                            className="px-5 py-2.5 bg-[#800020] text-white rounded-xl hover:bg-[#600018] transition-colors font-semibold text-xs  cursor-pointer"
+                                        >
+                                            Schedule Interview
+                                        </button>
+                                    </div>
+                                )}
+
+                                {/* PANEL: FORMS & DOCS */}
+                                {activeTab === 'Forms & Docs' && (
+                                    <div className="bg-white rounded-2xl  border border-gray-150 p-6">
+                                        <h3 className="text-xs font-bold text-gray-950 uppercase tracking-wider mb-4">Vetting Documents</h3>
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                            <div className="border border-gray-200 rounded-2xl p-4 hover:border-[#800020]/40 transition-colors cursor-pointer bg-white  flex items-center justify-between">
+                                                <div className="flex items-center gap-3">
+                                                    <FileText className="w-8 h-8 text-[#800020] bg-rose-50 p-1.5 rounded-lg" />
+                                                    <div className="text-left">
+                                                        <h4 className="text-xs font-bold text-gray-900">Application Form</h4>
+                                                        <p className="text-[10px] text-gray-400 font-semibold mt-0.5">Submitted {appliedDate}</p>
+                                                    </div>
+                                                </div>
+                                                <button className="p-1.5 hover:bg-gray-100 rounded-lg text-gray-500 transition-colors">
                                                     <Eye className="w-4 h-4" />
                                                 </button>
                                             </div>
-                                        </div>
 
-                                        <div className="border border-dashed border-gray-300 rounded-lg p-4 hover:border-[#800020] transition-colors cursor-pointer">
-                                            <div className="text-center">
-                                                <Upload className="w-8 h-8 text-gray-400 mx-auto mb-2" />
-                                                <p className="text-sm text-gray-600">Upload Document</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        )}
-
-                        {activeTab === 'Contracts' && (
-                            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-                                <div className="text-center py-8">
-                                    <FileText className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                                    <p className="text-gray-500 mb-4">No contracts generated yet</p>
-                                    <button className="px-6 py-2.5 bg-[#800020] text-white rounded-lg hover:bg-[#600018] transition-colors">
-                                        Generate Contract
-                                    </button>
-                                </div>
-                            </div>
-                        )}
-
-                        {activeTab === 'Comments' && (
-                            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-                                <div className="space-y-4 mb-6">
-                                    <div className="flex gap-4 pb-4 border-b border-gray-200">
-                                        <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white text-xs flex-shrink-0">
-                                            JD
-                                        </div>
-                                        <div className="flex-1">
-                                            <div className="flex items-center justify-between mb-1">
-                                                <p className="text-sm font-medium">John Doe</p>
-                                                <p className="text-xs text-gray-500">2 days ago</p>
-                                            </div>
-                                            <p className="text-sm text-gray-700">Great candidate! Strong communication skills and impressive background.</p>
-                                        </div>
-                                    </div>
-
-                                    <div className="flex gap-4 pb-4 border-b border-gray-200">
-                                        <div className="w-8 h-8 rounded-full bg-purple-500 flex items-center justify-center text-white text-xs flex-shrink-0">
-                                            SM
-                                        </div>
-                                        <div className="flex-1">
-                                            <div className="flex items-center justify-between mb-1">
-                                                <p className="text-sm font-medium">Sarah Miller</p>
-                                                <p className="text-xs text-gray-500">5 days ago</p>
-                                            </div>
-                                            <p className="text-sm text-gray-700">Responded well to initial screening questions. Recommend moving forward.</p>
-                                        </div>
-                                    </div>
-
-                                    <div className="flex gap-4 pb-4 border-b border-gray-200">
-                                        <div className="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center text-white text-xs flex-shrink-0">
-                                            TP
-                                        </div>
-                                        <div className="flex-1">
-                                            <div className="flex items-center justify-between mb-1">
-                                                <p className="text-sm font-medium">Tom Peterson</p>
-                                                <p className="text-xs text-gray-500">1 week ago</p>
-                                            </div>
-                                            <p className="text-sm text-gray-700">CV looks solid. Experience matches our requirements.</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="border-t border-gray-200 pt-6">
-                                    <h4 className="text-sm mb-3">Add Comment</h4>
-                                    <div className="flex gap-4">
-                                        <div className="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center text-gray-600 text-xs flex-shrink-0">
-                                            YO
-                                        </div>
-                                        <div className="flex-1">
-                                            <textarea
-                                                value={comment}
-                                                onChange={(e) => setComment(e.target.value)}
-                                                placeholder="Add a comment..."
-                                                className="w-full px-4 py-2 border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-[#800020]"
-                                                rows={3}
-                                            />
-                                            <div className="mt-3 flex justify-end">
-                                                <button
-                                                    onClick={handlePostComment}
-                                                    className="px-4 py-2 bg-[#800020] text-white rounded-lg hover:bg-[#600018] transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed"
-                                                    disabled={!comment.trim()}
-                                                >
-                                                    Post Comment
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        )}
-
-                        {activeTab === 'Emails' && (
-                            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-                                <div className="space-y-4 mb-6">
-                                    <div className="pb-4 border-b border-gray-200">
-                                        <div className="flex justify-between items-start mb-3">
-                                            <div className="flex items-center gap-2">
-                                                <Mail className="w-4 h-4 text-gray-400" />
-                                                <h4 className="font-medium">Application Confirmation</h4>
-                                            </div>
-                                            <span className="text-xs text-gray-500">{appliedDate}</span>
-                                        </div>
-                                        <p className="text-sm text-gray-700 mb-2">
-                                            <strong>Subject:</strong> Thank you for your application
-                                        </p>
-                                        <p className="text-sm text-gray-600">
-                                            Dear {candidateName}, thank you for your application. We will review it and get back to you soon.
-                                        </p>
-                                    </div>
-
-                                    <div className="pb-4 border-b border-gray-200">
-                                        <div className="flex justify-between items-start mb-3">
-                                            <div className="flex items-center gap-2">
-                                                <Mail className="w-4 h-4 text-gray-400" />
-                                                <h4 className="font-medium">Shortlist Notification</h4>
-                                            </div>
-                                            <span className="text-xs text-gray-500">2 weeks ago</span>
-                                        </div>
-                                        <p className="text-sm text-gray-700 mb-2">
-                                            <strong>Subject:</strong> Congratulations - You've been shortlisted
-                                        </p>
-                                        <p className="text-sm text-gray-600">
-                                            We're pleased to inform you that you've been shortlisted for the next stage of our hiring process.
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <div className="border-t border-gray-200 pt-6">
-                                    <h4 className="text-sm mb-4 flex items-center gap-2">
-                                        <Send className="w-4 h-4 text-[#800020]" />
-                                        Compose Email
-                                    </h4>
-                                    <div className="space-y-3">
-                                        <div>
-                                            <label className="block text-sm text-gray-600 mb-1">To</label>
-                                            <input
-                                                type="text"
-                                                value={candidateEmail}
-                                                disabled
-                                                className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50 text-gray-700 text-sm"
-                                            />
-                                        </div>
-                                        <div>
-                                            <label className="block text-sm text-gray-600 mb-1">Subject</label>
-                                            <input
-                                                type="text"
-                                                value={emailSubject}
-                                                onChange={(e) => setEmailSubject(e.target.value)}
-                                                placeholder="Email subject..."
-                                                className="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#800020]"
-                                            />
-                                        </div>
-                                        <div>
-                                            <label className="block text-sm text-gray-600 mb-1">Message</label>
-                                            <textarea
-                                                value={emailBody}
-                                                onChange={(e) => setEmailBody(e.target.value)}
-                                                placeholder="Type your message..."
-                                                className="w-full px-4 py-2 border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-[#800020]"
-                                                rows={6}
-                                            />
-                                        </div>
-                                        <div className="flex justify-end gap-2">
-                                            <button
-                                                onClick={() => {
-                                                    setEmailSubject('');
-                                                    setEmailBody('');
-                                                }}
-                                                className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+                                            <div 
+                                                onClick={handleUploadCV}
+                                                className="border border-dashed border-gray-300 rounded-2xl p-4 hover:border-[#800020] transition-colors cursor-pointer flex flex-col items-center justify-center bg-gray-50/20 text-center"
                                             >
-                                                Cancel
-                                            </button>
-                                            <button
-                                                onClick={handleSendEmail}
-                                                className="px-4 py-2 bg-[#800020] text-white rounded-lg hover:bg-[#600018] transition-colors flex items-center gap-2 disabled:bg-gray-300 disabled:cursor-not-allowed"
-                                                disabled={!emailSubject.trim() || !emailBody.trim()}
-                                            >
-                                                <Send className="w-4 h-4" />
-                                                Send Email
-                                            </button>
+                                                <Upload className="w-6 h-6 text-gray-400 mb-1.5" />
+                                                <p className="text-[10px] font-bold text-gray-600">Upload New Vetting Doc</p>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        )}
+                                )}
+
+                                {/* PANEL: CONTRACTS */}
+                                {activeTab === 'Contracts' && (
+                                    <div className="bg-white rounded-2xl  border border-gray-150 p-8 text-center flex flex-col items-center justify-center min-h-[260px]">
+                                        <FileText className="w-12 h-12 text-gray-300 mb-4" />
+                                        <p className="text-xs text-gray-500 font-semibold mb-5">No contracts generated or offered yet</p>
+                                        <button className="px-5 py-2.5 bg-[#800020] text-white rounded-xl hover:bg-[#600018] transition-colors font-semibold text-xs  cursor-pointer">
+                                            Generate Offer Contract
+                                        </button>
+                                    </div>
+                                )}
+
+                                {/* PANEL: COMMENTS */}
+                                {activeTab === 'Comments' && (
+                                    <div className="bg-white rounded-2xl  border border-gray-150 p-6 space-y-6">
+                                        <div className="space-y-4">
+                                            <div className="flex gap-3.5 pb-4 border-b border-gray-100 text-left">
+                                                <Avatar className="w-8.5 h-8.5 border border-gray-100  flex-shrink-0">
+                                                    <AvatarFallback className="text-[10px] font-bold bg-indigo-600 text-white">JD</AvatarFallback>
+                                                </Avatar>
+                                                <div className="flex-1">
+                                                    <div className="flex items-center justify-between mb-1.5">
+                                                        <p className="text-xs font-bold text-gray-900">John Doe (Engineering Lead)</p>
+                                                        <p className="text-[9px] font-bold text-gray-400">2 days ago</p>
+                                                    </div>
+                                                    <p className="text-xs font-medium text-gray-650 leading-relaxed">
+                                                        Very strong coding background. CV demonstrates deep expertise in web performance tuning and modular React architectures. Highly recommend phone screening.
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                            <div className="flex gap-3.5 pb-4 border-b border-gray-100 text-left">
+                                                <Avatar className="w-8.5 h-8.5 border border-gray-100  flex-shrink-0">
+                                                    <AvatarFallback className="text-[10px] font-bold bg-purple-600 text-white">SM</AvatarFallback>
+                                                </Avatar>
+                                                <div className="flex-1">
+                                                    <div className="flex items-center justify-between mb-1.5">
+                                                        <p className="text-xs font-bold text-gray-900">Sarah Miller (Recruiting Manager)</p>
+                                                        <p className="text-[9px] font-bold text-gray-400">5 days ago</p>
+                                                    </div>
+                                                    <p className="text-xs font-medium text-gray-650 leading-relaxed">
+                                                        Vetting question responses show outstanding alignment with our culture and values. Clear, professional communicator.
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {/* Add Comment Form */}
+                                        <div className="pt-2 text-left">
+                                            <h4 className="text-xs font-bold text-gray-900 mb-3 uppercase tracking-wider">Add Internal Feedback</h4>
+                                            <div className="flex gap-3">
+                                                <Avatar className="w-8 h-8 border border-gray-100  flex-shrink-0">
+                                                    <AvatarFallback className="text-[10px] font-bold bg-gray-200 text-gray-650">YO</AvatarFallback>
+                                                </Avatar>
+                                                <div className="flex-1">
+                                                    <textarea
+                                                        value={comment}
+                                                        onChange={(e) => setComment(e.target.value)}
+                                                        placeholder="Write a comment about this applicant..."
+                                                        className="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-xs resize-none focus:outline-none focus:ring-2 focus:ring-[#800020]/20 focus:border-[#800020] transition-all bg-white"
+                                                        rows={3}
+                                                    />
+                                                    <div className="mt-3 flex justify-end">
+                                                        <button
+                                                            onClick={handlePostComment}
+                                                            className="px-5 py-2 bg-[#800020] text-white rounded-xl hover:bg-[#600018] transition-colors text-xs font-bold  cursor-pointer disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed"
+                                                            disabled={!comment.trim()}
+                                                        >
+                                                            Post Comment
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* PANEL: EMAILS */}
+                                {activeTab === 'Emails' && (
+                                    <div className="bg-white rounded-2xl  border border-gray-150 p-6 space-y-6">
+                                        <div className="space-y-4">
+                                            <div className="pb-4 border-b border-gray-100 text-left">
+                                                <div className="flex justify-between items-start mb-2">
+                                                    <div className="flex items-center gap-2">
+                                                        <Mail className="w-4 h-4 text-[#800020]" />
+                                                        <h4 className="text-xs font-bold text-gray-950">Application Confirmation</h4>
+                                                    </div>
+                                                    <span className="text-[9px] font-bold text-gray-400">{appliedDate}</span>
+                                                </div>
+                                                <p className="text-xs text-gray-700 font-semibold mb-1">
+                                                    <strong>Subject:</strong> Thank you for your application
+                                                </p>
+                                                <p className="text-[11px] text-gray-500 leading-normal font-medium">
+                                                    Dear {editedName}, thank you for your application to the role. We will review your profile and get back to you soon.
+                                                </p>
+                                            </div>
+
+                                            <div className="pb-4 border-b border-gray-100 text-left">
+                                                <div className="flex justify-between items-start mb-2">
+                                                    <div className="flex items-center gap-2">
+                                                        <Mail className="w-4 h-4 text-indigo-500" />
+                                                        <h4 className="text-xs font-bold text-gray-950">Shortlist Notification</h4>
+                                                    </div>
+                                                    <span className="text-[9px] font-bold text-gray-400">2 weeks ago</span>
+                                                </div>
+                                                <p className="text-xs text-gray-700 font-semibold mb-1">
+                                                    <strong>Subject:</strong> Congratulations - You have been shortlisted
+                                                </p>
+                                                <p className="text-[11px] text-gray-500 leading-normal font-medium">
+                                                    We are pleased to inform you that your profile has been shortlisted for the next stage of our technical vetting round.
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        {/* Compose Email Form */}
+                                        <div className="pt-2 text-left">
+                                            <h4 className="text-xs font-bold text-gray-900 mb-4 uppercase tracking-wider flex items-center gap-1.5">
+                                                <Send className="w-4 h-4 text-[#800020]" />
+                                                Compose Email to Applicant
+                                            </h4>
+                                            <div className="space-y-3">
+                                                <div>
+                                                    <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-wide mb-1.5">To</label>
+                                                    <input
+                                                        type="email"
+                                                        disabled
+                                                        value={editedEmail}
+                                                        className="w-full p-3 border border-gray-150 rounded-xl text-xs bg-gray-50 text-gray-500 font-semibold cursor-not-allowed"
+                                                    />
+                                                </div>
+                                                <div>
+                                                    <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-wide mb-1.5">Subject</label>
+                                                    <input
+                                                        type="text"
+                                                        placeholder="e.g. Schedule for Screening Call"
+                                                        value={emailSubject}
+                                                        onChange={(e) => setEmailSubject(e.target.value)}
+                                                        className="w-full p-3 border border-gray-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-[#800020]/20 focus:border-[#800020] transition-all bg-white"
+                                                    />
+                                                </div>
+                                                <div>
+                                                    <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-wide mb-1.5">Message Body</label>
+                                                    <textarea
+                                                        placeholder="Write your email message here..."
+                                                        value={emailBody}
+                                                        onChange={(e) => setEmailBody(e.target.value)}
+                                                        className="w-full p-3 border border-gray-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-[#800020]/20 focus:border-[#800020] transition-all bg-white resize-none"
+                                                        rows={4.5}
+                                                    />
+                                                </div>
+                                                <div className="flex justify-end pt-2">
+                                                    <button
+                                                        onClick={handleSendEmail}
+                                                        className="px-5 py-2.5 bg-[#800020] text-white rounded-xl hover:bg-[#600018] transition-colors text-xs font-bold  cursor-pointer flex items-center gap-1.5"
+                                                    >
+                                                        <Send className="w-3.5 h-3.5" />
+                                                        Send Email
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
+                            </motion.div>
+                        </AnimatePresence>
                     </div>
                 </div>
             </div>
 
-            {/* MODALS */}
+            {/* WORKFLOW MODALS */}
 
-            {/* Hire Modal */}
+            {/* Hire Confirmation Modal */}
             {isHireModalOpen && (
-                <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-                    <div className="bg-white rounded-2xl max-w-md w-full p-6 shadow-xl border border-gray-100 animate-in fade-in zoom-in-95 duration-200">
-                        <div className="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto mb-4 shadow-sm">
+                <div className="fixed inset-0 bg-black/50 backdrop-blur-xs flex items-center justify-center z-50 p-4">
+                    <div className="bg-white rounded-2xl max-w-md w-full p-6  border border-gray-100 animate-in fade-in zoom-in-95 duration-200">
+                        <div className="w-12 h-12 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center mx-auto mb-4 border border-emerald-100 ">
                             <CheckCircle className="w-6 h-6" />
                         </div>
-                        <h3 className="text-xl font-bold text-center text-gray-900 mb-1">Hire Candidate</h3>
-                        <p className="text-sm text-gray-500 text-center mb-6">Confirm offer details and initiate onboarding for {editedName}</p>
+                        <h3 className="text-lg font-bold text-center text-gray-950 mb-1">Confirm Hiring Offer</h3>
+                        <p className="text-xs text-gray-500 text-center mb-6">Set job offer details for {editedName}</p>
 
-                        <div className="space-y-4 mb-6">
+                        <div className="space-y-4 mb-6 text-left">
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">Annual Salary Offer</label>
+                                <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-wide mb-1.5">Annual Salary (Gross)</label>
                                 <input
                                     type="text"
                                     value={hireSalary}
                                     onChange={(e) => setHireSalary(e.target.value)}
-                                    className="w-full p-3 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#800020]"
-                                    placeholder="e.g. €85,000"
+                                    className="w-full p-3 border border-gray-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-[#800020]/20 focus:border-[#800020]"
                                 />
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">Proposed Start Date</label>
+                                <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-wide mb-1.5">Proposed Start Date</label>
                                 <input
                                     type="date"
                                     value={hireDate}
                                     onChange={(e) => setHireDate(e.target.value)}
-                                    className="w-full p-3 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#800020]"
+                                    className="w-full p-3 border border-gray-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-[#800020]/20 focus:border-[#800020]"
                                 />
                             </div>
-                            <label className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg border border-gray-200/80 cursor-pointer">
+                            <label className="flex items-center gap-3 p-3 bg-gray-50 rounded-xl border border-gray-200/80 cursor-pointer select-none">
                                 <input
                                     type="checkbox"
                                     checked={sendWelcomeEmail}
                                     onChange={(e) => setSendWelcomeEmail(e.target.checked)}
-                                    className="w-4 h-4 text-[#800020] rounded"
+                                    className="w-4 h-4 text-[#800020] rounded border-gray-300 focus:ring-[#800020]/20"
                                 />
-                                <span className="text-sm text-gray-700 font-medium">Send automated welcome & onboarding email</span>
+                                <span className="text-xs text-gray-700 font-semibold">Send automated onboarding welcome pack</span>
                             </label>
                         </div>
 
-                        <div className="flex gap-3">
+                        <div className="flex gap-3 pt-4 border-t border-gray-100">
                             <button
                                 onClick={() => setIsHireModalOpen(false)}
-                                className="flex-1 px-4 py-2.5 border border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition-colors cursor-pointer text-sm"
+                                className="flex-1 px-4 py-2.5 border border-gray-255 text-gray-600 rounded-xl font-semibold hover:bg-gray-50 text-xs cursor-pointer"
                             >
                                 Cancel
                             </button>
                             <button
                                 onClick={() => {
-                                    setCandidateStatus('Hired');
+                                    setApplicantStatus('Hired');
                                     setIsHireModalOpen(false);
-                                    alert(`Successfully hired ${editedName}! Offer letter and welcome pack sent.`);
+                                    toast.success(`Successfully hired ${editedName}! Welcome onboarding pack sent.`);
                                 }}
-                                className="flex-1 px-4 py-2.5 bg-[#800020] text-white rounded-lg font-medium hover:bg-[#600018] transition-colors cursor-pointer shadow-sm text-sm"
+                                className="flex-1 px-4 py-2.5 bg-emerald-600 text-white rounded-xl font-semibold hover:bg-emerald-750 transition-colors cursor-pointer  text-xs"
                             >
                                 Confirm Hire
                             </button>
@@ -838,23 +847,23 @@ export function ApplicantProfile({ onBack, applicant }: ApplicantProfileProps) {
                 </div>
             )}
 
-            {/* Reject Modal */}
+            {/* Reject Confirmation Modal */}
             {isRejectModalOpen && (
-                <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-                    <div className="bg-white rounded-2xl max-w-md w-full p-6 shadow-xl border border-gray-100 animate-in fade-in zoom-in-95 duration-200">
-                        <div className="w-12 h-12 rounded-full bg-red-100 text-red-600 flex items-center justify-center mx-auto mb-4 shadow-sm">
+                <div className="fixed inset-0 bg-black/50 backdrop-blur-xs flex items-center justify-center z-50 p-4">
+                    <div className="bg-white rounded-2xl max-w-md w-full p-6  border border-gray-100 animate-in fade-in zoom-in-95 duration-200">
+                        <div className="w-12 h-12 rounded-full bg-rose-50 text-rose-600 flex items-center justify-center mx-auto mb-4 border border-rose-150 ">
                             <XCircle className="w-6 h-6" />
                         </div>
-                        <h3 className="text-xl font-bold text-center text-gray-900 mb-1">Reject Candidate</h3>
-                        <p className="text-sm text-gray-500 text-center mb-6">Select a reason and notify {editedName}</p>
+                        <h3 className="text-lg font-bold text-center text-gray-950 mb-1">Reject Applicant</h3>
+                        <p className="text-xs text-gray-500 text-center mb-6">Notify {editedName} about application status</p>
 
-                        <div className="space-y-4 mb-6">
+                        <div className="space-y-4 mb-6 text-left">
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">Reason for Rejection</label>
+                                <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-wide mb-1.5">Reason for Rejection</label>
                                 <select
                                     value={rejectReason}
                                     onChange={(e) => setRejectReason(e.target.value)}
-                                    className="w-full p-3 border border-gray-300 rounded-lg text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[#800020]"
+                                    className="w-full p-3 border border-gray-200 rounded-xl text-xs bg-white focus:outline-none focus:ring-2 focus:ring-[#800020]/20"
                                 >
                                     <option value="Position Filled">Position Filled</option>
                                     <option value="Experience Mismatch">Experience Mismatch</option>
@@ -864,39 +873,39 @@ export function ApplicantProfile({ onBack, applicant }: ApplicantProfileProps) {
                                 </select>
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">Internal Note / Feedback</label>
+                                <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-wide mb-1.5">Internal Feedback Note</label>
                                 <textarea
                                     value={rejectNote}
                                     onChange={(e) => setRejectNote(e.target.value)}
                                     rows={3}
-                                    className="w-full p-3 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#800020] resize-none"
+                                    className="w-full p-3 border border-gray-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-[#800020]/20 resize-none"
                                 />
                             </div>
-                            <label className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg border border-gray-200/80 cursor-pointer">
+                            <label className="flex items-center gap-3 p-3 bg-gray-50 rounded-xl border border-gray-200/80 cursor-pointer select-none">
                                 <input
                                     type="checkbox"
                                     checked={sendRejectEmail}
                                     onChange={(e) => setSendRejectEmail(e.target.checked)}
-                                    className="w-4 h-4 text-[#800020] rounded"
+                                    className="w-4 h-4 text-[#800020] rounded border-gray-300 focus:ring-[#800020]/20"
                                 />
-                                <span className="text-sm text-gray-700 font-medium">Send polite automated rejection email</span>
+                                <span className="text-xs text-gray-700 font-semibold">Send automated polite rejection email</span>
                             </label>
                         </div>
 
-                        <div className="flex gap-3">
+                        <div className="flex gap-3 pt-4 border-t border-gray-100">
                             <button
                                 onClick={() => setIsRejectModalOpen(false)}
-                                className="flex-1 px-4 py-2.5 border border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition-colors cursor-pointer text-sm"
+                                className="flex-1 px-4 py-2.5 border border-gray-255 text-gray-600 rounded-xl font-semibold hover:bg-gray-50 text-xs cursor-pointer"
                             >
                                 Cancel
                             </button>
                             <button
                                 onClick={() => {
-                                    setCandidateStatus('Rejected');
+                                    setApplicantStatus('Rejected');
                                     setIsRejectModalOpen(false);
-                                    alert(`Candidate ${editedName} has been rejected.`);
+                                    toast.error(`Applicant ${editedName} has been rejected.`);
                                 }}
-                                className="flex-1 px-4 py-2.5 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 transition-colors cursor-pointer shadow-sm text-sm"
+                                className="flex-1 px-4 py-2.5 bg-rose-600 hover:bg-rose-700 text-white rounded-xl font-semibold transition-colors cursor-pointer  text-xs"
                             >
                                 Confirm Rejection
                             </button>
@@ -905,37 +914,37 @@ export function ApplicantProfile({ onBack, applicant }: ApplicantProfileProps) {
                 </div>
             )}
 
-            {/* More Options Modal */}
+            {/* More Options Menu Dialog */}
             {isMoreOptionsModalOpen && (
-                <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-                    <div className="bg-white rounded-2xl max-w-xl w-full p-6 shadow-xl border border-gray-100 animate-in fade-in zoom-in-95 duration-200">
+                <div className="fixed inset-0 bg-black/50 backdrop-blur-xs flex items-center justify-center z-50 p-4">
+                    <div className="bg-white rounded-2xl max-w-xl w-full p-6  border border-gray-100 animate-in fade-in zoom-in-95 duration-200">
                         <div className="flex justify-between items-center mb-6 border-b border-gray-100 pb-4">
-                            <div>
-                                <h3 className="text-xl font-bold text-gray-900 mb-1">More Options & Actions</h3>
-                                <p className="text-sm text-gray-500">Perform administrative workflow actions for {editedName}</p>
+                            <div className="text-left">
+                                <h3 className="text-base font-bold text-gray-950 mb-0.5">Workflow Operations</h3>
+                                <p className="text-xs text-gray-500">Perform administrative actions for {editedName}</p>
                             </div>
                             <button 
                                 onClick={() => setIsMoreOptionsModalOpen(false)}
                                 className="text-gray-400 hover:text-gray-600 p-1 cursor-pointer"
                             >
-                                <XCircle className="w-6 h-6" />
+                                <XCircle className="w-5 h-5" />
                             </button>
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
                             <button
                                 onClick={() => {
                                     setIsMoreOptionsModalOpen(false);
                                     setIsEditModalOpen(true);
                                 }}
-                                className="p-4 border border-gray-200 rounded-xl hover:border-[#800020] hover:bg-rose-50/20 text-left transition-all flex items-start gap-4 cursor-pointer group bg-white"
+                                className="p-4 border border-gray-200 rounded-2xl hover:border-[#800020] hover:bg-rose-50/10 text-left transition-all flex items-start gap-3 bg-white cursor-pointer group"
                             >
-                                <div className="p-2.5 bg-gray-100 group-hover:bg-[#800020] group-hover:text-white rounded-lg text-gray-600 transition-colors flex-shrink-0">
-                                    <Edit className="w-5 h-5" />
+                                <div className="p-2 bg-gray-100 group-hover:bg-[#800020] group-hover:text-white rounded-xl text-gray-500 transition-colors flex-shrink-0">
+                                    <Edit className="w-4 h-4" />
                                 </div>
                                 <div>
-                                    <h4 className="font-semibold text-gray-900 group-hover:text-[#800020] mb-0.5 text-sm">Edit Details</h4>
-                                    <p className="text-xs text-gray-500">Update contact info, role, and details</p>
+                                    <h4 className="font-bold text-xs text-gray-900 group-hover:text-[#800020] mb-0.5">Edit Info</h4>
+                                    <p className="text-[10px] text-gray-400 leading-tight">Update email, phone, and role details</p>
                                 </div>
                             </button>
 
@@ -944,162 +953,128 @@ export function ApplicantProfile({ onBack, applicant }: ApplicantProfileProps) {
                                     setIsMoreOptionsModalOpen(false);
                                     setIsStageModalOpen(true);
                                 }}
-                                className="p-4 border border-gray-200 rounded-xl hover:border-[#800020] hover:bg-rose-50/20 text-left transition-all flex items-start gap-4 cursor-pointer group bg-white"
+                                className="p-4 border border-gray-200 rounded-2xl hover:border-[#800020] hover:bg-rose-50/10 text-left transition-all flex items-start gap-3 bg-white cursor-pointer group"
                             >
-                                <div className="p-2.5 bg-gray-100 group-hover:bg-[#800020] group-hover:text-white rounded-lg text-gray-600 transition-colors flex-shrink-0">
-                                    <Send className="w-5 h-5" />
+                                <div className="p-2 bg-gray-100 group-hover:bg-[#800020] group-hover:text-white rounded-xl text-gray-500 transition-colors flex-shrink-0">
+                                    <Send className="w-4 h-4" />
                                 </div>
                                 <div>
-                                    <h4 className="font-semibold text-gray-900 group-hover:text-[#800020] mb-0.5 text-sm">Update Stage</h4>
-                                    <p className="text-xs text-gray-500">Move candidate across hiring steps</p>
+                                    <h4 className="font-bold text-xs text-gray-900 group-hover:text-[#800020] mb-0.5">Change Stage</h4>
+                                    <p className="text-[10px] text-gray-400 leading-tight">Manually advance applicant workflow</p>
                                 </div>
                             </button>
 
                             <button
                                 onClick={() => {
                                     setIsMoreOptionsModalOpen(false);
-                                    alert("Interview scheduler dialog opened successfully.");
+                                    handleScheduleInterview();
                                 }}
-                                className="p-4 border border-gray-200 rounded-xl hover:border-[#800020] hover:bg-rose-50/20 text-left transition-all flex items-start gap-4 cursor-pointer group bg-white"
+                                className="p-4 border border-gray-200 rounded-2xl hover:border-[#800020] hover:bg-rose-50/10 text-left transition-all flex items-start gap-3 bg-white cursor-pointer group"
                             >
-                                <div className="p-2.5 bg-gray-100 group-hover:bg-[#800020] group-hover:text-white rounded-lg text-gray-600 transition-colors flex-shrink-0">
-                                    <Calendar className="w-5 h-5" />
+                                <div className="p-2 bg-gray-100 group-hover:bg-[#800020] group-hover:text-white rounded-xl text-gray-500 transition-colors flex-shrink-0">
+                                    <Calendar className="w-4 h-4" />
                                 </div>
                                 <div>
-                                    <h4 className="font-semibold text-gray-900 group-hover:text-[#800020] mb-0.5 text-sm">Schedule Interview</h4>
-                                    <p className="text-xs text-gray-500">Book phone or in-person interview</p>
+                                    <h4 className="font-bold text-xs text-gray-900 group-hover:text-[#800020] mb-0.5">Schedule Vetting</h4>
+                                    <p className="text-[10px] text-gray-400 leading-tight">Book phone or technical video call</p>
                                 </div>
                             </button>
 
                             <button
                                 onClick={() => {
                                     setIsMoreOptionsModalOpen(false);
-                                    alert("Background check requested successfully.");
+                                    toast.success("Background reference check requested successfully.");
                                 }}
-                                className="p-4 border border-gray-200 rounded-xl hover:border-[#800020] hover:bg-rose-50/20 text-left transition-all flex items-start gap-4 cursor-pointer group bg-white"
+                                className="p-4 border border-gray-200 rounded-2xl hover:border-[#800020] hover:bg-rose-50/10 text-left transition-all flex items-start gap-3 bg-white cursor-pointer group"
                             >
-                                <div className="p-2.5 bg-gray-100 group-hover:bg-[#800020] group-hover:text-white rounded-lg text-gray-600 transition-colors flex-shrink-0">
-                                    <Award className="w-5 h-5" />
+                                <div className="p-2 bg-gray-100 group-hover:bg-[#800020] group-hover:text-white rounded-xl text-gray-500 transition-colors flex-shrink-0">
+                                    <Award className="w-4 h-4" />
                                 </div>
                                 <div>
-                                    <h4 className="font-semibold text-gray-900 group-hover:text-[#800020] mb-0.5 text-sm">Background Check</h4>
-                                    <p className="text-xs text-gray-500">Initiate compliance and verification</p>
-                                </div>
-                            </button>
-
-                            <button
-                                onClick={() => {
-                                    setIsMoreOptionsModalOpen(false);
-                                    alert("Candidate profile and notes exported as PDF successfully.");
-                                }}
-                                className="p-4 border border-gray-200 rounded-xl hover:border-[#800020] hover:bg-rose-50/20 text-left transition-all flex items-start gap-4 cursor-pointer group bg-white"
-                            >
-                                <div className="p-2.5 bg-gray-100 group-hover:bg-[#800020] group-hover:text-white rounded-lg text-gray-600 transition-colors flex-shrink-0">
-                                    <FileText className="w-5 h-5" />
-                                </div>
-                                <div>
-                                    <h4 className="font-semibold text-gray-900 group-hover:text-[#800020] mb-0.5 text-sm">Export Profile</h4>
-                                    <p className="text-xs text-gray-500">Download CV, notes, and activity log</p>
-                                </div>
-                            </button>
-
-                            <button
-                                onClick={() => {
-                                    setIsMoreOptionsModalOpen(false);
-                                    if (confirm(`Are you sure you want to archive/delete ${editedName}?`)) {
-                                        alert("Candidate successfully archived.");
-                                    }
-                                }}
-                                className="p-4 border border-gray-200 rounded-xl hover:border-red-600 hover:bg-red-50/20 text-left transition-all flex items-start gap-4 cursor-pointer group bg-white"
-                            >
-                                <div className="p-2.5 bg-gray-100 group-hover:bg-red-600 group-hover:text-white rounded-lg text-gray-600 transition-colors flex-shrink-0">
-                                    <Trash2 className="w-5 h-5" />
-                                </div>
-                                <div>
-                                    <h4 className="font-semibold text-gray-900 group-hover:text-red-600 mb-0.5 text-sm">Delete / Archive</h4>
-                                    <p className="text-xs text-gray-500">Remove candidate from active pipeline</p>
+                                    <h4 className="font-bold text-xs text-gray-900 group-hover:text-[#800020] mb-0.5">Reference Checks</h4>
+                                    <p className="text-[10px] text-gray-400 leading-tight">Request verification of career history</p>
                                 </div>
                             </button>
                         </div>
 
-                        <div className="flex justify-end">
+                        <div className="flex justify-end pt-4 border-t border-gray-100">
                             <button
                                 onClick={() => setIsMoreOptionsModalOpen(false)}
-                                className="px-6 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg text-sm transition-colors cursor-pointer"
+                                className="px-5 py-2 bg-gray-100 hover:bg-gray-200 text-gray-650 font-bold rounded-xl text-xs transition-colors cursor-pointer"
                             >
-                                Close Options
+                                Close Operations
                             </button>
                         </div>
                     </div>
                 </div>
             )}
 
-            {/* Edit Candidate Details Modal */}
+            {/* Edit Details Form Dialog */}
             {isEditModalOpen && (
-                <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-                    <div className="bg-white rounded-2xl max-w-md w-full p-6 shadow-xl border border-gray-100 animate-in fade-in zoom-in-95 duration-200">
+                <div className="fixed inset-0 bg-black/50 backdrop-blur-xs flex items-center justify-center z-50 p-4">
+                    <div className="bg-white rounded-2xl max-w-md w-full p-6  border border-gray-100 animate-in fade-in zoom-in-95 duration-200">
                         <div className="flex justify-between items-center mb-6 border-b border-gray-100 pb-4">
-                            <h3 className="text-xl font-bold text-gray-900">Edit Candidate Details</h3>
+                            <h3 className="text-base font-bold text-gray-950">Edit Details</h3>
                             <button 
                                 onClick={() => setIsEditModalOpen(false)}
                                 className="text-gray-400 hover:text-gray-600 cursor-pointer"
                             >
-                                <XCircle className="w-6 h-6" />
+                                <XCircle className="w-5 h-5" />
                             </button>
                         </div>
 
-                        <div className="space-y-4 mb-6">
+                        <div className="space-y-4 mb-6 text-left">
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                                <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-wide mb-1.5">Full Name</label>
                                 <input
                                     type="text"
                                     value={editedName}
                                     onChange={(e) => setEditedName(e.target.value)}
-                                    className="w-full p-3 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#800020]"
+                                    className="w-full p-3 border border-gray-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-[#800020]/20 focus:border-[#800020]"
                                 />
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                                <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-wide mb-1.5">Email Address</label>
                                 <input
                                     type="email"
                                     value={editedEmail}
                                     onChange={(e) => setEditedEmail(e.target.value)}
-                                    className="w-full p-3 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#800020]"
+                                    className="w-full p-3 border border-gray-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-[#800020]/20 focus:border-[#800020]"
                                 />
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                                <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-wide mb-1.5">Phone Number</label>
                                 <input
                                     type="tel"
                                     value={editedPhone}
                                     onChange={(e) => setEditedPhone(e.target.value)}
-                                    className="w-full p-3 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#800020]"
+                                    className="w-full p-3 border border-gray-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-[#800020]/20 focus:border-[#800020]"
                                 />
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">Applied Role</label>
+                                <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-wide mb-1.5">Role / Title</label>
                                 <input
                                     type="text"
                                     value={editedRole}
                                     onChange={(e) => setEditedRole(e.target.value)}
-                                    className="w-full p-3 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#800020]"
+                                    className="w-full p-3 border border-gray-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-[#800020]/20 focus:border-[#800020]"
                                 />
                             </div>
                         </div>
 
-                        <div className="flex gap-3">
+                        <div className="flex gap-3 pt-4 border-t border-gray-100">
                             <button
                                 onClick={() => setIsEditModalOpen(false)}
-                                className="flex-1 px-4 py-2.5 border border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition-colors cursor-pointer text-sm"
+                                className="flex-1 px-4 py-2.5 border border-gray-255 text-gray-650 rounded-xl font-semibold hover:bg-gray-50 text-xs cursor-pointer"
                             >
                                 Cancel
                             </button>
                             <button
                                 onClick={() => {
                                     setIsEditModalOpen(false);
-                                    alert("Candidate details updated successfully.");
+                                    toast.success("Applicant details updated successfully!");
                                 }}
-                                className="flex-1 px-4 py-2.5 bg-[#800020] text-white rounded-lg font-medium hover:bg-[#600018] transition-colors cursor-pointer shadow-sm text-sm"
+                                className="flex-1 px-4 py-2.5 bg-[#800020] hover:bg-[#600018] text-white rounded-xl font-semibold transition-colors cursor-pointer  text-xs"
                             >
                                 Save Changes
                             </button>
@@ -1108,53 +1083,54 @@ export function ApplicantProfile({ onBack, applicant }: ApplicantProfileProps) {
                 </div>
             )}
 
-            {/* Update Pipeline Stage Modal */}
+            {/* Update Workflow Stage Dialog */}
             {isStageModalOpen && (
-                <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-                    <div className="bg-white rounded-2xl max-w-md w-full p-6 shadow-xl border border-gray-100 animate-in fade-in zoom-in-95 duration-200">
+                <div className="fixed inset-0 bg-black/50 backdrop-blur-xs flex items-center justify-center z-50 p-4">
+                    <div className="bg-white rounded-2xl max-w-md w-full p-6  border border-gray-100 animate-in fade-in zoom-in-95 duration-200">
                         <div className="flex justify-between items-center mb-6 border-b border-gray-100 pb-4">
-                            <h3 className="text-xl font-bold text-gray-900">Update Pipeline Stage</h3>
+                            <h3 className="text-lg font-bold text-gray-950">Update Pipeline Stage</h3>
                             <button 
                                 onClick={() => setIsStageModalOpen(false)}
                                 className="text-gray-400 hover:text-gray-600 cursor-pointer"
                             >
-                                <XCircle className="w-6 h-6" />
+                                <XCircle className="w-5 h-5" />
                             </button>
                         </div>
 
-                        <div className="space-y-4 mb-6">
+                        <div className="space-y-4 mb-6 text-left">
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">Select Target Workflow Stage</label>
+                                <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-wide mb-2">Select Target Stage</label>
                                 <select
                                     value={selectedStage}
                                     onChange={(e) => setSelectedStage(e.target.value)}
-                                    className="w-full p-3 border border-gray-300 rounded-lg text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[#800020]"
+                                    className="w-full p-3 border border-gray-200 rounded-xl text-xs bg-white focus:outline-none focus:ring-2 focus:ring-[#800020]/20"
                                 >
-                                    <option value="Filter Candidate">Filter Candidate</option>
+                                    <option value="Filter">Filter</option>
                                     <option value="Shortlisted">Shortlisted</option>
                                     <option value="Phone Screen">Phone Screen</option>
-                                    <option value="In-depth Interview">In-depth Interview</option>
-                                    <option value="Interview Attended">Interview Attended</option>
+                                    <option value="Technical Round">Technical Round</option>
+                                    <option value="Panel Interview">Panel Interview</option>
+                                    <option value="Executive Round">Executive Round</option>
                                     <option value="Offering">Offering</option>
                                     <option value="Hired">Hired</option>
                                 </select>
                             </div>
                         </div>
 
-                        <div className="flex gap-3">
+                        <div className="flex gap-3 pt-4 border-t border-gray-100">
                             <button
                                 onClick={() => setIsStageModalOpen(false)}
-                                className="flex-1 px-4 py-2.5 border border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition-colors cursor-pointer text-sm"
+                                className="flex-1 px-4 py-2.5 border border-gray-255 text-gray-650 rounded-xl font-semibold hover:bg-gray-50 text-xs cursor-pointer"
                             >
                                 Cancel
                             </button>
                             <button
                                 onClick={() => {
-                                    setCandidateStatus(selectedStage);
+                                    setApplicantStatus(selectedStage);
                                     setIsStageModalOpen(false);
-                                    alert(`Candidate stage updated to ${selectedStage}.`);
+                                    toast.success(`Workflow stage updated to: ${selectedStage}`);
                                 }}
-                                className="flex-1 px-4 py-2.5 bg-[#800020] text-white rounded-lg font-medium hover:bg-[#600018] transition-colors cursor-pointer shadow-sm text-sm"
+                                className="flex-1 px-4 py-2.5 bg-[#800020] hover:bg-[#600018] text-white rounded-xl font-semibold transition-colors cursor-pointer  text-xs"
                             >
                                 Update Stage
                             </button>
@@ -1165,3 +1141,6 @@ export function ApplicantProfile({ onBack, applicant }: ApplicantProfileProps) {
         </div>
     );
 }
+
+
+

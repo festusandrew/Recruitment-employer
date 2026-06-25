@@ -77,7 +77,7 @@ export function BulkJobActionsModal({ isOpen, onClose, selectedCount, onApply }:
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-            <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl overflow-hidden">
+            <div className="bg-white rounded-2xl  w-full max-w-2xl overflow-hidden">
                 {/* Header */}
                 <div className="flex items-center justify-between p-6 border-b border-gray-200">
                     <div>
@@ -166,3 +166,6 @@ export function BulkJobActionsModal({ isOpen, onClose, selectedCount, onApply }:
         </div>
     );
 }
+
+
+

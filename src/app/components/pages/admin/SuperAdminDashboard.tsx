@@ -282,7 +282,7 @@ export function SuperAdminDashboard() {
                     return (
                         <div
                             key={index}
-                            className="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow"
+                            className="bg-white border border-gray-200 rounded-lg p-6 hover: transition-shadow"
                         >
                             <div className="flex items-center justify-between mb-4">
                                 <div className={`w-12 h-12 ${stat.color} rounded-lg flex items-center justify-center`}>
@@ -348,7 +348,7 @@ export function SuperAdminDashboard() {
                                     <tr key={company.id} className="hover:bg-gray-50">
                                         <td className="px-6 py-4 whitespace-nowrap">
                                             <div className="flex items-center gap-3">
-                                                <div className="w-10 h-10 bg-gradient-to-br from-[#7C3AED] to-[#9333EA] rounded-lg flex items-center justify-center">
+                                                <div className="w-10 h-10 bg-primary   rounded-lg flex items-center justify-center">
                                                     <span className="text-white text-sm">{company.logo}</span>
                                                 </div>
                                                 <div>
@@ -665,7 +665,7 @@ export function SuperAdminDashboard() {
                     return (
                         <div
                             key={index}
-                            className="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow"
+                            className="bg-white border border-gray-200 rounded-lg p-6 hover: transition-shadow"
                         >
                             <div className="flex items-center justify-between mb-4">
                                 <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
@@ -705,3 +705,5 @@ export function SuperAdminDashboard() {
         </div>
     );
 }
+
+

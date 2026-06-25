@@ -55,7 +55,7 @@ export function Sidebar({ activePage, onNavigate }: SidebarProps) {
             {/* Collapse/Expand Toggle Button */}
             <button
                 onClick={() => setIsCollapsed(!isCollapsed)}
-                className="absolute -right-3 top-7 z-[999] flex items-center justify-center w-6 h-6 rounded-full bg-[#600018] border border-gray-300 text-white hover:bg-[#A52A2A] transition-all shadow-md"
+                className="absolute -right-3 top-7 z-[999] flex items-center justify-center w-6 h-6 rounded-full bg-[#600018] border border-gray-300 text-white hover:bg-[#A52A2A] transition-all "
                 title={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
             >
                 {isCollapsed ? <ChevronRight className="w-3.5 h-3.5" /> : <ChevronLeft className="w-3.5 h-3.5" />}
@@ -63,7 +63,7 @@ export function Sidebar({ activePage, onNavigate }: SidebarProps) {
 
             {/* Brand Area */}
             <div className={`p-6 border-b border-[#600018] flex items-center ${isCollapsed ? "justify-center p-4" : "gap-3"}`}>
-                <div className="w-8 h-8 bg-gradient-to-br from-[#A52A2A] to-[#8B0000] rounded-lg flex items-center justify-center flex-shrink-0">
+                <div className="w-8 h-8 bg-primary   rounded-lg flex items-center justify-center flex-shrink-0">
                     <span className="text-white text-sm">OT</span>
                 </div>
                 {!isCollapsed && (
@@ -85,7 +85,7 @@ export function Sidebar({ activePage, onNavigate }: SidebarProps) {
                             onClick={() => onNavigate(item.page)}
                             className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200 group relative ${
                                 isActive
-                                    ? "bg-[#A52A2A] text-white shadow-sm"
+                                    ? "bg-[#A52A2A] text-white "
                                     : "text-gray-200 hover:bg-[#600018] hover:text-white"
                             } ${isCollapsed ? "justify-center px-0" : ""}`}
                             title={isCollapsed ? item.label : undefined}
@@ -114,7 +114,7 @@ export function Sidebar({ activePage, onNavigate }: SidebarProps) {
                             onClick={() => onNavigate(item.page)}
                             className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200 ${
                                 isActive
-                                    ? "bg-[#A52A2A] text-white shadow-sm"
+                                    ? "bg-[#A52A2A] text-white "
                                     : "text-gray-300 hover:bg-[#600018] hover:text-white"
                             } ${isCollapsed ? "justify-center px-0" : ""}`}
                             title={isCollapsed ? item.label : undefined}
@@ -153,3 +153,5 @@ export function Sidebar({ activePage, onNavigate }: SidebarProps) {
         </aside>
     );
 }
+
+

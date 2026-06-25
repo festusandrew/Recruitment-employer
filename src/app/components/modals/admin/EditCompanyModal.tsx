@@ -167,3 +167,5 @@ export function EditCompanyModal({ isOpen, onClose, company, onSave }: EditCompa
         </div>
     );
 }
+
+

@@ -59,7 +59,7 @@ export function SuspendCompanyModal({ isOpen, onClose, company, onConfirm }: Sus
                     {/* Company Info */}
                     <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
                         <div className="flex items-center gap-3">
-                            <div className="w-12 h-12 bg-gradient-to-br from-[#7C3AED] to-[#9333EA] rounded-lg flex items-center justify-center">
+                            <div className="w-12 h-12 bg-primary   rounded-lg flex items-center justify-center">
                                 <span className="text-white">{company.logo}</span>
                             </div>
                             <div>
@@ -161,3 +161,5 @@ export function SuspendCompanyModal({ isOpen, onClose, company, onConfirm }: Sus
         </div>
     );
 }
+
+

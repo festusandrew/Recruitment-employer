@@ -3,6 +3,7 @@ import {
     Save, Database, Mail, Shield, Bell, Palette, Globe,
     Server, Key, Lock, CheckCircle
 } from "lucide-react";
+import { toast } from "sonner";
 
 export function SystemSettings() {
     const [settings, setSettings] = useState({
@@ -19,7 +20,7 @@ export function SystemSettings() {
     });
 
     const handleSave = () => {
-        alert("Settings saved successfully!");
+        toast.success("Settings saved successfully!");
     };
 
     return (
@@ -249,3 +250,6 @@ export function SystemSettings() {
         </div>
     );
 }
+
+
+

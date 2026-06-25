@@ -32,7 +32,7 @@ export function ShareJobModal({ isOpen, onClose, jobTitle }: ShareJobModalProps)
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4" onClick={onClose}>
             <div 
-                className="bg-white rounded-2xl shadow-2xl w-full max-w-lg max-h-[85vh] flex flex-col overflow-hidden"
+                className="bg-white rounded-2xl  w-full max-w-lg max-h-[85vh] flex flex-col overflow-hidden"
                 onClick={(e) => e.stopPropagation()}
             >
                 {/* Header */}
@@ -169,3 +169,6 @@ export function ShareJobModal({ isOpen, onClose, jobTitle }: ShareJobModalProps)
         </div>
     );
 }
+
+
+
