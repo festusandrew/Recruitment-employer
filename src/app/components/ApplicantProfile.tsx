@@ -114,13 +114,13 @@ export function ApplicantProfile({ onBack, applicant }: ApplicantProfileProps) {
     return (
         <div className="flex h-[calc(100vh-73px)] bg-gray-50/40 relative overflow-hidden text-left w-full">
             {/* Left Panel - Applicant Information */}
-            <div className="w-80 bg-white border-r border-gray-200/60 flex flex-col overflow-y-auto no-scrollbar flex-shrink-0 ">
+            <div className="w-80 bg-white border-r border-slate-200/60 flex flex-col overflow-y-auto no-scrollbar flex-shrink-0 ">
                 
                 {/* Back Button & Header */}
                 <div className="p-6 border-b border-gray-150">
                     <button
                         onClick={onBack}
-                        className="flex items-center gap-2 text-xs font-bold text-gray-500 hover:text-gray-900 mb-5 transition-colors cursor-pointer select-none"
+                        className="flex items-center gap-2 text-xs font-bold text-slate-500 hover:text-slate-900 mb-5 transition-colors cursor-pointer select-none"
                     >
                         <ArrowLeft className="w-3.5 h-3.5" />
                         <span>Back to Applicants</span>
@@ -128,15 +128,15 @@ export function ApplicantProfile({ onBack, applicant }: ApplicantProfileProps) {
 
                     {/* Applicant Profile Card */}
                     <div className="flex items-start gap-3.5 mb-5">
-                        <div className="w-14 h-14 rounded-2xl bg-primary   flex items-center justify-center text-white text-base flex-shrink-0 font-bold  border border-white/10">
+                        <div className="w-14 h-14 rounded-2xl bg-indigo-600   flex items-center justify-center text-white text-base flex-shrink-0 font-bold  border border-white/10">
                             {applicantInitials}
                         </div>
                         <div className="flex-1 min-w-0">
-                            <h2 className="text-base font-bold text-gray-950 truncate leading-snug">{editedName}</h2>
-                            <p className="text-[10px] text-gray-400 font-semibold truncate uppercase tracking-wide mt-0.5">{editedRole}</p>
-                            <p className="text-[9px] text-gray-400 font-semibold mt-1">Applied {appliedDate}</p>
+                            <h2 className="text-base font-bold text-slate-900 truncate leading-snug">{editedName}</h2>
+                            <p className="text-[10px] text-slate-400 font-semibold truncate uppercase tracking-wide mt-0.5">{editedRole}</p>
+                            <p className="text-[9px] text-slate-400 font-semibold mt-1">Applied {appliedDate}</p>
                             
-                            <span className="inline-flex items-center mt-2.5 px-2 py-0.5 bg-rose-50/50 text-[#800020] rounded-lg text-[9px] font-bold border border-[#800020]/10">
+                            <span className="inline-flex items-center mt-2.5 px-2 py-0.5 bg-rose-50/50 text-indigo-600 rounded-lg text-[9px] font-bold border border-indigo-600/10">
                                 Active Applicant
                             </span>
                         </div>
@@ -168,9 +168,9 @@ export function ApplicantProfile({ onBack, applicant }: ApplicantProfileProps) {
                         onClick={() => setIsMoreOptionsModalOpen(true)}
                         whileHover={{ scale: 1.01 }}
                         whileTap={{ scale: 0.99 }}
-                        className="w-full py-2.5 border border-gray-200 text-gray-700 rounded-xl hover:bg-gray-50 transition-colors flex items-center justify-center gap-1.5 text-xs font-bold  bg-white cursor-pointer"
+                        className="w-full py-2.5 border border-slate-200 text-slate-700 rounded-xl hover:bg-gray-50 transition-colors flex items-center justify-center gap-1.5 text-xs font-bold  bg-white cursor-pointer"
                     >
-                        <MoreHorizontal className="w-4 h-4 text-gray-400" />
+                        <MoreHorizontal className="w-4 h-4 text-slate-400" />
                         Workflow Options
                     </motion.button>
                 </div>
@@ -199,25 +199,25 @@ export function ApplicantProfile({ onBack, applicant }: ApplicantProfileProps) {
                             />
                             <defs>
                                 <linearGradient id="maroonGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" stopColor="#800020" />
+                                    <stop offset="0%" stopColor="#005189" />
                                     <stop offset="100%" stopColor="#E9967A" />
                                 </linearGradient>
                             </defs>
                         </svg>
                         <div className="absolute inset-0 flex flex-col items-center justify-center">
-                            <span className="text-2xl font-black text-gray-900 tracking-tight leading-none">72</span>
-                            <span className="text-[8px] font-bold text-gray-400 uppercase tracking-widest mt-0.5">Match</span>
+                            <span className="text-2xl font-black text-slate-900 tracking-tight leading-none">72</span>
+                            <span className="text-[8px] font-bold text-slate-400 uppercase tracking-widest mt-0.5">Match</span>
                         </div>
                     </div>
 
-                    <div className="w-full space-y-2 text-[10px] font-bold text-gray-500 uppercase tracking-wider">
+                    <div className="w-full space-y-2 text-[10px] font-bold text-slate-500 uppercase tracking-wider">
                         <div className="flex justify-between items-center bg-white border border-gray-150 p-2 rounded-xl">
                             <span>CV Score</span>
-                            <span className="text-gray-900">54 / 100</span>
+                            <span className="text-slate-900">54 / 100</span>
                         </div>
                         <div className="flex justify-between items-center bg-white border border-gray-150 p-2 rounded-xl">
                             <span>Questionnaire</span>
-                            <span className="text-gray-900">91 / 100</span>
+                            <span className="text-slate-900">91 / 100</span>
                         </div>
                     </div>
                 </div>
@@ -227,13 +227,13 @@ export function ApplicantProfile({ onBack, applicant }: ApplicantProfileProps) {
                     <div className="space-y-3">
                         <div className="flex items-center gap-3 text-xs font-semibold">
                             <Mail className="w-4 h-4 text-gray-450 flex-shrink-0" />
-                            <a href={`mailto:${editedEmail}`} className="text-gray-700 hover:text-[#800020] transition-colors truncate">
+                            <a href={`mailto:${editedEmail}`} className="text-slate-700 hover:text-indigo-600 transition-colors truncate">
                                 {editedEmail}
                             </a>
                         </div>
                         <div className="flex items-center gap-3 text-xs font-semibold">
                             <Phone className="w-4 h-4 text-gray-450 flex-shrink-0" />
-                            <a href={`tel:${editedPhone}`} className="text-gray-700 hover:text-[#800020] transition-colors truncate">
+                            <a href={`tel:${editedPhone}`} className="text-slate-700 hover:text-indigo-600 transition-colors truncate">
                                 {editedPhone}
                             </a>
                         </div>
@@ -250,10 +250,10 @@ export function ApplicantProfile({ onBack, applicant }: ApplicantProfileProps) {
                 {/* Notes Section */}
                 <div className="p-6 border-b border-gray-150 bg-gray-50/20">
                     <div className="flex items-center justify-between mb-3">
-                        <h3 className="text-xs font-bold text-gray-900 uppercase tracking-wide">Internal Notes</h3>
+                        <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wide">Internal Notes</h3>
                         <button
                             onClick={handleSaveNotes}
-                            className="text-[#800020] hover:text-[#600018] transition-colors cursor-pointer"
+                            className="text-indigo-600 hover:text-indigo-800 transition-colors cursor-pointer"
                             title="Save Note"
                         >
                             <Check className="w-4 h-4" />
@@ -263,18 +263,18 @@ export function ApplicantProfile({ onBack, applicant }: ApplicantProfileProps) {
                         value={notes}
                         onChange={(e) => setNotes(e.target.value)}
                         placeholder="Add recruitment notes here..."
-                        className="w-full px-3 py-2.5 border border-gray-250 rounded-xl text-xs resize-none focus:outline-none focus:ring-2 focus:ring-[#800020]/20 focus:border-[#800020] transition-all bg-white"
+                        className="w-full px-3 py-2.5 border border-gray-250 rounded-xl text-xs resize-none focus:outline-none focus:ring-2 focus:ring-indigo-600/20 focus:border-indigo-600 transition-all bg-white"
                         rows={3.5}
                     />
                 </div>
 
                 {/* AI Insights Section */}
                 <div className="p-6">
-                    <h3 className="text-xs font-bold text-gray-955 uppercase tracking-wide flex items-center gap-1.5 mb-3">
-                        <Sparkles className="w-4 h-4 text-[#800020]" />
+                    <h3 className="text-xs font-bold text-slate-900 font-extrabold uppercase tracking-wide flex items-center gap-1.5 mb-3">
+                        <Sparkles className="w-4 h-4 text-indigo-600" />
                         A.I. Talent Insight
                     </h3>
-                    <div className="bg-rose-50/40 border border-rose-100 rounded-xl p-3 text-xs text-gray-700 font-medium leading-relaxed">
+                    <div className="bg-rose-50/40 border border-rose-100 rounded-xl p-3 text-xs text-slate-700 font-medium leading-relaxed">
                         <p className="mb-2">• Exceptional answers to role-specific vetting questionnaires.</p>
                         <p className="mb-2">• Resume matches 87% of the core design requirements.</p>
                         <p>• Highly recommended for deep technical review.</p>
@@ -286,12 +286,12 @@ export function ApplicantProfile({ onBack, applicant }: ApplicantProfileProps) {
             <div className="flex-1 flex flex-col overflow-hidden">
                 
                 {/* Hiring Flow Roadmap */}
-                <div className="bg-white border-b border-gray-200/60 px-6 py-4 flex-shrink-0 text-left">
+                <div className="bg-white border-b border-slate-200/60 px-6 py-4 flex-shrink-0 text-left">
                     <div className="flex items-center justify-between mb-3.5">
-                        <h3 className="text-xs font-bold text-gray-950 uppercase tracking-wider">Hiring Pipeline Stage</h3>
+                        <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider">Hiring Pipeline Stage</h3>
                         <button 
                             onClick={() => setIsStageModalOpen(true)}
-                            className="text-xs font-bold text-[#800020] hover:text-[#600018] transition-colors cursor-pointer"
+                            className="text-xs font-bold text-indigo-600 hover:text-indigo-800 transition-colors cursor-pointer"
                         >
                             Update Stage
                         </button>
@@ -313,10 +313,10 @@ export function ApplicantProfile({ onBack, applicant }: ApplicantProfileProps) {
                                             }}
                                             className={`w-7.5 h-7.5 rounded-full flex items-center justify-center transition-all duration-300  cursor-pointer ${
                                                 isCurrentStage 
-                                                    ? 'bg-[#800020] text-white ring-4 ring-[#800020]/20'
+                                                    ? 'bg-indigo-600 text-white ring-4 ring-indigo-600/20'
                                                     : isDone
-                                                        ? 'bg-[#800020]/80 text-white'
-                                                        : 'bg-gray-100 text-gray-400 hover:bg-gray-200'
+                                                        ? 'bg-indigo-600/80 text-white'
+                                                        : 'bg-gray-100 text-slate-400 hover:bg-gray-200'
                                             }`}
                                         >
                                             {isDone ? (
@@ -325,12 +325,12 @@ export function ApplicantProfile({ onBack, applicant }: ApplicantProfileProps) {
                                                 <span className="text-[10px] font-bold">{index + 1}</span>
                                             )}
                                         </button>
-                                        <span className="text-[9px] font-bold mt-1.5 text-gray-500 max-w-[85px] text-center truncate">
+                                        <span className="text-[9px] font-bold mt-1.5 text-slate-500 max-w-[85px] text-center truncate">
                                             {stage.name}
                                         </span>
                                     </div>
                                     {index < hiringStages.length - 1 && (
-                                        <div className={`w-6 h-0.5 rounded-full ${isDone ? 'bg-[#800020]/80' : 'bg-gray-150'} mb-5`} />
+                                        <div className={`w-6 h-0.5 rounded-full ${isDone ? 'bg-indigo-600/80' : 'bg-gray-150'} mb-5`} />
                                     )}
                                 </div>
                             );
@@ -350,13 +350,13 @@ export function ApplicantProfile({ onBack, applicant }: ApplicantProfileProps) {
                                     onClick={() => setActiveTab(tab)}
                                     className={`py-3.5 px-1 border-b-2 transition-all whitespace-nowrap text-xs font-bold relative cursor-pointer ${
                                         activeTab === tab
-                                            ? 'border-[#800020] text-[#800020]'
-                                            : 'border-transparent text-gray-500 hover:text-gray-900'
+                                            ? 'border-indigo-600 text-indigo-600'
+                                            : 'border-transparent text-slate-500 hover:text-slate-900'
                                     }`}
                                 >
                                     {tab}
                                     {(tab === 'Comments' || tab === 'Emails') && (
-                                        <span className="ml-1.5 px-1.5 py-0.2 bg-gray-100 text-gray-500 rounded-md text-[9px] font-bold border border-gray-200/50">
+                                        <span className="ml-1.5 px-1.5 py-0.2 bg-gray-100 text-slate-500 rounded-md text-[9px] font-bold border border-slate-200/50">
                                             {tab === 'Comments' ? '3' : '5'}
                                         </span>
                                     )}
@@ -387,7 +387,7 @@ export function ApplicantProfile({ onBack, applicant }: ApplicantProfileProps) {
                                                     className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                                                         !showCoverNote
                                                             ? 'bg-gray-900 text-white '
-                                                            : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'
+                                                            : 'bg-white text-slate-600 hover:bg-gray-100 border border-slate-200'
                                                     }`}
                                                 >
                                                     Curriculum Vitae
@@ -397,7 +397,7 @@ export function ApplicantProfile({ onBack, applicant }: ApplicantProfileProps) {
                                                     className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                                                         showCoverNote
                                                             ? 'bg-gray-900 text-white '
-                                                            : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'
+                                                            : 'bg-white text-slate-600 hover:bg-gray-100 border border-slate-200'
                                                     }`}
                                                 >
                                                     Cover Letter
@@ -406,14 +406,14 @@ export function ApplicantProfile({ onBack, applicant }: ApplicantProfileProps) {
                                             <div className="flex gap-2">
                                                 <button
                                                     onClick={handleUploadCV}
-                                                    className="px-3 py-1.5 bg-white border border-gray-200 text-gray-700 rounded-lg hover:bg-gray-50 transition-all text-xs font-semibold flex items-center gap-1.5 cursor-pointer"
+                                                    className="px-3 py-1.5 bg-white border border-slate-200 text-slate-700 rounded-lg hover:bg-gray-50 transition-all text-xs font-semibold flex items-center gap-1.5 cursor-pointer"
                                                 >
                                                     <Upload className="w-3.5 h-3.5" />
                                                     Upload
                                                 </button>
                                                 <button
                                                     onClick={handleDownloadCV}
-                                                    className="px-3.5 py-1.5 bg-[#800020] text-white rounded-lg hover:bg-[#600018] transition-all text-xs font-semibold flex items-center gap-1.5 cursor-pointer "
+                                                    className="px-3.5 py-1.5 bg-indigo-600 text-white rounded-lg hover:bg-indigo-800 transition-all text-xs font-semibold flex items-center gap-1.5 cursor-pointer "
                                                 >
                                                     <Download className="w-3.5 h-3.5" />
                                                     Download
@@ -422,35 +422,35 @@ export function ApplicantProfile({ onBack, applicant }: ApplicantProfileProps) {
                                         </div>
 
                                         {/* Document Preview (Premium Paper Style) */}
-                                        <div className="p-8 md:p-12 max-w-3xl mx-auto text-left bg-white font-sans text-gray-800 leading-relaxed ">
+                                        <div className="p-8 md:p-12 max-w-3xl mx-auto text-left bg-white font-sans text-slate-800 leading-relaxed ">
                                             {!showCoverNote ? (
-                                                <div className="border border-gray-100 p-8  rounded-xl bg-white">
+                                                <div className="border border-slate-100 p-8  rounded-xl bg-white">
                                                     <div className="text-center mb-8 border-b border-gray-150 pb-6">
-                                                        <h1 className="text-2xl font-black text-gray-950 tracking-tight uppercase mb-1">Rajnikant Khristi</h1>
-                                                        <p className="text-xs font-bold text-[#800020] uppercase tracking-widest">{editedRole}</p>
+                                                        <h1 className="text-2xl font-black text-slate-900 tracking-tight uppercase mb-1">Rajnikant Khristi</h1>
+                                                        <p className="text-xs font-bold text-indigo-600 uppercase tracking-widest">{editedRole}</p>
                                                     </div>
 
                                                     <div className="space-y-6 text-xs font-medium">
                                                         {/* Contact section */}
                                                         <div>
-                                                            <h3 className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2">Correspondence Info</h3>
-                                                            <p className="text-gray-700 leading-normal">
+                                                            <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Correspondence Info</h3>
+                                                            <p className="text-slate-700 leading-normal">
                                                                 20 Hillbrook Woods, Blanchardstown, Dublin 15, D15 V9KT, Ireland.<br />
-                                                                Email: <span className="font-semibold text-gray-900">{editedEmail}</span> | Tel: <span className="font-semibold text-gray-900">{editedPhone}</span>
+                                                                Email: <span className="font-semibold text-slate-900">{editedEmail}</span> | Tel: <span className="font-semibold text-slate-900">{editedPhone}</span>
                                                             </p>
                                                         </div>
 
                                                         {/* Experience */}
                                                         <div>
-                                                            <h3 className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2">Work Experience</h3>
+                                                            <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Work Experience</h3>
                                                             <div className="space-y-4">
                                                                 <div>
-                                                                    <div className="flex justify-between font-bold text-gray-950 text-[11px]">
+                                                                    <div className="flex justify-between font-bold text-slate-900 text-[11px]">
                                                                         <span>Senior Software Engineer • Global ATS Systems</span>
                                                                         <span>2022 - Present</span>
                                                                     </div>
-                                                                    <p className="text-[10px] text-gray-500 font-semibold mt-0.5">Dublin, Ireland</p>
-                                                                    <p className="mt-1.5 text-gray-600 leading-relaxed">
+                                                                    <p className="text-[10px] text-slate-500 font-semibold mt-0.5">Dublin, Ireland</p>
+                                                                    <p className="mt-1.5 text-slate-600 leading-relaxed">
                                                                         Led the technical redesign of enterprise recruiter dashboard apps, improving render performance by 42%. Structured micro-frontend modules and established reusable component libraries using React and Tailwind.
                                                                     </p>
                                                                 </div>
@@ -459,8 +459,8 @@ export function ApplicantProfile({ onBack, applicant }: ApplicantProfileProps) {
 
                                                         {/* Education */}
                                                         <div>
-                                                            <h3 className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2">Education & Qualifications</h3>
-                                                            <ul className="list-disc list-inside text-gray-700 space-y-1">
+                                                            <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Education & Qualifications</h3>
+                                                            <ul className="list-disc list-inside text-slate-700 space-y-1">
                                                                 <li>Bachelor of Science in Computer Science & Engineering (First Class Honours, 2018)</li>
                                                                 <li>Senior Secondary Qualifications from GSEB Board</li>
                                                             </ul>
@@ -468,13 +468,13 @@ export function ApplicantProfile({ onBack, applicant }: ApplicantProfileProps) {
 
                                                         {/* Languages */}
                                                         <div>
-                                                            <h3 className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2">Languages Known</h3>
-                                                            <p className="text-gray-700">English (Fluent), Portuguese, Hebrew, Hindi</p>
+                                                            <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Languages Known</h3>
+                                                            <p className="text-slate-700">English (Fluent), Portuguese, Hebrew, Hindi</p>
                                                         </div>
 
                                                         {/* Core Strengths */}
                                                         <div>
-                                                            <h3 className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2">Key Strengths & Skills</h3>
+                                                            <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Key Strengths & Skills</h3>
                                                             <p className="text-gray-750">
                                                                 TypeScript, React, Node.js, Next.js, Redux, TailwindCSS, Frontend System Design, Performance Tuning, Agile Team Leadership, Excellent Vetting Score.
                                                             </p>
@@ -482,10 +482,10 @@ export function ApplicantProfile({ onBack, applicant }: ApplicantProfileProps) {
                                                     </div>
                                                 </div>
                                             ) : (
-                                                <div className="border border-gray-100 p-8  rounded-xl bg-white text-xs font-medium">
-                                                    <div className="space-y-4 text-gray-700 leading-relaxed">
-                                                        <p className="text-right font-semibold text-gray-500">Date: June 25, 2026</p>
-                                                        <p className="font-bold text-gray-900">Dear Hiring Manager,</p>
+                                                <div className="border border-slate-100 p-8  rounded-xl bg-white text-xs font-medium">
+                                                    <div className="space-y-4 text-slate-700 leading-relaxed">
+                                                        <p className="text-right font-semibold text-slate-500">Date: June 25, 2026</p>
+                                                        <p className="font-bold text-slate-900">Dear Hiring Manager,</p>
                                                         <p>
                                                             I am writing to express my enthusiastic interest in the senior engineering role currently advertised. With my robust experience in building modern web applications, optimizing workflows, and enhancing client-facing dashboards, I believe I can make an immediate impact on your team.
                                                         </p>
@@ -495,7 +495,7 @@ export function ApplicantProfile({ onBack, applicant }: ApplicantProfileProps) {
                                                         <p>
                                                             Thank you for your time and consideration of my application. I look forward to discussing how my experience matches your current roadmap.
                                                         </p>
-                                                        <p className="pt-4">Sincerely,<br /><span className="font-bold text-gray-950">{editedName}</span></p>
+                                                        <p className="pt-4">Sincerely,<br /><span className="font-bold text-slate-900">{editedName}</span></p>
                                                     </div>
                                                 </div>
                                             )}
@@ -511,13 +511,13 @@ export function ApplicantProfile({ onBack, applicant }: ApplicantProfileProps) {
                                             <div className="absolute left-2.5 top-2 bottom-2 w-0.5 bg-gray-100" />
 
                                             <div className="relative flex items-start gap-4">
-                                                <div className="absolute -left-[20px] top-1.5 w-2.5 h-2.5 rounded-full border-2 border-white bg-[#800020]" />
-                                                <div className="w-8 h-8 rounded-xl bg-[#800020] text-white flex items-center justify-center text-[10px] font-bold flex-shrink-0">
+                                                <div className="absolute -left-[20px] top-1.5 w-2.5 h-2.5 rounded-full border-2 border-white bg-indigo-600" />
+                                                <div className="w-8 h-8 rounded-xl bg-indigo-600 text-white flex items-center justify-center text-[10px] font-bold flex-shrink-0">
                                                     {applicantInitials}
                                                 </div>
                                                 <div className="flex-1">
-                                                    <p className="text-xs text-gray-800 font-semibold"><span className="font-bold text-gray-900">{editedName}</span> was moved to Shortlisted stage</p>
-                                                    <p className="text-[10px] text-gray-400 mt-1 font-bold">{appliedDate}</p>
+                                                    <p className="text-xs text-slate-800 font-semibold"><span className="font-bold text-slate-900">{editedName}</span> was moved to Shortlisted stage</p>
+                                                    <p className="text-[10px] text-slate-400 mt-1 font-bold">{appliedDate}</p>
                                                 </div>
                                             </div>
                                             
@@ -527,8 +527,8 @@ export function ApplicantProfile({ onBack, applicant }: ApplicantProfileProps) {
                                                     AI
                                                 </div>
                                                 <div className="flex-1">
-                                                    <p className="text-xs text-gray-800 font-semibold"><span className="font-bold text-gray-950">System Vetting Tool</span> automatically calculated matching score (72/100)</p>
-                                                    <p className="text-[10px] text-gray-400 mt-1 font-bold">{appliedDate}</p>
+                                                    <p className="text-xs text-slate-800 font-semibold"><span className="font-bold text-slate-900">System Vetting Tool</span> automatically calculated matching score (72/100)</p>
+                                                    <p className="text-[10px] text-slate-400 mt-1 font-bold">{appliedDate}</p>
                                                 </div>
                                             </div>
 
@@ -538,8 +538,8 @@ export function ApplicantProfile({ onBack, applicant }: ApplicantProfileProps) {
                                                     <User className="w-4 h-4" />
                                                 </div>
                                                 <div className="flex-1">
-                                                    <p className="text-xs text-gray-800 font-semibold"><span className="font-bold text-gray-950">{editedName}</span> applied for this position via Irish Jobs board</p>
-                                                    <p className="text-[10px] text-gray-400 mt-1 font-bold">{appliedDate}</p>
+                                                    <p className="text-xs text-slate-800 font-semibold"><span className="font-bold text-slate-900">{editedName}</span> applied for this position via Irish Jobs board</p>
+                                                    <p className="text-[10px] text-slate-400 mt-1 font-bold">{appliedDate}</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -549,23 +549,23 @@ export function ApplicantProfile({ onBack, applicant }: ApplicantProfileProps) {
                                 {/* PANEL: SCREENING QUESTIONS */}
                                 {activeTab === 'Questions' && (
                                     <div className="bg-white rounded-2xl  border border-gray-150 p-6 space-y-6">
-                                        <div className="border-b border-gray-100 pb-4">
-                                            <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">1. Why are you interested in this position?</p>
-                                            <p className="text-xs font-semibold text-gray-900 leading-relaxed">
+                                        <div className="border-b border-slate-100 pb-4">
+                                            <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">1. Why are you interested in this position?</p>
+                                            <p className="text-xs font-semibold text-slate-900 leading-relaxed">
                                                 I am deeply passionate about building modern web applications, utilizing design systems, and improving client experience. I want to bring my React and systems design expertise to your fast-growing engineering team.
                                             </p>
                                         </div>
 
-                                        <div className="border-b border-gray-100 pb-4">
-                                            <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">2. What is your expected salary range?</p>
-                                            <p className="text-xs font-semibold text-gray-900 leading-relaxed">
+                                        <div className="border-b border-slate-100 pb-4">
+                                            <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">2. What is your expected salary range?</p>
+                                            <p className="text-xs font-semibold text-slate-900 leading-relaxed">
                                                 €80,000 - €95,000 per annum, commensurate with roles and benefits.
                                             </p>
                                         </div>
 
                                         <div className="pb-2">
-                                            <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">3. What is your notice period?</p>
-                                            <p className="text-xs font-semibold text-gray-900 leading-relaxed">
+                                            <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">3. What is your notice period?</p>
+                                            <p className="text-xs font-semibold text-slate-900 leading-relaxed">
                                                 I can start immediately upon a 2-week transition notice.
                                             </p>
                                         </div>
@@ -576,10 +576,10 @@ export function ApplicantProfile({ onBack, applicant }: ApplicantProfileProps) {
                                 {activeTab === 'Interview Score' && (
                                     <div className="bg-white rounded-2xl  border border-gray-150 p-8 text-center flex flex-col items-center justify-center min-h-[260px]">
                                         <Calendar className="w-12 h-12 text-gray-300 mb-4" />
-                                        <p className="text-xs text-gray-500 font-semibold mb-5">No interviews scheduled yet for this applicant</p>
+                                        <p className="text-xs text-slate-500 font-semibold mb-5">No interviews scheduled yet for this applicant</p>
                                         <button
                                             onClick={handleScheduleInterview}
-                                            className="px-5 py-2.5 bg-[#800020] text-white rounded-xl hover:bg-[#600018] transition-colors font-semibold text-xs  cursor-pointer"
+                                            className="px-5 py-2.5 bg-indigo-600 text-white rounded-xl hover:bg-indigo-800 transition-colors font-semibold text-xs  cursor-pointer"
                                         >
                                             Schedule Interview
                                         </button>
@@ -589,27 +589,27 @@ export function ApplicantProfile({ onBack, applicant }: ApplicantProfileProps) {
                                 {/* PANEL: FORMS & DOCS */}
                                 {activeTab === 'Forms & Docs' && (
                                     <div className="bg-white rounded-2xl  border border-gray-150 p-6">
-                                        <h3 className="text-xs font-bold text-gray-950 uppercase tracking-wider mb-4">Vetting Documents</h3>
+                                        <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider mb-4">Vetting Documents</h3>
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                            <div className="border border-gray-200 rounded-2xl p-4 hover:border-[#800020]/40 transition-colors cursor-pointer bg-white  flex items-center justify-between">
+                                            <div className="border border-slate-200 rounded-2xl p-4 hover:border-indigo-600/40 transition-colors cursor-pointer bg-white  flex items-center justify-between">
                                                 <div className="flex items-center gap-3">
-                                                    <FileText className="w-8 h-8 text-[#800020] bg-rose-50 p-1.5 rounded-lg" />
+                                                    <FileText className="w-8 h-8 text-indigo-600 bg-rose-50 p-1.5 rounded-lg" />
                                                     <div className="text-left">
-                                                        <h4 className="text-xs font-bold text-gray-900">Application Form</h4>
-                                                        <p className="text-[10px] text-gray-400 font-semibold mt-0.5">Submitted {appliedDate}</p>
+                                                        <h4 className="text-xs font-bold text-slate-900">Application Form</h4>
+                                                        <p className="text-[10px] text-slate-400 font-semibold mt-0.5">Submitted {appliedDate}</p>
                                                     </div>
                                                 </div>
-                                                <button className="p-1.5 hover:bg-gray-100 rounded-lg text-gray-500 transition-colors">
+                                                <button className="p-1.5 hover:bg-gray-100 rounded-lg text-slate-500 transition-colors">
                                                     <Eye className="w-4 h-4" />
                                                 </button>
                                             </div>
 
                                             <div 
                                                 onClick={handleUploadCV}
-                                                className="border border-dashed border-gray-300 rounded-2xl p-4 hover:border-[#800020] transition-colors cursor-pointer flex flex-col items-center justify-center bg-gray-50/20 text-center"
+                                                className="border border-dashed border-gray-300 rounded-2xl p-4 hover:border-indigo-600 transition-colors cursor-pointer flex flex-col items-center justify-center bg-gray-50/20 text-center"
                                             >
-                                                <Upload className="w-6 h-6 text-gray-400 mb-1.5" />
-                                                <p className="text-[10px] font-bold text-gray-600">Upload New Vetting Doc</p>
+                                                <Upload className="w-6 h-6 text-slate-400 mb-1.5" />
+                                                <p className="text-[10px] font-bold text-slate-600">Upload New Vetting Doc</p>
                                             </div>
                                         </div>
                                     </div>
@@ -619,8 +619,8 @@ export function ApplicantProfile({ onBack, applicant }: ApplicantProfileProps) {
                                 {activeTab === 'Contracts' && (
                                     <div className="bg-white rounded-2xl  border border-gray-150 p-8 text-center flex flex-col items-center justify-center min-h-[260px]">
                                         <FileText className="w-12 h-12 text-gray-300 mb-4" />
-                                        <p className="text-xs text-gray-500 font-semibold mb-5">No contracts generated or offered yet</p>
-                                        <button className="px-5 py-2.5 bg-[#800020] text-white rounded-xl hover:bg-[#600018] transition-colors font-semibold text-xs  cursor-pointer">
+                                        <p className="text-xs text-slate-500 font-semibold mb-5">No contracts generated or offered yet</p>
+                                        <button className="px-5 py-2.5 bg-indigo-600 text-white rounded-xl hover:bg-indigo-800 transition-colors font-semibold text-xs  cursor-pointer">
                                             Generate Offer Contract
                                         </button>
                                     </div>
@@ -630,14 +630,14 @@ export function ApplicantProfile({ onBack, applicant }: ApplicantProfileProps) {
                                 {activeTab === 'Comments' && (
                                     <div className="bg-white rounded-2xl  border border-gray-150 p-6 space-y-6">
                                         <div className="space-y-4">
-                                            <div className="flex gap-3.5 pb-4 border-b border-gray-100 text-left">
-                                                <Avatar className="w-8.5 h-8.5 border border-gray-100  flex-shrink-0">
+                                            <div className="flex gap-3.5 pb-4 border-b border-slate-100 text-left">
+                                                <Avatar className="w-8.5 h-8.5 border border-slate-100  flex-shrink-0">
                                                     <AvatarFallback className="text-[10px] font-bold bg-indigo-600 text-white">JD</AvatarFallback>
                                                 </Avatar>
                                                 <div className="flex-1">
                                                     <div className="flex items-center justify-between mb-1.5">
-                                                        <p className="text-xs font-bold text-gray-900">John Doe (Engineering Lead)</p>
-                                                        <p className="text-[9px] font-bold text-gray-400">2 days ago</p>
+                                                        <p className="text-xs font-bold text-slate-900">John Doe (Engineering Lead)</p>
+                                                        <p className="text-[9px] font-bold text-slate-400">2 days ago</p>
                                                     </div>
                                                     <p className="text-xs font-medium text-gray-650 leading-relaxed">
                                                         Very strong coding background. CV demonstrates deep expertise in web performance tuning and modular React architectures. Highly recommend phone screening.
@@ -645,14 +645,14 @@ export function ApplicantProfile({ onBack, applicant }: ApplicantProfileProps) {
                                                 </div>
                                             </div>
 
-                                            <div className="flex gap-3.5 pb-4 border-b border-gray-100 text-left">
-                                                <Avatar className="w-8.5 h-8.5 border border-gray-100  flex-shrink-0">
+                                            <div className="flex gap-3.5 pb-4 border-b border-slate-100 text-left">
+                                                <Avatar className="w-8.5 h-8.5 border border-slate-100  flex-shrink-0">
                                                     <AvatarFallback className="text-[10px] font-bold bg-purple-600 text-white">SM</AvatarFallback>
                                                 </Avatar>
                                                 <div className="flex-1">
                                                     <div className="flex items-center justify-between mb-1.5">
-                                                        <p className="text-xs font-bold text-gray-900">Sarah Miller (Recruiting Manager)</p>
-                                                        <p className="text-[9px] font-bold text-gray-400">5 days ago</p>
+                                                        <p className="text-xs font-bold text-slate-900">Sarah Miller (Recruiting Manager)</p>
+                                                        <p className="text-[9px] font-bold text-slate-400">5 days ago</p>
                                                     </div>
                                                     <p className="text-xs font-medium text-gray-650 leading-relaxed">
                                                         Vetting question responses show outstanding alignment with our culture and values. Clear, professional communicator.
@@ -663,9 +663,9 @@ export function ApplicantProfile({ onBack, applicant }: ApplicantProfileProps) {
 
                                         {/* Add Comment Form */}
                                         <div className="pt-2 text-left">
-                                            <h4 className="text-xs font-bold text-gray-900 mb-3 uppercase tracking-wider">Add Internal Feedback</h4>
+                                            <h4 className="text-xs font-bold text-slate-900 mb-3 uppercase tracking-wider">Add Internal Feedback</h4>
                                             <div className="flex gap-3">
-                                                <Avatar className="w-8 h-8 border border-gray-100  flex-shrink-0">
+                                                <Avatar className="w-8 h-8 border border-slate-100  flex-shrink-0">
                                                     <AvatarFallback className="text-[10px] font-bold bg-gray-200 text-gray-650">YO</AvatarFallback>
                                                 </Avatar>
                                                 <div className="flex-1">
@@ -673,13 +673,13 @@ export function ApplicantProfile({ onBack, applicant }: ApplicantProfileProps) {
                                                         value={comment}
                                                         onChange={(e) => setComment(e.target.value)}
                                                         placeholder="Write a comment about this applicant..."
-                                                        className="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-xs resize-none focus:outline-none focus:ring-2 focus:ring-[#800020]/20 focus:border-[#800020] transition-all bg-white"
+                                                        className="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-xs resize-none focus:outline-none focus:ring-2 focus:ring-indigo-600/20 focus:border-indigo-600 transition-all bg-white"
                                                         rows={3}
                                                     />
                                                     <div className="mt-3 flex justify-end">
                                                         <button
                                                             onClick={handlePostComment}
-                                                            className="px-5 py-2 bg-[#800020] text-white rounded-xl hover:bg-[#600018] transition-colors text-xs font-bold  cursor-pointer disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed"
+                                                            className="px-5 py-2 bg-indigo-600 text-white rounded-xl hover:bg-indigo-800 transition-colors text-xs font-bold  cursor-pointer disabled:bg-gray-200 disabled:text-slate-400 disabled:cursor-not-allowed"
                                                             disabled={!comment.trim()}
                                                         >
                                                             Post Comment
@@ -695,34 +695,34 @@ export function ApplicantProfile({ onBack, applicant }: ApplicantProfileProps) {
                                 {activeTab === 'Emails' && (
                                     <div className="bg-white rounded-2xl  border border-gray-150 p-6 space-y-6">
                                         <div className="space-y-4">
-                                            <div className="pb-4 border-b border-gray-100 text-left">
+                                            <div className="pb-4 border-b border-slate-100 text-left">
                                                 <div className="flex justify-between items-start mb-2">
                                                     <div className="flex items-center gap-2">
-                                                        <Mail className="w-4 h-4 text-[#800020]" />
-                                                        <h4 className="text-xs font-bold text-gray-950">Application Confirmation</h4>
+                                                        <Mail className="w-4 h-4 text-indigo-600" />
+                                                        <h4 className="text-xs font-bold text-slate-900">Application Confirmation</h4>
                                                     </div>
-                                                    <span className="text-[9px] font-bold text-gray-400">{appliedDate}</span>
+                                                    <span className="text-[9px] font-bold text-slate-400">{appliedDate}</span>
                                                 </div>
-                                                <p className="text-xs text-gray-700 font-semibold mb-1">
+                                                <p className="text-xs text-slate-700 font-semibold mb-1">
                                                     <strong>Subject:</strong> Thank you for your application
                                                 </p>
-                                                <p className="text-[11px] text-gray-500 leading-normal font-medium">
+                                                <p className="text-[11px] text-slate-500 leading-normal font-medium">
                                                     Dear {editedName}, thank you for your application to the role. We will review your profile and get back to you soon.
                                                 </p>
                                             </div>
 
-                                            <div className="pb-4 border-b border-gray-100 text-left">
+                                            <div className="pb-4 border-b border-slate-100 text-left">
                                                 <div className="flex justify-between items-start mb-2">
                                                     <div className="flex items-center gap-2">
                                                         <Mail className="w-4 h-4 text-indigo-500" />
-                                                        <h4 className="text-xs font-bold text-gray-950">Shortlist Notification</h4>
+                                                        <h4 className="text-xs font-bold text-slate-900">Shortlist Notification</h4>
                                                     </div>
-                                                    <span className="text-[9px] font-bold text-gray-400">2 weeks ago</span>
+                                                    <span className="text-[9px] font-bold text-slate-400">2 weeks ago</span>
                                                 </div>
-                                                <p className="text-xs text-gray-700 font-semibold mb-1">
+                                                <p className="text-xs text-slate-700 font-semibold mb-1">
                                                     <strong>Subject:</strong> Congratulations - You have been shortlisted
                                                 </p>
-                                                <p className="text-[11px] text-gray-500 leading-normal font-medium">
+                                                <p className="text-[11px] text-slate-500 leading-normal font-medium">
                                                     We are pleased to inform you that your profile has been shortlisted for the next stage of our technical vetting round.
                                                 </p>
                                             </div>
@@ -730,44 +730,44 @@ export function ApplicantProfile({ onBack, applicant }: ApplicantProfileProps) {
 
                                         {/* Compose Email Form */}
                                         <div className="pt-2 text-left">
-                                            <h4 className="text-xs font-bold text-gray-900 mb-4 uppercase tracking-wider flex items-center gap-1.5">
-                                                <Send className="w-4 h-4 text-[#800020]" />
+                                            <h4 className="text-xs font-bold text-slate-900 mb-4 uppercase tracking-wider flex items-center gap-1.5">
+                                                <Send className="w-4 h-4 text-indigo-600" />
                                                 Compose Email to Applicant
                                             </h4>
                                             <div className="space-y-3">
                                                 <div>
-                                                    <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-wide mb-1.5">To</label>
+                                                    <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-1.5">To</label>
                                                     <input
                                                         type="email"
                                                         disabled
                                                         value={editedEmail}
-                                                        className="w-full p-3 border border-gray-150 rounded-xl text-xs bg-gray-50 text-gray-500 font-semibold cursor-not-allowed"
+                                                        className="w-full p-3 border border-gray-150 rounded-xl text-xs bg-gray-50 text-slate-500 font-semibold cursor-not-allowed"
                                                     />
                                                 </div>
                                                 <div>
-                                                    <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-wide mb-1.5">Subject</label>
+                                                    <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-1.5">Subject</label>
                                                     <input
                                                         type="text"
                                                         placeholder="e.g. Schedule for Screening Call"
                                                         value={emailSubject}
                                                         onChange={(e) => setEmailSubject(e.target.value)}
-                                                        className="w-full p-3 border border-gray-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-[#800020]/20 focus:border-[#800020] transition-all bg-white"
+                                                        className="w-full p-3 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-indigo-600/20 focus:border-indigo-600 transition-all bg-white"
                                                     />
                                                 </div>
                                                 <div>
-                                                    <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-wide mb-1.5">Message Body</label>
+                                                    <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-1.5">Message Body</label>
                                                     <textarea
                                                         placeholder="Write your email message here..."
                                                         value={emailBody}
                                                         onChange={(e) => setEmailBody(e.target.value)}
-                                                        className="w-full p-3 border border-gray-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-[#800020]/20 focus:border-[#800020] transition-all bg-white resize-none"
+                                                        className="w-full p-3 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-indigo-600/20 focus:border-indigo-600 transition-all bg-white resize-none"
                                                         rows={4.5}
                                                     />
                                                 </div>
                                                 <div className="flex justify-end pt-2">
                                                     <button
                                                         onClick={handleSendEmail}
-                                                        className="px-5 py-2.5 bg-[#800020] text-white rounded-xl hover:bg-[#600018] transition-colors text-xs font-bold  cursor-pointer flex items-center gap-1.5"
+                                                        className="px-5 py-2.5 bg-indigo-600 text-white rounded-xl hover:bg-indigo-800 transition-colors text-xs font-bold  cursor-pointer flex items-center gap-1.5"
                                                     >
                                                         <Send className="w-3.5 h-3.5" />
                                                         Send Email
@@ -788,47 +788,47 @@ export function ApplicantProfile({ onBack, applicant }: ApplicantProfileProps) {
             {/* Hire Confirmation Modal */}
             {isHireModalOpen && (
                 <div className="fixed inset-0 bg-black/50 backdrop-blur-xs flex items-center justify-center z-50 p-4">
-                    <div className="bg-white rounded-2xl max-w-md w-full p-6  border border-gray-100 animate-in fade-in zoom-in-95 duration-200">
+                    <div className="bg-white rounded-2xl max-w-md w-full p-6  border border-slate-100 animate-in fade-in zoom-in-95 duration-200">
                         <div className="w-12 h-12 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center mx-auto mb-4 border border-emerald-100 ">
                             <CheckCircle className="w-6 h-6" />
                         </div>
-                        <h3 className="text-lg font-bold text-center text-gray-950 mb-1">Confirm Hiring Offer</h3>
-                        <p className="text-xs text-gray-500 text-center mb-6">Set job offer details for {editedName}</p>
+                        <h3 className="text-lg font-bold text-center text-slate-900 mb-1">Confirm Hiring Offer</h3>
+                        <p className="text-xs text-slate-500 text-center mb-6">Set job offer details for {editedName}</p>
 
                         <div className="space-y-4 mb-6 text-left">
                             <div>
-                                <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-wide mb-1.5">Annual Salary (Gross)</label>
+                                <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-1.5">Annual Salary (Gross)</label>
                                 <input
                                     type="text"
                                     value={hireSalary}
                                     onChange={(e) => setHireSalary(e.target.value)}
-                                    className="w-full p-3 border border-gray-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-[#800020]/20 focus:border-[#800020]"
+                                    className="w-full p-3 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-indigo-600/20 focus:border-indigo-600"
                                 />
                             </div>
                             <div>
-                                <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-wide mb-1.5">Proposed Start Date</label>
+                                <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-1.5">Proposed Start Date</label>
                                 <input
                                     type="date"
                                     value={hireDate}
                                     onChange={(e) => setHireDate(e.target.value)}
-                                    className="w-full p-3 border border-gray-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-[#800020]/20 focus:border-[#800020]"
+                                    className="w-full p-3 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-indigo-600/20 focus:border-indigo-600"
                                 />
                             </div>
-                            <label className="flex items-center gap-3 p-3 bg-gray-50 rounded-xl border border-gray-200/80 cursor-pointer select-none">
+                            <label className="flex items-center gap-3 p-3 bg-gray-50 rounded-xl border border-slate-200/80 cursor-pointer select-none">
                                 <input
                                     type="checkbox"
                                     checked={sendWelcomeEmail}
                                     onChange={(e) => setSendWelcomeEmail(e.target.checked)}
-                                    className="w-4 h-4 text-[#800020] rounded border-gray-300 focus:ring-[#800020]/20"
+                                    className="w-4 h-4 text-indigo-600 rounded border-gray-300 focus:ring-indigo-600/20"
                                 />
-                                <span className="text-xs text-gray-700 font-semibold">Send automated onboarding welcome pack</span>
+                                <span className="text-xs text-slate-700 font-semibold">Send automated onboarding welcome pack</span>
                             </label>
                         </div>
 
-                        <div className="flex gap-3 pt-4 border-t border-gray-100">
+                        <div className="flex gap-3 pt-4 border-t border-slate-100">
                             <button
                                 onClick={() => setIsHireModalOpen(false)}
-                                className="flex-1 px-4 py-2.5 border border-gray-255 text-gray-600 rounded-xl font-semibold hover:bg-gray-50 text-xs cursor-pointer"
+                                className="flex-1 px-4 py-2.5 border border-gray-255 text-slate-600 rounded-xl font-semibold hover:bg-gray-50 text-xs cursor-pointer"
                             >
                                 Cancel
                             </button>
@@ -850,20 +850,20 @@ export function ApplicantProfile({ onBack, applicant }: ApplicantProfileProps) {
             {/* Reject Confirmation Modal */}
             {isRejectModalOpen && (
                 <div className="fixed inset-0 bg-black/50 backdrop-blur-xs flex items-center justify-center z-50 p-4">
-                    <div className="bg-white rounded-2xl max-w-md w-full p-6  border border-gray-100 animate-in fade-in zoom-in-95 duration-200">
+                    <div className="bg-white rounded-2xl max-w-md w-full p-6  border border-slate-100 animate-in fade-in zoom-in-95 duration-200">
                         <div className="w-12 h-12 rounded-full bg-rose-50 text-rose-600 flex items-center justify-center mx-auto mb-4 border border-rose-150 ">
                             <XCircle className="w-6 h-6" />
                         </div>
-                        <h3 className="text-lg font-bold text-center text-gray-950 mb-1">Reject Applicant</h3>
-                        <p className="text-xs text-gray-500 text-center mb-6">Notify {editedName} about application status</p>
+                        <h3 className="text-lg font-bold text-center text-slate-900 mb-1">Reject Applicant</h3>
+                        <p className="text-xs text-slate-500 text-center mb-6">Notify {editedName} about application status</p>
 
                         <div className="space-y-4 mb-6 text-left">
                             <div>
-                                <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-wide mb-1.5">Reason for Rejection</label>
+                                <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-1.5">Reason for Rejection</label>
                                 <select
                                     value={rejectReason}
                                     onChange={(e) => setRejectReason(e.target.value)}
-                                    className="w-full p-3 border border-gray-200 rounded-xl text-xs bg-white focus:outline-none focus:ring-2 focus:ring-[#800020]/20"
+                                    className="w-full p-3 border border-slate-200 rounded-xl text-xs bg-white focus:outline-none focus:ring-2 focus:ring-indigo-600/20"
                                 >
                                     <option value="Position Filled">Position Filled</option>
                                     <option value="Experience Mismatch">Experience Mismatch</option>
@@ -873,29 +873,29 @@ export function ApplicantProfile({ onBack, applicant }: ApplicantProfileProps) {
                                 </select>
                             </div>
                             <div>
-                                <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-wide mb-1.5">Internal Feedback Note</label>
+                                <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-1.5">Internal Feedback Note</label>
                                 <textarea
                                     value={rejectNote}
                                     onChange={(e) => setRejectNote(e.target.value)}
                                     rows={3}
-                                    className="w-full p-3 border border-gray-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-[#800020]/20 resize-none"
+                                    className="w-full p-3 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-indigo-600/20 resize-none"
                                 />
                             </div>
-                            <label className="flex items-center gap-3 p-3 bg-gray-50 rounded-xl border border-gray-200/80 cursor-pointer select-none">
+                            <label className="flex items-center gap-3 p-3 bg-gray-50 rounded-xl border border-slate-200/80 cursor-pointer select-none">
                                 <input
                                     type="checkbox"
                                     checked={sendRejectEmail}
                                     onChange={(e) => setSendRejectEmail(e.target.checked)}
-                                    className="w-4 h-4 text-[#800020] rounded border-gray-300 focus:ring-[#800020]/20"
+                                    className="w-4 h-4 text-indigo-600 rounded border-gray-300 focus:ring-indigo-600/20"
                                 />
-                                <span className="text-xs text-gray-700 font-semibold">Send automated polite rejection email</span>
+                                <span className="text-xs text-slate-700 font-semibold">Send automated polite rejection email</span>
                             </label>
                         </div>
 
-                        <div className="flex gap-3 pt-4 border-t border-gray-100">
+                        <div className="flex gap-3 pt-4 border-t border-slate-100">
                             <button
                                 onClick={() => setIsRejectModalOpen(false)}
-                                className="flex-1 px-4 py-2.5 border border-gray-255 text-gray-600 rounded-xl font-semibold hover:bg-gray-50 text-xs cursor-pointer"
+                                className="flex-1 px-4 py-2.5 border border-gray-255 text-slate-600 rounded-xl font-semibold hover:bg-gray-50 text-xs cursor-pointer"
                             >
                                 Cancel
                             </button>
@@ -917,15 +917,15 @@ export function ApplicantProfile({ onBack, applicant }: ApplicantProfileProps) {
             {/* More Options Menu Dialog */}
             {isMoreOptionsModalOpen && (
                 <div className="fixed inset-0 bg-black/50 backdrop-blur-xs flex items-center justify-center z-50 p-4">
-                    <div className="bg-white rounded-2xl max-w-xl w-full p-6  border border-gray-100 animate-in fade-in zoom-in-95 duration-200">
-                        <div className="flex justify-between items-center mb-6 border-b border-gray-100 pb-4">
+                    <div className="bg-white rounded-2xl max-w-xl w-full p-6  border border-slate-100 animate-in fade-in zoom-in-95 duration-200">
+                        <div className="flex justify-between items-center mb-6 border-b border-slate-100 pb-4">
                             <div className="text-left">
-                                <h3 className="text-base font-bold text-gray-950 mb-0.5">Workflow Operations</h3>
-                                <p className="text-xs text-gray-500">Perform administrative actions for {editedName}</p>
+                                <h3 className="text-base font-bold text-slate-900 mb-0.5">Workflow Operations</h3>
+                                <p className="text-xs text-slate-500">Perform administrative actions for {editedName}</p>
                             </div>
                             <button 
                                 onClick={() => setIsMoreOptionsModalOpen(false)}
-                                className="text-gray-400 hover:text-gray-600 p-1 cursor-pointer"
+                                className="text-slate-400 hover:text-slate-600 p-1 cursor-pointer"
                             >
                                 <XCircle className="w-5 h-5" />
                             </button>
@@ -937,14 +937,14 @@ export function ApplicantProfile({ onBack, applicant }: ApplicantProfileProps) {
                                     setIsMoreOptionsModalOpen(false);
                                     setIsEditModalOpen(true);
                                 }}
-                                className="p-4 border border-gray-200 rounded-2xl hover:border-[#800020] hover:bg-rose-50/10 text-left transition-all flex items-start gap-3 bg-white cursor-pointer group"
+                                className="p-4 border border-slate-200 rounded-2xl hover:border-indigo-600 hover:bg-rose-50/10 text-left transition-all flex items-start gap-3 bg-white cursor-pointer group"
                             >
-                                <div className="p-2 bg-gray-100 group-hover:bg-[#800020] group-hover:text-white rounded-xl text-gray-500 transition-colors flex-shrink-0">
+                                <div className="p-2 bg-gray-100 group-hover:bg-indigo-600 group-hover:text-white rounded-xl text-slate-500 transition-colors flex-shrink-0">
                                     <Edit className="w-4 h-4" />
                                 </div>
                                 <div>
-                                    <h4 className="font-bold text-xs text-gray-900 group-hover:text-[#800020] mb-0.5">Edit Info</h4>
-                                    <p className="text-[10px] text-gray-400 leading-tight">Update email, phone, and role details</p>
+                                    <h4 className="font-bold text-xs text-slate-900 group-hover:text-indigo-600 mb-0.5">Edit Info</h4>
+                                    <p className="text-[10px] text-slate-400 leading-tight">Update email, phone, and role details</p>
                                 </div>
                             </button>
 
@@ -953,14 +953,14 @@ export function ApplicantProfile({ onBack, applicant }: ApplicantProfileProps) {
                                     setIsMoreOptionsModalOpen(false);
                                     setIsStageModalOpen(true);
                                 }}
-                                className="p-4 border border-gray-200 rounded-2xl hover:border-[#800020] hover:bg-rose-50/10 text-left transition-all flex items-start gap-3 bg-white cursor-pointer group"
+                                className="p-4 border border-slate-200 rounded-2xl hover:border-indigo-600 hover:bg-rose-50/10 text-left transition-all flex items-start gap-3 bg-white cursor-pointer group"
                             >
-                                <div className="p-2 bg-gray-100 group-hover:bg-[#800020] group-hover:text-white rounded-xl text-gray-500 transition-colors flex-shrink-0">
+                                <div className="p-2 bg-gray-100 group-hover:bg-indigo-600 group-hover:text-white rounded-xl text-slate-500 transition-colors flex-shrink-0">
                                     <Send className="w-4 h-4" />
                                 </div>
                                 <div>
-                                    <h4 className="font-bold text-xs text-gray-900 group-hover:text-[#800020] mb-0.5">Change Stage</h4>
-                                    <p className="text-[10px] text-gray-400 leading-tight">Manually advance applicant workflow</p>
+                                    <h4 className="font-bold text-xs text-slate-900 group-hover:text-indigo-600 mb-0.5">Change Stage</h4>
+                                    <p className="text-[10px] text-slate-400 leading-tight">Manually advance applicant workflow</p>
                                 </div>
                             </button>
 
@@ -969,14 +969,14 @@ export function ApplicantProfile({ onBack, applicant }: ApplicantProfileProps) {
                                     setIsMoreOptionsModalOpen(false);
                                     handleScheduleInterview();
                                 }}
-                                className="p-4 border border-gray-200 rounded-2xl hover:border-[#800020] hover:bg-rose-50/10 text-left transition-all flex items-start gap-3 bg-white cursor-pointer group"
+                                className="p-4 border border-slate-200 rounded-2xl hover:border-indigo-600 hover:bg-rose-50/10 text-left transition-all flex items-start gap-3 bg-white cursor-pointer group"
                             >
-                                <div className="p-2 bg-gray-100 group-hover:bg-[#800020] group-hover:text-white rounded-xl text-gray-500 transition-colors flex-shrink-0">
+                                <div className="p-2 bg-gray-100 group-hover:bg-indigo-600 group-hover:text-white rounded-xl text-slate-500 transition-colors flex-shrink-0">
                                     <Calendar className="w-4 h-4" />
                                 </div>
                                 <div>
-                                    <h4 className="font-bold text-xs text-gray-900 group-hover:text-[#800020] mb-0.5">Schedule Vetting</h4>
-                                    <p className="text-[10px] text-gray-400 leading-tight">Book phone or technical video call</p>
+                                    <h4 className="font-bold text-xs text-slate-900 group-hover:text-indigo-600 mb-0.5">Schedule Vetting</h4>
+                                    <p className="text-[10px] text-slate-400 leading-tight">Book phone or technical video call</p>
                                 </div>
                             </button>
 
@@ -985,19 +985,19 @@ export function ApplicantProfile({ onBack, applicant }: ApplicantProfileProps) {
                                     setIsMoreOptionsModalOpen(false);
                                     toast.success("Background reference check requested successfully.");
                                 }}
-                                className="p-4 border border-gray-200 rounded-2xl hover:border-[#800020] hover:bg-rose-50/10 text-left transition-all flex items-start gap-3 bg-white cursor-pointer group"
+                                className="p-4 border border-slate-200 rounded-2xl hover:border-indigo-600 hover:bg-rose-50/10 text-left transition-all flex items-start gap-3 bg-white cursor-pointer group"
                             >
-                                <div className="p-2 bg-gray-100 group-hover:bg-[#800020] group-hover:text-white rounded-xl text-gray-500 transition-colors flex-shrink-0">
+                                <div className="p-2 bg-gray-100 group-hover:bg-indigo-600 group-hover:text-white rounded-xl text-slate-500 transition-colors flex-shrink-0">
                                     <Award className="w-4 h-4" />
                                 </div>
                                 <div>
-                                    <h4 className="font-bold text-xs text-gray-900 group-hover:text-[#800020] mb-0.5">Reference Checks</h4>
-                                    <p className="text-[10px] text-gray-400 leading-tight">Request verification of career history</p>
+                                    <h4 className="font-bold text-xs text-slate-900 group-hover:text-indigo-600 mb-0.5">Reference Checks</h4>
+                                    <p className="text-[10px] text-slate-400 leading-tight">Request verification of career history</p>
                                 </div>
                             </button>
                         </div>
 
-                        <div className="flex justify-end pt-4 border-t border-gray-100">
+                        <div className="flex justify-end pt-4 border-t border-slate-100">
                             <button
                                 onClick={() => setIsMoreOptionsModalOpen(false)}
                                 className="px-5 py-2 bg-gray-100 hover:bg-gray-200 text-gray-650 font-bold rounded-xl text-xs transition-colors cursor-pointer"
@@ -1012,12 +1012,12 @@ export function ApplicantProfile({ onBack, applicant }: ApplicantProfileProps) {
             {/* Edit Details Form Dialog */}
             {isEditModalOpen && (
                 <div className="fixed inset-0 bg-black/50 backdrop-blur-xs flex items-center justify-center z-50 p-4">
-                    <div className="bg-white rounded-2xl max-w-md w-full p-6  border border-gray-100 animate-in fade-in zoom-in-95 duration-200">
-                        <div className="flex justify-between items-center mb-6 border-b border-gray-100 pb-4">
-                            <h3 className="text-base font-bold text-gray-950">Edit Details</h3>
+                    <div className="bg-white rounded-2xl max-w-md w-full p-6  border border-slate-100 animate-in fade-in zoom-in-95 duration-200">
+                        <div className="flex justify-between items-center mb-6 border-b border-slate-100 pb-4">
+                            <h3 className="text-base font-bold text-slate-900">Edit Details</h3>
                             <button 
                                 onClick={() => setIsEditModalOpen(false)}
-                                className="text-gray-400 hover:text-gray-600 cursor-pointer"
+                                className="text-slate-400 hover:text-slate-600 cursor-pointer"
                             >
                                 <XCircle className="w-5 h-5" />
                             </button>
@@ -1025,44 +1025,44 @@ export function ApplicantProfile({ onBack, applicant }: ApplicantProfileProps) {
 
                         <div className="space-y-4 mb-6 text-left">
                             <div>
-                                <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-wide mb-1.5">Full Name</label>
+                                <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-1.5">Full Name</label>
                                 <input
                                     type="text"
                                     value={editedName}
                                     onChange={(e) => setEditedName(e.target.value)}
-                                    className="w-full p-3 border border-gray-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-[#800020]/20 focus:border-[#800020]"
+                                    className="w-full p-3 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-indigo-600/20 focus:border-indigo-600"
                                 />
                             </div>
                             <div>
-                                <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-wide mb-1.5">Email Address</label>
+                                <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-1.5">Email Address</label>
                                 <input
                                     type="email"
                                     value={editedEmail}
                                     onChange={(e) => setEditedEmail(e.target.value)}
-                                    className="w-full p-3 border border-gray-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-[#800020]/20 focus:border-[#800020]"
+                                    className="w-full p-3 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-indigo-600/20 focus:border-indigo-600"
                                 />
                             </div>
                             <div>
-                                <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-wide mb-1.5">Phone Number</label>
+                                <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-1.5">Phone Number</label>
                                 <input
                                     type="tel"
                                     value={editedPhone}
                                     onChange={(e) => setEditedPhone(e.target.value)}
-                                    className="w-full p-3 border border-gray-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-[#800020]/20 focus:border-[#800020]"
+                                    className="w-full p-3 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-indigo-600/20 focus:border-indigo-600"
                                 />
                             </div>
                             <div>
-                                <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-wide mb-1.5">Role / Title</label>
+                                <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-1.5">Role / Title</label>
                                 <input
                                     type="text"
                                     value={editedRole}
                                     onChange={(e) => setEditedRole(e.target.value)}
-                                    className="w-full p-3 border border-gray-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-[#800020]/20 focus:border-[#800020]"
+                                    className="w-full p-3 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-indigo-600/20 focus:border-indigo-600"
                                 />
                             </div>
                         </div>
 
-                        <div className="flex gap-3 pt-4 border-t border-gray-100">
+                        <div className="flex gap-3 pt-4 border-t border-slate-100">
                             <button
                                 onClick={() => setIsEditModalOpen(false)}
                                 className="flex-1 px-4 py-2.5 border border-gray-255 text-gray-650 rounded-xl font-semibold hover:bg-gray-50 text-xs cursor-pointer"
@@ -1074,7 +1074,7 @@ export function ApplicantProfile({ onBack, applicant }: ApplicantProfileProps) {
                                     setIsEditModalOpen(false);
                                     toast.success("Applicant details updated successfully!");
                                 }}
-                                className="flex-1 px-4 py-2.5 bg-[#800020] hover:bg-[#600018] text-white rounded-xl font-semibold transition-colors cursor-pointer  text-xs"
+                                className="flex-1 px-4 py-2.5 bg-indigo-600 hover:bg-indigo-800 text-white rounded-xl font-semibold transition-colors cursor-pointer  text-xs"
                             >
                                 Save Changes
                             </button>
@@ -1086,12 +1086,12 @@ export function ApplicantProfile({ onBack, applicant }: ApplicantProfileProps) {
             {/* Update Workflow Stage Dialog */}
             {isStageModalOpen && (
                 <div className="fixed inset-0 bg-black/50 backdrop-blur-xs flex items-center justify-center z-50 p-4">
-                    <div className="bg-white rounded-2xl max-w-md w-full p-6  border border-gray-100 animate-in fade-in zoom-in-95 duration-200">
-                        <div className="flex justify-between items-center mb-6 border-b border-gray-100 pb-4">
-                            <h3 className="text-lg font-bold text-gray-950">Update Pipeline Stage</h3>
+                    <div className="bg-white rounded-2xl max-w-md w-full p-6  border border-slate-100 animate-in fade-in zoom-in-95 duration-200">
+                        <div className="flex justify-between items-center mb-6 border-b border-slate-100 pb-4">
+                            <h3 className="text-lg font-bold text-slate-900">Update Pipeline Stage</h3>
                             <button 
                                 onClick={() => setIsStageModalOpen(false)}
-                                className="text-gray-400 hover:text-gray-600 cursor-pointer"
+                                className="text-slate-400 hover:text-slate-600 cursor-pointer"
                             >
                                 <XCircle className="w-5 h-5" />
                             </button>
@@ -1099,11 +1099,11 @@ export function ApplicantProfile({ onBack, applicant }: ApplicantProfileProps) {
 
                         <div className="space-y-4 mb-6 text-left">
                             <div>
-                                <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-wide mb-2">Select Target Stage</label>
+                                <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-2">Select Target Stage</label>
                                 <select
                                     value={selectedStage}
                                     onChange={(e) => setSelectedStage(e.target.value)}
-                                    className="w-full p-3 border border-gray-200 rounded-xl text-xs bg-white focus:outline-none focus:ring-2 focus:ring-[#800020]/20"
+                                    className="w-full p-3 border border-slate-200 rounded-xl text-xs bg-white focus:outline-none focus:ring-2 focus:ring-indigo-600/20"
                                 >
                                     <option value="Filter">Filter</option>
                                     <option value="Shortlisted">Shortlisted</option>
@@ -1117,7 +1117,7 @@ export function ApplicantProfile({ onBack, applicant }: ApplicantProfileProps) {
                             </div>
                         </div>
 
-                        <div className="flex gap-3 pt-4 border-t border-gray-100">
+                        <div className="flex gap-3 pt-4 border-t border-slate-100">
                             <button
                                 onClick={() => setIsStageModalOpen(false)}
                                 className="flex-1 px-4 py-2.5 border border-gray-255 text-gray-650 rounded-xl font-semibold hover:bg-gray-50 text-xs cursor-pointer"
@@ -1130,7 +1130,7 @@ export function ApplicantProfile({ onBack, applicant }: ApplicantProfileProps) {
                                     setIsStageModalOpen(false);
                                     toast.success(`Workflow stage updated to: ${selectedStage}`);
                                 }}
-                                className="flex-1 px-4 py-2.5 bg-[#800020] hover:bg-[#600018] text-white rounded-xl font-semibold transition-colors cursor-pointer  text-xs"
+                                className="flex-1 px-4 py-2.5 bg-indigo-600 hover:bg-indigo-800 text-white rounded-xl font-semibold transition-colors cursor-pointer  text-xs"
                             >
                                 Update Stage
                             </button>

@@ -26,16 +26,16 @@ export function MessageModal({ isOpen, onClose, recipient }: MessageModalProps) 
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
             <div className="bg-white rounded-2xl  w-full max-w-2xl max-h-[90vh] overflow-hidden">
                 {/* Header */}
-                <div className="flex items-center justify-between p-6 border-b border-gray-200">
+                <div className="flex items-center justify-between p-6 border-b border-slate-200">
                     <div>
-                        <h2 className="text-gray-900">New Message</h2>
-                        <p className="text-sm text-gray-500">Send a message to a candidate</p>
+                        <h2 className="text-slate-900">New Message</h2>
+                        <p className="text-sm text-slate-500">Send a message to a candidate</p>
                     </div>
                     <button
                         onClick={onClose}
                         className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-100 transition-colors"
                     >
-                        <X className="w-5 h-5 text-gray-500" />
+                        <X className="w-5 h-5 text-slate-500" />
                     </button>
                 </div>
 
@@ -44,7 +44,7 @@ export function MessageModal({ isOpen, onClose, recipient }: MessageModalProps) 
                     <div className="space-y-5">
                         {/* To */}
                         <div>
-                            <label className="block text-sm text-gray-700 mb-2">To *</label>
+                            <label className="block text-sm text-slate-700 mb-2">To *</label>
                             <input
                                 type="text"
                                 required
@@ -57,7 +57,7 @@ export function MessageModal({ isOpen, onClose, recipient }: MessageModalProps) 
 
                         {/* Subject */}
                         <div>
-                            <label className="block text-sm text-gray-700 mb-2">Subject *</label>
+                            <label className="block text-sm text-slate-700 mb-2">Subject *</label>
                             <input
                                 type="text"
                                 required
@@ -70,7 +70,7 @@ export function MessageModal({ isOpen, onClose, recipient }: MessageModalProps) 
 
                         {/* Message */}
                         <div>
-                            <label className="block text-sm text-gray-700 mb-2">Message *</label>
+                            <label className="block text-sm text-slate-700 mb-2">Message *</label>
                             <textarea
                                 required
                                 value={formData.message}
@@ -82,10 +82,10 @@ export function MessageModal({ isOpen, onClose, recipient }: MessageModalProps) 
                         </div>
 
                         {/* Attachments */}
-                        <div className="p-4 bg-gray-50 rounded-lg border border-gray-200">
+                        <div className="p-4 bg-gray-50 rounded-lg border border-slate-200">
                             <button
                                 type="button"
-                                className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
+                                className="flex items-center gap-2 text-slate-600 hover:text-slate-900 transition-colors"
                             >
                                 <Paperclip className="w-4 h-4" />
                                 <span className="text-sm">Attach files</span>
@@ -94,11 +94,11 @@ export function MessageModal({ isOpen, onClose, recipient }: MessageModalProps) 
                     </div>
 
                     {/* Footer */}
-                    <div className="flex items-center justify-end gap-3 mt-6 pt-6 border-t border-gray-200">
+                    <div className="flex items-center justify-end gap-3 mt-6 pt-6 border-t border-slate-200">
                         <button
                             type="button"
                             onClick={onClose}
-                            className="px-5 py-2.5 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors"
+                            className="px-5 py-2.5 rounded-lg text-slate-700 hover:bg-gray-100 transition-colors"
                         >
                             Cancel
                         </button>

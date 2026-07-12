@@ -3,9 +3,9 @@
     /* Primary Maroon Colors */
     --maroon-900: #4A0D0D;
     /* Darkest maroon */
-    --maroon-800: #600018;
+    --maroon-800: #003E6B;
     /* Dark maroon for borders */
-    --maroon-700: #800020;
+    --maroon-700: #005189;
     /* Primary maroon */
     --maroon-600: #8B0000;
     /* Dark red maroon */
@@ -19,6 +19,6 @@
     /* Dark salmon */
     --maroon-100: #FFA07A;
     /* Light salmon */
-    --maroon-50: #F5E6E8;
+    --maroon-50: #EBF3FC;
     /* Very light pink-maroon */
 }

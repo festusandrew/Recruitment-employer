@@ -104,22 +104,22 @@ export function ProfilePage({ onNavigate }: ProfilePageProps) {
             <div className="max-w-[1200px] mx-auto">
                 {/* Header */}
                 <div className="mb-8">
-                    <h1 className="text-3xl font-black text-gray-900 tracking-tight flex items-center gap-2">
+                    <h1 className="text-3xl font-black text-slate-900 tracking-tight flex items-center gap-2">
                         My Account Profile
-                        <Sparkles className="w-5.5 h-5.5 text-[#800020] animate-pulse" />
+                        <Sparkles className="w-5.5 h-5.5 text-indigo-600 animate-pulse" />
                     </h1>
-                    <p className="text-sm text-gray-500 mt-1 font-medium">Manage your personal credentials, contact info, and workspace authentication.</p>
+                    <p className="text-sm text-slate-500 mt-1 font-medium">Manage your personal credentials, contact info, and workspace authentication.</p>
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     {/* Left Column - Profile Card */}
                     <div className="col-span-1 space-y-6">
                         {/* Profile Picture Card */}
-                        <div className="bg-white rounded-2xl border border-gray-200/80  p-6 flex flex-col items-center">
+                        <div className="bg-white rounded-2xl border border-slate-200/80  p-6 flex flex-col items-center">
                             <div className="relative inline-block mb-4">
-                                <Avatar className="w-24 h-24  border-2 border-gray-100">
+                                <Avatar className="w-24 h-24  border-2 border-slate-100">
                                     <AvatarImage src="https://api.dicebear.com/7.x/avataaars/svg?seed=employer" />
-                                    <AvatarFallback className="font-black text-xl bg-[#800020] text-white">
+                                    <AvatarFallback className="font-black text-xl bg-indigo-600 text-white">
                                         {profile.firstName.charAt(0)}{profile.lastName.charAt(0)}
                                     </AvatarFallback>
                                 </Avatar>
@@ -127,52 +127,52 @@ export function ProfilePage({ onNavigate }: ProfilePageProps) {
                                     whileHover={{ scale: 1.1 }}
                                     whileTap={{ scale: 0.9 }}
                                     onClick={() => showToast("Avatar upload feature triggered.")}
-                                    className="absolute bottom-0 right-0 w-8 h-8 bg-primary   rounded-full flex items-center justify-center  cursor-pointer border border-[#800020]/15"
+                                    className="absolute bottom-0 right-0 w-8 h-8 bg-indigo-600   rounded-full flex items-center justify-center  cursor-pointer border border-indigo-600/15"
                                 >
                                     <Camera className="w-3.5 h-3.5 text-white" />
                                 </motion.button>
                             </div>
-                            <h2 className="text-gray-955 mb-0.5 font-black text-lg">{profile.firstName} {profile.lastName}</h2>
-                            <p className="text-xs text-[#800020] mb-4 font-extrabold bg-rose-50 px-2.5 py-0.5 rounded-md border border-[#800020]/10 uppercase tracking-wider">{profile.jobTitle}</p>
-                            <div className="flex items-center justify-center gap-1.5 text-xs font-bold text-gray-500 px-3 py-1.5 bg-gray-50 rounded-xl border border-gray-150 ">
-                                <MapPin className="w-3.5 h-3.5 text-[#800020]" />
+                            <h2 className="text-slate-900 font-extrabold mb-0.5 font-black text-lg">{profile.firstName} {profile.lastName}</h2>
+                            <p className="text-xs text-indigo-600 mb-4 font-extrabold bg-rose-50 px-2.5 py-0.5 rounded-md border border-indigo-600/10 uppercase tracking-wider">{profile.jobTitle}</p>
+                            <div className="flex items-center justify-center gap-1.5 text-xs font-bold text-slate-500 px-3 py-1.5 bg-gray-50 rounded-xl border border-gray-150 ">
+                                <MapPin className="w-3.5 h-3.5 text-indigo-600" />
                                 <span>{profile.location}</span>
                             </div>
                         </div>
 
                         {/* Quick Stats */}
-                        <div className="bg-white rounded-2xl border border-gray-200/80  p-6">
-                            <h3 className="text-gray-900 mb-4 font-black text-sm uppercase tracking-wider">Workspace Performance</h3>
+                        <div className="bg-white rounded-2xl border border-slate-200/80  p-6">
+                            <h3 className="text-slate-900 mb-4 font-black text-sm uppercase tracking-wider">Workspace Performance</h3>
                             <div className="space-y-4">
-                                <div className="flex items-center justify-between p-2 rounded-xl bg-gray-50/50 border border-gray-100">
-                                    <span className="text-xs text-gray-500 font-bold">Active Jobs Managed</span>
-                                    <span className="text-gray-950 font-black bg-rose-50 px-2 py-0.5 rounded-lg border border-[#800020]/10 text-xs">12</span>
+                                <div className="flex items-center justify-between p-2 rounded-xl bg-gray-50/50 border border-slate-100">
+                                    <span className="text-xs text-slate-500 font-bold">Active Jobs Managed</span>
+                                    <span className="text-slate-900 font-black bg-rose-50 px-2 py-0.5 rounded-lg border border-indigo-600/10 text-xs">12</span>
                                 </div>
-                                <div className="flex items-center justify-between p-2 rounded-xl bg-gray-50/50 border border-gray-100">
-                                    <span className="text-xs text-gray-500 font-bold">Applicants Reviewed</span>
-                                    <span className="text-gray-955 font-black bg-blue-50 px-2 py-0.5 rounded-lg border border-blue-150 text-xs">248</span>
+                                <div className="flex items-center justify-between p-2 rounded-xl bg-gray-50/50 border border-slate-100">
+                                    <span className="text-xs text-slate-500 font-bold">Applicants Reviewed</span>
+                                    <span className="text-slate-900 font-extrabold font-black bg-blue-50 px-2 py-0.5 rounded-lg border border-blue-150 text-xs">248</span>
                                 </div>
-                                <div className="flex items-center justify-between p-2 rounded-xl bg-gray-50/50 border border-gray-100">
-                                    <span className="text-xs text-gray-500 font-bold">Interviews Hosted</span>
-                                    <span className="text-gray-955 font-black bg-emerald-50 px-2 py-0.5 rounded-lg border border-emerald-150 text-xs">36</span>
+                                <div className="flex items-center justify-between p-2 rounded-xl bg-gray-50/50 border border-slate-100">
+                                    <span className="text-xs text-slate-500 font-bold">Interviews Hosted</span>
+                                    <span className="text-slate-900 font-extrabold font-black bg-emerald-50 px-2 py-0.5 rounded-lg border border-emerald-150 text-xs">36</span>
                                 </div>
-                                <div className="flex items-center justify-between p-2 rounded-xl bg-gray-50/50 border border-gray-100">
-                                    <span className="text-xs text-gray-500 font-bold">Successful Hires</span>
-                                    <span className="text-gray-955 font-black bg-purple-50 px-2 py-0.5 rounded-lg border border-purple-150 text-xs">18</span>
+                                <div className="flex items-center justify-between p-2 rounded-xl bg-gray-50/50 border border-slate-100">
+                                    <span className="text-xs text-slate-500 font-bold">Successful Hires</span>
+                                    <span className="text-slate-900 font-extrabold font-black bg-purple-50 px-2 py-0.5 rounded-lg border border-purple-150 text-xs">18</span>
                                 </div>
                             </div>
                         </div>
 
                         {/* Account Actions */}
-                        <div className="bg-white rounded-2xl border border-gray-200/80  p-6">
-                            <h3 className="text-gray-900 mb-4 font-black text-sm uppercase tracking-wider">Account Credentials</h3>
+                        <div className="bg-white rounded-2xl border border-slate-200/80  p-6">
+                            <h3 className="text-slate-900 mb-4 font-black text-sm uppercase tracking-wider">Account Credentials</h3>
                             <div className="space-y-2">
                                 <motion.button 
                                     whileHover={{ x: 3 }}
                                     onClick={() => setIsSecurityModalOpen(true)}
-                                    className="w-full flex items-center gap-3 px-4 py-2.5 text-gray-700 hover:bg-rose-50/45 rounded-xl transition-all text-left cursor-pointer border border-transparent hover:border-[#800020]/10 font-bold"
+                                    className="w-full flex items-center gap-3 px-4 py-2.5 text-slate-700 hover:bg-rose-50/45 rounded-xl transition-all text-left cursor-pointer border border-transparent hover:border-indigo-600/10 font-bold"
                                 >
-                                    <Shield className="w-4.5 h-4.5 text-[#800020]" />
+                                    <Shield className="w-4.5 h-4.5 text-indigo-600" />
                                     <span className="text-sm">Security & 2FA Keys</span>
                                 </motion.button>
                                 <motion.button 
@@ -190,17 +190,17 @@ export function ProfilePage({ onNavigate }: ProfilePageProps) {
                     {/* Right Column - Profile Details */}
                     <div className="col-span-1 lg:col-span-2 space-y-6">
                         {/* Personal Information */}
-                        <div className="bg-white rounded-2xl border border-gray-200/80  overflow-hidden">
-                            <div className="p-6 border-b border-gray-100 bg-white flex items-center justify-between">
+                        <div className="bg-white rounded-2xl border border-slate-200/80  overflow-hidden">
+                            <div className="p-6 border-b border-slate-100 bg-white flex items-center justify-between">
                                 <div>
-                                    <h2 className="text-gray-900 font-black text-base">Personal Details</h2>
-                                    <p className="text-xs text-gray-400 font-bold uppercase tracking-wider mt-0.5">Edit contact credentials and location</p>
+                                    <h2 className="text-slate-900 font-black text-base">Personal Details</h2>
+                                    <p className="text-xs text-slate-400 font-bold uppercase tracking-wider mt-0.5">Edit contact credentials and location</p>
                                 </div>
                                 <motion.button 
                                     whileHover={{ scale: 1.02 }}
                                     whileTap={{ scale: 0.98 }}
                                     onClick={() => setIsEditing(!isEditing)}
-                                    className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer border ${isEditing ? "bg-gray-100 text-gray-500 border-gray-200 hover:bg-gray-200" : "bg-[#F5E6E8] text-[#800020] hover:bg-[#800020]/20 border-[#800020]/10"}`}
+                                    className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer border ${isEditing ? "bg-gray-100 text-slate-500 border-slate-200 hover:bg-gray-200" : "bg-indigo-50 text-indigo-600 hover:bg-indigo-600/20 border-indigo-600/10"}`}
                                 >
                                     {isEditing ? "Cancel Editing" : "Edit Profile"}
                                 </motion.button>
@@ -208,30 +208,30 @@ export function ProfilePage({ onNavigate }: ProfilePageProps) {
                             <form onSubmit={handleSaveChanges} className="p-6 space-y-5">
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                                     <div>
-                                        <label className="block text-sm font-bold text-gray-700 mb-2">First Name</label>
+                                        <label className="block text-sm font-bold text-slate-700 mb-2">First Name</label>
                                         <input
                                             type="text"
                                             value={profile.firstName}
                                             onChange={(e) => setProfile({ ...profile, firstName: e.target.value })}
                                             disabled={!isEditing}
-                                            className={`w-full px-4 py-2.5 border rounded-xl text-sm transition-all focus:outline-none focus:ring-2 focus:ring-[#800020] ${!isEditing ? "bg-gray-50 border-gray-200 text-gray-500 font-bold cursor-not-allowed" : "bg-white border-gray-300 text-gray-900  font-bold"}`}
+                                            className={`w-full px-4 py-2.5 border rounded-xl text-sm transition-all focus:outline-none focus:ring-2 focus:ring-indigo-600 ${!isEditing ? "bg-gray-50 border-slate-200 text-slate-500 font-bold cursor-not-allowed" : "bg-white border-gray-300 text-slate-900  font-bold"}`}
                                         />
                                     </div>
                                     <div>
-                                        <label className="block text-sm font-bold text-gray-700 mb-2">Last Name</label>
+                                        <label className="block text-sm font-bold text-slate-700 mb-2">Last Name</label>
                                         <input
                                             type="text"
                                             value={profile.lastName}
                                             onChange={(e) => setProfile({ ...profile, lastName: e.target.value })}
                                             disabled={!isEditing}
-                                            className={`w-full px-4 py-2.5 border rounded-xl text-sm transition-all focus:outline-none focus:ring-2 focus:ring-[#800020] ${!isEditing ? "bg-gray-50 border-gray-200 text-gray-500 font-bold cursor-not-allowed" : "bg-white border-gray-300 text-gray-900  font-bold"}`}
+                                            className={`w-full px-4 py-2.5 border rounded-xl text-sm transition-all focus:outline-none focus:ring-2 focus:ring-indigo-600 ${!isEditing ? "bg-gray-50 border-slate-200 text-slate-500 font-bold cursor-not-allowed" : "bg-white border-gray-300 text-slate-900  font-bold"}`}
                                         />
                                     </div>
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-bold text-gray-700 mb-2">Email Address</label>
-                                    <div className={`flex items-center gap-3 px-4 py-2.5 border rounded-xl transition-all ${!isEditing ? "bg-gray-50 border-gray-200 text-gray-500 cursor-not-allowed" : "bg-white border-gray-300  text-gray-900 focus-within:border-[#800020] focus-within:ring-2 focus-within:ring-[#800020]/20"}`}>
-                                        <Mail className="w-5 h-5 text-gray-400 flex-shrink-0" />
+                                    <label className="block text-sm font-bold text-slate-700 mb-2">Email Address</label>
+                                    <div className={`flex items-center gap-3 px-4 py-2.5 border rounded-xl transition-all ${!isEditing ? "bg-gray-50 border-slate-200 text-slate-500 cursor-not-allowed" : "bg-white border-gray-300  text-slate-900 focus-within:border-indigo-600 focus-within:ring-2 focus-within:ring-indigo-600/20"}`}>
+                                        <Mail className="w-5 h-5 text-slate-400 flex-shrink-0" />
                                         <input
                                             type="email"
                                             value={profile.email}
@@ -242,9 +242,9 @@ export function ProfilePage({ onNavigate }: ProfilePageProps) {
                                     </div>
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-bold text-gray-700 mb-2">Phone Number</label>
-                                    <div className={`flex items-center gap-3 px-4 py-2.5 border rounded-xl transition-all ${!isEditing ? "bg-gray-50 border-gray-200 text-gray-500 cursor-not-allowed" : "bg-white border-gray-300  text-gray-900 focus-within:border-[#800020] focus-within:ring-2 focus-within:ring-[#800020]/20"}`}>
-                                        <Phone className="w-5 h-5 text-gray-400 flex-shrink-0" />
+                                    <label className="block text-sm font-bold text-slate-700 mb-2">Phone Number</label>
+                                    <div className={`flex items-center gap-3 px-4 py-2.5 border rounded-xl transition-all ${!isEditing ? "bg-gray-50 border-slate-200 text-slate-500 cursor-not-allowed" : "bg-white border-gray-300  text-slate-900 focus-within:border-indigo-600 focus-within:ring-2 focus-within:ring-indigo-600/20"}`}>
+                                        <Phone className="w-5 h-5 text-slate-400 flex-shrink-0" />
                                         <input
                                             type="tel"
                                             value={profile.phone}
@@ -255,9 +255,9 @@ export function ProfilePage({ onNavigate }: ProfilePageProps) {
                                     </div>
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-bold text-gray-700 mb-2">Workspace Location</label>
-                                    <div className={`flex items-center gap-3 px-4 py-2.5 border rounded-xl transition-all ${!isEditing ? "bg-gray-50 border-gray-200 text-gray-500 cursor-not-allowed" : "bg-white border-gray-300  text-gray-900 focus-within:border-[#800020] focus-within:ring-2 focus-within:ring-[#800020]/20"}`}>
-                                        <MapPin className="w-5 h-5 text-gray-400 flex-shrink-0" />
+                                    <label className="block text-sm font-bold text-slate-700 mb-2">Workspace Location</label>
+                                    <div className={`flex items-center gap-3 px-4 py-2.5 border rounded-xl transition-all ${!isEditing ? "bg-gray-50 border-slate-200 text-slate-500 cursor-not-allowed" : "bg-white border-gray-300  text-slate-900 focus-within:border-indigo-600 focus-within:ring-2 focus-within:ring-indigo-600/20"}`}>
+                                        <MapPin className="w-5 h-5 text-slate-400 flex-shrink-0" />
                                         <input
                                             type="text"
                                             value={profile.location}
@@ -281,7 +281,7 @@ export function ProfilePage({ onNavigate }: ProfilePageProps) {
                                                 whileTap={{ scale: 0.98 }}
                                                 type="submit"
                                                 disabled={isSaving}
-                                                className="px-6 py-2.5 bg-primary   text-white rounded-xl transition-all font-bold text-sm  min-w-[140px] flex items-center justify-center cursor-pointer border border-[#800020]/10"
+                                                className="px-6 py-2.5 bg-indigo-600   text-white rounded-xl transition-all font-bold text-sm  min-w-[140px] flex items-center justify-center cursor-pointer border border-indigo-600/10"
                                             >
                                                 {isSaving ? (
                                                     <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
@@ -292,7 +292,7 @@ export function ProfilePage({ onNavigate }: ProfilePageProps) {
                                             <button
                                                 type="button"
                                                 onClick={() => setIsEditing(false)}
-                                                className="px-5 py-2.5 border border-gray-300 text-gray-600 hover:bg-gray-50 rounded-xl font-bold text-sm cursor-pointer transition-colors"
+                                                className="px-5 py-2.5 border border-gray-300 text-slate-600 hover:bg-gray-50 rounded-xl font-bold text-sm cursor-pointer transition-colors"
                                             >
                                                 Cancel
                                             </button>
@@ -303,29 +303,29 @@ export function ProfilePage({ onNavigate }: ProfilePageProps) {
                         </div>
 
                         {/* Professional Details */}
-                        <div className="bg-white rounded-2xl border border-gray-200/80  overflow-hidden">
-                            <div className="p-6 border-b border-gray-100 bg-white">
-                                <h2 className="text-gray-900 font-bold text-base">Workspace Permissions</h2>
+                        <div className="bg-white rounded-2xl border border-slate-200/80  overflow-hidden">
+                            <div className="p-6 border-b border-slate-100 bg-white">
+                                <h2 className="text-slate-900 font-bold text-base">Workspace Permissions</h2>
                             </div>
                             <div className="p-6 space-y-5">
                                 <div>
-                                    <label className="block text-sm font-bold text-gray-700 mb-2">Job Title</label>
-                                    <div className="flex items-center gap-3 px-4 py-2.5 border border-gray-200 bg-gray-50 rounded-xl">
-                                        <Briefcase className="w-5 h-5 text-gray-400 flex-shrink-0" />
+                                    <label className="block text-sm font-bold text-slate-700 mb-2">Job Title</label>
+                                    <div className="flex items-center gap-3 px-4 py-2.5 border border-slate-200 bg-gray-50 rounded-xl">
+                                        <Briefcase className="w-5 h-5 text-slate-400 flex-shrink-0" />
                                         <input
                                             type="text"
                                             value={profile.jobTitle}
                                             disabled
-                                            className="flex-1 bg-transparent outline-none text-sm font-bold text-gray-500 cursor-not-allowed"
+                                            className="flex-1 bg-transparent outline-none text-sm font-bold text-slate-500 cursor-not-allowed"
                                         />
                                     </div>
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-bold text-gray-700 mb-2">Assign Department</label>
+                                    <label className="block text-sm font-bold text-slate-700 mb-2">Assign Department</label>
                                     <select 
                                         value={profile.department}
                                         onChange={(e) => setProfile({ ...profile, department: e.target.value })}
-                                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#800020] bg-white text-sm font-bold text-gray-700 cursor-pointer"
+                                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-600 bg-white text-sm font-bold text-slate-700 cursor-pointer"
                                     >
                                         <option>Human Resources</option>
                                         <option>Engineering</option>
@@ -336,26 +336,26 @@ export function ProfilePage({ onNavigate }: ProfilePageProps) {
                                 </div>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                                     <div>
-                                        <label className="block text-sm font-bold text-gray-700 mb-2">Member Since</label>
-                                        <div className="flex items-center gap-3 px-4 py-2.5 border border-gray-200 bg-gray-50 rounded-xl">
-                                            <Calendar className="w-5 h-5 text-gray-400 flex-shrink-0" />
+                                        <label className="block text-sm font-bold text-slate-700 mb-2">Member Since</label>
+                                        <div className="flex items-center gap-3 px-4 py-2.5 border border-slate-200 bg-gray-50 rounded-xl">
+                                            <Calendar className="w-5 h-5 text-slate-400 flex-shrink-0" />
                                             <input
                                                 type="text"
                                                 defaultValue="January 15, 2024"
                                                 disabled
-                                                className="flex-1 bg-transparent outline-none text-sm font-bold text-gray-500 cursor-not-allowed"
+                                                className="flex-1 bg-transparent outline-none text-sm font-bold text-slate-500 cursor-not-allowed"
                                             />
                                         </div>
                                     </div>
                                     <div>
-                                        <label className="block text-sm font-bold text-gray-700 mb-2">Role Permissions</label>
-                                        <div className="flex items-center gap-3 px-4 py-2.5 border border-gray-200 bg-gray-50 rounded-xl">
-                                            <Award className="w-5 h-5 text-gray-400 flex-shrink-0" />
+                                        <label className="block text-sm font-bold text-slate-700 mb-2">Role Permissions</label>
+                                        <div className="flex items-center gap-3 px-4 py-2.5 border border-slate-200 bg-gray-50 rounded-xl">
+                                            <Award className="w-5 h-5 text-slate-400 flex-shrink-0" />
                                             <input
                                                 type="text"
                                                 defaultValue="Full Owner Access"
                                                 disabled
-                                                className="flex-1 bg-transparent outline-none text-sm font-bold text-gray-500 cursor-not-allowed"
+                                                className="flex-1 bg-transparent outline-none text-sm font-bold text-slate-500 cursor-not-allowed"
                                             />
                                         </div>
                                     </div>
@@ -364,12 +364,12 @@ export function ProfilePage({ onNavigate }: ProfilePageProps) {
                         </div>
 
                         {/* Recent Activity */}
-                        <div className="bg-white rounded-2xl border border-gray-200/80  overflow-hidden">
-                            <div className="p-6 border-b border-gray-100 bg-white">
+                        <div className="bg-white rounded-2xl border border-slate-200/80  overflow-hidden">
+                            <div className="p-6 border-b border-slate-100 bg-white">
                                 <div className="flex items-center justify-between">
                                     <div>
-                                        <h2 className="text-gray-900 font-bold text-base">My Recent Actions</h2>
-                                        <p className="text-xs text-gray-400 font-bold uppercase tracking-wider mt-0.5">Audit log of your recent interactions</p>
+                                        <h2 className="text-slate-900 font-bold text-base">My Recent Actions</h2>
+                                        <p className="text-xs text-slate-400 font-bold uppercase tracking-wider mt-0.5">Audit log of your recent interactions</p>
                                     </div>
                                     <button 
                                         onClick={() => {
@@ -377,7 +377,7 @@ export function ProfilePage({ onNavigate }: ProfilePageProps) {
                                                 onNavigate("activity");
                                             }
                                         }}
-                                        className="text-[#800020] font-black hover:text-[#600018] text-sm flex items-center gap-1 cursor-pointer"
+                                        className="text-indigo-600 font-black hover:text-indigo-800 text-sm flex items-center gap-1 cursor-pointer"
                                     >
                                         View All Log →
                                     </button>
@@ -387,14 +387,14 @@ export function ProfilePage({ onNavigate }: ProfilePageProps) {
                                 {activityLog.map((activity, index) => (
                                     <div key={index} className="p-4.5 hover:bg-gray-50/50 transition-colors">
                                         <div className="flex items-start gap-3">
-                                            <div className="w-8.5 h-8.5 bg-[#F5E6E8] rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5 border border-[#800020]/10 ">
-                                                <Activity className="w-4 h-4 text-[#800020]" />
+                                            <div className="w-8.5 h-8.5 bg-indigo-50 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5 border border-indigo-600/10 ">
+                                                <Activity className="w-4 h-4 text-indigo-600" />
                                             </div>
                                             <div className="flex-1 min-w-0">
-                                                <p className="text-sm font-semibold text-gray-600 truncate leading-relaxed">
-                                                    {activity.action} <span className="text-[#800020] font-black">{activity.item}</span>
+                                                <p className="text-sm font-semibold text-slate-600 truncate leading-relaxed">
+                                                    {activity.action} <span className="text-indigo-600 font-black">{activity.item}</span>
                                                 </p>
-                                                <p className="text-[10px] font-extrabold text-gray-400 mt-1 uppercase tracking-wider">{activity.time}</p>
+                                                <p className="text-[10px] font-extrabold text-slate-400 mt-1 uppercase tracking-wider">{activity.time}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -413,52 +413,52 @@ export function ProfilePage({ onNavigate }: ProfilePageProps) {
                             initial={{ opacity: 0, scale: 0.96, y: 15 }}
                             animate={{ opacity: 1, scale: 1, y: 0 }}
                             exit={{ opacity: 0, scale: 0.96, y: 15 }}
-                            className="bg-white rounded-2xl max-w-4xl w-full p-8  border border-gray-100 max-h-[90vh] flex flex-col text-left"
+                            className="bg-white rounded-2xl max-w-4xl w-full p-8  border border-slate-100 max-h-[90vh] flex flex-col text-left"
                         >
                             {/* Header */}
-                            <div className="flex items-center justify-between mb-6 pb-4 border-b border-gray-100 flex-shrink-0">
+                            <div className="flex items-center justify-between mb-6 pb-4 border-b border-slate-100 flex-shrink-0">
                                 <div>
                                     <div className="flex items-center gap-2.5 mb-1">
-                                        <div className="w-10 h-10 bg-[#F5E6E8] rounded-xl flex items-center justify-center text-[#800020] border border-[#800020]/10 ">
+                                        <div className="w-10 h-10 bg-indigo-50 rounded-xl flex items-center justify-center text-indigo-600 border border-indigo-600/10 ">
                                             <Shield className="w-5.5 h-5.5" />
                                         </div>
                                         <div>
-                                            <h3 className="text-2xl font-black text-gray-900">Security Settings</h3>
-                                            <p className="text-sm text-gray-500 mt-0.5 font-semibold">Manage your authentication methods and monitor active sessions.</p>
+                                            <h3 className="text-2xl font-black text-slate-900">Security Settings</h3>
+                                            <p className="text-sm text-slate-500 mt-0.5 font-semibold">Manage your authentication methods and monitor active sessions.</p>
                                         </div>
                                     </div>
                                 </div>
                                 <button
                                     onClick={() => setIsSecurityModalOpen(false)}
-                                    className="p-2.5 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-xl transition-colors cursor-pointer border border-gray-200"
+                                    className="p-2.5 text-slate-400 hover:text-slate-600 hover:bg-gray-100 rounded-xl transition-colors cursor-pointer border border-slate-200"
                                 >
                                     <X className="w-6 h-6" />
                                 </button>
                             </div>
 
                             {/* Navigation Tabs */}
-                            <div className="flex items-center gap-2 border-b border-gray-200 mb-6 flex-shrink-0 overflow-x-auto">
+                            <div className="flex items-center gap-2 border-b border-slate-200 mb-6 flex-shrink-0 overflow-x-auto">
                                 <button
                                     onClick={() => setSecurityTab("password")}
-                                    className={`px-4 py-2.5 font-bold text-xs uppercase tracking-wider border-b-2 transition-colors cursor-pointer flex items-center gap-2 whitespace-nowrap ${securityTab === "password" ? "border-[#800020] text-[#800020]" : "border-transparent text-gray-400 hover:text-gray-950"}`}
+                                    className={`px-4 py-2.5 font-bold text-xs uppercase tracking-wider border-b-2 transition-colors cursor-pointer flex items-center gap-2 whitespace-nowrap ${securityTab === "password" ? "border-indigo-600 text-indigo-600" : "border-transparent text-slate-400 hover:text-slate-900"}`}
                                 >
                                     <Key className="w-4 h-4" /> Change Password
                                 </button>
                                 <button
                                     onClick={() => setSecurityTab("2fa")}
-                                    className={`px-4 py-2.5 font-bold text-xs uppercase tracking-wider border-b-2 transition-colors cursor-pointer flex items-center gap-2 whitespace-nowrap ${securityTab === "2fa" ? "border-[#800020] text-[#800020]" : "border-transparent text-gray-400 hover:text-gray-950"}`}
+                                    className={`px-4 py-2.5 font-bold text-xs uppercase tracking-wider border-b-2 transition-colors cursor-pointer flex items-center gap-2 whitespace-nowrap ${securityTab === "2fa" ? "border-indigo-600 text-indigo-600" : "border-transparent text-slate-400 hover:text-slate-900"}`}
                                 >
                                     <Lock className="w-4 h-4" /> Two-Factor Auth (2FA)
                                 </button>
                                 <button
                                     onClick={() => setSecurityTab("sessions")}
-                                    className={`px-4 py-2.5 font-bold text-xs uppercase tracking-wider border-b-2 transition-colors cursor-pointer flex items-center gap-2 whitespace-nowrap ${securityTab === "sessions" ? "border-[#800020] text-[#800020]" : "border-transparent text-gray-400 hover:text-gray-950"}`}
+                                    className={`px-4 py-2.5 font-bold text-xs uppercase tracking-wider border-b-2 transition-colors cursor-pointer flex items-center gap-2 whitespace-nowrap ${securityTab === "sessions" ? "border-indigo-600 text-indigo-600" : "border-transparent text-slate-400 hover:text-slate-900"}`}
                                 >
                                     <Laptop className="w-4 h-4" /> Active Devices ({activeSessions.length})
                                 </button>
                                 <button
                                     onClick={() => setSecurityTab("audit")}
-                                    className={`px-4 py-2.5 font-bold text-xs uppercase tracking-wider border-b-2 transition-colors cursor-pointer flex items-center gap-2 whitespace-nowrap ${securityTab === "audit" ? "border-[#800020] text-[#800020]" : "border-transparent text-gray-400 hover:text-gray-950"}`}
+                                    className={`px-4 py-2.5 font-bold text-xs uppercase tracking-wider border-b-2 transition-colors cursor-pointer flex items-center gap-2 whitespace-nowrap ${securityTab === "audit" ? "border-indigo-600 text-indigo-600" : "border-transparent text-slate-400 hover:text-slate-900"}`}
                                 >
                                     <Globe className="w-4 h-4" /> Access Audit Trail
                                 </button>
@@ -469,46 +469,46 @@ export function ProfilePage({ onNavigate }: ProfilePageProps) {
                                 {securityTab === "password" && (
                                     <form onSubmit={handleUpdatePassword} className="space-y-5 max-w-xl text-left">
                                         <div>
-                                            <label className="block text-sm font-bold text-gray-700 mb-2">Current Password</label>
+                                            <label className="block text-sm font-bold text-slate-700 mb-2">Current Password</label>
                                             <input
                                                 type="password"
                                                 placeholder="••••••••••••"
                                                 value={currentPassword}
                                                 onChange={(e) => setCurrentPassword(e.target.value)}
                                                 required
-                                                className="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#800020] text-sm font-semibold "
+                                                className="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-600 text-sm font-semibold "
                                             />
                                         </div>
                                         <div>
-                                            <label className="block text-sm font-bold text-gray-700 mb-2">New Password</label>
+                                            <label className="block text-sm font-bold text-slate-700 mb-2">New Password</label>
                                             <input
                                                 type="password"
                                                 placeholder="Minimum 8 characters"
                                                 value={newPassword}
                                                 onChange={(e) => setNewPassword(e.target.value)}
                                                 required
-                                                className="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#800020] text-sm font-semibold "
+                                                className="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-600 text-sm font-semibold "
                                             />
                                             {newPassword && (
                                                 <div className="mt-2.5 flex items-center gap-2">
                                                     <div className="flex-1 flex gap-1 h-1.5 bg-gray-150 rounded-full overflow-hidden">
                                                         <div className={`h-full transition-all ${newPassword.length > 7 ? "w-full bg-emerald-500" : newPassword.length > 4 ? "w-2/3 bg-amber-500" : "w-1/3 bg-rose-500"}`}></div>
                                                     </div>
-                                                    <span className="text-[10px] font-black uppercase tracking-wider text-gray-400">
+                                                    <span className="text-[10px] font-black uppercase tracking-wider text-slate-400">
                                                         {newPassword.length > 7 ? "Strong" : newPassword.length > 4 ? "Medium" : "Weak"}
                                                     </span>
                                                 </div>
                                             )}
                                         </div>
                                         <div>
-                                            <label className="block text-sm font-bold text-gray-700 mb-2">Confirm New Password</label>
+                                            <label className="block text-sm font-bold text-slate-700 mb-2">Confirm New Password</label>
                                             <input
                                                 type="password"
                                                 placeholder="Confirm new password"
                                                 value={confirmPassword}
                                                 onChange={(e) => setConfirmPassword(e.target.value)}
                                                 required
-                                                className="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#800020] text-sm font-semibold "
+                                                className="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-600 text-sm font-semibold "
                                             />
                                         </div>
                                         <div className="pt-2">
@@ -517,7 +517,7 @@ export function ProfilePage({ onNavigate }: ProfilePageProps) {
                                                 whileTap={{ scale: 0.98 }}
                                                 type="submit"
                                                 disabled={isUpdatingPassword}
-                                                className="px-6 py-2.5 bg-[#800020] hover:bg-[#600018] text-white font-bold rounded-xl  transition-all cursor-pointer text-sm min-w-[160px] flex items-center justify-center border border-[#800020]/10"
+                                                className="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-800 text-white font-bold rounded-xl  transition-all cursor-pointer text-sm min-w-[160px] flex items-center justify-center border border-indigo-600/10"
                                             >
                                                 {isUpdatingPassword ? (
                                                     <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
@@ -531,10 +531,10 @@ export function ProfilePage({ onNavigate }: ProfilePageProps) {
 
                                 {securityTab === "2fa" && (
                                     <div className="space-y-6 max-w-2xl text-left">
-                                        <div className="p-5 bg-gray-50/75 border border-gray-200/80 rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 ">
+                                        <div className="p-5 bg-gray-50/75 border border-slate-200/80 rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 ">
                                             <div>
-                                                <h4 className="text-base font-black text-gray-900 mb-1">Authenticator Application</h4>
-                                                <p className="text-xs text-gray-500 font-semibold leading-relaxed">Use secure applications (Google Authenticator, Authy) to generate temporary OTP codes.</p>
+                                                <h4 className="text-base font-black text-slate-900 mb-1">Authenticator Application</h4>
+                                                <p className="text-xs text-slate-500 font-semibold leading-relaxed">Use secure applications (Google Authenticator, Authy) to generate temporary OTP codes.</p>
                                             </div>
                                             <div>
                                                 <motion.button
@@ -552,21 +552,21 @@ export function ProfilePage({ onNavigate }: ProfilePageProps) {
                                         </div>
 
                                         {twoFactorEnabled && (
-                                            <div className="p-6 border border-gray-200/80 bg-[#F5E6E8]/10 rounded-2xl space-y-4 ">
+                                            <div className="p-6 border border-slate-200/80 bg-indigo-50/10 rounded-2xl space-y-4 ">
                                                 <div className="flex items-start gap-3">
                                                     <div className="p-2 bg-emerald-50 rounded-xl text-emerald-600 mt-0.5 border border-emerald-100">
                                                         <CheckCircle2 className="w-5 h-5" />
                                                     </div>
                                                     <div>
-                                                        <h5 className="font-bold text-gray-900 text-sm">Two-Factor Key is Active</h5>
-                                                        <p className="text-xs text-gray-500 mt-0.5 font-semibold">Your recruiter credentials are fully locked under OTP challenges.</p>
+                                                        <h5 className="font-bold text-slate-900 text-sm">Two-Factor Key is Active</h5>
+                                                        <p className="text-xs text-slate-500 mt-0.5 font-semibold">Your recruiter credentials are fully locked under OTP challenges.</p>
                                                     </div>
                                                 </div>
-                                                <div className="pt-3 border-t border-gray-100 flex items-center justify-between">
-                                                    <span className="text-xs font-bold text-gray-500 uppercase tracking-wide">Backup Recovery Codes</span>
+                                                <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
+                                                    <span className="text-xs font-bold text-slate-500 uppercase tracking-wide">Backup Recovery Codes</span>
                                                     <button
                                                         onClick={() => showToast("Backup recovery keys saved to PDF.")}
-                                                        className="text-xs font-black text-[#800020] hover:underline cursor-pointer"
+                                                        className="text-xs font-black text-indigo-600 hover:underline cursor-pointer"
                                                     >
                                                         View / Download Keys
                                                     </button>
@@ -586,25 +586,25 @@ export function ProfilePage({ onNavigate }: ProfilePageProps) {
 
                                 {securityTab === "sessions" && (
                                     <div className="space-y-4 text-left">
-                                        <p className="text-xs text-gray-500 font-bold uppercase tracking-wider mb-4">Device Sessions currently logged into MployUs</p>
+                                        <p className="text-xs text-slate-500 font-bold uppercase tracking-wider mb-4">Device Sessions currently logged into MployUs</p>
                                         <div className="space-y-3">
                                             {activeSessions.map((session) => {
                                                 const DeviceIcon = session.icon;
                                                 return (
-                                                    <div key={session.id} className="p-4 bg-gray-50/60 border border-gray-200 rounded-2xl flex items-center justify-between gap-4 ">
+                                                    <div key={session.id} className="p-4 bg-gray-50/60 border border-slate-200 rounded-2xl flex items-center justify-between gap-4 ">
                                                         <div className="flex items-center gap-3.5 min-w-0">
-                                                            <div className="w-10 h-10 bg-white  border border-gray-200 rounded-xl flex items-center justify-center text-[#800020] flex-shrink-0">
+                                                            <div className="w-10 h-10 bg-white  border border-slate-200 rounded-xl flex items-center justify-center text-indigo-600 flex-shrink-0">
                                                                 <DeviceIcon className="w-5 h-5" />
                                                             </div>
                                                             <div className="min-w-0">
                                                                 <div className="flex items-center gap-2">
-                                                                    <h5 className="font-bold text-gray-900 text-sm truncate">{session.device}</h5>
+                                                                    <h5 className="font-bold text-slate-900 text-sm truncate">{session.device}</h5>
                                                                     {session.current && (
                                                                         <span className="px-2 py-0.5 bg-emerald-100 text-emerald-800 text-[9px] font-black rounded border border-emerald-200 uppercase tracking-wider">Active Now</span>
                                                                     )}
                                                                 </div>
-                                                                <p className="text-xs font-semibold text-gray-500 mt-0.5 truncate">{session.location} • IP: {session.ip}</p>
-                                                                <p className="text-[10px] font-black text-gray-400 mt-1 uppercase tracking-wide">{session.time}</p>
+                                                                <p className="text-xs font-semibold text-slate-500 mt-0.5 truncate">{session.location} • IP: {session.ip}</p>
+                                                                <p className="text-[10px] font-black text-slate-400 mt-1 uppercase tracking-wide">{session.time}</p>
                                                             </div>
                                                         </div>
                                                         {!session.current && (
@@ -625,19 +625,19 @@ export function ProfilePage({ onNavigate }: ProfilePageProps) {
                                 {securityTab === "audit" && (
                                     <div className="space-y-4 text-left">
                                         <div className="flex items-center justify-between mb-2">
-                                            <p className="text-xs text-gray-500 font-bold uppercase tracking-wider">Recruiter access events and authentication checks</p>
+                                            <p className="text-xs text-slate-500 font-bold uppercase tracking-wider">Recruiter access events and authentication checks</p>
                                             <button
                                                 onClick={() => {
                                                     showToast("Security audit log refreshed.");
                                                 }}
-                                                className="text-xs font-black text-[#800020] flex items-center gap-1 hover:underline cursor-pointer"
+                                                className="text-xs font-black text-indigo-600 flex items-center gap-1 hover:underline cursor-pointer"
                                             >
                                                 <RefreshCw className="w-3.5 h-3.5" /> Refresh Audit Trail
                                             </button>
                                         </div>
-                                        <div className="border border-gray-200 rounded-2xl overflow-hidden ">
+                                        <div className="border border-slate-200 rounded-2xl overflow-hidden ">
                                             <table className="w-full text-left text-xs">
-                                                <thead className="bg-gray-50 border-b border-gray-200 text-[10px] font-black text-gray-500 uppercase tracking-wider">
+                                                <thead className="bg-gray-50 border-b border-slate-200 text-[10px] font-black text-slate-500 uppercase tracking-wider">
                                                     <tr>
                                                         <th className="px-6 py-3.5">Event Action</th>
                                                         <th className="px-6 py-3.5">Device Specs</th>
@@ -649,10 +649,10 @@ export function ProfilePage({ onNavigate }: ProfilePageProps) {
                                                 <tbody className="divide-y divide-gray-100">
                                                     {auditLogs.map((log, index) => (
                                                         <tr key={index} className="hover:bg-gray-50/30 transition-colors">
-                                                            <td className="px-6 py-4 font-bold text-gray-900">{log.event}</td>
-                                                            <td className="px-6 py-4 text-gray-500 font-semibold">{log.device}</td>
-                                                            <td className="px-6 py-4 text-gray-500 font-mono font-semibold">{log.ip}</td>
-                                                            <td className="px-6 py-4 text-gray-400 font-bold">{log.time}</td>
+                                                            <td className="px-6 py-4 font-bold text-slate-900">{log.event}</td>
+                                                            <td className="px-6 py-4 text-slate-500 font-semibold">{log.device}</td>
+                                                            <td className="px-6 py-4 text-slate-500 font-mono font-semibold">{log.ip}</td>
+                                                            <td className="px-6 py-4 text-slate-400 font-bold">{log.time}</td>
                                                             <td className="px-6 py-4">
                                                                 <span className={`inline-flex items-center px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-wider ${log.status === "Success" ? "bg-green-100 text-green-855" : "bg-amber-100 text-amber-855"}`}>
                                                                     {log.status}

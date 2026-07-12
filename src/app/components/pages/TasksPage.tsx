@@ -142,14 +142,14 @@ export function TasksPage({ onAddTask }: TasksPageProps) {
             {/* Header */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
                 <div>
-                    <h1 className="text-3xl font-black text-gray-900 tracking-tight">Task Management</h1>
-                    <p className="text-sm text-gray-500 mt-1 font-medium">Organize pending actions, interview preparation, and applicant follow-ups.</p>
+                    <h1 className="text-3xl font-black text-slate-900 tracking-tight">Task Management</h1>
+                    <p className="text-sm text-slate-500 mt-1 font-medium">Organize pending actions, interview preparation, and applicant follow-ups.</p>
                 </div>
                 <motion.button 
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={onAddTask}
-                    className="flex items-center gap-2 px-5 py-3 bg-primary   text-white rounded-xl hover: transition-all  text-sm font-bold cursor-pointer flex-shrink-0 self-start md:self-auto border border-[#800020]/20"
+                    className="flex items-center gap-2 px-5 py-3 bg-indigo-600   text-white rounded-xl hover: transition-all  text-sm font-bold cursor-pointer flex-shrink-0 self-start md:self-auto border border-indigo-600/20"
                 >
                     <Plus className="w-4 h-4 stroke-[3]" />
                     Add New Task
@@ -179,54 +179,54 @@ export function TasksPage({ onAddTask }: TasksPageProps) {
                     transition={{ duration: 0.3, delay: 0.1 }}
                     className="flex items-center gap-3.5 p-5 rounded-2xl bg-rose-50/55 border border-rose-200/40 "
                 >
-                    <div className="w-11 h-11 bg-[#800020]/10 rounded-xl flex items-center justify-center flex-shrink-0 border border-[#800020]/10 ">
-                        <CheckSquare className="w-5.5 h-5.5 text-[#800020]" />
+                    <div className="w-11 h-11 bg-indigo-600/10 rounded-xl flex items-center justify-center flex-shrink-0 border border-indigo-600/10 ">
+                        <CheckSquare className="w-5.5 h-5.5 text-indigo-600" />
                     </div>
                     <div>
                         <h4 className="text-sm font-bold text-[#4A0D0D]">Upcoming Schedule</h4>
-                        <p className="text-xs text-[#800020] mt-0.5 font-medium">2 technical interview rounds require coordination today.</p>
+                        <p className="text-xs text-indigo-600 mt-0.5 font-medium">2 technical interview rounds require coordination today.</p>
                     </div>
                 </motion.div>
             </div>
 
             {/* Filter Tabs & Search Bar */}
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 bg-white/50 backdrop-blur-md p-3.5 rounded-2xl border border-gray-200/60 ">
-                <div className="flex items-center gap-1.5 bg-gray-100/80 p-1 rounded-xl self-start border border-gray-200/50">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 bg-white/50 backdrop-blur-md p-3.5 rounded-2xl border border-slate-200/60 ">
+                <div className="flex items-center gap-1.5 bg-gray-100/80 p-1 rounded-xl self-start border border-slate-200/50">
                     <button
                         onClick={() => setFilterTab("all")}
-                        className={`px-4 py-2 rounded-lg text-xs font-bold transition-all cursor-pointer ${filterTab === "all" ? "bg-white text-[#800020]  border border-gray-200/80" : "text-gray-500 hover:text-gray-900"}`}
+                        className={`px-4 py-2 rounded-lg text-xs font-bold transition-all cursor-pointer ${filterTab === "all" ? "bg-white text-indigo-600  border border-slate-200/80" : "text-slate-500 hover:text-slate-900"}`}
                     >
                         All Tasks ({tasksList.length})
                     </button>
                     <button
                         onClick={() => setFilterTab("pending")}
-                        className={`px-4 py-2 rounded-lg text-xs font-bold transition-all cursor-pointer ${filterTab === "pending" ? "bg-white text-[#800020]  border border-gray-200/80" : "text-gray-500 hover:text-gray-900"}`}
+                        className={`px-4 py-2 rounded-lg text-xs font-bold transition-all cursor-pointer ${filterTab === "pending" ? "bg-white text-indigo-600  border border-slate-200/80" : "text-slate-500 hover:text-slate-900"}`}
                     >
                         Pending ({pendingCount})
                     </button>
                     <button
                         onClick={() => setFilterTab("high")}
-                        className={`px-4 py-2 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${filterTab === "high" ? "bg-white text-[#800020]  border border-gray-200/80" : "text-gray-500 hover:text-gray-900"}`}
+                        className={`px-4 py-2 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${filterTab === "high" ? "bg-white text-indigo-600  border border-slate-200/80" : "text-slate-500 hover:text-slate-900"}`}
                     >
                         <span className="w-2 h-2 rounded-full bg-red-600 animate-pulse"></span>
                         High Priority ({highPriorityCount})
                     </button>
                     <button
                         onClick={() => setFilterTab("completed")}
-                        className={`px-4 py-2 rounded-lg text-xs font-bold transition-all cursor-pointer ${filterTab === "completed" ? "bg-white text-[#800020]  border border-gray-200/80" : "text-gray-500 hover:text-gray-900"}`}
+                        className={`px-4 py-2 rounded-lg text-xs font-bold transition-all cursor-pointer ${filterTab === "completed" ? "bg-white text-indigo-600  border border-slate-200/80" : "text-slate-500 hover:text-slate-900"}`}
                     >
                         Completed ({completedCount})
                     </button>
                 </div>
 
                 <div className="relative">
-                    <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                    <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                     <input
                         type="text"
                         placeholder="Search tasks by title, role..."
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        className="w-full md:w-80 pl-10 pr-4 py-2.5 bg-white border border-gray-200 rounded-xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-[#800020]  transition-all"
+                        className="w-full md:w-80 pl-10 pr-4 py-2.5 bg-white border border-slate-200 rounded-xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-600  transition-all"
                     />
                 </div>
             </div>
@@ -239,9 +239,9 @@ export function TasksPage({ onAddTask }: TasksPageProps) {
                             initial={{ opacity: 0, scale: 0.98 }}
                             animate={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0, scale: 0.98 }}
-                            className="bg-white rounded-2xl border border-gray-200/80 p-12 text-center "
+                            className="bg-white rounded-2xl border border-slate-200/80 p-12 text-center "
                         >
-                            <p className="text-gray-400 text-sm font-bold">No tasks match your search or filter view.</p>
+                            <p className="text-slate-400 text-sm font-bold">No tasks match your search or filter view.</p>
                         </motion.div>
                     ) : (
                         filteredTasks.map((task, idx) => (
@@ -252,13 +252,13 @@ export function TasksPage({ onAddTask }: TasksPageProps) {
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, x: -20 }}
                                 transition={{ duration: 0.25, delay: idx * 0.02 }}
-                                className={`flex items-start gap-4 p-5 rounded-2xl border transition-all ${task.completed ? "bg-gray-50/50 border-gray-200/50 opacity-60" : "bg-white border-gray-200/80  hover: hover:border-[#800020]/25"}`}
+                                className={`flex items-start gap-4 p-5 rounded-2xl border transition-all ${task.completed ? "bg-gray-50/50 border-slate-200/50 opacity-60" : "bg-white border-slate-200/80  hover: hover:border-indigo-600/25"}`}
                             >
                                 <div className="mt-1 flex-shrink-0">
                                     <Checkbox
                                         checked={task.completed}
                                         onCheckedChange={() => toggleTaskCompleted(task.id)}
-                                        className="cursor-pointer border-gray-300 w-5 h-5 rounded-md text-[#800020] focus:ring-[#800020] accent-[#800020]"
+                                        className="cursor-pointer border-gray-300 w-5 h-5 rounded-md text-indigo-600 focus:ring-indigo-600 accent-indigo-600"
                                         id={`task-page-${task.id}`}
                                     />
                                 </div>
@@ -268,19 +268,19 @@ export function TasksPage({ onAddTask }: TasksPageProps) {
                                         <div>
                                             <label
                                                 htmlFor={`task-page-${task.id}`}
-                                                className={`block text-base font-bold cursor-pointer transition-colors ${task.completed ? "text-gray-400 line-through" : "text-gray-900 hover:text-[#800020]"}`}
+                                                className={`block text-base font-bold cursor-pointer transition-colors ${task.completed ? "text-slate-400 line-through" : "text-slate-900 hover:text-indigo-600"}`}
                                             >
                                                 {task.title}
                                             </label>
-                                            <div className="flex items-center gap-2 mt-1.5 text-xs text-gray-500 font-semibold flex-wrap">
+                                            <div className="flex items-center gap-2 mt-1.5 text-xs text-slate-500 font-semibold flex-wrap">
                                                 {task.applicant && (
-                                                    <span className="text-[#800020] bg-rose-50 px-2 py-0.5 rounded border border-[#800020]/10 font-bold">
+                                                    <span className="text-indigo-600 bg-rose-50 px-2 py-0.5 rounded border border-indigo-600/10 font-bold">
                                                         Applicant: {task.applicant}
                                                     </span>
                                                 )}
                                                 {task.applicant && <span className="text-gray-300">•</span>}
                                                 {task.job && (
-                                                    <span className="text-gray-600 bg-gray-50 px-2 py-0.5 rounded border border-gray-200/60 font-semibold">{task.job}</span>
+                                                    <span className="text-slate-600 bg-gray-50 px-2 py-0.5 rounded border border-slate-200/60 font-semibold">{task.job}</span>
                                                 )}
                                             </div>
                                         </div>
@@ -288,7 +288,7 @@ export function TasksPage({ onAddTask }: TasksPageProps) {
                                         <div className="flex items-center gap-2 flex-shrink-0">
                                             <button 
                                                 onClick={() => setTaskToDelete(task)}
-                                                className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-xl transition-colors cursor-pointer border border-transparent hover:border-red-100"
+                                                className="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-xl transition-colors cursor-pointer border border-transparent hover:border-red-100"
                                                 title="Delete Task"
                                             >
                                                 <Trash2 className="w-4 h-4" />
@@ -296,13 +296,13 @@ export function TasksPage({ onAddTask }: TasksPageProps) {
                                         </div>
                                     </div>
 
-                                    <div className="flex items-center gap-2.5 flex-wrap pt-3 border-t border-gray-100/60">
-                                        <Badge variant="secondary" className="text-[10px] font-black tracking-wider uppercase py-0.5 px-2 bg-gray-100 text-gray-600 border border-gray-200/50 rounded-md">
+                                    <div className="flex items-center gap-2.5 flex-wrap pt-3 border-t border-slate-100/60">
+                                        <Badge variant="secondary" className="text-[10px] font-black tracking-wider uppercase py-0.5 px-2 bg-gray-100 text-slate-600 border border-slate-200/50 rounded-md">
                                             {task.type}
                                         </Badge>
 
-                                        <div className="flex items-center gap-1.5 text-xs font-bold text-gray-500 ml-2">
-                                            <Clock className="w-3.5 h-3.5 text-[#800020]" />
+                                        <div className="flex items-center gap-1.5 text-xs font-bold text-slate-500 ml-2">
+                                            <Clock className="w-3.5 h-3.5 text-indigo-600" />
                                             <span>Due: {task.deadline}</span>
                                         </div>
 
@@ -327,27 +327,27 @@ export function TasksPage({ onAddTask }: TasksPageProps) {
                             initial={{ opacity: 0, scale: 0.95, y: 10 }}
                             animate={{ opacity: 1, scale: 1, y: 0 }}
                             exit={{ opacity: 0, scale: 0.95, y: 10 }}
-                            className="bg-white rounded-2xl max-w-md w-full p-6  border border-gray-100 text-left"
+                            className="bg-white rounded-2xl max-w-md w-full p-6  border border-slate-100 text-left"
                         >
                             <div className="flex items-center gap-3 mb-4">
                                 <div className="w-10 h-10 rounded-xl bg-rose-50 flex items-center justify-center text-rose-600 flex-shrink-0 border border-rose-100">
                                     <AlertTriangle className="w-5 h-5" />
                                 </div>
                                 <div>
-                                    <h3 className="text-lg font-black text-gray-900">Delete Action Item</h3>
-                                    <p className="text-xs text-gray-400 font-bold">This action cannot be undone</p>
+                                    <h3 className="text-lg font-black text-slate-900">Delete Action Item</h3>
+                                    <p className="text-xs text-slate-400 font-bold">This action cannot be undone</p>
                                 </div>
                             </div>
 
-                            <div className="bg-gray-50 p-4 rounded-xl border border-gray-200 text-sm text-gray-600 mb-6 font-semibold leading-relaxed">
-                                Are you sure you want to delete <span className="font-bold text-gray-900">"{taskToDelete.title}"</span>?
+                            <div className="bg-gray-50 p-4 rounded-xl border border-slate-200 text-sm text-slate-600 mb-6 font-semibold leading-relaxed">
+                                Are you sure you want to delete <span className="font-bold text-slate-900">"{taskToDelete.title}"</span>?
                             </div>
 
-                            <div className="flex justify-end gap-3 pt-4 border-t border-gray-100">
+                            <div className="flex justify-end gap-3 pt-4 border-t border-slate-100">
                                 <button
                                     type="button"
                                     onClick={() => setTaskToDelete(null)}
-                                    className="px-5 py-2.5 border border-gray-300 text-gray-500 font-bold rounded-xl hover:bg-gray-50 text-sm cursor-pointer transition-colors"
+                                    className="px-5 py-2.5 border border-gray-300 text-slate-500 font-bold rounded-xl hover:bg-gray-50 text-sm cursor-pointer transition-colors"
                                 >
                                     Cancel
                                 </button>
@@ -356,7 +356,7 @@ export function TasksPage({ onAddTask }: TasksPageProps) {
                                     whileTap={{ scale: 0.98 }}
                                     type="button"
                                     onClick={() => confirmDeleteTask(taskToDelete.id)}
-                                    className="px-6 py-2.5 bg-[#800020] text-white font-bold rounded-xl hover:bg-[#600018] text-sm  cursor-pointer transition-all"
+                                    className="px-6 py-2.5 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-800 text-sm  cursor-pointer transition-all"
                                 >
                                     Delete Task
                                 </motion.button>

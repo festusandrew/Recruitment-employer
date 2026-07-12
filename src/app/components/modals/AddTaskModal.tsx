@@ -28,21 +28,21 @@ export function AddTaskModal({ isOpen, onClose }: AddTaskModalProps) {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
             <div className="bg-white rounded-2xl  w-full max-w-lg max-h-[90vh] overflow-hidden">
                 {/* Header */}
-                <div className="flex items-center justify-between p-6 border-b border-gray-200">
+                <div className="flex items-center justify-between p-6 border-b border-slate-200">
                     <div className="flex items-center gap-3">
                         <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
                             <CheckSquare className="w-5 h-5 text-green-600" />
                         </div>
                         <div>
-                            <h2 className="text-gray-900">Create New Task</h2>
-                            <p className="text-sm text-gray-500">Add a task to your workflow</p>
+                            <h2 className="text-slate-900">Create New Task</h2>
+                            <p className="text-sm text-slate-500">Add a task to your workflow</p>
                         </div>
                     </div>
                     <button
                         onClick={onClose}
                         className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-100 transition-colors"
                     >
-                        <X className="w-5 h-5 text-gray-500" />
+                        <X className="w-5 h-5 text-slate-500" />
                     </button>
                 </div>
 
@@ -51,7 +51,7 @@ export function AddTaskModal({ isOpen, onClose }: AddTaskModalProps) {
                     <div className="space-y-5">
                         {/* Task Title */}
                         <div>
-                            <label className="block text-sm text-gray-700 mb-2">Task Title *</label>
+                            <label className="block text-sm text-slate-700 mb-2">Task Title *</label>
                             <input
                                 type="text"
                                 required
@@ -64,7 +64,7 @@ export function AddTaskModal({ isOpen, onClose }: AddTaskModalProps) {
 
                         {/* Description */}
                         <div>
-                            <label className="block text-sm text-gray-700 mb-2">Description</label>
+                            <label className="block text-sm text-slate-700 mb-2">Description</label>
                             <textarea
                                 value={formData.description}
                                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
@@ -77,7 +77,7 @@ export function AddTaskModal({ isOpen, onClose }: AddTaskModalProps) {
                         {/* Due Date & Priority */}
                         <div className="grid grid-cols-2 gap-4">
                             <div>
-                                <label className="block text-sm text-gray-700 mb-2">
+                                <label className="block text-sm text-slate-700 mb-2">
                                     <Calendar className="w-4 h-4 inline mr-1" />
                                     Due Date *
                                 </label>
@@ -90,7 +90,7 @@ export function AddTaskModal({ isOpen, onClose }: AddTaskModalProps) {
                                 />
                             </div>
                             <div>
-                                <label className="block text-sm text-gray-700 mb-2">
+                                <label className="block text-sm text-slate-700 mb-2">
                                     <Flag className="w-4 h-4 inline mr-1" />
                                     Priority *
                                 </label>
@@ -110,7 +110,7 @@ export function AddTaskModal({ isOpen, onClose }: AddTaskModalProps) {
                         {/* Assignee & Category */}
                         <div className="grid grid-cols-2 gap-4">
                             <div>
-                                <label className="block text-sm text-gray-700 mb-2">
+                                <label className="block text-sm text-slate-700 mb-2">
                                     <Users className="w-4 h-4 inline mr-1" />
                                     Assign To
                                 </label>
@@ -127,7 +127,7 @@ export function AddTaskModal({ isOpen, onClose }: AddTaskModalProps) {
                                 </select>
                             </div>
                             <div>
-                                <label className="block text-sm text-gray-700 mb-2">Category</label>
+                                <label className="block text-sm text-slate-700 mb-2">Category</label>
                                 <select
                                     value={formData.category}
                                     onChange={(e) => setFormData({ ...formData, category: e.target.value })}
@@ -144,11 +144,11 @@ export function AddTaskModal({ isOpen, onClose }: AddTaskModalProps) {
                     </div>
 
                     {/* Footer */}
-                    <div className="flex items-center justify-end gap-3 mt-6 pt-6 border-t border-gray-200">
+                    <div className="flex items-center justify-end gap-3 mt-6 pt-6 border-t border-slate-200">
                         <button
                             type="button"
                             onClick={onClose}
-                            className="px-5 py-2.5 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors"
+                            className="px-5 py-2.5 rounded-lg text-slate-700 hover:bg-gray-100 transition-colors"
                         >
                             Cancel
                         </button>

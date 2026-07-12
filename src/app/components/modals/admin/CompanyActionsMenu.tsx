@@ -54,14 +54,14 @@ export function CompanyActionsMenu({
                 className="p-1 hover:bg-gray-100 rounded transition-colors"
                 title="More Actions"
             >
-                <MoreVertical className="w-4 h-4 text-gray-600" />
+                <MoreVertical className="w-4 h-4 text-slate-600" />
             </button>
 
             {isOpen && (
-                <div className="absolute right-0 mt-2 w-56 bg-white rounded-lg  border border-gray-200 py-1 z-50">
+                <div className="absolute right-0 mt-2 w-56 bg-white rounded-lg  border border-slate-200 py-1 z-50">
                     <button
                         onClick={() => handleAction(onSendEmail || (() => { }))}
-                        className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                        className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-slate-700 hover:bg-gray-50 transition-colors"
                     >
                         <Mail className="w-4 h-4" />
                         Send Email
@@ -69,7 +69,7 @@ export function CompanyActionsMenu({
 
                     <button
                         onClick={() => handleAction(onViewBilling || (() => { }))}
-                        className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                        className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-slate-700 hover:bg-gray-50 transition-colors"
                     >
                         <CreditCard className="w-4 h-4" />
                         View Billing
@@ -77,13 +77,13 @@ export function CompanyActionsMenu({
 
                     <button
                         onClick={() => handleAction(() => { })}
-                        className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                        className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-slate-700 hover:bg-gray-50 transition-colors"
                     >
                         <FileText className="w-4 h-4" />
                         View Activity Log
                     </button>
 
-                    <div className="border-t border-gray-200 my-1"></div>
+                    <div className="border-t border-slate-200 my-1"></div>
 
                     {company.status === "Active" ? (
                         <button
@@ -111,13 +111,13 @@ export function CompanyActionsMenu({
 
                     <button
                         onClick={() => handleAction(() => { })}
-                        className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                        className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-slate-700 hover:bg-gray-50 transition-colors"
                     >
                         <RefreshCw className="w-4 h-4" />
                         Reset Password
                     </button>
 
-                    <div className="border-t border-gray-200 my-1"></div>
+                    <div className="border-t border-slate-200 my-1"></div>
 
                     <button
                         onClick={() => {

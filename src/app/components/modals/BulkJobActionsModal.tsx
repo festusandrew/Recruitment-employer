@@ -79,10 +79,10 @@ export function BulkJobActionsModal({ isOpen, onClose, selectedCount, onApply }:
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
             <div className="bg-white rounded-2xl  w-full max-w-2xl overflow-hidden">
                 {/* Header */}
-                <div className="flex items-center justify-between p-6 border-b border-gray-200">
+                <div className="flex items-center justify-between p-6 border-b border-slate-200">
                     <div>
-                        <h2 className="text-gray-900">Bulk Actions</h2>
-                        <p className="text-sm text-gray-500 mt-1">
+                        <h2 className="text-slate-900">Bulk Actions</h2>
+                        <p className="text-sm text-slate-500 mt-1">
                             {selectedCount} {selectedCount === 1 ? "job" : "jobs"} selected
                         </p>
                     </div>
@@ -90,13 +90,13 @@ export function BulkJobActionsModal({ isOpen, onClose, selectedCount, onApply }:
                         onClick={onClose}
                         className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-100 transition-colors"
                     >
-                        <X className="w-5 h-5 text-gray-500" />
+                        <X className="w-5 h-5 text-slate-500" />
                     </button>
                 </div>
 
                 {/* Content */}
                 <div className="p-6">
-                    <label className="block text-sm text-gray-700 mb-3">Select an action to apply</label>
+                    <label className="block text-sm text-slate-700 mb-3">Select an action to apply</label>
                     <div className="grid grid-cols-2 gap-3">
                         {actions.map((action) => {
                             const Icon = action.icon;
@@ -107,7 +107,7 @@ export function BulkJobActionsModal({ isOpen, onClose, selectedCount, onApply }:
                                     onClick={() => setSelectedAction(action.id)}
                                     className={`relative p-4 border-2 rounded-xl text-left transition-all ${isSelected
                                             ? "border-blue-500 bg-blue-50"
-                                            : "border-gray-200 hover:border-gray-300 bg-white"
+                                            : "border-slate-200 hover:border-gray-300 bg-white"
                                         }`}
                                 >
                                     {isSelected && (
@@ -118,8 +118,8 @@ export function BulkJobActionsModal({ isOpen, onClose, selectedCount, onApply }:
                                     <div className={`w-10 h-10 rounded-lg flex items-center justify-center mb-3 ${action.bgColor}`}>
                                         <Icon className={`w-5 h-5 ${action.color}`} />
                                     </div>
-                                    <p className="text-sm text-gray-900 mb-1">{action.label}</p>
-                                    <p className="text-xs text-gray-600">{action.description}</p>
+                                    <p className="text-sm text-slate-900 mb-1">{action.label}</p>
+                                    <p className="text-xs text-slate-600">{action.description}</p>
                                 </button>
                             );
                         })}
@@ -141,11 +141,11 @@ export function BulkJobActionsModal({ isOpen, onClose, selectedCount, onApply }:
                 </div>
 
                 {/* Footer */}
-                <div className="p-6 border-t border-gray-200 bg-gray-50">
+                <div className="p-6 border-t border-slate-200 bg-gray-50">
                     <div className="flex items-center justify-end gap-3">
                         <button
                             onClick={onClose}
-                            className="px-5 py-2.5 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors"
+                            className="px-5 py-2.5 rounded-lg text-slate-700 hover:bg-gray-100 transition-colors"
                             disabled={isProcessing}
                         >
                             Cancel
@@ -154,7 +154,7 @@ export function BulkJobActionsModal({ isOpen, onClose, selectedCount, onApply }:
                             onClick={handleApply}
                             disabled={!selectedAction || isProcessing}
                             className={`px-5 py-2.5 rounded-lg transition-colors ${!selectedAction || isProcessing
-                                    ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                                    ? "bg-gray-300 text-slate-500 cursor-not-allowed"
                                     : "bg-blue-600 text-white hover:bg-blue-700"
                                 }`}
                         >

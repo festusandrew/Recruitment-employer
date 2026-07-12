@@ -67,24 +67,24 @@ export function MessagesPage() {
                 
                 {/* Header info */}
                 <div>
-                    <h1 className="text-gray-955 font-extrabold text-2xl tracking-tight leading-none flex items-center gap-2">
-                        <MessageSquare className="w-6 h-6 text-[#800020]" />
+                    <h1 className="text-slate-900 font-extrabold font-extrabold text-2xl tracking-tight leading-none flex items-center gap-2">
+                        <MessageSquare className="w-6 h-6 text-indigo-600" />
                         Applicant Messenger
                     </h1>
-                    <p className="text-xs text-gray-400 font-semibold mt-1 uppercase tracking-wider">Direct chat channels with active job seekers and sourced candidates</p>
+                    <p className="text-xs text-slate-400 font-semibold mt-1 uppercase tracking-wider">Direct chat channels with active job seekers and sourced candidates</p>
                 </div>
 
                 <div className="bg-white rounded-2xl border border-gray-150  overflow-hidden flex-1 flex min-h-[500px] h-[calc(100vh-230px)]">
                     
                     {/* Left Sidebar - Conversations */}
-                    <div className="w-80 border-r border-gray-200/60 flex flex-col flex-shrink-0 bg-white">
+                    <div className="w-80 border-r border-slate-200/60 flex flex-col flex-shrink-0 bg-white">
                         <div className="p-5 border-b border-gray-150">
                             <div className="relative">
                                 <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-450" />
                                 <input
                                     type="text"
                                     placeholder="Search conversations..."
-                                    className="w-full pl-10 pr-4 py-2.5 bg-gray-50/50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#800020]/15 focus:border-[#800020] focus:bg-white transition-all text-xs font-medium"
+                                    className="w-full pl-10 pr-4 py-2.5 bg-gray-50/50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-600/15 focus:border-indigo-600 focus:bg-white transition-all text-xs font-medium"
                                 />
                             </div>
                         </div>
@@ -102,14 +102,14 @@ export function MessagesPage() {
                                         }}
                                         className={`w-full p-4.5 flex items-start gap-3.5 hover:bg-gray-50/50 transition-all text-left border-l-4 cursor-pointer select-none ${
                                             isSelected 
-                                                ? "bg-[#F5E6E8]/30 border-l-[#800020] " 
+                                                ? "bg-indigo-50/30 border-l-[#005189] " 
                                                 : "border-l-transparent"
                                         }`}
                                     >
                                         <div className="relative flex-shrink-0">
                                             <Avatar className="w-11 h-11 border border-white ">
                                                 <AvatarImage src={conversation.avatar} />
-                                                <AvatarFallback className="bg-primary   text-white font-bold text-xs">{conversation.name.charAt(0)}</AvatarFallback>
+                                                <AvatarFallback className="bg-indigo-600   text-white font-bold text-xs">{conversation.name.charAt(0)}</AvatarFallback>
                                             </Avatar>
                                             {conversation.online && (
                                                 <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white rounded-full"></div>
@@ -117,14 +117,14 @@ export function MessagesPage() {
                                         </div>
                                         <div className="flex-1 min-w-0">
                                             <div className="flex items-center justify-between mb-1">
-                                                <h4 className="text-xs font-extrabold text-gray-900 truncate leading-none">{conversation.name}</h4>
-                                                <span className="text-[9px] text-gray-400 font-bold uppercase tracking-wider">{conversation.time}</span>
+                                                <h4 className="text-xs font-extrabold text-slate-900 truncate leading-none">{conversation.name}</h4>
+                                                <span className="text-[9px] text-slate-400 font-bold uppercase tracking-wider">{conversation.time}</span>
                                             </div>
-                                            <p className="text-[10px] text-[#800020] font-extrabold uppercase tracking-wide mb-1 truncate">{conversation.role}</p>
-                                            <p className="text-xs text-gray-500 truncate font-medium">{conversation.lastMessage}</p>
+                                            <p className="text-[10px] text-indigo-600 font-extrabold uppercase tracking-wide mb-1 truncate">{conversation.role}</p>
+                                            <p className="text-xs text-slate-500 truncate font-medium">{conversation.lastMessage}</p>
                                         </div>
                                         {conversation.unread > 0 && (
-                                            <div className="w-5 h-5 bg-[#800020] text-white text-[9px] rounded-full flex items-center justify-center flex-shrink-0 font-extrabold  self-center">
+                                            <div className="w-5 h-5 bg-indigo-600 text-white text-[9px] rounded-full flex items-center justify-center flex-shrink-0 font-extrabold  self-center">
                                                 {conversation.unread}
                                             </div>
                                         )}
@@ -150,46 +150,46 @@ export function MessagesPage() {
                                         <div className="flex items-center gap-3.5">
                                             <button 
                                                 onClick={() => setSelectedConversation(null)}
-                                                className="p-2 hover:bg-gray-100 rounded-xl text-gray-500 md:hidden cursor-pointer"
+                                                className="p-2 hover:bg-gray-100 rounded-xl text-slate-500 md:hidden cursor-pointer"
                                             >
                                                 <ArrowLeft className="w-4 h-4" />
                                             </button>
                                             <div className="relative">
                                                 <Avatar className="w-10 h-10 border border-white ">
                                                     <AvatarImage src={selectedConversation.avatar} />
-                                                    <AvatarFallback className="bg-primary   text-white font-bold text-xs">{selectedConversation.name.charAt(0)}</AvatarFallback>
+                                                    <AvatarFallback className="bg-indigo-600   text-white font-bold text-xs">{selectedConversation.name.charAt(0)}</AvatarFallback>
                                                 </Avatar>
                                                 {selectedConversation.online && (
                                                     <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 border-2 border-white rounded-full"></div>
                                                 )}
                                             </div>
                                             <div>
-                                                <h3 className="text-sm font-extrabold text-gray-900 leading-none">{selectedConversation.name}</h3>
-                                                <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider mt-1">{selectedConversation.role}</p>
+                                                <h3 className="text-sm font-extrabold text-slate-900 leading-none">{selectedConversation.name}</h3>
+                                                <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mt-1">{selectedConversation.role}</p>
                                             </div>
                                         </div>
                                         
-                                        <div className="flex items-center gap-4 text-xs font-semibold text-gray-400">
+                                        <div className="flex items-center gap-4 text-xs font-semibold text-slate-400">
                                             <span className="hidden sm:inline flex items-center gap-1">
-                                                Press <kbd className="px-1.5 py-0.5 bg-gray-150 border border-gray-250 rounded text-gray-600 font-mono  text-[10px]">ESC</kbd> to exit chat
+                                                Press <kbd className="px-1.5 py-0.5 bg-gray-150 border border-gray-250 rounded text-slate-600 font-mono  text-[10px]">ESC</kbd> to exit chat
                                             </span>
                                             
                                             <div className="flex items-center gap-1">
                                                 <button 
                                                     onClick={() => toast.info(`Starting video interview room...`)}
-                                                    className="w-8.5 h-8.5 flex items-center justify-center rounded-xl hover:bg-gray-50 border border-gray-200 text-gray-450 hover:text-gray-900 cursor-pointer transition-colors"
+                                                    className="w-8.5 h-8.5 flex items-center justify-center rounded-xl hover:bg-gray-50 border border-slate-200 text-gray-450 hover:text-slate-900 cursor-pointer transition-colors"
                                                     title="Start Video Meeting"
                                                 >
                                                     <Video className="w-4 h-4" />
                                                 </button>
                                                 <button 
                                                     onClick={() => toast.info(`Opening scheduler for ${selectedConversation.name}...`)}
-                                                    className="w-8.5 h-8.5 flex items-center justify-center rounded-xl hover:bg-gray-50 border border-gray-200 text-gray-450 hover:text-gray-900 cursor-pointer transition-colors"
+                                                    className="w-8.5 h-8.5 flex items-center justify-center rounded-xl hover:bg-gray-50 border border-slate-200 text-gray-450 hover:text-slate-900 cursor-pointer transition-colors"
                                                     title="Schedule Slot"
                                                 >
                                                     <Calendar className="w-4 h-4" />
                                                 </button>
-                                                <button className="w-8.5 h-8.5 flex items-center justify-center rounded-xl hover:bg-gray-50 border border-gray-200 text-gray-455 hover:text-gray-900 cursor-pointer transition-colors">
+                                                <button className="w-8.5 h-8.5 flex items-center justify-center rounded-xl hover:bg-gray-50 border border-slate-200 text-gray-455 hover:text-slate-900 cursor-pointer transition-colors">
                                                     <MoreVertical className="w-4.5 h-4.5" />
                                                 </button>
                                             </div>
@@ -215,13 +215,13 @@ export function MessagesPage() {
                                                         <div
                                                             className={`px-4 py-3 rounded-2xl  border transition-colors leading-relaxed font-medium text-xs text-left ${
                                                                 isYou
-                                                                    ? "bg-[#800020] border-[#800020]/10 text-white rounded-tr-xs"
-                                                                    : "bg-white border-gray-150 text-gray-900 rounded-tl-xs"
+                                                                    ? "bg-indigo-600 border-indigo-600/10 text-white rounded-tr-xs"
+                                                                    : "bg-white border-gray-150 text-slate-900 rounded-tl-xs"
                                                             }`}
                                                         >
                                                             <p>{message.content}</p>
                                                         </div>
-                                                        <span className="text-[9px] text-gray-400 font-bold uppercase tracking-wider mt-1.5 px-1">{message.time}</span>
+                                                        <span className="text-[9px] text-slate-400 font-bold uppercase tracking-wider mt-1.5 px-1">{message.time}</span>
                                                     </div>
                                                 </div>
                                             );
@@ -231,7 +231,7 @@ export function MessagesPage() {
                                     {/* Message input footer */}
                                     <div className="p-4.5 border-t border-gray-150 bg-white flex-shrink-0">
                                         <div className="flex items-center gap-3">
-                                            <div className="flex-1 flex items-center gap-2 bg-gray-50/50 rounded-xl px-4 py-3 border border-gray-200 focus-within:border-[#800020]/30 focus-within:ring-2 focus-within:ring-[#800020]/10 transition-all">
+                                            <div className="flex-1 flex items-center gap-2 bg-gray-50/50 rounded-xl px-4 py-3 border border-slate-200 focus-within:border-indigo-600/30 focus-within:ring-2 focus-within:ring-indigo-600/10 transition-all">
                                                 <input
                                                     type="text"
                                                     placeholder={`Type a message to ${selectedConversation.name}...`}
@@ -242,17 +242,17 @@ export function MessagesPage() {
                                                             handleSendMessage();
                                                         }
                                                     }}
-                                                    className="flex-1 bg-transparent outline-none text-xs font-medium text-gray-800 placeholder-gray-400"
+                                                    className="flex-1 bg-transparent outline-none text-xs font-medium text-slate-800 placeholder-gray-400"
                                                 />
                                                 <button 
                                                     onClick={() => toast.info("Opening file picker...")}
-                                                    className="p-1 hover:bg-gray-200/50 rounded-lg transition-colors cursor-pointer text-gray-400 hover:text-gray-700"
+                                                    className="p-1 hover:bg-gray-200/50 rounded-lg transition-colors cursor-pointer text-slate-400 hover:text-slate-700"
                                                 >
                                                     <Paperclip className="w-4 h-4" />
                                                 </button>
                                                 <button 
                                                     onClick={() => toast.info("Opening emoji selector...")}
-                                                    className="p-1 hover:bg-gray-200/50 rounded-lg transition-colors cursor-pointer text-gray-400 hover:text-gray-700"
+                                                    className="p-1 hover:bg-gray-200/50 rounded-lg transition-colors cursor-pointer text-slate-400 hover:text-slate-700"
                                                 >
                                                     <Smile className="w-4 h-4" />
                                                 </button>
@@ -261,7 +261,7 @@ export function MessagesPage() {
                                                 whileHover={{ scale: 1.02 }}
                                                 whileTap={{ scale: 0.98 }}
                                                 onClick={handleSendMessage}
-                                                className="px-5 py-3 bg-[#800020] hover:bg-[#600018] text-white rounded-xl transition-all flex items-center justify-center gap-1.5 font-extrabold text-xs  border border-[#800020]/10 hover: cursor-pointer tracking-wider uppercase"
+                                                className="px-5 py-3 bg-indigo-600 hover:bg-indigo-800 text-white rounded-xl transition-all flex items-center justify-center gap-1.5 font-extrabold text-xs  border border-indigo-600/10 hover: cursor-pointer tracking-wider uppercase"
                                             >
                                                 <Send className="w-3.5 h-3.5 text-orange-300" />
                                                 <span>Send</span>
@@ -272,11 +272,11 @@ export function MessagesPage() {
                             ) : (
                                 /* Empty chat state placeholder */
                                 <div className="flex-1 flex flex-col items-center justify-center bg-gray-50/20 p-8 text-center">
-                                    <div className="w-14 h-14 rounded-2xl bg-rose-50 border border-rose-100 flex items-center justify-center text-[#800020] mb-4 ">
+                                    <div className="w-14 h-14 rounded-2xl bg-rose-50 border border-rose-100 flex items-center justify-center text-indigo-600 mb-4 ">
                                         <MessageSquare className="w-6 h-6" />
                                     </div>
-                                    <h3 className="text-base font-extrabold text-gray-900 mb-1">No Active Chat Selected</h3>
-                                    <p className="text-xs text-gray-500 max-w-sm font-medium leading-relaxed mb-6">
+                                    <h3 className="text-base font-extrabold text-slate-900 mb-1">No Active Chat Selected</h3>
+                                    <p className="text-xs text-slate-500 max-w-sm font-medium leading-relaxed mb-6">
                                         Choose an applicant from the sidebar channels to review threads, schedule calls, and coordinate follow-up materials.
                                     </p>
                                 </div>

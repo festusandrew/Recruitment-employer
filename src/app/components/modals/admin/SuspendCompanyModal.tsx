@@ -42,29 +42,29 @@ export function SuspendCompanyModal({ isOpen, onClose, company, onConfirm }: Sus
                             <AlertTriangle className="w-5 h-5 text-yellow-600" />
                         </div>
                         <div>
-                            <h2 className="text-lg text-gray-900">Suspend Company Account</h2>
-                            <p className="text-sm text-gray-600 mt-0.5">This action can be reversed later</p>
+                            <h2 className="text-lg text-slate-900">Suspend Company Account</h2>
+                            <p className="text-sm text-slate-600 mt-0.5">This action can be reversed later</p>
                         </div>
                     </div>
                     <button
                         onClick={onClose}
                         className="p-2 hover:bg-yellow-100 rounded-lg transition-colors"
                     >
-                        <X className="w-5 h-5 text-gray-500" />
+                        <X className="w-5 h-5 text-slate-500" />
                     </button>
                 </div>
 
                 {/* Content */}
                 <div className="p-6 space-y-4">
                     {/* Company Info */}
-                    <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                    <div className="bg-gray-50 border border-slate-200 rounded-lg p-4">
                         <div className="flex items-center gap-3">
-                            <div className="w-12 h-12 bg-primary   rounded-lg flex items-center justify-center">
+                            <div className="w-12 h-12 bg-indigo-600   rounded-lg flex items-center justify-center">
                                 <span className="text-white">{company.logo}</span>
                             </div>
                             <div>
-                                <p className="text-sm font-medium text-gray-900">{company.name}</p>
-                                <p className="text-xs text-gray-500">{company.email}</p>
+                                <p className="text-sm font-medium text-slate-900">{company.name}</p>
+                                <p className="text-xs text-slate-500">{company.email}</p>
                             </div>
                         </div>
                     </div>
@@ -84,7 +84,7 @@ export function SuspendCompanyModal({ isOpen, onClose, company, onConfirm }: Sus
 
                     {/* Reason Selection */}
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                        <label className="block text-sm font-medium text-slate-700 mb-2">
                             Reason for Suspension *
                         </label>
                         <div className="space-y-2">
@@ -101,7 +101,7 @@ export function SuspendCompanyModal({ isOpen, onClose, company, onConfirm }: Sus
                                         onChange={(e) => setReason(e.target.value)}
                                         className="mt-0.5"
                                     />
-                                    <span className="text-sm text-gray-700">{reasonOption}</span>
+                                    <span className="text-sm text-slate-700">{reasonOption}</span>
                                 </label>
                             ))}
                         </div>
@@ -110,7 +110,7 @@ export function SuspendCompanyModal({ isOpen, onClose, company, onConfirm }: Sus
                     {/* Additional Notes */}
                     {reason === "Other (specify below)" && (
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                            <label className="block text-sm font-medium text-slate-700 mb-2">
                                 Additional Details
                             </label>
                             <textarea
@@ -123,7 +123,7 @@ export function SuspendCompanyModal({ isOpen, onClose, company, onConfirm }: Sus
 
                     {/* Email Notification */}
                     <div>
-                        <label className="flex items-start gap-3 p-4 bg-gray-50 border border-gray-200 rounded-lg cursor-pointer">
+                        <label className="flex items-start gap-3 p-4 bg-gray-50 border border-slate-200 rounded-lg cursor-pointer">
                             <input
                                 type="checkbox"
                                 checked={sendEmail}
@@ -131,8 +131,8 @@ export function SuspendCompanyModal({ isOpen, onClose, company, onConfirm }: Sus
                                 className="mt-0.5"
                             />
                             <div>
-                                <p className="text-sm font-medium text-gray-900">Send notification email</p>
-                                <p className="text-xs text-gray-500 mt-1">
+                                <p className="text-sm font-medium text-slate-900">Send notification email</p>
+                                <p className="text-xs text-slate-500 mt-1">
                                     The company will receive an email explaining the suspension and next steps.
                                 </p>
                             </div>
@@ -141,10 +141,10 @@ export function SuspendCompanyModal({ isOpen, onClose, company, onConfirm }: Sus
                 </div>
 
                 {/* Footer */}
-                <div className="bg-gray-50 border-t border-gray-200 px-6 py-4 flex items-center justify-end gap-3 rounded-b-lg">
+                <div className="bg-gray-50 border-t border-slate-200 px-6 py-4 flex items-center justify-end gap-3 rounded-b-lg">
                     <button
                         onClick={onClose}
-                        className="px-5 py-2.5 text-gray-700 hover:bg-gray-200 rounded-lg transition-colors"
+                        className="px-5 py-2.5 text-slate-700 hover:bg-gray-200 rounded-lg transition-colors"
                     >
                         Cancel
                     </button>

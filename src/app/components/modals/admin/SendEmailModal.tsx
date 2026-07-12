@@ -69,16 +69,16 @@ export function SendEmailModal({ isOpen, onClose, company, onSend }: SendEmailMo
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
             <div className="bg-white rounded-lg w-full max-w-3xl max-h-[90vh] overflow-y-auto">
                 {/* Header */}
-                <div className="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between">
+                <div className="sticky top-0 bg-white border-b border-slate-200 px-6 py-4 flex items-center justify-between">
                     <div>
-                        <h2 className="text-xl text-gray-900">Send Email</h2>
-                        <p className="text-sm text-gray-500 mt-1">Send an email to {company?.name}</p>
+                        <h2 className="text-xl text-slate-900">Send Email</h2>
+                        <p className="text-sm text-slate-500 mt-1">Send an email to {company?.name}</p>
                     </div>
                     <button
                         onClick={onClose}
                         className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
                     >
-                        <X className="w-5 h-5 text-gray-500" />
+                        <X className="w-5 h-5 text-slate-500" />
                     </button>
                 </div>
 
@@ -86,7 +86,7 @@ export function SendEmailModal({ isOpen, onClose, company, onSend }: SendEmailMo
                 <div className="p-6 space-y-6">
                     {/* Email Templates */}
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                        <label className="block text-sm font-medium text-slate-700 mb-2">
                             Quick Templates
                         </label>
                         <div className="grid grid-cols-2 gap-3">
@@ -96,22 +96,22 @@ export function SendEmailModal({ isOpen, onClose, company, onSend }: SendEmailMo
                                     onClick={() => handleTemplateSelect(template)}
                                     className="p-3 border border-gray-300 rounded-lg text-left hover:border-[#7C3AED] hover:bg-purple-50 transition-colors"
                                 >
-                                    <p className="text-sm text-gray-900">{template.name}</p>
-                                    <p className="text-xs text-gray-500 mt-1">{template.subject}</p>
+                                    <p className="text-sm text-slate-900">{template.name}</p>
+                                    <p className="text-xs text-slate-500 mt-1">{template.subject}</p>
                                 </button>
                             ))}
                         </div>
                     </div>
 
-                    <div className="border-t border-gray-200"></div>
+                    <div className="border-t border-slate-200"></div>
 
                     {/* To Field */}
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                        <label className="block text-sm font-medium text-slate-700 mb-2">
                             To *
                         </label>
                         <div className="relative">
-                            <AtSign className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                            <AtSign className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
                             <input
                                 type="email"
                                 value={formData.to}
@@ -125,7 +125,7 @@ export function SendEmailModal({ isOpen, onClose, company, onSend }: SendEmailMo
 
                     {/* Subject */}
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                        <label className="block text-sm font-medium text-slate-700 mb-2">
                             Subject *
                         </label>
                         <input
@@ -139,7 +139,7 @@ export function SendEmailModal({ isOpen, onClose, company, onSend }: SendEmailMo
 
                     {/* Message */}
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                        <label className="block text-sm font-medium text-slate-700 mb-2">
                             Message *
                         </label>
                         <textarea
@@ -153,7 +153,7 @@ export function SendEmailModal({ isOpen, onClose, company, onSend }: SendEmailMo
 
                     {/* Attachment Section */}
                     <div>
-                        <button className="flex items-center gap-2 text-sm text-gray-600 hover:text-[#7C3AED] transition-colors">
+                        <button className="flex items-center gap-2 text-sm text-slate-600 hover:text-[#7C3AED] transition-colors">
                             <Paperclip className="w-4 h-4" />
                             Attach File
                         </button>
@@ -161,14 +161,14 @@ export function SendEmailModal({ isOpen, onClose, company, onSend }: SendEmailMo
                 </div>
 
                 {/* Footer */}
-                <div className="sticky bottom-0 bg-gray-50 border-t border-gray-200 px-6 py-4 flex items-center justify-between">
-                    <p className="text-sm text-gray-500">
-                        Email will be sent to: <span className="font-medium text-gray-900">{formData.to}</span>
+                <div className="sticky bottom-0 bg-gray-50 border-t border-slate-200 px-6 py-4 flex items-center justify-between">
+                    <p className="text-sm text-slate-500">
+                        Email will be sent to: <span className="font-medium text-slate-900">{formData.to}</span>
                     </p>
                     <div className="flex items-center gap-3">
                         <button
                             onClick={onClose}
-                            className="px-5 py-2.5 text-gray-700 hover:bg-gray-200 rounded-lg transition-colors"
+                            className="px-5 py-2.5 text-slate-700 hover:bg-gray-200 rounded-lg transition-colors"
                         >
                             Cancel
                         </button>

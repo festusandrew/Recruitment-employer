@@ -27,77 +27,77 @@ export function SystemSettings() {
         <div className="p-8">
             {/* Header */}
             <div className="mb-8">
-                <h1 className="text-2xl text-gray-900 mb-2">System Settings</h1>
-                <p className="text-gray-600">Configure platform-wide system settings</p>
+                <h1 className="text-2xl text-slate-900 mb-2">System Settings</h1>
+                <p className="text-slate-600">Configure platform-wide system settings</p>
             </div>
 
             <div className="max-w-4xl space-y-6">
                 {/* General Settings */}
-                <div className="bg-white border border-gray-200 rounded-lg">
-                    <div className="p-6 border-b border-gray-200">
+                <div className="bg-white border border-slate-200 rounded-lg">
+                    <div className="p-6 border-b border-slate-200">
                         <div className="flex items-center gap-3">
                             <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
                                 <Globe className="w-5 h-5 text-blue-600" />
                             </div>
                             <div>
-                                <h3 className="text-lg text-gray-900">General Settings</h3>
-                                <p className="text-sm text-gray-500">Basic platform configuration</p>
+                                <h3 className="text-lg text-slate-900">General Settings</h3>
+                                <p className="text-sm text-slate-500">Basic platform configuration</p>
                             </div>
                         </div>
                     </div>
                     <div className="p-6 space-y-4">
                         <div>
-                            <label className="block text-sm text-gray-700 mb-2">Platform Name</label>
+                            <label className="block text-sm text-slate-700 mb-2">Platform Name</label>
                             <input
                                 type="text"
                                 value={settings.platformName}
                                 onChange={(e) => setSettings({ ...settings, platformName: e.target.value })}
-                                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#800020] focus:border-transparent"
+                                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent"
                             />
                         </div>
                         <div>
-                            <label className="block text-sm text-gray-700 mb-2">Support Email</label>
+                            <label className="block text-sm text-slate-700 mb-2">Support Email</label>
                             <input
                                 type="email"
                                 value={settings.supportEmail}
                                 onChange={(e) => setSettings({ ...settings, supportEmail: e.target.value })}
-                                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#800020] focus:border-transparent"
+                                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent"
                             />
                         </div>
                         <div>
-                            <label className="block text-sm text-gray-700 mb-2">Max Jobs Per Company</label>
+                            <label className="block text-sm text-slate-700 mb-2">Max Jobs Per Company</label>
                             <input
                                 type="number"
                                 value={settings.maxJobsPerCompany}
                                 onChange={(e) => setSettings({ ...settings, maxJobsPerCompany: e.target.value })}
-                                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#800020] focus:border-transparent"
+                                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent"
                             />
                         </div>
                     </div>
                 </div>
 
                 {/* Security Settings */}
-                <div className="bg-white border border-gray-200 rounded-lg">
-                    <div className="p-6 border-b border-gray-200">
+                <div className="bg-white border border-slate-200 rounded-lg">
+                    <div className="p-6 border-b border-slate-200">
                         <div className="flex items-center gap-3">
                             <div className="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center">
                                 <Shield className="w-5 h-5 text-red-600" />
                             </div>
                             <div>
-                                <h3 className="text-lg text-gray-900">Security Settings</h3>
-                                <p className="text-sm text-gray-500">Manage authentication and security</p>
+                                <h3 className="text-lg text-slate-900">Security Settings</h3>
+                                <p className="text-sm text-slate-500">Manage authentication and security</p>
                             </div>
                         </div>
                     </div>
                     <div className="p-6 space-y-4">
                         <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
                             <div>
-                                <p className="text-sm text-gray-900">Allow Public Signup</p>
-                                <p className="text-xs text-gray-500 mt-1">Enable new companies to register</p>
+                                <p className="text-sm text-slate-900">Allow Public Signup</p>
+                                <p className="text-xs text-slate-500 mt-1">Enable new companies to register</p>
                             </div>
                             <button
                                 onClick={() => setSettings({ ...settings, allowPublicSignup: !settings.allowPublicSignup })}
-                                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${settings.allowPublicSignup ? 'bg-[#800020]' : 'bg-gray-300'
+                                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${settings.allowPublicSignup ? 'bg-indigo-600' : 'bg-gray-300'
                                     }`}
                             >
                                 <span
@@ -108,12 +108,12 @@ export function SystemSettings() {
                         </div>
                         <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
                             <div>
-                                <p className="text-sm text-gray-900">Require Email Verification</p>
-                                <p className="text-xs text-gray-500 mt-1">Users must verify email before access</p>
+                                <p className="text-sm text-slate-900">Require Email Verification</p>
+                                <p className="text-xs text-slate-500 mt-1">Users must verify email before access</p>
                             </div>
                             <button
                                 onClick={() => setSettings({ ...settings, requireEmailVerification: !settings.requireEmailVerification })}
-                                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${settings.requireEmailVerification ? 'bg-[#800020]' : 'bg-gray-300'
+                                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${settings.requireEmailVerification ? 'bg-indigo-600' : 'bg-gray-300'
                                     }`}
                             >
                                 <span
@@ -123,65 +123,65 @@ export function SystemSettings() {
                             </button>
                         </div>
                         <div>
-                            <label className="block text-sm text-gray-700 mb-2">Session Timeout (minutes)</label>
+                            <label className="block text-sm text-slate-700 mb-2">Session Timeout (minutes)</label>
                             <input
                                 type="number"
                                 value={settings.sessionTimeout}
                                 onChange={(e) => setSettings({ ...settings, sessionTimeout: e.target.value })}
-                                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#800020] focus:border-transparent"
+                                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent"
                             />
                         </div>
                     </div>
                 </div>
 
                 {/* API & Performance */}
-                <div className="bg-white border border-gray-200 rounded-lg">
-                    <div className="p-6 border-b border-gray-200">
+                <div className="bg-white border border-slate-200 rounded-lg">
+                    <div className="p-6 border-b border-slate-200">
                         <div className="flex items-center gap-3">
                             <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
                                 <Server className="w-5 h-5 text-purple-600" />
                             </div>
                             <div>
-                                <h3 className="text-lg text-gray-900">API & Performance</h3>
-                                <p className="text-sm text-gray-500">Configure API limits and performance</p>
+                                <h3 className="text-lg text-slate-900">API & Performance</h3>
+                                <p className="text-sm text-slate-500">Configure API limits and performance</p>
                             </div>
                         </div>
                     </div>
                     <div className="p-6 space-y-4">
                         <div>
-                            <label className="block text-sm text-gray-700 mb-2">API Rate Limit (requests/hour)</label>
+                            <label className="block text-sm text-slate-700 mb-2">API Rate Limit (requests/hour)</label>
                             <input
                                 type="number"
                                 value={settings.apiRateLimit}
                                 onChange={(e) => setSettings({ ...settings, apiRateLimit: e.target.value })}
-                                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#800020] focus:border-transparent"
+                                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent"
                             />
                         </div>
                     </div>
                 </div>
 
                 {/* System Status */}
-                <div className="bg-white border border-gray-200 rounded-lg">
-                    <div className="p-6 border-b border-gray-200">
+                <div className="bg-white border border-slate-200 rounded-lg">
+                    <div className="p-6 border-b border-slate-200">
                         <div className="flex items-center gap-3">
                             <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
                                 <Database className="w-5 h-5 text-green-600" />
                             </div>
                             <div>
-                                <h3 className="text-lg text-gray-900">System Status</h3>
-                                <p className="text-sm text-gray-500">Monitor system health</p>
+                                <h3 className="text-lg text-slate-900">System Status</h3>
+                                <p className="text-sm text-slate-500">Monitor system health</p>
                             </div>
                         </div>
                     </div>
                     <div className="p-6 space-y-4">
                         <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
                             <div>
-                                <p className="text-sm text-gray-900">Maintenance Mode</p>
-                                <p className="text-xs text-gray-500 mt-1">Block access for system maintenance</p>
+                                <p className="text-sm text-slate-900">Maintenance Mode</p>
+                                <p className="text-xs text-slate-500 mt-1">Block access for system maintenance</p>
                             </div>
                             <button
                                 onClick={() => setSettings({ ...settings, enableMaintenanceMode: !settings.enableMaintenanceMode })}
-                                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${settings.enableMaintenanceMode ? 'bg-[#800020]' : 'bg-gray-300'
+                                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${settings.enableMaintenanceMode ? 'bg-indigo-600' : 'bg-gray-300'
                                     }`}
                             >
                                 <span
@@ -192,12 +192,12 @@ export function SystemSettings() {
                         </div>
                         <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
                             <div>
-                                <p className="text-sm text-gray-900">Enable Auto Backups</p>
-                                <p className="text-xs text-gray-500 mt-1">Automatic daily database backups</p>
+                                <p className="text-sm text-slate-900">Enable Auto Backups</p>
+                                <p className="text-xs text-slate-500 mt-1">Automatic daily database backups</p>
                             </div>
                             <button
                                 onClick={() => setSettings({ ...settings, enableAutoBackups: !settings.enableAutoBackups })}
-                                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${settings.enableAutoBackups ? 'bg-[#800020]' : 'bg-gray-300'
+                                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${settings.enableAutoBackups ? 'bg-indigo-600' : 'bg-gray-300'
                                     }`}
                             >
                                 <span
@@ -237,12 +237,12 @@ export function SystemSettings() {
                 <div className="flex items-center gap-3 pt-4">
                     <button
                         onClick={handleSave}
-                        className="flex items-center gap-2 px-6 py-3 bg-[#800020] text-white rounded-lg hover:bg-[#600018] transition-colors"
+                        className="flex items-center gap-2 px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-800 transition-colors"
                     >
                         <Save className="w-5 h-5" />
                         Save All Settings
                     </button>
-                    <button className="px-6 py-3 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">
+                    <button className="px-6 py-3 text-slate-600 hover:bg-gray-100 rounded-lg transition-colors">
                         Reset to Defaults
                     </button>
                 </div>

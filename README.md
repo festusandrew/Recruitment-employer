@@ -4,7 +4,7 @@
 
 ## 📖 Project Overview
 
-This repository contains the **Employer** side of the *Recruitment* platform – a modern, premium‑styled web application built with **React**, **TypeScript**, **Vite**, and **Tailwind‑CSS** (custom vanilla CSS).  The UI follows the brand color `#800020` with a clean, shadow‑free design, profile photos for every candidate, and consistent terminology (Applicant ↔ Candidate).
+This repository contains the **Employer** side of the *Recruitment* platform – a modern, premium‑styled web application built with **React**, **TypeScript**, **Vite**, and **Tailwind‑CSS** (custom vanilla CSS).  The UI follows the brand color `#005189` with a clean, shadow‑free design, profile photos for every candidate, and consistent terminology (Applicant ↔ Candidate).
 
 ---
 
@@ -82,7 +82,7 @@ Recruitment-Employer/
 
 ## 🎨 UI / Design System
 
-- **Primary Brand Color**: `#800020` – used for headers, active sidebar items, and button accents.
+- **Primary Brand Color**: `#005189` – used for headers, active sidebar items, and button accents.
 - **No Shadows / Outlines**: All `box‑shadow` utilities have been stripped. Elements rely on subtle borders and color contrast.
 - **Typography**: Google Font **Inter** (imported in `index.css`).
 - **Responsive Layout**: Flexbox grid with a mobile drawer (`isMobileMenuOpen`) that slides in from the left.

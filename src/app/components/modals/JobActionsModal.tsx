@@ -35,7 +35,7 @@ export function JobActionsModal({
                 onEdit();
                 onClose();
             },
-            color: "text-gray-700",
+            color: "text-slate-700",
         },
         {
             label: "Share Job",
@@ -44,7 +44,7 @@ export function JobActionsModal({
                 onShare();
                 onClose();
             },
-            color: "text-gray-700",
+            color: "text-slate-700",
         },
         {
             label: "Duplicate Job",
@@ -53,7 +53,7 @@ export function JobActionsModal({
                 onDuplicate();
                 onClose();
             },
-            color: "text-gray-700",
+            color: "text-slate-700",
         },
         {
             label: jobStatus === "Active" ? "Pause Job" : "Activate Job",
@@ -71,7 +71,7 @@ export function JobActionsModal({
                 onArchive();
                 onClose();
             },
-            color: "text-gray-700",
+            color: "text-slate-700",
         },
         {
             label: "Delete Job",
@@ -91,17 +91,17 @@ export function JobActionsModal({
                 onClick={(e) => e.stopPropagation()}
             >
                 {/* Header */}
-                <div className="p-6 border-b border-gray-200">
+                <div className="p-6 border-b border-slate-200">
                     <div className="flex items-center justify-between">
                         <div>
-                            <h3 className="text-gray-900">Job Actions</h3>
-                            <p className="text-sm text-gray-500 mt-1">{jobTitle}</p>
+                            <h3 className="text-slate-900">Job Actions</h3>
+                            <p className="text-sm text-slate-500 mt-1">{jobTitle}</p>
                         </div>
                         <button
                             onClick={onClose}
                             className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-100 transition-colors"
                         >
-                            <X className="w-5 h-5 text-gray-500" />
+                            <X className="w-5 h-5 text-slate-500" />
                         </button>
                     </div>
                 </div>

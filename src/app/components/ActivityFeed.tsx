@@ -62,11 +62,11 @@ const activities = [
 
 export function ActivityFeed({ onViewAll }: { onViewAll?: () => void }) {
     return (
-        <div className="bg-white rounded-2xl p-6 border border-gray-100  text-left relative overflow-hidden flex flex-col justify-between h-[510px]">
+        <div className="bg-white rounded-2xl p-6 border border-slate-100  text-left relative overflow-hidden flex flex-col justify-between h-[510px]">
             <div>
                 <div className="mb-5">
-                    <h2 className="text-lg text-gray-900 font-bold tracking-tight">Team Activity</h2>
-                    <p className="text-xs text-gray-500 mt-0.5">Recent hiring actions from your team</p>
+                    <h2 className="text-lg text-slate-900 font-bold tracking-tight">Team Activity</h2>
+                    <p className="text-xs text-slate-500 mt-0.5">Recent hiring actions from your team</p>
                 </div>
 
                 {/* Timeline container */}
@@ -88,37 +88,30 @@ export function ActivityFeed({ onViewAll }: { onViewAll?: () => void }) {
                                 {/* Bullet Point Marker (overlapping the track line) */}
                                 <div className="absolute -left-[20px] top-1.5 z-10 w-2.5 h-2.5 rounded-full border-2 border-white bg-gray-300 ring-4 ring-white" />
 
-                                <Avatar className="w-8 h-8 flex-shrink-0 border border-gray-100 ">
-                                    {activity.recruiterAvatar ? (
-                                        <AvatarImage src={activity.recruiterAvatar} />
-                                    ) : (
-                                        <div className="w-full h-full bg-primary   flex items-center justify-center">
-                                            <Sparkles className="w-3.5 h-3.5 text-white" />
-                                        </div>
-                                    )}
-                                    <AvatarFallback className="text-[10px] font-bold bg-[#800020] text-white">
+                                <Avatar className="w-8 h-8 flex-shrink-0 border border-slate-100">
+                                    <AvatarFallback className="text-[10px] font-bold bg-indigo-600 text-white">
                                         {activity.recruiterInitials}
                                     </AvatarFallback>
                                 </Avatar>
 
                                 <div className="flex-1 min-w-0">
-                                    <p className="text-xs text-gray-700 leading-relaxed font-medium">
-                                        <span className="font-bold text-gray-900">{activity.recruiter}</span>{" "}
-                                        <span className="text-gray-500">{activity.action}</span>{" "}
+                                    <p className="text-xs text-slate-700 leading-relaxed font-medium">
+                                        <span className="font-bold text-slate-900">{activity.recruiter}</span>{" "}
+                                        <span className="text-slate-500">{activity.action}</span>{" "}
                                         {activity.candidate && (
-                                            <span className="font-bold text-[#800020]">{activity.candidate}</span>
+                                            <span className="font-bold text-indigo-600">{activity.candidate}</span>
                                         )}
                                         {activity.stage && (
                                             <>
                                                 {" "}
-                                                to <span className="font-bold text-gray-800">{activity.stage}</span>
+                                                to <span className="font-bold text-slate-800">{activity.stage}</span>
                                             </>
                                         )}
                                         {activity.job && (
-                                            <span className="font-bold text-gray-800"> • {activity.job}</span>
+                                            <span className="font-bold text-slate-800"> • {activity.job}</span>
                                         )}
                                     </p>
-                                    <div className="flex items-center gap-1 mt-1 text-[10px] text-gray-400 font-bold">
+                                    <div className="flex items-center gap-1 mt-1 text-[10px] text-slate-400 font-bold">
                                         <Clock className="w-3 h-3 text-gray-350" />
                                         <span>{activity.timestamp}</span>
                                     </div>
@@ -131,7 +124,7 @@ export function ActivityFeed({ onViewAll }: { onViewAll?: () => void }) {
 
             <button 
                 onClick={onViewAll}
-                className="w-full mt-4 py-2.5 text-xs text-[#800020] hover:text-white hover:bg-[#800020] border border-[#800020]/15 hover:border-[#800020] rounded-xl transition-all duration-300 cursor-pointer font-bold bg-white flex items-center justify-center gap-1 "
+                className="w-full mt-4 py-2.5 text-xs text-indigo-600 hover:text-white hover:bg-indigo-600 border border-indigo-600/15 hover:border-indigo-600 rounded-xl transition-all duration-300 cursor-pointer font-bold bg-white flex items-center justify-center gap-1 "
             >
                 <span>View All Activity</span>
                 <ArrowRight className="w-3.5 h-3.5" />

@@ -70,18 +70,18 @@ export function InterviewsPage({ onScheduleInterview }: InterviewsPageProps) {
                 {/* Header */}
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <div>
-                        <h1 className="text-gray-950 font-extrabold text-2xl tracking-tight leading-none flex items-center gap-2">
-                            <CalendarIcon className="w-6 h-6 text-[#800020]" />
+                        <h1 className="text-slate-900 font-extrabold text-2xl tracking-tight leading-none flex items-center gap-2">
+                            <CalendarIcon className="w-6 h-6 text-indigo-600" />
                             Interview Scheduler
                         </h1>
-                        <p className="text-xs text-gray-400 font-semibold mt-1 uppercase tracking-wider">Manage schedules, slot buffers, video interview links, and feedback cards</p>
+                        <p className="text-xs text-slate-400 font-semibold mt-1 uppercase tracking-wider">Manage schedules, slot buffers, video interview links, and feedback cards</p>
                     </div>
                     <div className="flex flex-wrap items-center gap-3">
-                        <div className="flex bg-gray-100/75 p-1 rounded-xl border border-gray-200/50">
+                        <div className="flex bg-gray-100/75 p-1 rounded-xl border border-slate-200/50">
                             <button
                                 onClick={() => setView("list")}
                                 className={`px-4 py-2 rounded-lg text-xs font-bold transition-all cursor-pointer ${
-                                    view === "list" ? "bg-white text-gray-900 " : "text-gray-500 hover:text-gray-900"
+                                    view === "list" ? "bg-white text-slate-900 " : "text-slate-500 hover:text-slate-900"
                                 }`}
                             >
                                 List View
@@ -89,7 +89,7 @@ export function InterviewsPage({ onScheduleInterview }: InterviewsPageProps) {
                             <button
                                 onClick={() => setView("calendar")}
                                 className={`px-4 py-2 rounded-lg text-xs font-bold transition-all cursor-pointer ${
-                                    view === "calendar" ? "bg-white text-gray-900 " : "text-gray-500 hover:text-gray-900"
+                                    view === "calendar" ? "bg-white text-slate-900 " : "text-slate-500 hover:text-slate-900"
                                 }`}
                             >
                                 Calendar
@@ -99,7 +99,7 @@ export function InterviewsPage({ onScheduleInterview }: InterviewsPageProps) {
                             whileHover={{ scale: 1.02 }}
                             whileTap={{ scale: 0.98 }}
                             onClick={onScheduleInterview}
-                            className="flex items-center gap-2 px-5 py-3 bg-[#800020] hover:bg-[#600018] text-white rounded-xl transition-all font-extrabold text-xs  border border-[#800020]/10 hover: cursor-pointer tracking-wider"
+                            className="flex items-center gap-2 px-5 py-3 bg-indigo-600 hover:bg-indigo-800 text-white rounded-xl transition-all font-extrabold text-xs  border border-indigo-600/10 hover: cursor-pointer tracking-wider"
                         >
                             <Plus className="w-4 h-4 text-orange-300" />
                             SCHEDULE INTERVIEW
@@ -113,8 +113,8 @@ export function InterviewsPage({ onScheduleInterview }: InterviewsPageProps) {
                         <div className="xl:col-span-2 space-y-6">
                             {/* Upcoming Interviews */}
                             <div>
-                                <h2 className="text-xs font-extrabold text-gray-400 uppercase tracking-wider mb-3 flex items-center gap-2">
-                                    <Clock className="w-4.5 h-4.5 text-[#800020]" />
+                                <h2 className="text-xs font-extrabold text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+                                    <Clock className="w-4.5 h-4.5 text-indigo-600" />
                                     Upcoming Interviews
                                 </h2>
                                 <div className="space-y-4">
@@ -129,27 +129,27 @@ export function InterviewsPage({ onScheduleInterview }: InterviewsPageProps) {
                                                 <div className="flex items-center gap-4 flex-1 min-w-0">
                                                     <Avatar className="w-14 h-14 border border-white  flex-shrink-0">
                                                         <AvatarImage src={interview.avatar} />
-                                                        <AvatarFallback className="bg-primary   text-white font-extrabold text-lg">
+                                                        <AvatarFallback className="bg-indigo-600   text-white font-extrabold text-lg">
                                                             {interview.candidate.charAt(0)}
                                                         </AvatarFallback>
                                                     </Avatar>
                                                     <div className="flex-1 min-w-0">
                                                         <div className="flex items-center gap-2.5 mb-1.5 flex-wrap">
-                                                            <h3 className="text-sm font-extrabold text-gray-950 truncate leading-none">{interview.candidate}</h3>
+                                                            <h3 className="text-sm font-extrabold text-slate-900 truncate leading-none">{interview.candidate}</h3>
                                                             {submittedScores[interview.id] && (
                                                                 <span className="px-2 py-0.5 bg-emerald-50 text-emerald-700 text-[9px] font-bold uppercase border border-emerald-100 rounded-lg flex items-center gap-1">
                                                                     <Check className="w-3 h-3" /> Evaluated
                                                                 </span>
                                                             )}
                                                         </div>
-                                                        <p className="text-xs text-gray-500 font-semibold mb-3">{interview.role}</p>
-                                                        <div className="flex items-center flex-wrap gap-2.5 text-[10px] font-bold uppercase tracking-wider text-gray-600">
+                                                        <p className="text-xs text-slate-500 font-semibold mb-3">{interview.role}</p>
+                                                        <div className="flex items-center flex-wrap gap-2.5 text-[10px] font-bold uppercase tracking-wider text-slate-600">
                                                             <span className="flex items-center gap-1 px-2 py-1 bg-gray-50 border border-gray-150 rounded-lg">
-                                                                <CalendarIcon className="w-3.5 h-3.5 text-[#800020]" />
+                                                                <CalendarIcon className="w-3.5 h-3.5 text-indigo-600" />
                                                                 {interview.date}
                                                             </span>
                                                             <span className="flex items-center gap-1 px-2 py-1 bg-gray-50 border border-gray-150 rounded-lg">
-                                                                <Clock className="w-3.5 h-3.5 text-[#800020]" />
+                                                                <Clock className="w-3.5 h-3.5 text-indigo-600" />
                                                                 {interview.time} ({interview.duration})
                                                             </span>
                                                             <span className="flex items-center gap-1 px-2 py-1 bg-gray-50 border border-gray-150 rounded-lg">
@@ -168,7 +168,7 @@ export function InterviewsPage({ onScheduleInterview }: InterviewsPageProps) {
                                                         whileHover={{ scale: 1.01 }}
                                                         whileTap={{ scale: 0.99 }}
                                                         onClick={() => setSelectedJoinInterview(interview)}
-                                                        className="px-4 py-2.5 bg-[#800020] hover:bg-[#600018] text-white rounded-xl text-xs font-bold transition-all  cursor-pointer flex items-center gap-1.5 tracking-wider"
+                                                        className="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-800 text-white rounded-xl text-xs font-bold transition-all  cursor-pointer flex items-center gap-1.5 tracking-wider"
                                                     >
                                                         <Video className="w-4 h-4 text-orange-300" />
                                                         JOIN ROOM
@@ -177,7 +177,7 @@ export function InterviewsPage({ onScheduleInterview }: InterviewsPageProps) {
                                                         whileHover={{ scale: 1.01 }}
                                                         whileTap={{ scale: 0.99 }}
                                                         onClick={() => setSelectedRescheduleInterview(interview)}
-                                                        className="px-4 py-2.5 border border-gray-200 text-gray-700 bg-white hover:bg-gray-50 rounded-xl text-xs font-bold transition-all  cursor-pointer flex items-center gap-1.5"
+                                                        className="px-4 py-2.5 border border-slate-200 text-slate-700 bg-white hover:bg-gray-50 rounded-xl text-xs font-bold transition-all  cursor-pointer flex items-center gap-1.5"
                                                     >
                                                         <Clock className="w-4 h-4 text-gray-455" />
                                                         Reschedule
@@ -187,7 +187,7 @@ export function InterviewsPage({ onScheduleInterview }: InterviewsPageProps) {
                                                             whileHover={{ scale: 1.01 }}
                                                             whileTap={{ scale: 0.99 }}
                                                             onClick={() => setSelectedScoreInterview(interview)}
-                                                            className="px-4 py-2.5 border border-dashed border-[#800020]/35 text-[#800020] bg-rose-50/20 hover:bg-[#F5E6E8]/30 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5"
+                                                            className="px-4 py-2.5 border border-dashed border-indigo-600/35 text-indigo-600 bg-rose-50/20 hover:bg-indigo-50/30 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5"
                                                         >
                                                             <Award className="w-4 h-4" />
                                                             Evaluate
@@ -202,8 +202,8 @@ export function InterviewsPage({ onScheduleInterview }: InterviewsPageProps) {
 
                             {/* Past Interviews */}
                             <div>
-                                <h2 className="text-xs font-extrabold text-gray-400 uppercase tracking-wider mb-3 flex items-center gap-2">
-                                    <CheckCircle className="w-4.5 h-4.5 text-[#800020]" />
+                                <h2 className="text-xs font-extrabold text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+                                    <CheckCircle className="w-4.5 h-4.5 text-indigo-600" />
                                     Evaluated & Past Sessions
                                 </h2>
                                 <div className="space-y-4">
@@ -212,12 +212,12 @@ export function InterviewsPage({ onScheduleInterview }: InterviewsPageProps) {
                                             <div className="flex items-center gap-4 flex-1 min-w-[280px]">
                                                 <Avatar className="w-14 h-14 border border-white  flex-shrink-0">
                                                     <AvatarImage src="https://api.dicebear.com/7.x/avataaars/svg?seed=jessica2" />
-                                                    <AvatarFallback className="bg-primary from-gray-400 to-gray-500 text-white font-extrabold text-lg">JM</AvatarFallback>
+                                                    <AvatarFallback className="bg-indigo-600 from-gray-400 to-gray-500 text-white font-extrabold text-lg">JM</AvatarFallback>
                                                 </Avatar>
                                                 <div>
-                                                    <h3 className="text-sm font-extrabold text-gray-900 mb-1">Jessica Martinez</h3>
-                                                    <p className="text-xs text-gray-500 font-semibold mb-2.5">UX Researcher</p>
-                                                    <div className="flex items-center flex-wrap gap-2.5 text-[10px] font-bold uppercase tracking-wider text-gray-500">
+                                                    <h3 className="text-sm font-extrabold text-slate-900 mb-1">Jessica Martinez</h3>
+                                                    <p className="text-xs text-slate-500 font-semibold mb-2.5">UX Researcher</p>
+                                                    <div className="flex items-center flex-wrap gap-2.5 text-[10px] font-bold uppercase tracking-wider text-slate-500">
                                                         <span className="flex items-center gap-1 px-2.5 py-1 bg-gray-50 border border-gray-150 rounded-lg">
                                                             <CalendarIcon className="w-3.5 h-3.5" />
                                                             Nov 22, 2024
@@ -235,9 +235,9 @@ export function InterviewsPage({ onScheduleInterview }: InterviewsPageProps) {
                                             </div>
                                             <button 
                                                 onClick={() => toast.info("Feedback: 'Exceptional UX research portfolio, scored 4.8/5 overall. Extended offer.'")}
-                                                className="px-4 py-2.5 border border-gray-200 text-gray-750 bg-white hover:bg-gray-50 rounded-xl text-xs font-bold transition-all  cursor-pointer flex items-center gap-1.5"
+                                                className="px-4 py-2.5 border border-slate-200 text-gray-750 bg-white hover:bg-gray-50 rounded-xl text-xs font-bold transition-all  cursor-pointer flex items-center gap-1.5"
                                             >
-                                                <FileText className="w-4 h-4 text-[#800020]" />
+                                                <FileText className="w-4 h-4 text-indigo-600" />
                                                 View Evaluation
                                             </button>
                                         </div>
@@ -249,22 +249,22 @@ export function InterviewsPage({ onScheduleInterview }: InterviewsPageProps) {
                         {/* Right: Summary Widget */}
                         <div className="space-y-6">
                             <div className="bg-white rounded-2xl border border-gray-150  p-6">
-                                <h3 className="text-xs font-bold text-gray-950 uppercase tracking-wider mb-4 pb-3 border-b border-gray-100">Evaluations Summary</h3>
-                                <p className="text-xs text-gray-500 leading-relaxed mb-5 font-medium">
+                                <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider mb-4 pb-3 border-b border-slate-100">Evaluations Summary</h3>
+                                <p className="text-xs text-slate-500 leading-relaxed mb-5 font-medium">
                                     Assess candidate performance across core categories. Submit your scoring cards promptly to coordinate hiring decisions.
                                 </p>
                                 <div className="space-y-3 font-semibold text-xs text-gray-650">
                                     <div className="bg-gray-50/50 border border-gray-150 rounded-xl p-3.5 flex items-center justify-between">
-                                        <span className="text-gray-600">Technical competency average</span>
-                                        <span className="font-bold text-gray-900 bg-white border border-gray-200 px-2 py-0.5 rounded-lg">4.2 / 5.0</span>
+                                        <span className="text-slate-600">Technical competency average</span>
+                                        <span className="font-bold text-slate-900 bg-white border border-slate-200 px-2 py-0.5 rounded-lg">4.2 / 5.0</span>
                                     </div>
                                     <div className="bg-gray-50/50 border border-gray-150 rounded-xl p-3.5 flex items-center justify-between">
-                                        <span className="text-gray-600">Communication competency</span>
-                                        <span className="font-bold text-gray-900 bg-white border border-gray-200 px-2 py-0.5 rounded-lg">4.5 / 5.0</span>
+                                        <span className="text-slate-600">Communication competency</span>
+                                        <span className="font-bold text-slate-900 bg-white border border-slate-200 px-2 py-0.5 rounded-lg">4.5 / 5.0</span>
                                     </div>
                                     <div className="bg-gray-50/50 border border-gray-150 rounded-xl p-3.5 flex items-center justify-between">
-                                        <span className="text-gray-600">Culture fit competency</span>
-                                        <span className="font-bold text-gray-900 bg-white border border-gray-200 px-2 py-0.5 rounded-lg">4.6 / 5.0</span>
+                                        <span className="text-slate-600">Culture fit competency</span>
+                                        <span className="font-bold text-slate-900 bg-white border border-slate-200 px-2 py-0.5 rounded-lg">4.6 / 5.0</span>
                                     </div>
                                 </div>
                             </div>
@@ -274,20 +274,20 @@ export function InterviewsPage({ onScheduleInterview }: InterviewsPageProps) {
                     /* Calendar View Container */
                     <div className="bg-white rounded-2xl border border-gray-150  p-6 text-left">
                         {/* Calendar Header with Mode Toggles */}
-                        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-5 border-b border-gray-100">
+                        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-5 border-b border-slate-100">
                             <div className="flex items-center gap-4 flex-wrap">
-                                <h2 className="text-gray-950 font-extrabold text-lg tracking-tight">
+                                <h2 className="text-slate-900 font-extrabold text-lg tracking-tight">
                                     {calendarMode === "month" && "June 2026"}
                                     {calendarMode === "week" && "Week of Jun 21 - Jun 27, 2026"}
                                     {calendarMode === "day" && "Monday, June 25, 2026"}
                                 </h2>
-                                <div className="flex bg-gray-100/75 p-1 rounded-xl border border-gray-200/45">
+                                <div className="flex bg-gray-100/75 p-1 rounded-xl border border-slate-200/45">
                                     {["month", "week", "day"].map((mode) => (
                                         <button 
                                             key={mode}
                                             onClick={() => setCalendarMode(mode as any)}
                                             className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer uppercase tracking-wider ${
-                                                calendarMode === mode ? "bg-white text-gray-900 " : "text-gray-500 hover:text-gray-900"
+                                                calendarMode === mode ? "bg-white text-slate-900 " : "text-slate-500 hover:text-slate-900"
                                             }`}
                                         >
                                             {mode}ly
@@ -296,13 +296,13 @@ export function InterviewsPage({ onScheduleInterview }: InterviewsPageProps) {
                                 </div>
                             </div>
                             <div className="flex items-center gap-2">
-                                <button className="px-3.5 py-1.5 border border-gray-200 rounded-xl text-xs font-bold text-gray-600 bg-white hover:bg-gray-50 transition-colors cursor-pointer select-none">
+                                <button className="px-3.5 py-1.5 border border-slate-200 rounded-xl text-xs font-bold text-slate-600 bg-white hover:bg-gray-50 transition-colors cursor-pointer select-none">
                                     Today
                                 </button>
-                                <button className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-50 border border-gray-200 cursor-pointer text-gray-500">
+                                <button className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-50 border border-slate-200 cursor-pointer text-slate-500">
                                     <ChevronLeft className="w-4 h-4" />
                                 </button>
-                                <button className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-50 border border-gray-200 cursor-pointer text-gray-500">
+                                <button className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-50 border border-slate-200 cursor-pointer text-slate-500">
                                     <ChevronRight className="w-4 h-4" />
                                 </button>
                             </div>
@@ -312,7 +312,7 @@ export function InterviewsPage({ onScheduleInterview }: InterviewsPageProps) {
                         {calendarMode === "month" && (
                             <div className="grid grid-cols-7 gap-3 animate-in fade-in duration-200">
                                 {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
-                                    <div key={day} className="text-center text-[10px] font-bold text-gray-400 uppercase tracking-wider py-2 bg-gray-50/60 border border-gray-100 rounded-lg">
+                                    <div key={day} className="text-center text-[10px] font-bold text-slate-400 uppercase tracking-wider py-2 bg-gray-50/60 border border-slate-100 rounded-lg">
                                         {day}
                                     </div>
                                 ))}
@@ -330,25 +330,25 @@ export function InterviewsPage({ onScheduleInterview }: InterviewsPageProps) {
                                             }}
                                             className={`min-h-[120px] border rounded-xl p-3 flex flex-col justify-between transition-all duration-150 ${
                                                 isValidDay 
-                                                    ? "bg-white hover:bg-gray-50/50 cursor-pointer border-gray-200 " 
-                                                    : "bg-gray-50/30 border-gray-100 opacity-40"
-                                            } ${hasInterview ? "border-[#800020]/40 bg-[#800020]/2" : ""}`}
+                                                    ? "bg-white hover:bg-gray-50/50 cursor-pointer border-slate-200 " 
+                                                    : "bg-gray-50/30 border-slate-100 opacity-40"
+                                            } ${hasInterview ? "border-indigo-600/40 bg-indigo-600/2" : ""}`}
                                         >
                                             {isValidDay && (
                                                 <div className="h-full flex flex-col justify-between space-y-2">
                                                     <div className="flex justify-between items-center">
-                                                        <span className="text-xs font-bold text-gray-955">{dayNum}</span>
-                                                        {hasInterview && <span className="w-2 h-2 rounded-full bg-[#800020] animate-pulse"></span>}
+                                                        <span className="text-xs font-bold text-slate-900 font-extrabold">{dayNum}</span>
+                                                        {hasInterview && <span className="w-2 h-2 rounded-full bg-indigo-600 animate-pulse"></span>}
                                                     </div>
                                                     {hasInterview && (
                                                         <div className="space-y-1">
                                                             {dayNum === 25 && (
                                                                 <>
-                                                                    <div className="text-[9px] font-bold text-[#800020] bg-[#800020]/5 px-2 py-1 border border-[#800020]/15 rounded-lg flex items-center gap-1 truncate">
+                                                                    <div className="text-[9px] font-bold text-indigo-600 bg-indigo-600/5 px-2 py-1 border border-indigo-600/15 rounded-lg flex items-center gap-1 truncate">
                                                                         <Video className="w-2.5 h-2.5 flex-shrink-0" />
                                                                         <span>10am: Sarah C.</span>
                                                                     </div>
-                                                                    <div className="text-[9px] font-bold text-[#800020] bg-[#800020]/5 px-2 py-1 border border-[#800020]/15 rounded-lg flex items-center gap-1 truncate">
+                                                                    <div className="text-[9px] font-bold text-indigo-600 bg-indigo-600/5 px-2 py-1 border border-indigo-600/15 rounded-lg flex items-center gap-1 truncate">
                                                                         <Video className="w-2.5 h-2.5 flex-shrink-0" />
                                                                         <span>2pm: Michael T.</span>
                                                                     </div>
@@ -381,10 +381,10 @@ export function InterviewsPage({ onScheduleInterview }: InterviewsPageProps) {
                             <div className="animate-in fade-in duration-200 overflow-x-auto no-scrollbar">
                                 <div className="min-w-[900px] border border-gray-150 rounded-xl overflow-hidden bg-white">
                                     {/* Days Header */}
-                                    <div className="grid grid-cols-8 bg-gray-50 border-b border-gray-150 text-center font-bold text-[10px] uppercase tracking-wider text-gray-500 py-3">
-                                        <div className="text-gray-400 font-medium normal-case">Time Slot</div>
+                                    <div className="grid grid-cols-8 bg-gray-50 border-b border-gray-150 text-center font-bold text-[10px] uppercase tracking-wider text-slate-500 py-3">
+                                        <div className="text-slate-400 font-medium normal-case">Time Slot</div>
                                         <div>Sun Jun 21</div>
-                                        <div className="text-[#800020] bg-[#800020]/5 rounded-lg mx-1 py-1 border border-[#800020]/10 font-extrabold">Mon Jun 22</div>
+                                        <div className="text-indigo-600 bg-indigo-600/5 rounded-lg mx-1 py-1 border border-indigo-600/10 font-extrabold">Mon Jun 22</div>
                                         <div>Tue Jun 23</div>
                                         <div>Wed Jun 24</div>
                                         <div>Thu Jun 25</div>
@@ -395,19 +395,19 @@ export function InterviewsPage({ onScheduleInterview }: InterviewsPageProps) {
                                     {/* Time Slots */}
                                     {[
                                         { time: "09:00 AM", slots: [null, null, null, null, null, null, null] },
-                                        { time: "10:00 AM", slots: [null, { candidate: "Sarah Chen", role: "Product Designer", type: "Video", duration: "1h", bg: "bg-[#800020] text-white border-[#800020]/20" }, null, null, null, null, null] },
+                                        { time: "10:00 AM", slots: [null, { candidate: "Sarah Chen", role: "Product Designer", type: "Video", duration: "1h", bg: "bg-indigo-600 text-white border-indigo-600/20" }, null, null, null, null, null] },
                                         { time: "11:00 AM", slots: [null, null, { candidate: "Emily Watson", role: "Marketing Mgr", type: "On-site", duration: "1h", bg: "bg-blue-600 text-white border-blue-750/20" }, null, null, null, null] },
                                         { time: "12:00 PM", slots: [null, null, null, null, null, null, null] },
                                         { time: "01:00 PM", slots: [null, null, null, null, null, null, null] },
-                                        { time: "02:00 PM", slots: [null, { candidate: "Michael Torres", role: "Frontend Dev", type: "Video", duration: "45m", bg: "bg-[#800020] text-white border-[#800020]/20" }, null, null, null, null, null] },
+                                        { time: "02:00 PM", slots: [null, { candidate: "Michael Torres", role: "Frontend Dev", type: "Video", duration: "45m", bg: "bg-indigo-600 text-white border-indigo-600/20" }, null, null, null, null, null] },
                                         { time: "03:00 PM", slots: [null, null, null, null, { candidate: "David Kim", role: "Data Analyst", type: "Phone", duration: "30m", bg: "bg-amber-600 text-white border-amber-700/20" }, null, null] },
                                     ].map((row, rIdx) => (
-                                        <div key={rIdx} className="grid grid-cols-8 border-b border-gray-100 last:border-b-0 min-h-[75px] items-stretch">
-                                            <div className="p-3 text-xs font-extrabold text-gray-400 bg-gray-50/30 border-r border-gray-100 flex items-center justify-center">
+                                        <div key={rIdx} className="grid grid-cols-8 border-b border-slate-100 last:border-b-0 min-h-[75px] items-stretch">
+                                            <div className="p-3 text-xs font-extrabold text-slate-400 bg-gray-50/30 border-r border-slate-100 flex items-center justify-center">
                                                 {row.time}
                                             </div>
                                             {row.slots.map((slot, sIdx) => (
-                                                <div key={sIdx} className="border-r border-gray-100 last:border-r-0 p-1.5 hover:bg-gray-50/30 transition-colors flex flex-col justify-center">
+                                                <div key={sIdx} className="border-r border-slate-100 last:border-r-0 p-1.5 hover:bg-gray-50/30 transition-colors flex flex-col justify-center">
                                                     {slot && (
                                                         <div className={`p-3 rounded-xl  flex flex-col justify-between h-full border ${slot.bg}`}>
                                                             <div className="flex items-center justify-between font-bold text-[11px] mb-1">
@@ -434,9 +434,9 @@ export function InterviewsPage({ onScheduleInterview }: InterviewsPageProps) {
                                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                                     {/* Timeline schedule */}
                                     <div className="lg:col-span-2 border border-gray-150 rounded-2xl overflow-hidden bg-white divide-y divide-gray-100 ">
-                                        <div className="p-4 bg-gray-50 font-bold text-xs uppercase tracking-wider text-gray-500 flex justify-between items-center">
+                                        <div className="p-4 bg-gray-50 font-bold text-xs uppercase tracking-wider text-slate-500 flex justify-between items-center">
                                             <span>Timeline - Monday, Jun 25</span>
-                                            <span className="px-2.5 py-1 bg-[#800020]/10 text-[#800020] border border-[#800020]/10 rounded-lg text-[10px] font-bold tracking-wide">2 SESSIONS SCHEDULED</span>
+                                            <span className="px-2.5 py-1 bg-indigo-600/10 text-indigo-600 border border-indigo-600/10 rounded-lg text-[10px] font-bold tracking-wide">2 SESSIONS SCHEDULED</span>
                                         </div>
                                         {[
                                             { time: "09:00 AM", item: null },
@@ -454,24 +454,24 @@ export function InterviewsPage({ onScheduleInterview }: InterviewsPageProps) {
                                             { time: "03:00 PM", item: null },
                                         ].map((slot, idx) => (
                                             <div key={idx} className="flex items-start p-4 hover:bg-gray-50/20 transition-colors">
-                                                <div className="w-24 text-xs font-bold text-gray-400 pt-1.5 flex-shrink-0">
+                                                <div className="w-24 text-xs font-bold text-slate-400 pt-1.5 flex-shrink-0">
                                                     {slot.time}
                                                 </div>
                                                 <div className="flex-1 min-w-0">
                                                     {slot.item && 'break' in slot.item ? (
-                                                        <div className="bg-gray-50 border border-gray-150 rounded-xl p-3 text-xs font-semibold text-gray-400 text-center uppercase tracking-wider">
+                                                        <div className="bg-gray-50 border border-gray-150 rounded-xl p-3 text-xs font-semibold text-slate-400 text-center uppercase tracking-wider">
                                                             {slot.item.break}
                                                         </div>
                                                     ) : slot.item ? (
-                                                        <div className="bg-[#800020]/2 border border-[#800020]/15 rounded-xl p-4  flex flex-col md:flex-row justify-between items-start md:items-center gap-4 hover:border-[#800020]/30 transition-colors text-left">
+                                                        <div className="bg-indigo-600/2 border border-indigo-600/15 rounded-xl p-4  flex flex-col md:flex-row justify-between items-start md:items-center gap-4 hover:border-indigo-600/30 transition-colors text-left">
                                                             <div className="flex items-center gap-3.5">
                                                                 <Avatar className="w-10 h-10 border border-white  flex-shrink-0">
                                                                     <AvatarImage src={slot.item.avatar} />
-                                                                    <AvatarFallback className="bg-primary   text-white font-bold text-xs">{slot.item.candidate.charAt(0)}</AvatarFallback>
+                                                                    <AvatarFallback className="bg-indigo-600   text-white font-bold text-xs">{slot.item.candidate.charAt(0)}</AvatarFallback>
                                                                 </Avatar>
                                                                 <div>
-                                                                    <h4 className="font-extrabold text-gray-900 text-sm">{slot.item.candidate}</h4>
-                                                                    <p className="text-xs text-gray-600 font-semibold mt-0.5">{slot.item.role} • {slot.item.type}</p>
+                                                                    <h4 className="font-extrabold text-slate-900 text-sm">{slot.item.candidate}</h4>
+                                                                    <p className="text-xs text-slate-600 font-semibold mt-0.5">{slot.item.role} • {slot.item.type}</p>
                                                                     <p className="text-[10px] text-gray-450 font-bold uppercase tracking-wider mt-1">Host: {slot.item.interviewer}</p>
                                                                 </div>
                                                             </div>
@@ -479,14 +479,14 @@ export function InterviewsPage({ onScheduleInterview }: InterviewsPageProps) {
                                                                 whileHover={{ scale: 1.02 }}
                                                                 whileTap={{ scale: 0.98 }}
                                                                 onClick={() => setSelectedJoinInterview({ id: idx, candidate: slot.item?.candidate, role: slot.item?.role, time: slot.time, duration: "1 hour", type: "Video", interviewer: slot.item?.interviewer, avatar: slot.item?.avatar, date: "Jun 25", notes: slot.item?.notes })}
-                                                                className="px-4 py-2 bg-[#800020] hover:bg-[#600018] text-white text-xs font-bold rounded-xl  cursor-pointer flex items-center gap-1.5"
+                                                                className="px-4 py-2 bg-indigo-600 hover:bg-indigo-800 text-white text-xs font-bold rounded-xl  cursor-pointer flex items-center gap-1.5"
                                                             >
                                                                 <Video className="w-3.5 h-3.5 text-orange-300" />
                                                                 <span>Join Meeting</span>
                                                             </motion.button>
                                                         </div>
                                                     ) : (
-                                                        <div className="h-6 border-b border-dashed border-gray-150 flex items-center text-[10px] text-gray-400 font-bold uppercase tracking-wider select-none">
+                                                        <div className="h-6 border-b border-dashed border-gray-150 flex items-center text-[10px] text-slate-400 font-bold uppercase tracking-wider select-none">
                                                             Available Buffer Slot
                                                         </div>
                                                     )}
@@ -498,18 +498,18 @@ export function InterviewsPage({ onScheduleInterview }: InterviewsPageProps) {
                                     {/* Daily summary widget */}
                                     <div className="border border-gray-150 rounded-2xl p-6 bg-gray-50/50 flex flex-col justify-between space-y-6 h-fit  text-left">
                                         <div>
-                                            <h3 className="font-extrabold text-gray-950 text-sm uppercase tracking-wider mb-2.5 pb-2 border-b border-gray-200">Daily Summary</h3>
+                                            <h3 className="font-extrabold text-slate-900 text-sm uppercase tracking-wider mb-2.5 pb-2 border-b border-slate-200">Daily Summary</h3>
                                             <p className="text-xs text-gray-550 leading-relaxed mb-5 font-medium">
                                                 Review candidate portfolios and technical codes before join rooms. Scorecards must be submitted directly after each slot.
                                             </p>
 
                                             <div className="space-y-2.5 font-bold text-xs text-gray-650">
-                                                <div className="bg-white p-3 rounded-xl border border-gray-200 flex items-center justify-between ">
-                                                    <span className="text-gray-600">Today's Sessions</span>
-                                                    <span className="text-xs font-bold text-gray-900 bg-gray-100 px-2 py-0.5 rounded-lg">2 Slots</span>
+                                                <div className="bg-white p-3 rounded-xl border border-slate-200 flex items-center justify-between ">
+                                                    <span className="text-slate-600">Today's Sessions</span>
+                                                    <span className="text-xs font-bold text-slate-900 bg-gray-100 px-2 py-0.5 rounded-lg">2 Slots</span>
                                                 </div>
-                                                <div className="bg-white p-3 rounded-xl border border-gray-200 flex items-center justify-between ">
-                                                    <span className="text-gray-600">Pending Eval</span>
+                                                <div className="bg-white p-3 rounded-xl border border-slate-200 flex items-center justify-between ">
+                                                    <span className="text-slate-600">Pending Eval</span>
                                                     <span className="text-xs font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-lg border border-amber-100">2 pending</span>
                                                 </div>
                                             </div>
@@ -519,7 +519,7 @@ export function InterviewsPage({ onScheduleInterview }: InterviewsPageProps) {
                                             whileHover={{ scale: 1.01 }}
                                             whileTap={{ scale: 0.99 }}
                                             onClick={onScheduleInterview} 
-                                            className="w-full py-3 bg-[#800020] hover:bg-[#600018] text-white rounded-xl text-xs font-extrabold  flex items-center justify-center gap-2 cursor-pointer border border-[#800020]/10 tracking-wider uppercase"
+                                            className="w-full py-3 bg-indigo-600 hover:bg-indigo-800 text-white rounded-xl text-xs font-extrabold  flex items-center justify-center gap-2 cursor-pointer border border-indigo-600/10 tracking-wider uppercase"
                                         >
                                             <Plus className="w-4 h-4 text-orange-300" /> Schedule Interview
                                         </motion.button>
@@ -541,21 +541,21 @@ export function InterviewsPage({ onScheduleInterview }: InterviewsPageProps) {
                                 animate={{ opacity: 1, scale: 1, y: 0 }}
                                 exit={{ opacity: 0, scale: 0.96, y: 20 }}
                                 transition={{ type: "spring", damping: 25 }}
-                                className="bg-white/95 border border-gray-100 rounded-2xl max-w-2xl w-full p-6  z-10 relative text-left"
+                                className="bg-white/95 border border-slate-100 rounded-2xl max-w-2xl w-full p-6  z-10 relative text-left"
                             >
-                                <div className="flex justify-between items-center mb-6 border-b border-gray-100 pb-4">
+                                <div className="flex justify-between items-center mb-6 border-b border-slate-100 pb-4">
                                     <div className="flex items-center gap-3">
-                                        <div className="w-10 h-10 rounded-xl bg-[#800020]/10 flex items-center justify-center text-[#800020]">
+                                        <div className="w-10 h-10 rounded-xl bg-indigo-600/10 flex items-center justify-center text-indigo-600">
                                             <Video className="w-5 h-5" />
                                         </div>
                                         <div>
-                                            <h3 className="text-base font-extrabold text-gray-900 tracking-tight">Active Interview Session</h3>
-                                            <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider mt-0.5">Live video room & workspace details</p>
+                                            <h3 className="text-base font-extrabold text-slate-900 tracking-tight">Active Interview Session</h3>
+                                            <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mt-0.5">Live video room & workspace details</p>
                                         </div>
                                     </div>
                                     <button 
                                         onClick={() => setSelectedJoinInterview(null)}
-                                        className="text-gray-400 hover:text-gray-700 w-8 h-8 rounded-lg hover:bg-gray-100 flex items-center justify-center transition-colors cursor-pointer"
+                                        className="text-slate-400 hover:text-slate-700 w-8 h-8 rounded-lg hover:bg-gray-100 flex items-center justify-center transition-colors cursor-pointer"
                                     >
                                         <X className="w-5 h-5" />
                                     </button>
@@ -565,12 +565,12 @@ export function InterviewsPage({ onScheduleInterview }: InterviewsPageProps) {
                                     <div className="bg-gray-50 border border-gray-150 p-4 rounded-xl flex items-center gap-4">
                                         <Avatar className="w-16 h-16 border border-white  flex-shrink-0">
                                             <AvatarImage src={selectedJoinInterview.avatar} />
-                                            <AvatarFallback className="bg-primary   text-white font-bold text-lg">{selectedJoinInterview.candidate.charAt(0)}</AvatarFallback>
+                                            <AvatarFallback className="bg-indigo-600   text-white font-bold text-lg">{selectedJoinInterview.candidate.charAt(0)}</AvatarFallback>
                                         </Avatar>
                                         <div className="flex-1 min-w-0">
-                                            <h4 className="text-sm font-extrabold text-gray-900 leading-tight">{selectedJoinInterview.candidate}</h4>
-                                            <p className="text-xs text-gray-500 font-semibold mt-0.5">{selectedJoinInterview.role}</p>
-                                            <div className="flex items-center gap-4 mt-2.5 text-[10px] text-gray-500 font-bold uppercase tracking-wider">
+                                            <h4 className="text-sm font-extrabold text-slate-900 leading-tight">{selectedJoinInterview.candidate}</h4>
+                                            <p className="text-xs text-slate-500 font-semibold mt-0.5">{selectedJoinInterview.role}</p>
+                                            <div className="flex items-center gap-4 mt-2.5 text-[10px] text-slate-500 font-bold uppercase tracking-wider">
                                                 <span>Date: {selectedJoinInterview.date}</span>
                                                 <span>Time: {selectedJoinInterview.time} ({selectedJoinInterview.duration})</span>
                                             </div>
@@ -579,7 +579,7 @@ export function InterviewsPage({ onScheduleInterview }: InterviewsPageProps) {
 
                                     <div>
                                         <h4 className="text-xs font-bold text-gray-450 uppercase tracking-wider mb-2">Session Notes & Whiteboard Agenda</h4>
-                                        <div className="bg-[#F5E6E8]/70 border border-[#800020]/15 p-4 rounded-xl text-xs font-semibold text-[#800020] leading-relaxed">
+                                        <div className="bg-indigo-50/70 border border-indigo-600/15 p-4 rounded-xl text-xs font-semibold text-indigo-600 leading-relaxed">
                                             {selectedJoinInterview.notes || "Standard screening, technical questions, and cultural review."}
                                         </div>
                                     </div>
@@ -587,7 +587,7 @@ export function InterviewsPage({ onScheduleInterview }: InterviewsPageProps) {
                                     <div>
                                         <h4 className="text-xs font-bold text-gray-450 uppercase tracking-wider mb-2">Workspace / Meeting URL</h4>
                                         <div className="flex items-center justify-between bg-gray-50/50 p-3 rounded-xl border border-gray-150">
-                                            <span className="text-[11px] text-gray-600 font-mono truncate mr-4">https://meet.recruitmentplatform.com/room-{selectedJoinInterview.id}</span>
+                                            <span className="text-[11px] text-slate-600 font-mono truncate mr-4">https://meet.recruitmentplatform.com/room-{selectedJoinInterview.id}</span>
                                             <button 
                                                 onClick={() => {
                                                     toast.success(`Launching meeting with ${selectedJoinInterview.candidate}...`);
@@ -602,11 +602,11 @@ export function InterviewsPage({ onScheduleInterview }: InterviewsPageProps) {
                                     </div>
                                 </div>
 
-                                <div className="flex justify-end gap-3 pt-4 border-t border-gray-100">
+                                <div className="flex justify-end gap-3 pt-4 border-t border-slate-100">
                                     <button
                                         type="button"
                                         onClick={() => setSelectedJoinInterview(null)}
-                                        className="px-5 py-2.5 bg-white hover:bg-gray-50 border border-gray-200 text-gray-750 font-bold rounded-xl text-xs  cursor-pointer"
+                                        className="px-5 py-2.5 bg-white hover:bg-gray-50 border border-slate-200 text-gray-750 font-bold rounded-xl text-xs  cursor-pointer"
                                     >
                                         Close
                                     </button>
@@ -625,21 +625,21 @@ export function InterviewsPage({ onScheduleInterview }: InterviewsPageProps) {
                                 animate={{ opacity: 1, scale: 1, y: 0 }}
                                 exit={{ opacity: 0, scale: 0.96, y: 20 }}
                                 transition={{ type: "spring", damping: 25 }}
-                                className="bg-white/95 border border-gray-100 rounded-2xl max-w-md w-full p-6  z-10 relative text-left"
+                                className="bg-white/95 border border-slate-100 rounded-2xl max-w-md w-full p-6  z-10 relative text-left"
                             >
-                                <div className="flex justify-between items-center mb-6 border-b border-gray-100 pb-4">
+                                <div className="flex justify-between items-center mb-6 border-b border-slate-100 pb-4">
                                     <div className="flex items-center gap-3">
-                                        <div className="w-10 h-10 rounded-xl bg-[#800020]/10 flex items-center justify-center text-[#800020]">
+                                        <div className="w-10 h-10 rounded-xl bg-indigo-600/10 flex items-center justify-center text-indigo-600">
                                             <Clock className="w-5 h-5" />
                                         </div>
                                         <div>
-                                            <h3 className="text-base font-extrabold text-gray-900 tracking-tight">Reschedule Interview</h3>
-                                            <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider mt-0.5">Update meeting slot details</p>
+                                            <h3 className="text-base font-extrabold text-slate-900 tracking-tight">Reschedule Interview</h3>
+                                            <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mt-0.5">Update meeting slot details</p>
                                         </div>
                                     </div>
                                     <button 
                                         onClick={() => setSelectedRescheduleInterview(null)}
-                                        className="text-gray-400 hover:text-gray-700 w-8 h-8 rounded-lg hover:bg-gray-100 flex items-center justify-center transition-colors cursor-pointer"
+                                        className="text-slate-400 hover:text-slate-700 w-8 h-8 rounded-lg hover:bg-gray-100 flex items-center justify-center transition-colors cursor-pointer"
                                     >
                                         <X className="w-5 h-5" />
                                     </button>
@@ -647,38 +647,38 @@ export function InterviewsPage({ onScheduleInterview }: InterviewsPageProps) {
 
                                 <form onSubmit={handleRescheduleSubmit} className="space-y-4">
                                     <div>
-                                        <label className="block text-[10px] font-bold text-gray-500 uppercase mb-2">New Date *</label>
+                                        <label className="block text-[10px] font-bold text-slate-500 uppercase mb-2">New Date *</label>
                                         <input 
                                             type="date" 
                                             required 
                                             value={newDate} 
                                             onChange={(e) => setNewDate(e.target.value)} 
-                                            className="w-full px-4 py-2.5 bg-gray-50/50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#800020]/15 focus:border-[#800020] text-xs font-medium"
+                                            className="w-full px-4 py-2.5 bg-gray-50/50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-600/15 focus:border-indigo-600 text-xs font-medium"
                                         />
                                     </div>
                                     <div>
-                                        <label className="block text-[10px] font-bold text-gray-500 uppercase mb-2">New Time Slot *</label>
+                                        <label className="block text-[10px] font-bold text-slate-500 uppercase mb-2">New Time Slot *</label>
                                         <input 
                                             type="text" 
                                             required 
                                             value={newTime} 
                                             onChange={(e) => setNewTime(e.target.value)} 
                                             placeholder="e.g. 02:30 PM"
-                                            className="w-full px-4 py-2.5 bg-gray-50/50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#800020]/15 focus:border-[#800020] text-xs font-medium"
+                                            className="w-full px-4 py-2.5 bg-gray-50/50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-600/15 focus:border-indigo-600 text-xs font-medium"
                                         />
                                     </div>
 
-                                    <div className="flex justify-end gap-3 pt-5 border-t border-gray-100 mt-6">
+                                    <div className="flex justify-end gap-3 pt-5 border-t border-slate-100 mt-6">
                                         <button
                                             type="button"
                                             onClick={() => setSelectedRescheduleInterview(null)}
-                                            className="px-5 py-2.5 bg-white hover:bg-gray-50 border border-gray-200 text-gray-750 font-bold rounded-xl text-xs  cursor-pointer"
+                                            className="px-5 py-2.5 bg-white hover:bg-gray-50 border border-slate-200 text-gray-750 font-bold rounded-xl text-xs  cursor-pointer"
                                         >
                                             Cancel
                                         </button>
                                         <button
                                             type="submit"
-                                            className="px-5 py-2.5 bg-[#800020] hover:bg-[#600018] text-white font-extrabold rounded-xl text-xs  border border-[#800020]/10 hover: cursor-pointer"
+                                            className="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-800 text-white font-extrabold rounded-xl text-xs  border border-indigo-600/10 hover: cursor-pointer"
                                         >
                                             Reschedule Slot
                                         </button>
@@ -698,21 +698,21 @@ export function InterviewsPage({ onScheduleInterview }: InterviewsPageProps) {
                                 animate={{ opacity: 1, scale: 1, y: 0 }}
                                 exit={{ opacity: 0, scale: 0.96, y: 20 }}
                                 transition={{ type: "spring", damping: 25 }}
-                                className="bg-white/95 border border-gray-100 rounded-2xl max-w-lg w-full p-6  z-10 relative text-left"
+                                className="bg-white/95 border border-slate-100 rounded-2xl max-w-lg w-full p-6  z-10 relative text-left"
                             >
-                                <div className="flex justify-between items-center mb-6 border-b border-gray-100 pb-4">
+                                <div className="flex justify-between items-center mb-6 border-b border-slate-100 pb-4">
                                     <div className="flex items-center gap-3">
-                                        <div className="w-10 h-10 rounded-xl bg-[#800020]/10 flex items-center justify-center text-[#800020]">
+                                        <div className="w-10 h-10 rounded-xl bg-indigo-600/10 flex items-center justify-center text-indigo-600">
                                             <Award className="w-5 h-5" />
                                         </div>
                                         <div>
-                                            <h3 className="text-base font-extrabold text-gray-900 tracking-tight">Evaluate Candidate</h3>
-                                            <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider mt-0.5">Submit slot scorecard & feedback</p>
+                                            <h3 className="text-base font-extrabold text-slate-900 tracking-tight">Evaluate Candidate</h3>
+                                            <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mt-0.5">Submit slot scorecard & feedback</p>
                                         </div>
                                     </div>
                                     <button 
                                         onClick={() => setSelectedScoreInterview(null)}
-                                        className="text-gray-400 hover:text-gray-700 w-8 h-8 rounded-lg hover:bg-gray-100 flex items-center justify-center transition-colors cursor-pointer"
+                                        className="text-slate-400 hover:text-slate-700 w-8 h-8 rounded-lg hover:bg-gray-100 flex items-center justify-center transition-colors cursor-pointer"
                                     >
                                         <X className="w-5 h-5" />
                                     </button>
@@ -722,19 +722,19 @@ export function InterviewsPage({ onScheduleInterview }: InterviewsPageProps) {
                                     <div className="bg-gray-50 border border-gray-150 p-3 rounded-xl flex items-center gap-3">
                                         <Avatar className="w-10 h-10 border border-white  flex-shrink-0">
                                             <AvatarImage src={selectedScoreInterview.avatar} />
-                                            <AvatarFallback className="bg-primary   text-white font-bold text-xs">{selectedScoreInterview.candidate.charAt(0)}</AvatarFallback>
+                                            <AvatarFallback className="bg-indigo-600   text-white font-bold text-xs">{selectedScoreInterview.candidate.charAt(0)}</AvatarFallback>
                                         </Avatar>
                                         <div>
-                                            <h4 className="text-xs font-bold text-gray-900">{selectedScoreInterview.candidate}</h4>
+                                            <h4 className="text-xs font-bold text-slate-900">{selectedScoreInterview.candidate}</h4>
                                             <p className="text-[10px] text-gray-550 mt-0.5">{selectedScoreInterview.role}</p>
                                         </div>
                                     </div>
 
                                     {/* Competency Ratings */}
-                                    <div className="space-y-3.5 border-t border-b border-gray-100 py-4">
+                                    <div className="space-y-3.5 border-t border-b border-slate-100 py-4">
                                         {Object.keys(scores).map((key) => (
                                             <div key={key} className="flex items-center justify-between">
-                                                <span className="text-xs font-bold text-gray-700 capitalize tracking-tight">{key.replace(/([A-Z])/g, ' $1')}</span>
+                                                <span className="text-xs font-bold text-slate-700 capitalize tracking-tight">{key.replace(/([A-Z])/g, ' $1')}</span>
                                                 <div className="flex items-center gap-1">
                                                     {[1, 2, 3, 4, 5].map((star) => (
                                                         <button
@@ -742,7 +742,7 @@ export function InterviewsPage({ onScheduleInterview }: InterviewsPageProps) {
                                                             type="button"
                                                             onClick={() => setScores({ ...scores, [key]: star })}
                                                             className={`w-7 h-7 flex items-center justify-center rounded-lg transition-colors cursor-pointer ${
-                                                                star <= scores[key] ? "text-[#800020] bg-rose-50" : "text-gray-300 hover:bg-gray-50"
+                                                                star <= scores[key] ? "text-indigo-600 bg-rose-50" : "text-gray-300 hover:bg-gray-50"
                                                             }`}
                                                         >
                                                             <Star className="w-4 h-4 fill-current" />
@@ -754,45 +754,45 @@ export function InterviewsPage({ onScheduleInterview }: InterviewsPageProps) {
                                     </div>
 
                                     <div>
-                                        <label className="block text-[10px] font-bold text-gray-500 uppercase mb-2">Recommendation Decision</label>
+                                        <label className="block text-[10px] font-bold text-slate-500 uppercase mb-2">Recommendation Decision</label>
                                         <div className="relative">
                                             <select
                                                 value={recommendation}
                                                 onChange={(e) => setRecommendation(e.target.value)}
-                                                className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#800020]/15 appearance-none text-xs font-semibold cursor-pointer"
+                                                className="w-full px-4 py-2.5 bg-gray-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-600/15 appearance-none text-xs font-semibold cursor-pointer"
                                             >
                                                 <option>Strong Hire</option>
                                                 <option>Hire</option>
                                                 <option>Maybe / Discuss</option>
                                                 <option>Reject</option>
                                             </select>
-                                            <ChevronDown className="w-4 h-4 text-gray-400 absolute right-4 top-3.5 pointer-events-none" />
+                                            <ChevronDown className="w-4 h-4 text-slate-400 absolute right-4 top-3.5 pointer-events-none" />
                                         </div>
                                     </div>
 
                                     <div>
-                                        <label className="block text-[10px] font-bold text-gray-500 uppercase mb-2">Evaluation Feedback & Notes</label>
+                                        <label className="block text-[10px] font-bold text-slate-500 uppercase mb-2">Evaluation Feedback & Notes</label>
                                         <textarea
                                             required
                                             value={scoreNotes}
                                             onChange={(e) => setScoreNotes(e.target.value)}
                                             placeholder="Summarize coding competencies, culture match, and portfolio critiques..."
                                             rows={4}
-                                            className="w-full px-4 py-2.5 bg-gray-50/50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#800020]/15 focus:border-[#800020] text-xs font-medium resize-none leading-relaxed"
+                                            className="w-full px-4 py-2.5 bg-gray-50/50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-600/15 focus:border-indigo-600 text-xs font-medium resize-none leading-relaxed"
                                         />
                                     </div>
 
-                                    <div className="flex justify-end gap-3 pt-5 border-t border-gray-100">
+                                    <div className="flex justify-end gap-3 pt-5 border-t border-slate-100">
                                         <button
                                             type="button"
                                             onClick={() => setSelectedScoreInterview(null)}
-                                            className="px-5 py-2.5 bg-white hover:bg-gray-50 border border-gray-200 text-gray-750 font-bold rounded-xl text-xs  cursor-pointer"
+                                            className="px-5 py-2.5 bg-white hover:bg-gray-50 border border-slate-200 text-gray-750 font-bold rounded-xl text-xs  cursor-pointer"
                                         >
                                             Cancel
                                         </button>
                                         <button
                                             type="submit"
-                                            className="px-5 py-2.5 bg-[#800020] hover:bg-[#600018] text-white font-extrabold rounded-xl text-xs  border border-[#800020]/10 hover: cursor-pointer"
+                                            className="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-800 text-white font-extrabold rounded-xl text-xs  border border-indigo-600/10 hover: cursor-pointer"
                                         >
                                             Submit Evaluation
                                         </button>

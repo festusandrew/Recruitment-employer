@@ -32,21 +32,21 @@ export function DuplicateJobModal({ isOpen, onClose, jobTitle }: DuplicateJobMod
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
             <div className="bg-white rounded-2xl  w-full max-w-lg overflow-hidden">
                 {/* Header */}
-                <div className="flex items-center justify-between p-6 border-b border-gray-200">
+                <div className="flex items-center justify-between p-6 border-b border-slate-200">
                     <div className="flex items-center gap-3">
                         <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
                             <Copy className="w-5 h-5 text-blue-600" />
                         </div>
                         <div>
-                            <h2 className="text-gray-900">Duplicate Job</h2>
-                            <p className="text-sm text-gray-500">Create a copy of this job posting</p>
+                            <h2 className="text-slate-900">Duplicate Job</h2>
+                            <p className="text-sm text-slate-500">Create a copy of this job posting</p>
                         </div>
                     </div>
                     <button
                         onClick={onClose}
                         className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-100 transition-colors"
                     >
-                        <X className="w-5 h-5 text-gray-500" />
+                        <X className="w-5 h-5 text-slate-500" />
                     </button>
                 </div>
 
@@ -54,7 +54,7 @@ export function DuplicateJobModal({ isOpen, onClose, jobTitle }: DuplicateJobMod
                 <div className="p-6">
                     {/* New Job Title */}
                     <div className="mb-6">
-                        <label className="block text-sm text-gray-700 mb-2">New Job Title</label>
+                        <label className="block text-sm text-slate-700 mb-2">New Job Title</label>
                         <input
                             type="text"
                             value={newTitle}
@@ -66,9 +66,9 @@ export function DuplicateJobModal({ isOpen, onClose, jobTitle }: DuplicateJobMod
 
                     {/* What to Copy */}
                     <div>
-                        <label className="block text-sm text-gray-700 mb-3">What would you like to copy?</label>
+                        <label className="block text-sm text-slate-700 mb-3">What would you like to copy?</label>
                         <div className="space-y-2">
-                            <label className="flex items-center gap-3 p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
+                            <label className="flex items-center gap-3 p-3 border border-slate-200 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
                                 <input
                                     type="checkbox"
                                     checked={duplicateOptions.description}
@@ -76,12 +76,12 @@ export function DuplicateJobModal({ isOpen, onClose, jobTitle }: DuplicateJobMod
                                     className="w-5 h-5 text-blue-600 rounded"
                                 />
                                 <div className="flex-1">
-                                    <p className="text-sm text-gray-900">Job Description</p>
-                                    <p className="text-xs text-gray-500">Copy the full job description and responsibilities</p>
+                                    <p className="text-sm text-slate-900">Job Description</p>
+                                    <p className="text-xs text-slate-500">Copy the full job description and responsibilities</p>
                                 </div>
                             </label>
 
-                            <label className="flex items-center gap-3 p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
+                            <label className="flex items-center gap-3 p-3 border border-slate-200 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
                                 <input
                                     type="checkbox"
                                     checked={duplicateOptions.requirements}
@@ -89,12 +89,12 @@ export function DuplicateJobModal({ isOpen, onClose, jobTitle }: DuplicateJobMod
                                     className="w-5 h-5 text-blue-600 rounded"
                                 />
                                 <div className="flex-1">
-                                    <p className="text-sm text-gray-900">Requirements & Qualifications</p>
-                                    <p className="text-xs text-gray-500">Copy all job requirements and qualifications</p>
+                                    <p className="text-sm text-slate-900">Requirements & Qualifications</p>
+                                    <p className="text-xs text-slate-500">Copy all job requirements and qualifications</p>
                                 </div>
                             </label>
 
-                            <label className="flex items-center gap-3 p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
+                            <label className="flex items-center gap-3 p-3 border border-slate-200 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
                                 <input
                                     type="checkbox"
                                     checked={duplicateOptions.benefits}
@@ -102,12 +102,12 @@ export function DuplicateJobModal({ isOpen, onClose, jobTitle }: DuplicateJobMod
                                     className="w-5 h-5 text-blue-600 rounded"
                                 />
                                 <div className="flex-1">
-                                    <p className="text-sm text-gray-900">Benefits & Perks</p>
-                                    <p className="text-xs text-gray-500">Copy benefits and compensation details</p>
+                                    <p className="text-sm text-slate-900">Benefits & Perks</p>
+                                    <p className="text-xs text-slate-500">Copy benefits and compensation details</p>
                                 </div>
                             </label>
 
-                            <label className="flex items-center gap-3 p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
+                            <label className="flex items-center gap-3 p-3 border border-slate-200 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
                                 <input
                                     type="checkbox"
                                     checked={duplicateOptions.questions}
@@ -115,12 +115,12 @@ export function DuplicateJobModal({ isOpen, onClose, jobTitle }: DuplicateJobMod
                                     className="w-5 h-5 text-blue-600 rounded"
                                 />
                                 <div className="flex-1">
-                                    <p className="text-sm text-gray-900">Screening Questions</p>
-                                    <p className="text-xs text-gray-500">Copy all screening questions for candidates</p>
+                                    <p className="text-sm text-slate-900">Screening Questions</p>
+                                    <p className="text-xs text-slate-500">Copy all screening questions for candidates</p>
                                 </div>
                             </label>
 
-                            <label className="flex items-center gap-3 p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
+                            <label className="flex items-center gap-3 p-3 border border-slate-200 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
                                 <input
                                     type="checkbox"
                                     checked={duplicateOptions.workflow}
@@ -128,8 +128,8 @@ export function DuplicateJobModal({ isOpen, onClose, jobTitle }: DuplicateJobMod
                                     className="w-5 h-5 text-blue-600 rounded"
                                 />
                                 <div className="flex-1">
-                                    <p className="text-sm text-gray-900">Interview Workflow</p>
-                                    <p className="text-xs text-gray-500">Copy the interview stages and workflow settings</p>
+                                    <p className="text-sm text-slate-900">Interview Workflow</p>
+                                    <p className="text-xs text-slate-500">Copy the interview stages and workflow settings</p>
                                 </div>
                             </label>
                         </div>
@@ -144,11 +144,11 @@ export function DuplicateJobModal({ isOpen, onClose, jobTitle }: DuplicateJobMod
                 </div>
 
                 {/* Footer */}
-                <div className="p-6 border-t border-gray-200 bg-gray-50">
+                <div className="p-6 border-t border-slate-200 bg-gray-50">
                     <div className="flex items-center justify-end gap-3">
                         <button
                             onClick={onClose}
-                            className="px-5 py-2.5 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors"
+                            className="px-5 py-2.5 rounded-lg text-slate-700 hover:bg-gray-100 transition-colors"
                             disabled={isDuplicating}
                         >
                             Cancel

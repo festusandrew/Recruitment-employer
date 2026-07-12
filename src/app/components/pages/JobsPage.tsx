@@ -106,7 +106,7 @@ export function JobsPage({ onAddJob, onViewApplicantProfile, onViewPipeline }: J
             case "Active":
                 return "bg-emerald-50 text-emerald-700 border-emerald-200/60";
             case "Draft":
-                return "bg-gray-100 text-gray-700 border-gray-250/60";
+                return "bg-gray-100 text-slate-700 border-gray-250/60";
             case "On Hold":
                 return "bg-amber-50 text-amber-700 border-amber-200/60";
             default:
@@ -145,11 +145,11 @@ export function JobsPage({ onAddJob, onViewApplicantProfile, onViewPipeline }: J
                         {/* Header */}
                         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                             <div>
-                                <h1 className="text-gray-950 font-extrabold text-2xl tracking-tight leading-none flex items-center gap-2">
-                                    <Briefcase className="w-6 h-6 text-[#800020]" />
+                                <h1 className="text-slate-900 font-extrabold text-2xl tracking-tight leading-none flex items-center gap-2">
+                                    <Briefcase className="w-6 h-6 text-indigo-600" />
                                     Job Directory
                                 </h1>
-                                <p className="text-xs text-gray-400 font-semibold mt-1 uppercase tracking-wider">Manage your active listings, applicants, and pipeline structures</p>
+                                <p className="text-xs text-slate-400 font-semibold mt-1 uppercase tracking-wider">Manage your active listings, applicants, and pipeline structures</p>
                             </div>
                             <div className="flex items-center gap-3">
                                 {selectedJobs.length > 0 && (
@@ -157,9 +157,9 @@ export function JobsPage({ onAddJob, onViewApplicantProfile, onViewPipeline }: J
                                         initial={{ scale: 0.9, opacity: 0 }}
                                         animate={{ scale: 1, opacity: 1 }}
                                         onClick={() => setIsBulkActionsModalOpen(true)}
-                                        className="flex items-center gap-2 px-5 py-2.5 border border-gray-200 text-gray-700 bg-white rounded-xl hover:bg-gray-50 transition-all font-bold text-xs  cursor-pointer"
+                                        className="flex items-center gap-2 px-5 py-2.5 border border-slate-200 text-slate-700 bg-white rounded-xl hover:bg-gray-50 transition-all font-bold text-xs  cursor-pointer"
                                     >
-                                        <Check className="w-4 h-4 text-[#800020]" />
+                                        <Check className="w-4 h-4 text-indigo-600" />
                                         Bulk Actions ({selectedJobs.length})
                                     </motion.button>
                                 )}
@@ -167,7 +167,7 @@ export function JobsPage({ onAddJob, onViewApplicantProfile, onViewPipeline }: J
                                     whileHover={{ scale: 1.02 }}
                                     whileTap={{ scale: 0.98 }}
                                     onClick={onAddJob}
-                                    className="flex items-center gap-2 px-5 py-3 bg-[#800020] hover:bg-[#600018] text-white rounded-xl transition-all font-extrabold text-xs  border border-[#800020]/10 hover: cursor-pointer tracking-wider"
+                                    className="flex items-center gap-2 px-5 py-3 bg-indigo-600 hover:bg-indigo-800 text-white rounded-xl transition-all font-extrabold text-xs  border border-indigo-600/10 hover: cursor-pointer tracking-wider"
                                 >
                                     <Plus className="w-4 h-4 text-orange-300" />
                                     POST NEW JOB
@@ -185,28 +185,28 @@ export function JobsPage({ onAddJob, onViewApplicantProfile, onViewPipeline }: J
                                         placeholder="Search jobs by title, department, or location..."
                                         value={searchQuery}
                                         onChange={(e) => setSearchQuery(e.target.value)}
-                                        className="w-full pl-11 pr-4 py-3 bg-gray-50/50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#800020]/15 focus:border-[#800020] focus:bg-white transition-all text-xs font-medium"
+                                        className="w-full pl-11 pr-4 py-3 bg-gray-50/50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-600/15 focus:border-indigo-600 focus:bg-white transition-all text-xs font-medium"
                                     />
                                 </div>
                                 <button
                                     onClick={() => setIsFiltersModalOpen(true)}
-                                    className="flex items-center justify-center gap-2 px-5 py-3 border border-gray-200 bg-white text-gray-700 rounded-xl hover:bg-gray-50 transition-all font-bold text-xs  cursor-pointer"
+                                    className="flex items-center justify-center gap-2 px-5 py-3 border border-slate-200 bg-white text-slate-700 rounded-xl hover:bg-gray-50 transition-all font-bold text-xs  cursor-pointer"
                                 >
-                                    <Filter className="w-4 h-4 text-[#800020]" />
+                                    <Filter className="w-4 h-4 text-indigo-600" />
                                     Advanced Filters
                                 </button>
                             </div>
 
                             {/* Quick Filters */}
-                            <div className="flex flex-wrap gap-2 mt-5 pt-4 border-t border-gray-100">
+                            <div className="flex flex-wrap gap-2 mt-5 pt-4 border-t border-slate-100">
                                 {["All", "Active", "Draft", "On Hold", "Closed"].map((status) => (
                                     <button
                                         key={status}
                                         onClick={() => setFilterStatus(status)}
                                         className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                                             filterStatus === status
-                                                ? "bg-[#800020] text-white  hover:bg-[#600018]"
-                                                : "bg-gray-50 hover:bg-gray-100 border border-gray-200/40 text-gray-600"
+                                                ? "bg-indigo-600 text-white  hover:bg-indigo-800"
+                                                : "bg-gray-50 hover:bg-gray-100 border border-slate-200/40 text-slate-600"
                                         }`}
                                     >
                                         {status} Jobs
@@ -223,22 +223,22 @@ export function JobsPage({ onAddJob, onViewApplicantProfile, onViewPipeline }: J
                                         type="checkbox"
                                         checked={selectedJobs.length === filteredJobs.length && filteredJobs.length > 0}
                                         onChange={toggleSelectAll}
-                                        className="w-4 h-4 text-[#800020] border-gray-350 rounded focus:ring-[#800020]"
+                                        className="w-4 h-4 text-indigo-600 border-gray-350 rounded focus:ring-indigo-600"
                                     />
-                                    <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">Select all shown ({filteredJobs.length})</span>
+                                    <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Select all shown ({filteredJobs.length})</span>
                                 </label>
                             ) : (
                                 <div />
                             )}
 
                             {/* View Toggle */}
-                            <div className="flex items-center gap-1.5 bg-gray-100/75 p-1 rounded-xl border border-gray-200/50">
+                            <div className="flex items-center gap-1.5 bg-gray-100/75 p-1 rounded-xl border border-slate-200/50">
                                 <button
                                     onClick={() => setViewMode("list")}
                                     className={`flex items-center gap-1.5 px-3.5 py-2 rounded-lg transition-all text-xs font-bold cursor-pointer ${
                                         viewMode === "list"
-                                            ? "bg-[#800020] text-white "
-                                            : "text-gray-500 hover:text-gray-900"
+                                            ? "bg-indigo-600 text-white "
+                                            : "text-slate-500 hover:text-slate-900"
                                     }`}
                                 >
                                     <List className="w-3.5 h-3.5" />
@@ -248,8 +248,8 @@ export function JobsPage({ onAddJob, onViewApplicantProfile, onViewPipeline }: J
                                     onClick={() => setViewMode("grid")}
                                     className={`flex items-center gap-1.5 px-3.5 py-2 rounded-lg transition-all text-xs font-bold cursor-pointer ${
                                         viewMode === "grid"
-                                            ? "bg-[#800020] text-white "
-                                            : "text-gray-500 hover:text-gray-900"
+                                            ? "bg-indigo-600 text-white "
+                                            : "text-slate-500 hover:text-slate-900"
                                     }`}
                                 >
                                     <LayoutGrid className="w-3.5 h-3.5" />
@@ -271,7 +271,7 @@ export function JobsPage({ onAddJob, onViewApplicantProfile, onViewPipeline }: J
                                                 animate={{ opacity: 1, y: 0 }}
                                                 exit={{ opacity: 0, scale: 0.98 }}
                                                 className={`bg-white rounded-2xl border transition-all p-6  flex items-center justify-between ${
-                                                    isSelected ? "border-[#800020]/30 bg-[#800020]/10" : "border-gray-150 hover:border-gray-250"
+                                                    isSelected ? "border-indigo-600/30 bg-indigo-600/10" : "border-gray-150 hover:border-gray-250"
                                                 }`}
                                             >
                                                 <div className="flex items-start gap-4 flex-1 min-w-0">
@@ -279,15 +279,15 @@ export function JobsPage({ onAddJob, onViewApplicantProfile, onViewPipeline }: J
                                                         type="checkbox"
                                                         checked={isSelected}
                                                         onChange={() => toggleJobSelection(job.id)}
-                                                        className="w-5 h-5 text-[#800020] border-gray-300 rounded mt-1.5 focus:ring-[#800020] cursor-pointer"
+                                                        className="w-5 h-5 text-indigo-600 border-gray-300 rounded mt-1.5 focus:ring-indigo-600 cursor-pointer"
                                                     />
-                                                    <div className="w-12 h-12 bg-rose-50 border border-rose-100 rounded-xl flex items-center justify-center flex-shrink-0 text-[#800020]">
+                                                    <div className="w-12 h-12 bg-rose-50 border border-rose-100 rounded-xl flex items-center justify-center flex-shrink-0 text-indigo-600">
                                                         <Briefcase className="w-5 h-5" />
                                                     </div>
                                                     <div className="flex-1 min-w-0">
                                                         <div className="flex items-center gap-3.5 mb-2.5 flex-wrap">
                                                             <h3
-                                                                className="text-base font-extrabold text-gray-900 cursor-pointer hover:text-[#800020] transition-colors truncate"
+                                                                className="text-base font-extrabold text-slate-900 cursor-pointer hover:text-indigo-600 transition-colors truncate"
                                                                 onClick={() => handleJobClick(job)}
                                                             >
                                                                 {job.title}
@@ -296,21 +296,21 @@ export function JobsPage({ onAddJob, onViewApplicantProfile, onViewPipeline }: J
                                                                 {job.status}
                                                             </span>
                                                         </div>
-                                                        <div className="flex items-center flex-wrap gap-x-4 gap-y-2 text-xs text-gray-500 font-semibold mb-4">
+                                                        <div className="flex items-center flex-wrap gap-x-4 gap-y-2 text-xs text-slate-500 font-semibold mb-4">
                                                             <span className="flex items-center gap-1.5">
-                                                                <Briefcase className="w-3.5 h-3.5 text-gray-400" />
+                                                                <Briefcase className="w-3.5 h-3.5 text-slate-400" />
                                                                 {job.department}
                                                             </span>
                                                             <span className="flex items-center gap-1.5">
-                                                                <MapPin className="w-3.5 h-3.5 text-gray-400" />
+                                                                <MapPin className="w-3.5 h-3.5 text-slate-400" />
                                                                 {job.location}
                                                             </span>
                                                             <span className="flex items-center gap-1.5">
-                                                                <Clock className="w-3.5 h-3.5 text-gray-400" />
+                                                                <Clock className="w-3.5 h-3.5 text-slate-400" />
                                                                 {job.type}
                                                             </span>
-                                                            <span className="flex items-center gap-1.5 px-2 py-0.5 bg-[#800020]/5 text-[#800020] border border-[#800020]/10 rounded-lg">
-                                                                <Users className="w-3.5 h-3.5 text-[#800020]" />
+                                                            <span className="flex items-center gap-1.5 px-2 py-0.5 bg-indigo-600/5 text-indigo-600 border border-indigo-600/10 rounded-lg">
+                                                                <Users className="w-3.5 h-3.5 text-indigo-600" />
                                                                 {job.applicants} Applicants
                                                             </span>
                                                         </div>
@@ -319,7 +319,7 @@ export function JobsPage({ onAddJob, onViewApplicantProfile, onViewPipeline }: J
                                                                 whileHover={{ scale: 1.02 }}
                                                                 whileTap={{ scale: 0.98 }}
                                                                 onClick={() => handleJobClick(job)}
-                                                                className="px-4 py-2 bg-[#800020] text-white rounded-xl text-xs font-bold hover:bg-[#600018] transition-all  cursor-pointer"
+                                                                className="px-4 py-2 bg-indigo-600 text-white rounded-xl text-xs font-bold hover:bg-indigo-800 transition-all  cursor-pointer"
                                                             >
                                                                 View Details
                                                             </motion.button>
@@ -327,17 +327,17 @@ export function JobsPage({ onAddJob, onViewApplicantProfile, onViewPipeline }: J
                                                                 whileHover={{ scale: 1.02 }}
                                                                 whileTap={{ scale: 0.98 }}
                                                                 onClick={() => handleViewApplicants(job)}
-                                                                className="px-4 py-2 border border-gray-200 text-gray-700 bg-white hover:bg-gray-50 rounded-xl text-xs font-bold transition-all  cursor-pointer"
+                                                                className="px-4 py-2 border border-slate-200 text-slate-700 bg-white hover:bg-gray-50 rounded-xl text-xs font-bold transition-all  cursor-pointer"
                                                             >
                                                                 View Pipeline
                                                             </motion.button>
-                                                            <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider ml-1.5">Published {job.posted}</span>
+                                                            <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider ml-1.5">Published {job.posted}</span>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <button
                                                     onClick={() => handleActionsClick(job)}
-                                                    className="w-9 h-9 flex items-center justify-center rounded-xl hover:bg-gray-150 transition-colors cursor-pointer text-gray-400 hover:text-gray-900"
+                                                    className="w-9 h-9 flex items-center justify-center rounded-xl hover:bg-gray-150 transition-colors cursor-pointer text-slate-400 hover:text-slate-900"
                                                 >
                                                     <MoreVertical className="w-4 h-4" />
                                                 </button>
@@ -358,7 +358,7 @@ export function JobsPage({ onAddJob, onViewApplicantProfile, onViewPipeline }: J
                                                 animate={{ opacity: 1, scale: 1 }}
                                                 exit={{ opacity: 0, scale: 0.97 }}
                                                 className={`bg-white rounded-2xl border transition-all p-6  relative flex flex-col h-full ${
-                                                    isSelected ? "border-[#800020]/30 bg-[#800020]/10" : "border-gray-150 hover:border-gray-250"
+                                                    isSelected ? "border-indigo-600/30 bg-indigo-600/10" : "border-gray-150 hover:border-gray-250"
                                                 }`}
                                             >
                                                 {/* Checkbox */}
@@ -367,7 +367,7 @@ export function JobsPage({ onAddJob, onViewApplicantProfile, onViewPipeline }: J
                                                         type="checkbox"
                                                         checked={isSelected}
                                                         onChange={() => toggleJobSelection(job.id)}
-                                                        className="w-5 h-5 text-[#800020] border-gray-300 rounded focus:ring-[#800020] cursor-pointer"
+                                                        className="w-5 h-5 text-indigo-600 border-gray-300 rounded focus:ring-indigo-600 cursor-pointer"
                                                     />
                                                 </div>
 
@@ -375,7 +375,7 @@ export function JobsPage({ onAddJob, onViewApplicantProfile, onViewPipeline }: J
                                                 <div className="absolute top-4 right-4">
                                                     <button
                                                         onClick={() => handleActionsClick(job)}
-                                                        className="w-9 h-9 flex items-center justify-center rounded-xl hover:bg-gray-100 transition-colors cursor-pointer text-gray-400 hover:text-gray-950"
+                                                        className="w-9 h-9 flex items-center justify-center rounded-xl hover:bg-gray-100 transition-colors cursor-pointer text-slate-400 hover:text-slate-900"
                                                     >
                                                         <MoreVertical className="w-4 h-4" />
                                                     </button>
@@ -383,7 +383,7 @@ export function JobsPage({ onAddJob, onViewApplicantProfile, onViewPipeline }: J
 
                                                 {/* Icon */}
                                                 <div className="flex justify-center mb-4 mt-2">
-                                                    <div className="w-14 h-14 bg-rose-50 border border-rose-100 text-[#800020] rounded-2xl flex items-center justify-center">
+                                                    <div className="w-14 h-14 bg-rose-50 border border-rose-100 text-indigo-600 rounded-2xl flex items-center justify-center">
                                                         <Briefcase className="w-6 h-6" />
                                                     </div>
                                                 </div>
@@ -391,7 +391,7 @@ export function JobsPage({ onAddJob, onViewApplicantProfile, onViewPipeline }: J
                                                 {/* Job Title & Status */}
                                                 <div className="text-center mb-5 min-h-[70px] flex flex-col items-center justify-center">
                                                     <h3
-                                                        className="text-sm font-extrabold text-gray-900 mb-2 cursor-pointer hover:text-[#800020] transition-colors leading-snug line-clamp-2"
+                                                        className="text-sm font-extrabold text-slate-900 mb-2 cursor-pointer hover:text-indigo-600 transition-colors leading-snug line-clamp-2"
                                                         onClick={() => handleJobClick(job)}
                                                     >
                                                         {job.title}
@@ -402,7 +402,7 @@ export function JobsPage({ onAddJob, onViewApplicantProfile, onViewPipeline }: J
                                                 </div>
 
                                                 {/* Job Details */}
-                                                <div className="space-y-3 mb-6 flex-1 text-xs font-semibold text-gray-500 border-t border-b border-gray-100 py-4">
+                                                <div className="space-y-3 mb-6 flex-1 text-xs font-semibold text-slate-500 border-t border-b border-slate-100 py-4">
                                                     <div className="flex items-center gap-3">
                                                         <Briefcase className="w-3.5 h-3.5 flex-shrink-0 text-gray-450" />
                                                         <span className="truncate">{job.department}</span>
@@ -415,14 +415,14 @@ export function JobsPage({ onAddJob, onViewApplicantProfile, onViewPipeline }: J
                                                         <Clock className="w-3.5 h-3.5 flex-shrink-0 text-gray-455" />
                                                         <span>{job.type}</span>
                                                     </div>
-                                                    <div className="flex items-center gap-3 text-[#800020]">
-                                                        <Users className="w-3.5 h-3.5 flex-shrink-0 text-[#800020]" />
+                                                    <div className="flex items-center gap-3 text-indigo-600">
+                                                        <Users className="w-3.5 h-3.5 flex-shrink-0 text-indigo-600" />
                                                         <span>{job.applicants} Applicants in Pipeline</span>
                                                     </div>
                                                 </div>
 
                                                 {/* Posted Date */}
-                                                <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider text-center mb-4">Published {job.posted}</p>
+                                                <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider text-center mb-4">Published {job.posted}</p>
 
                                                 {/* Actions */}
                                                 <div className="space-y-2 mt-auto">
@@ -430,7 +430,7 @@ export function JobsPage({ onAddJob, onViewApplicantProfile, onViewPipeline }: J
                                                         whileHover={{ scale: 1.01 }}
                                                         whileTap={{ scale: 0.99 }}
                                                         onClick={() => handleJobClick(job)}
-                                                        className="w-full py-2.5 bg-[#800020] text-white rounded-xl text-xs font-bold hover:bg-[#600018] transition-all  cursor-pointer"
+                                                        className="w-full py-2.5 bg-indigo-600 text-white rounded-xl text-xs font-bold hover:bg-indigo-800 transition-all  cursor-pointer"
                                                     >
                                                         View Details
                                                     </motion.button>
@@ -438,7 +438,7 @@ export function JobsPage({ onAddJob, onViewApplicantProfile, onViewPipeline }: J
                                                         whileHover={{ scale: 1.01 }}
                                                         whileTap={{ scale: 0.99 }}
                                                         onClick={() => handleViewApplicants(job)}
-                                                        className="w-full py-2.5 border border-gray-200 text-gray-700 bg-white hover:bg-gray-50 rounded-xl text-xs font-bold transition-all  cursor-pointer"
+                                                        className="w-full py-2.5 border border-slate-200 text-slate-700 bg-white hover:bg-gray-50 rounded-xl text-xs font-bold transition-all  cursor-pointer"
                                                     >
                                                         View Pipeline
                                                     </motion.button>
@@ -452,15 +452,15 @@ export function JobsPage({ onAddJob, onViewApplicantProfile, onViewPipeline }: J
 
                         {/* Empty State */}
                         {filteredJobs.length === 0 && (
-                            <div className="bg-white border border-gray-200 rounded-2xl p-12 text-center ">
-                                <div className="w-14 h-14 bg-gray-50 border border-gray-150 rounded-2xl flex items-center justify-center text-gray-400 mx-auto mb-4">
+                            <div className="bg-white border border-slate-200 rounded-2xl p-12 text-center ">
+                                <div className="w-14 h-14 bg-gray-50 border border-gray-150 rounded-2xl flex items-center justify-center text-slate-400 mx-auto mb-4">
                                     <AlertCircle className="w-6 h-6" />
                                 </div>
-                                <h3 className="text-base font-extrabold text-gray-900 mb-1">No Jobs Found</h3>
+                                <h3 className="text-base font-extrabold text-slate-900 mb-1">No Jobs Found</h3>
                                 <p className="text-xs text-gray-550 max-w-md mx-auto">We couldn't find any job postings matching "{searchQuery}" or the selected status.</p>
                                 <button
                                     onClick={() => { setSearchQuery(""); setFilterStatus("All"); }}
-                                    className="mt-4 px-4 py-2 bg-[#800020] text-white text-xs font-bold rounded-xl hover:bg-[#600018] transition-colors cursor-pointer"
+                                    className="mt-4 px-4 py-2 bg-indigo-600 text-white text-xs font-bold rounded-xl hover:bg-indigo-800 transition-colors cursor-pointer"
                                 >
                                     Clear Filters
                                 </button>

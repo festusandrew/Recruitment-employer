@@ -36,28 +36,28 @@ export function ShareJobModal({ isOpen, onClose, jobTitle }: ShareJobModalProps)
                 onClick={(e) => e.stopPropagation()}
             >
                 {/* Header */}
-                <div className="flex items-center justify-between p-5 border-b border-gray-200 flex-none">
+                <div className="flex items-center justify-between p-5 border-b border-slate-200 flex-none">
                     <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-[#F5E6E8] rounded-lg flex items-center justify-center">
-                            <Share2 className="w-5 h-5 text-[#800020]" />
+                        <div className="w-10 h-10 bg-indigo-50 rounded-lg flex items-center justify-center">
+                            <Share2 className="w-5 h-5 text-indigo-600" />
                         </div>
                         <div>
-                            <h2 className="text-gray-900 text-lg font-semibold">Share Job</h2>
-                            <p className="text-xs text-gray-500">{jobTitle || "Job Posting"}</p>
+                            <h2 className="text-slate-900 text-lg font-semibold">Share Job</h2>
+                            <p className="text-xs text-slate-500">{jobTitle || "Job Posting"}</p>
                         </div>
                     </div>
                     <button
                         onClick={onClose}
                         className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-100 transition-colors"
                     >
-                        <X className="w-5 h-5 text-gray-500" />
+                        <X className="w-5 h-5 text-slate-500" />
                     </button>
                 </div>
 
                 <div className="p-5 overflow-y-auto space-y-5 flex-1 text-left">
                     {/* Copy Link */}
                     <div>
-                        <label className="block text-xs font-medium text-gray-700 mb-1.5">Job Link</label>
+                        <label className="block text-xs font-medium text-slate-700 mb-1.5">Job Link</label>
                         <div className="flex gap-2">
                             <input
                                 type="text"
@@ -69,7 +69,7 @@ export function ShareJobModal({ isOpen, onClose, jobTitle }: ShareJobModalProps)
                                 onClick={handleCopyLink}
                                 className={`px-4 py-2 rounded-lg transition-all text-xs font-medium flex items-center gap-1.5 ${copied
                                     ? "bg-green-600 text-white"
-                                    : "bg-[#800020] text-white hover:bg-[#600018]"
+                                    : "bg-indigo-600 text-white hover:bg-indigo-800"
                                     }`}
                             >
                                 {copied ? (
@@ -87,50 +87,50 @@ export function ShareJobModal({ isOpen, onClose, jobTitle }: ShareJobModalProps)
 
                     {/* Social Media Share */}
                     <div>
-                        <label className="block text-xs font-medium text-gray-700 mb-2">Share on Social Media</label>
+                        <label className="block text-xs font-medium text-slate-700 mb-2">Share on Social Media</label>
                         <div className="grid grid-cols-3 gap-2.5">
-                            <button className="flex flex-col items-center gap-1.5 p-3 border border-gray-200 rounded-lg hover:bg-gray-50 hover:border-[#800020]/30 transition-colors">
-                                <div className="w-8 h-8 bg-[#800020] rounded-lg flex items-center justify-center">
+                            <button className="flex flex-col items-center gap-1.5 p-3 border border-slate-200 rounded-lg hover:bg-gray-50 hover:border-indigo-600/30 transition-colors">
+                                <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center">
                                     <Linkedin className="w-4 h-4 text-white" />
                                 </div>
-                                <span className="text-xs text-gray-700 font-medium">LinkedIn</span>
+                                <span className="text-xs text-slate-700 font-medium">LinkedIn</span>
                             </button>
-                            <button className="flex flex-col items-center gap-1.5 p-3 border border-gray-200 rounded-lg hover:bg-gray-50 hover:border-[#800020]/30 transition-colors">
-                                <div className="w-8 h-8 bg-[#800020] rounded-lg flex items-center justify-center">
+                            <button className="flex flex-col items-center gap-1.5 p-3 border border-slate-200 rounded-lg hover:bg-gray-50 hover:border-indigo-600/30 transition-colors">
+                                <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center">
                                     <Twitter className="w-4 h-4 text-white" />
                                 </div>
-                                <span className="text-xs text-gray-700 font-medium">Twitter</span>
+                                <span className="text-xs text-slate-700 font-medium">Twitter</span>
                             </button>
-                            <button className="flex flex-col items-center gap-1.5 p-3 border border-gray-200 rounded-lg hover:bg-gray-50 hover:border-[#800020]/30 transition-colors">
-                                <div className="w-8 h-8 bg-[#800020] rounded-lg flex items-center justify-center">
+                            <button className="flex flex-col items-center gap-1.5 p-3 border border-slate-200 rounded-lg hover:bg-gray-50 hover:border-indigo-600/30 transition-colors">
+                                <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center">
                                     <Facebook className="w-4 h-4 text-white" />
                                 </div>
-                                <span className="text-xs text-gray-700 font-medium">Facebook</span>
+                                <span className="text-xs text-slate-700 font-medium">Facebook</span>
                             </button>
                         </div>
                     </div>
 
                     {/* Email Share */}
                     <div>
-                        <label className="block text-xs font-medium text-gray-700 mb-1.5">Share via Email</label>
+                        <label className="block text-xs font-medium text-slate-700 mb-1.5">Share via Email</label>
                         <form onSubmit={handleShareEmail} className="space-y-2">
                             <input
                                 type="email"
                                 placeholder="Enter email addresses (comma separated)"
                                 required
-                                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-[#800020] focus:border-transparent"
+                                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent"
                             />
                             <textarea
                                 placeholder="Add a personal message (optional)"
                                 rows={2}
-                                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-[#800020] focus:border-transparent resize-none"
+                                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent resize-none"
                             />
                             <button
                                 type="submit"
                                 disabled={emailSent}
                                 className={`w-full py-2 rounded-lg transition-colors text-xs font-medium flex items-center justify-center gap-1.5 ${emailSent
                                     ? "bg-green-600 text-white"
-                                    : "bg-[#800020] text-white hover:bg-[#600018]"
+                                    : "bg-indigo-600 text-white hover:bg-indigo-800"
                                     }`}
                             >
                                 {emailSent ? (
@@ -147,20 +147,20 @@ export function ShareJobModal({ isOpen, onClose, jobTitle }: ShareJobModalProps)
                     </div>
 
                     {/* Job Boards */}
-                    <div className="pt-4 border-t border-gray-100">
-                        <label className="block text-xs font-medium text-gray-700 mb-2">Post to Job Boards</label>
+                    <div className="pt-4 border-t border-slate-100">
+                        <label className="block text-xs font-medium text-slate-700 mb-2">Post to Job Boards</label>
                         <div className="space-y-1.5">
-                            <button className="w-full flex items-center justify-between p-2.5 border border-gray-200 rounded-lg hover:bg-[#F5E6E8]/50 transition-colors">
-                                <span className="text-xs text-gray-700 font-medium">Indeed</span>
-                                <span className="text-xs text-[#800020] font-medium">Post →</span>
+                            <button className="w-full flex items-center justify-between p-2.5 border border-slate-200 rounded-lg hover:bg-indigo-50/50 transition-colors">
+                                <span className="text-xs text-slate-700 font-medium">Indeed</span>
+                                <span className="text-xs text-indigo-600 font-medium">Post →</span>
                             </button>
-                            <button className="w-full flex items-center justify-between p-2.5 border border-gray-200 rounded-lg hover:bg-[#F5E6E8]/50 transition-colors">
-                                <span className="text-xs text-gray-700 font-medium">Glassdoor</span>
-                                <span className="text-xs text-[#800020] font-medium">Post →</span>
+                            <button className="w-full flex items-center justify-between p-2.5 border border-slate-200 rounded-lg hover:bg-indigo-50/50 transition-colors">
+                                <span className="text-xs text-slate-700 font-medium">Glassdoor</span>
+                                <span className="text-xs text-indigo-600 font-medium">Post →</span>
                             </button>
-                            <button className="w-full flex items-center justify-between p-2.5 border border-gray-200 rounded-lg hover:bg-[#F5E6E8]/50 transition-colors">
-                                <span className="text-xs text-gray-700 font-medium">ZipRecruiter</span>
-                                <span className="text-xs text-[#800020] font-medium">Post →</span>
+                            <button className="w-full flex items-center justify-between p-2.5 border border-slate-200 rounded-lg hover:bg-indigo-50/50 transition-colors">
+                                <span className="text-xs text-slate-700 font-medium">ZipRecruiter</span>
+                                <span className="text-xs text-indigo-600 font-medium">Post →</span>
                             </button>
                         </div>
                     </div>

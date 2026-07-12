@@ -38,7 +38,7 @@ export function DeleteJobModal({ isOpen, onClose, onConfirm, jobTitle, applicant
                             <AlertTriangle className="w-5 h-5 text-red-600" />
                         </div>
                         <div>
-                            <h2 className="text-gray-900">Delete Job Posting</h2>
+                            <h2 className="text-slate-900">Delete Job Posting</h2>
                             <p className="text-sm text-red-700">This action cannot be undone</p>
                         </div>
                     </div>
@@ -46,15 +46,15 @@ export function DeleteJobModal({ isOpen, onClose, onConfirm, jobTitle, applicant
                         onClick={onClose}
                         className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-red-100 transition-colors"
                     >
-                        <X className="w-5 h-5 text-gray-500" />
+                        <X className="w-5 h-5 text-slate-500" />
                     </button>
                 </div>
 
                 {/* Content */}
                 <div className="p-6">
                     <div className="mb-6">
-                        <p className="text-gray-900 mb-2">You are about to permanently delete:</p>
-                        <p className="text-gray-900 px-4 py-3 bg-gray-100 rounded-lg border border-gray-200">{jobTitle}</p>
+                        <p className="text-slate-900 mb-2">You are about to permanently delete:</p>
+                        <p className="text-slate-900 px-4 py-3 bg-gray-100 rounded-lg border border-slate-200">{jobTitle}</p>
                     </div>
 
                     {/* Warning Messages */}
@@ -88,8 +88,8 @@ export function DeleteJobModal({ isOpen, onClose, onConfirm, jobTitle, applicant
 
                     {/* Confirmation Input */}
                     <div>
-                        <label className="block text-sm text-gray-700 mb-2">
-                            Type <span className="font-medium text-gray-900">DELETE</span> to confirm
+                        <label className="block text-sm text-slate-700 mb-2">
+                            Type <span className="font-medium text-slate-900">DELETE</span> to confirm
                         </label>
                         <input
                             type="text"
@@ -102,11 +102,11 @@ export function DeleteJobModal({ isOpen, onClose, onConfirm, jobTitle, applicant
                 </div>
 
                 {/* Footer */}
-                <div className="p-6 border-t border-gray-200 bg-gray-50">
+                <div className="p-6 border-t border-slate-200 bg-gray-50">
                     <div className="flex items-center justify-end gap-3">
                         <button
                             onClick={onClose}
-                            className="px-5 py-2.5 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors"
+                            className="px-5 py-2.5 rounded-lg text-slate-700 hover:bg-gray-100 transition-colors"
                             disabled={isDeleting}
                         >
                             Cancel
@@ -115,7 +115,7 @@ export function DeleteJobModal({ isOpen, onClose, onConfirm, jobTitle, applicant
                             onClick={handleDelete}
                             disabled={!canDelete || isDeleting}
                             className={`flex items-center gap-2 px-5 py-2.5 rounded-lg transition-colors ${!canDelete || isDeleting
-                                    ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                                    ? "bg-gray-300 text-slate-500 cursor-not-allowed"
                                     : "bg-red-600 text-white hover:bg-red-700"
                                 }`}
                         >

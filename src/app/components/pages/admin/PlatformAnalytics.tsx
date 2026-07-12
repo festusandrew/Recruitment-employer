@@ -35,7 +35,7 @@ export function PlatformAnalytics() {
             subtext: "vs last month",
             trend: "up",
             icon: DollarSign,
-            color: "bg-[#800020]",
+            color: "bg-indigo-600",
         },
     ];
 
@@ -49,8 +49,8 @@ export function PlatformAnalytics() {
         <div className="p-8">
             {/* Header */}
             <div className="mb-8">
-                <h1 className="text-2xl text-gray-900 mb-2">Platform Analytics</h1>
-                <p className="text-gray-600">Comprehensive insights into platform performance</p>
+                <h1 className="text-2xl text-slate-900 mb-2">Platform Analytics</h1>
+                <p className="text-slate-600">Comprehensive insights into platform performance</p>
             </div>
 
             {/* Key Metrics */}
@@ -60,7 +60,7 @@ export function PlatformAnalytics() {
                     return (
                         <div
                             key={index}
-                            className="bg-white border border-gray-200 rounded-lg p-6 hover: transition-shadow"
+                            className="bg-white border border-slate-200 rounded-lg p-6 hover: transition-shadow"
                         >
                             <div className="flex items-center justify-between mb-4">
                                 <div className={`w-12 h-12 ${metric.color} rounded-lg flex items-center justify-center`}>
@@ -76,8 +76,8 @@ export function PlatformAnalytics() {
                                     {metric.value}
                                 </span>
                             </div>
-                            <p className="text-sm text-gray-900 mb-1">{metric.label}</p>
-                            <p className="text-xs text-gray-500">{metric.subtext}</p>
+                            <p className="text-sm text-slate-900 mb-1">{metric.label}</p>
+                            <p className="text-xs text-slate-500">{metric.subtext}</p>
                         </div>
                     );
                 })}
@@ -86,18 +86,18 @@ export function PlatformAnalytics() {
             {/* Charts Section */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
                 {/* Monthly Growth Chart */}
-                <div className="bg-white border border-gray-200 rounded-lg p-6">
-                    <h3 className="text-lg text-gray-900 mb-6">Monthly Growth Trends</h3>
+                <div className="bg-white border border-slate-200 rounded-lg p-6">
+                    <h3 className="text-lg text-slate-900 mb-6">Monthly Growth Trends</h3>
                     <div className="space-y-4">
                         {monthlyData.map((data, index) => (
                             <div key={index} className="space-y-2">
                                 <div className="flex items-center justify-between text-sm">
-                                    <span className="text-gray-600">{data.month}</span>
-                                    <span className="text-gray-900">{data.companies} companies</span>
+                                    <span className="text-slate-600">{data.month}</span>
+                                    <span className="text-slate-900">{data.companies} companies</span>
                                 </div>
                                 <div className="w-full bg-gray-100 rounded-full h-2">
                                     <div
-                                        className="bg-[#800020] h-2 rounded-full transition-all"
+                                        className="bg-indigo-600 h-2 rounded-full transition-all"
                                         style={{ width: `${(data.companies / 1500) * 100}%` }}
                                     />
                                 </div>
@@ -107,56 +107,56 @@ export function PlatformAnalytics() {
                 </div>
 
                 {/* Revenue Breakdown */}
-                <div className="bg-white border border-gray-200 rounded-lg p-6">
-                    <h3 className="text-lg text-gray-900 mb-6">Revenue Breakdown</h3>
+                <div className="bg-white border border-slate-200 rounded-lg p-6">
+                    <h3 className="text-lg text-slate-900 mb-6">Revenue Breakdown</h3>
                     <div className="space-y-4">
                         <div className="flex items-center justify-between p-4 bg-purple-50 rounded-lg">
                             <div>
-                                <p className="text-sm text-gray-600">Enterprise Plans</p>
-                                <p className="text-xl text-gray-900 mt-1">$156,320</p>
+                                <p className="text-sm text-slate-600">Enterprise Plans</p>
+                                <p className="text-xl text-slate-900 mt-1">$156,320</p>
                             </div>
                             <div className="text-sm text-purple-600">54.9%</div>
                         </div>
                         <div className="flex items-center justify-between p-4 bg-blue-50 rounded-lg">
                             <div>
-                                <p className="text-sm text-gray-600">Professional Plans</p>
-                                <p className="text-xl text-gray-900 mt-1">$89,450</p>
+                                <p className="text-sm text-slate-600">Professional Plans</p>
+                                <p className="text-xl text-slate-900 mt-1">$89,450</p>
                             </div>
                             <div className="text-sm text-blue-600">31.4%</div>
                         </div>
                         <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
                             <div>
-                                <p className="text-sm text-gray-600">Starter Plans</p>
-                                <p className="text-xl text-gray-900 mt-1">$39,150</p>
+                                <p className="text-sm text-slate-600">Starter Plans</p>
+                                <p className="text-xl text-slate-900 mt-1">$39,150</p>
                             </div>
-                            <div className="text-sm text-gray-600">13.7%</div>
+                            <div className="text-sm text-slate-600">13.7%</div>
                         </div>
                     </div>
                 </div>
             </div>
 
             {/* Detailed Stats Table */}
-            <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
-                <div className="p-6 border-b border-gray-200">
-                    <h3 className="text-lg text-gray-900">Detailed Monthly Statistics</h3>
+            <div className="bg-white border border-slate-200 rounded-lg overflow-hidden">
+                <div className="p-6 border-b border-slate-200">
+                    <h3 className="text-lg text-slate-900">Detailed Monthly Statistics</h3>
                 </div>
                 <div className="overflow-x-auto">
                     <table className="w-full">
-                        <thead className="bg-gray-50 border-b border-gray-200">
+                        <thead className="bg-gray-50 border-b border-slate-200">
                             <tr>
-                                <th className="px-6 py-3 text-left text-xs text-gray-500 uppercase tracking-wider">
+                                <th className="px-6 py-3 text-left text-xs text-slate-500 uppercase tracking-wider">
                                     Month
                                 </th>
-                                <th className="px-6 py-3 text-left text-xs text-gray-500 uppercase tracking-wider">
+                                <th className="px-6 py-3 text-left text-xs text-slate-500 uppercase tracking-wider">
                                     New Companies
                                 </th>
-                                <th className="px-6 py-3 text-left text-xs text-gray-500 uppercase tracking-wider">
+                                <th className="px-6 py-3 text-left text-xs text-slate-500 uppercase tracking-wider">
                                     Total Jobs Posted
                                 </th>
-                                <th className="px-6 py-3 text-left text-xs text-gray-500 uppercase tracking-wider">
+                                <th className="px-6 py-3 text-left text-xs text-slate-500 uppercase tracking-wider">
                                     Revenue
                                 </th>
-                                <th className="px-6 py-3 text-left text-xs text-gray-500 uppercase tracking-wider">
+                                <th className="px-6 py-3 text-left text-xs text-slate-500 uppercase tracking-wider">
                                     Growth Rate
                                 </th>
                             </tr>
@@ -164,16 +164,16 @@ export function PlatformAnalytics() {
                         <tbody className="divide-y divide-gray-200">
                             {monthlyData.map((data, index) => (
                                 <tr key={index} className="hover:bg-gray-50">
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-900">
                                         {data.month} 2024
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-900">
                                         {data.companies}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-900">
                                         {data.jobs.toLocaleString()}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-900">
                                         ${data.revenue.toLocaleString()}
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap">

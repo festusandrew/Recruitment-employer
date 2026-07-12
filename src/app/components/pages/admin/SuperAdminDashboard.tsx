@@ -271,8 +271,8 @@ export function SuperAdminDashboard() {
         <div className="p-8">
             {/* Header */}
             <div className="mb-8">
-                <h1 className="text-2xl text-gray-900 mb-2">Platform Overview</h1>
-                <p className="text-gray-600">Monitor and manage the entire MployUs platform</p>
+                <h1 className="text-2xl text-slate-900 mb-2">Platform Overview</h1>
+                <p className="text-slate-600">Monitor and manage the entire MployUs platform</p>
             </div>
 
             {/* Stats Grid */}
@@ -282,7 +282,7 @@ export function SuperAdminDashboard() {
                     return (
                         <div
                             key={index}
-                            className="bg-white border border-gray-200 rounded-lg p-6 hover: transition-shadow"
+                            className="bg-white border border-slate-200 rounded-lg p-6 hover: transition-shadow"
                         >
                             <div className="flex items-center justify-between mb-4">
                                 <div className={`w-12 h-12 ${stat.color} rounded-lg flex items-center justify-center`}>
@@ -298,8 +298,8 @@ export function SuperAdminDashboard() {
                                     {stat.change}
                                 </span>
                             </div>
-                            <p className="text-2xl text-gray-900 mb-1">{stat.value}</p>
-                            <p className="text-sm text-gray-500">{stat.label}</p>
+                            <p className="text-2xl text-slate-900 mb-1">{stat.value}</p>
+                            <p className="text-sm text-slate-500">{stat.label}</p>
                         </div>
                     );
                 })}
@@ -307,12 +307,12 @@ export function SuperAdminDashboard() {
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
                 {/* Recent Companies */}
-                <div className="lg:col-span-2 bg-white border border-gray-200 rounded-lg">
-                    <div className="p-6 border-b border-gray-200">
+                <div className="lg:col-span-2 bg-white border border-slate-200 rounded-lg">
+                    <div className="p-6 border-b border-slate-200">
                         <div className="flex items-center justify-between">
                             <div>
-                                <h3 className="text-lg text-gray-900">Recent Companies</h3>
-                                <p className="text-sm text-gray-500 mt-1">Newly registered organizations</p>
+                                <h3 className="text-lg text-slate-900">Recent Companies</h3>
+                                <p className="text-sm text-slate-500 mt-1">Newly registered organizations</p>
                             </div>
                             <button className="text-sm text-[#7C3AED] hover:text-[#6B46C1]">
                                 View All
@@ -321,24 +321,24 @@ export function SuperAdminDashboard() {
                     </div>
                     <div className="overflow-x-auto">
                         <table className="w-full">
-                            <thead className="bg-gray-50 border-b border-gray-200">
+                            <thead className="bg-gray-50 border-b border-slate-200">
                                 <tr>
-                                    <th className="px-6 py-3 text-left text-xs text-gray-500 uppercase tracking-wider">
+                                    <th className="px-6 py-3 text-left text-xs text-slate-500 uppercase tracking-wider">
                                         Company
                                     </th>
-                                    <th className="px-6 py-3 text-left text-xs text-gray-500 uppercase tracking-wider">
+                                    <th className="px-6 py-3 text-left text-xs text-slate-500 uppercase tracking-wider">
                                         Plan
                                     </th>
-                                    <th className="px-6 py-3 text-left text-xs text-gray-500 uppercase tracking-wider">
+                                    <th className="px-6 py-3 text-left text-xs text-slate-500 uppercase tracking-wider">
                                         Users
                                     </th>
-                                    <th className="px-6 py-3 text-left text-xs text-gray-500 uppercase tracking-wider">
+                                    <th className="px-6 py-3 text-left text-xs text-slate-500 uppercase tracking-wider">
                                         Jobs
                                     </th>
-                                    <th className="px-6 py-3 text-left text-xs text-gray-500 uppercase tracking-wider">
+                                    <th className="px-6 py-3 text-left text-xs text-slate-500 uppercase tracking-wider">
                                         Status
                                     </th>
-                                    <th className="px-6 py-3 text-left text-xs text-gray-500 uppercase tracking-wider">
+                                    <th className="px-6 py-3 text-left text-xs text-slate-500 uppercase tracking-wider">
                                         Actions
                                     </th>
                                 </tr>
@@ -348,12 +348,12 @@ export function SuperAdminDashboard() {
                                     <tr key={company.id} className="hover:bg-gray-50">
                                         <td className="px-6 py-4 whitespace-nowrap">
                                             <div className="flex items-center gap-3">
-                                                <div className="w-10 h-10 bg-primary   rounded-lg flex items-center justify-center">
+                                                <div className="w-10 h-10 bg-indigo-600   rounded-lg flex items-center justify-center">
                                                     <span className="text-white text-sm">{company.logo}</span>
                                                 </div>
                                                 <div>
-                                                    <p className="text-sm text-gray-900">{company.name}</p>
-                                                    <p className="text-xs text-gray-500">{company.joined}</p>
+                                                    <p className="text-sm text-slate-900">{company.name}</p>
+                                                    <p className="text-xs text-slate-500">{company.joined}</p>
                                                 </div>
                                             </div>
                                         </td>
@@ -362,15 +362,15 @@ export function SuperAdminDashboard() {
                                                     ? 'bg-purple-100 text-purple-700'
                                                     : company.plan === 'Professional'
                                                         ? 'bg-blue-100 text-blue-700'
-                                                        : 'bg-gray-100 text-gray-700'
+                                                        : 'bg-gray-100 text-slate-700'
                                                 }`}>
                                                 {company.plan}
                                             </span>
                                         </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-900">
                                             {company.users}
                                         </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-900">
                                             {company.jobs}
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap">
@@ -384,10 +384,10 @@ export function SuperAdminDashboard() {
                                         <td className="px-6 py-4 whitespace-nowrap">
                                             <div className="flex items-center gap-2">
                                                 <button className="p-1 hover:bg-gray-100 rounded" title="View" onClick={() => handleViewCompany(company)}>
-                                                    <Eye className="w-4 h-4 text-gray-600" />
+                                                    <Eye className="w-4 h-4 text-slate-600" />
                                                 </button>
                                                 <button className="p-1 hover:bg-gray-100 rounded" title="Edit" onClick={() => handleEditCompany(company)}>
-                                                    <Edit className="w-4 h-4 text-gray-600" />
+                                                    <Edit className="w-4 h-4 text-slate-600" />
                                                 </button>
                                                 <CompanyActionsMenu
                                                     company={company}
@@ -405,10 +405,10 @@ export function SuperAdminDashboard() {
                 </div>
 
                 {/* System Alerts */}
-                <div className="bg-white border border-gray-200 rounded-lg">
-                    <div className="p-6 border-b border-gray-200">
-                        <h3 className="text-lg text-gray-900">System Alerts</h3>
-                        <p className="text-sm text-gray-500 mt-1">Recent system notifications</p>
+                <div className="bg-white border border-slate-200 rounded-lg">
+                    <div className="p-6 border-b border-slate-200">
+                        <h3 className="text-lg text-slate-900">System Alerts</h3>
+                        <p className="text-sm text-slate-500 mt-1">Recent system notifications</p>
                     </div>
                     <div className="p-6 space-y-4">
                         {systemAlerts.map((alert) => (
@@ -439,7 +439,7 @@ export function SuperAdminDashboard() {
                                             }`}>
                                             {alert.message}
                                         </p>
-                                        <p className="text-xs text-gray-500 mt-1">{alert.time}</p>
+                                        <p className="text-xs text-slate-500 mt-1">{alert.time}</p>
                                     </div>
                                 </div>
                             </div>
@@ -449,12 +449,12 @@ export function SuperAdminDashboard() {
             </div>
 
             {/* Top Performing Companies */}
-            <div className="bg-white border border-gray-200 rounded-lg">
-                <div className="p-6 border-b border-gray-200">
+            <div className="bg-white border border-slate-200 rounded-lg">
+                <div className="p-6 border-b border-slate-200">
                     <div className="flex items-center justify-between">
                         <div>
-                            <h3 className="text-lg text-gray-900">Top Performing Companies</h3>
-                            <p className="text-sm text-gray-500 mt-1">Based on activity and revenue</p>
+                            <h3 className="text-lg text-slate-900">Top Performing Companies</h3>
+                            <p className="text-sm text-slate-500 mt-1">Based on activity and revenue</p>
                         </div>
                         <button className="text-sm text-[#7C3AED] hover:text-[#6B46C1]">
                             View All
@@ -463,21 +463,21 @@ export function SuperAdminDashboard() {
                 </div>
                 <div className="overflow-x-auto">
                     <table className="w-full">
-                        <thead className="bg-gray-50 border-b border-gray-200">
+                        <thead className="bg-gray-50 border-b border-slate-200">
                             <tr>
-                                <th className="px-6 py-3 text-left text-xs text-gray-500 uppercase tracking-wider">
+                                <th className="px-6 py-3 text-left text-xs text-slate-500 uppercase tracking-wider">
                                     Company Name
                                 </th>
-                                <th className="px-6 py-3 text-left text-xs text-gray-500 uppercase tracking-wider">
+                                <th className="px-6 py-3 text-left text-xs text-slate-500 uppercase tracking-wider">
                                     Active Jobs
                                 </th>
-                                <th className="px-6 py-3 text-left text-xs text-gray-500 uppercase tracking-wider">
+                                <th className="px-6 py-3 text-left text-xs text-slate-500 uppercase tracking-wider">
                                     Total Candidates
                                 </th>
-                                <th className="px-6 py-3 text-left text-xs text-gray-500 uppercase tracking-wider">
+                                <th className="px-6 py-3 text-left text-xs text-slate-500 uppercase tracking-wider">
                                     Successful Hires
                                 </th>
-                                <th className="px-6 py-3 text-left text-xs text-gray-500 uppercase tracking-wider">
+                                <th className="px-6 py-3 text-left text-xs text-slate-500 uppercase tracking-wider">
                                     Monthly Revenue
                                 </th>
                             </tr>
@@ -487,20 +487,20 @@ export function SuperAdminDashboard() {
                                 <tr key={index} className="hover:bg-gray-50">
                                     <td className="px-6 py-4 whitespace-nowrap">
                                         <div className="flex items-center gap-2">
-                                            <span className="text-gray-400">#{index + 1}</span>
-                                            <p className="text-sm text-gray-900">{company.name}</p>
+                                            <span className="text-slate-400">#{index + 1}</span>
+                                            <p className="text-sm text-slate-900">{company.name}</p>
                                         </div>
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-900">
                                         {company.jobs}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-900">
                                         {company.candidates}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-900">
                                         {company.hires}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-900">
                                         {company.revenue}
                                     </td>
                                 </tr>
@@ -513,10 +513,10 @@ export function SuperAdminDashboard() {
             {/* Revenue Analytics Section */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
                 {/* Revenue Trend Chart */}
-                <div className="bg-white border border-gray-200 rounded-lg">
-                    <div className="p-6 border-b border-gray-200">
-                        <h3 className="text-lg text-gray-900">Revenue Trend</h3>
-                        <p className="text-sm text-gray-500 mt-1">6-month revenue growth</p>
+                <div className="bg-white border border-slate-200 rounded-lg">
+                    <div className="p-6 border-b border-slate-200">
+                        <h3 className="text-lg text-slate-900">Revenue Trend</h3>
+                        <p className="text-sm text-slate-500 mt-1">6-month revenue growth</p>
                     </div>
                     <div className="p-6">
                         <ResponsiveContainer width="100%" height={300}>
@@ -541,10 +541,10 @@ export function SuperAdminDashboard() {
                 </div>
 
                 {/* Plan Distribution */}
-                <div className="bg-white border border-gray-200 rounded-lg">
-                    <div className="p-6 border-b border-gray-200">
-                        <h3 className="text-lg text-gray-900">Plan Distribution</h3>
-                        <p className="text-sm text-gray-500 mt-1">Revenue breakdown by subscription tier</p>
+                <div className="bg-white border border-slate-200 rounded-lg">
+                    <div className="p-6 border-b border-slate-200">
+                        <h3 className="text-lg text-slate-900">Plan Distribution</h3>
+                        <p className="text-sm text-slate-500 mt-1">Revenue breakdown by subscription tier</p>
                     </div>
                     <div className="p-6 flex items-center justify-between">
                         <ResponsiveContainer width="50%" height={250}>
@@ -571,11 +571,11 @@ export function SuperAdminDashboard() {
                                     <div className="flex items-center justify-between">
                                         <div className="flex items-center gap-2">
                                             <div className="w-3 h-3 rounded-full" style={{ backgroundColor: plan.color }}></div>
-                                            <span className="text-sm text-gray-700">{plan.name}</span>
+                                            <span className="text-sm text-slate-700">{plan.name}</span>
                                         </div>
-                                        <span className="text-sm text-gray-900">{plan.value}%</span>
+                                        <span className="text-sm text-slate-900">{plan.value}%</span>
                                     </div>
-                                    <div className="text-xs text-gray-500">
+                                    <div className="text-xs text-slate-500">
                                         €{plan.revenue.toLocaleString()} / month
                                     </div>
                                 </div>
@@ -586,28 +586,28 @@ export function SuperAdminDashboard() {
             </div>
 
             {/* Revenue by Plan Table */}
-            <div className="bg-white border border-gray-200 rounded-lg mb-8">
-                <div className="p-6 border-b border-gray-200">
-                    <h3 className="text-lg text-gray-900">Revenue by Subscription Plan</h3>
-                    <p className="text-sm text-gray-500 mt-1">Detailed revenue breakdown and company distribution</p>
+            <div className="bg-white border border-slate-200 rounded-lg mb-8">
+                <div className="p-6 border-b border-slate-200">
+                    <h3 className="text-lg text-slate-900">Revenue by Subscription Plan</h3>
+                    <p className="text-sm text-slate-500 mt-1">Detailed revenue breakdown and company distribution</p>
                 </div>
                 <div className="overflow-x-auto">
                     <table className="w-full">
-                        <thead className="bg-gray-50 border-b border-gray-200">
+                        <thead className="bg-gray-50 border-b border-slate-200">
                             <tr>
-                                <th className="px-6 py-3 text-left text-xs text-gray-500 uppercase tracking-wider">
+                                <th className="px-6 py-3 text-left text-xs text-slate-500 uppercase tracking-wider">
                                     Plan Type
                                 </th>
-                                <th className="px-6 py-3 text-left text-xs text-gray-500 uppercase tracking-wider">
+                                <th className="px-6 py-3 text-left text-xs text-slate-500 uppercase tracking-wider">
                                     Companies
                                 </th>
-                                <th className="px-6 py-3 text-left text-xs text-gray-500 uppercase tracking-wider">
+                                <th className="px-6 py-3 text-left text-xs text-slate-500 uppercase tracking-wider">
                                     Total Revenue
                                 </th>
-                                <th className="px-6 py-3 text-left text-xs text-gray-500 uppercase tracking-wider">
+                                <th className="px-6 py-3 text-left text-xs text-slate-500 uppercase tracking-wider">
                                     Avg per Company
                                 </th>
-                                <th className="px-6 py-3 text-left text-xs text-gray-500 uppercase tracking-wider">
+                                <th className="px-6 py-3 text-left text-xs text-slate-500 uppercase tracking-wider">
                                     Market Share
                                 </th>
                             </tr>
@@ -628,13 +628,13 @@ export function SuperAdminDashboard() {
                                                 {plan.plan}
                                             </span>
                                         </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-900">
                                             {plan.companies.toLocaleString()}
                                         </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-900">
                                             €{plan.revenue.toLocaleString()}
                                         </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-900">
                                             €{plan.avgPerCompany}
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap">
@@ -645,7 +645,7 @@ export function SuperAdminDashboard() {
                                                         style={{ width: `${marketShare}%` }}
                                                     ></div>
                                                 </div>
-                                                <span className="text-sm text-gray-600 min-w-[45px]">{marketShare}%</span>
+                                                <span className="text-sm text-slate-600 min-w-[45px]">{marketShare}%</span>
                                             </div>
                                         </td>
                                     </tr>
@@ -665,7 +665,7 @@ export function SuperAdminDashboard() {
                     return (
                         <div
                             key={index}
-                            className="bg-white border border-gray-200 rounded-lg p-6 hover: transition-shadow"
+                            className="bg-white border border-slate-200 rounded-lg p-6 hover: transition-shadow"
                         >
                             <div className="flex items-center justify-between mb-4">
                                 <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
@@ -681,8 +681,8 @@ export function SuperAdminDashboard() {
                                     {metric.change}
                                 </span>
                             </div>
-                            <p className="text-2xl text-gray-900 mb-1">{metric.value}</p>
-                            <p className="text-sm text-gray-500">{metric.label}</p>
+                            <p className="text-2xl text-slate-900 mb-1">{metric.value}</p>
+                            <p className="text-sm text-slate-500">{metric.label}</p>
                         </div>
                     );
                 })}

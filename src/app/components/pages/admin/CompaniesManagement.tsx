@@ -175,50 +175,50 @@ export function CompaniesManagement() {
         <div className="p-8">
             {/* Header */}
             <div className="mb-8">
-                <h1 className="text-2xl text-gray-900 mb-2">Companies Management</h1>
-                <p className="text-gray-600">Manage all registered companies on the platform</p>
+                <h1 className="text-2xl text-slate-900 mb-2">Companies Management</h1>
+                <p className="text-slate-600">Manage all registered companies on the platform</p>
             </div>
 
             {/* Stats */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
-                <div className="bg-white border border-gray-200 rounded-lg p-6">
+                <div className="bg-white border border-slate-200 rounded-lg p-6">
                     <div className="flex items-center justify-between">
                         <div>
-                            <p className="text-sm text-gray-500">Total Companies</p>
-                            <p className="text-2xl text-gray-900 mt-1">1,284</p>
+                            <p className="text-sm text-slate-500">Total Companies</p>
+                            <p className="text-2xl text-slate-900 mt-1">1,284</p>
                         </div>
                         <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
                             <Building2 className="w-6 h-6 text-blue-600" />
                         </div>
                     </div>
                 </div>
-                <div className="bg-white border border-gray-200 rounded-lg p-6">
+                <div className="bg-white border border-slate-200 rounded-lg p-6">
                     <div className="flex items-center justify-between">
                         <div>
-                            <p className="text-sm text-gray-500">Active Users</p>
-                            <p className="text-2xl text-gray-900 mt-1">8,942</p>
+                            <p className="text-sm text-slate-500">Active Users</p>
+                            <p className="text-2xl text-slate-900 mt-1">8,942</p>
                         </div>
                         <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
                             <Users className="w-6 h-6 text-green-600" />
                         </div>
                     </div>
                 </div>
-                <div className="bg-white border border-gray-200 rounded-lg p-6">
+                <div className="bg-white border border-slate-200 rounded-lg p-6">
                     <div className="flex items-center justify-between">
                         <div>
-                            <p className="text-sm text-gray-500">Total Jobs</p>
-                            <p className="text-2xl text-gray-900 mt-1">3,456</p>
+                            <p className="text-sm text-slate-500">Total Jobs</p>
+                            <p className="text-2xl text-slate-900 mt-1">3,456</p>
                         </div>
                         <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
                             <Briefcase className="w-6 h-6 text-purple-600" />
                         </div>
                     </div>
                 </div>
-                <div className="bg-white border border-gray-200 rounded-lg p-6">
+                <div className="bg-white border border-slate-200 rounded-lg p-6">
                     <div className="flex items-center justify-between">
                         <div>
-                            <p className="text-sm text-gray-500">Total Revenue</p>
-                            <p className="text-2xl text-gray-900 mt-1">$284K</p>
+                            <p className="text-sm text-slate-500">Total Revenue</p>
+                            <p className="text-2xl text-slate-900 mt-1">$284K</p>
                         </div>
                         <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
                             <DollarSign className="w-6 h-6 text-purple-600" />
@@ -232,7 +232,7 @@ export function CompaniesManagement() {
                 <div className="flex items-center gap-4 flex-1">
                     {/* Search */}
                     <div className="relative flex-1 max-w-md">
-                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
                         <input
                             type="text"
                             placeholder="Search companies..."
@@ -254,7 +254,7 @@ export function CompaniesManagement() {
                             <option value="Professional">Professional</option>
                             <option value="Starter">Starter</option>
                         </select>
-                        <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
+                        <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
                     </div>
                 </div>
 
@@ -266,33 +266,33 @@ export function CompaniesManagement() {
             </div>
 
             {/* Companies Table */}
-            <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
+            <div className="bg-white border border-slate-200 rounded-lg overflow-hidden">
                 <div className="overflow-x-auto">
                     <table className="w-full">
-                        <thead className="bg-gray-50 border-b border-gray-200">
+                        <thead className="bg-gray-50 border-b border-slate-200">
                             <tr>
-                                <th className="px-6 py-3 text-left text-xs text-gray-500 uppercase tracking-wider">
+                                <th className="px-6 py-3 text-left text-xs text-slate-500 uppercase tracking-wider">
                                     Company
                                 </th>
-                                <th className="px-6 py-3 text-left text-xs text-gray-500 uppercase tracking-wider">
+                                <th className="px-6 py-3 text-left text-xs text-slate-500 uppercase tracking-wider">
                                     Plan
                                 </th>
-                                <th className="px-6 py-3 text-left text-xs text-gray-500 uppercase tracking-wider">
+                                <th className="px-6 py-3 text-left text-xs text-slate-500 uppercase tracking-wider">
                                     Users
                                 </th>
-                                <th className="px-6 py-3 text-left text-xs text-gray-500 uppercase tracking-wider">
+                                <th className="px-6 py-3 text-left text-xs text-slate-500 uppercase tracking-wider">
                                     Jobs
                                 </th>
-                                <th className="px-6 py-3 text-left text-xs text-gray-500 uppercase tracking-wider">
+                                <th className="px-6 py-3 text-left text-xs text-slate-500 uppercase tracking-wider">
                                     Candidates
                                 </th>
-                                <th className="px-6 py-3 text-left text-xs text-gray-500 uppercase tracking-wider">
+                                <th className="px-6 py-3 text-left text-xs text-slate-500 uppercase tracking-wider">
                                     Revenue
                                 </th>
-                                <th className="px-6 py-3 text-left text-xs text-gray-500 uppercase tracking-wider">
+                                <th className="px-6 py-3 text-left text-xs text-slate-500 uppercase tracking-wider">
                                     Status
                                 </th>
-                                <th className="px-6 py-3 text-left text-xs text-gray-500 uppercase tracking-wider">
+                                <th className="px-6 py-3 text-left text-xs text-slate-500 uppercase tracking-wider">
                                     Actions
                                 </th>
                             </tr>
@@ -302,12 +302,12 @@ export function CompaniesManagement() {
                                 <tr key={company.id} className="hover:bg-gray-50">
                                     <td className="px-6 py-4 whitespace-nowrap">
                                         <div className="flex items-center gap-3">
-                                            <div className="w-10 h-10 bg-primary   rounded-lg flex items-center justify-center">
+                                            <div className="w-10 h-10 bg-indigo-600   rounded-lg flex items-center justify-center">
                                                 <span className="text-white text-sm">{company.logo}</span>
                                             </div>
                                             <div>
-                                                <p className="text-sm text-gray-900">{company.name}</p>
-                                                <p className="text-xs text-gray-500">{company.email}</p>
+                                                <p className="text-sm text-slate-900">{company.name}</p>
+                                                <p className="text-xs text-slate-500">{company.email}</p>
                                             </div>
                                         </div>
                                     </td>
@@ -316,21 +316,21 @@ export function CompaniesManagement() {
                                                 ? 'bg-purple-100 text-purple-700'
                                                 : company.plan === 'Professional'
                                                     ? 'bg-blue-100 text-blue-700'
-                                                    : 'bg-gray-100 text-gray-700'
+                                                    : 'bg-gray-100 text-slate-700'
                                             }`}>
                                             {company.plan}
                                         </span>
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-900">
                                         {company.users}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-900">
                                         {company.jobs}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-900">
                                         {company.candidates}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-900">
                                         {company.revenue}
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap">
@@ -348,14 +348,14 @@ export function CompaniesManagement() {
                                                 title="View Details"
                                                 onClick={() => handleViewCompany(company)}
                                             >
-                                                <Eye className="w-4 h-4 text-gray-600" />
+                                                <Eye className="w-4 h-4 text-slate-600" />
                                             </button>
                                             <button
                                                 className="p-1 hover:bg-gray-100 rounded"
                                                 title="Edit"
                                                 onClick={() => handleEditCompany(company)}
                                             >
-                                                <Edit className="w-4 h-4 text-gray-600" />
+                                                <Edit className="w-4 h-4 text-slate-600" />
                                             </button>
                                             <button
                                                 className="p-1 hover:bg-red-100 rounded"

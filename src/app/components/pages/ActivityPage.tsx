@@ -116,7 +116,7 @@ const allActivities = [
         recruiterInitials: "MV",
         type: "offer",
         icon: CheckCircle2,
-        iconBg: "bg-[#F5E6E8] text-[#800020] border-[#800020]/10",
+        iconBg: "bg-indigo-50 text-indigo-600 border-indigo-600/10",
         action: "hired applicant",
         applicant: "Sophia Martinez",
         details: "Signed offer letter received! onboarding initiated.",
@@ -171,32 +171,32 @@ export function ActivityPage() {
             {/* Header */}
             <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-8">
                 <div>
-                    <h1 className="text-3xl font-black text-gray-900 tracking-tight flex items-center gap-2">
+                    <h1 className="text-3xl font-black text-slate-900 tracking-tight flex items-center gap-2">
                         Notifications Log
-                        <Bell className="w-6 h-6 text-[#800020]" />
+                        <Bell className="w-6 h-6 text-indigo-600" />
                     </h1>
-                    <p className="text-sm text-gray-500 mt-1 font-medium">Real-time activity tracking and audit log across your hiring teams.</p>
+                    <p className="text-sm text-slate-500 mt-1 font-medium">Real-time activity tracking and audit log across your hiring teams.</p>
                 </div>
 
                 {/* Filters & Search */}
-                <div className="flex flex-wrap items-center gap-3.5 bg-white/50 backdrop-blur-md p-3 rounded-2xl border border-gray-200/60 ">
+                <div className="flex flex-wrap items-center gap-3.5 bg-white/50 backdrop-blur-md p-3 rounded-2xl border border-slate-200/60 ">
                     <div className="relative">
-                        <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                        <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                         <input
                             type="text"
                             placeholder="Search activity log..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="w-64 pl-10 pr-4 py-2.5 bg-white border border-gray-200 rounded-xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-[#800020]  transition-all"
+                            className="w-64 pl-10 pr-4 py-2.5 bg-white border border-slate-200 rounded-xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-600  transition-all"
                         />
                     </div>
 
-                    <div className="flex items-center gap-1.5 bg-white border border-gray-200 rounded-xl p-1.5 ">
-                        <Filter className="w-3.5 h-3.5 text-gray-500 ml-2" />
+                    <div className="flex items-center gap-1.5 bg-white border border-slate-200 rounded-xl p-1.5 ">
+                        <Filter className="w-3.5 h-3.5 text-slate-500 ml-2" />
                         <select
                             value={selectedType}
                             onChange={(e) => setSelectedType(e.target.value)}
-                            className="bg-transparent text-xs text-gray-700 py-1 pr-4 focus:outline-none cursor-pointer font-bold border-none"
+                            className="bg-transparent text-xs text-slate-700 py-1 pr-4 focus:outline-none cursor-pointer font-bold border-none"
                         >
                             <option value="all">All Event Types</option>
                             <option value="application">Applications</option>
@@ -210,7 +210,7 @@ export function ActivityPage() {
             </div>
 
             {/* Timeline Feed */}
-            <div className="bg-white rounded-2xl border border-gray-200/80  overflow-hidden">
+            <div className="bg-white rounded-2xl border border-slate-200/80  overflow-hidden">
                 <AnimatePresence mode="wait">
                     {Object.keys(groupedActivities).length === 0 ? (
                         <motion.div 
@@ -219,7 +219,7 @@ export function ActivityPage() {
                             exit={{ opacity: 0 }}
                             className="p-16 text-center"
                         >
-                            <p className="text-gray-400 text-sm font-bold">No activity records match your filter criteria.</p>
+                            <p className="text-slate-400 text-sm font-bold">No activity records match your filter criteria.</p>
                         </motion.div>
                     ) : (
                         Object.entries(groupedActivities).map(([dateGroup, items], groupIdx) => (
@@ -228,12 +228,12 @@ export function ActivityPage() {
                                 initial={{ opacity: 0, y: 15 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.3, delay: groupIdx * 0.05 }}
-                                className="border-b border-gray-100 last:border-none"
+                                className="border-b border-slate-100 last:border-none"
                             >
                                 {/* Group Date Header */}
-                                <div className="bg-gray-50/60 px-6 py-3.5 border-b border-gray-100 flex items-center justify-between">
-                                    <span className="text-xs font-black text-gray-500 uppercase tracking-widest">{dateGroup}</span>
-                                    <span className="text-[10px] font-black bg-gray-200/60 text-gray-600 px-2.5 py-0.5 rounded-full">
+                                <div className="bg-gray-50/60 px-6 py-3.5 border-b border-slate-100 flex items-center justify-between">
+                                    <span className="text-xs font-black text-slate-500 uppercase tracking-widest">{dateGroup}</span>
+                                    <span className="text-[10px] font-black bg-gray-200/60 text-slate-600 px-2.5 py-0.5 rounded-full">
                                         {items.length} {items.length === 1 ? "event" : "events"}
                                     </span>
                                 </div>
@@ -253,11 +253,11 @@ export function ActivityPage() {
                                                     {act.recruiterAvatar ? (
                                                         <AvatarImage src={act.recruiterAvatar} />
                                                     ) : (
-                                                        <div className="w-full h-full bg-[#800020] flex items-center justify-center border border-white/10">
+                                                        <div className="w-full h-full bg-indigo-600 flex items-center justify-center border border-white/10">
                                                             <span className="text-white text-xs font-black">{act.recruiterInitials}</span>
                                                         </div>
                                                     )}
-                                                    <AvatarFallback className="text-xs font-black bg-[#800020] text-white">
+                                                    <AvatarFallback className="text-xs font-black bg-indigo-600 text-white">
                                                         {act.recruiterInitials}
                                                     </AvatarFallback>
                                                 </Avatar>
@@ -265,31 +265,31 @@ export function ActivityPage() {
                                                 {/* Action Info */}
                                                 <div className="flex-1 min-w-0">
                                                     <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 mb-1.5">
-                                                        <p className="text-sm text-gray-600 leading-relaxed font-medium">
-                                                            <span className="font-bold text-gray-900">{act.recruiter}</span>{" "}
+                                                        <p className="text-sm text-slate-600 leading-relaxed font-medium">
+                                                            <span className="font-bold text-slate-900">{act.recruiter}</span>{" "}
                                                             <span>{act.action}</span>{" "}
                                                             {act.applicant && (
-                                                                <span className="font-extrabold text-[#800020] bg-rose-50 px-2 py-0.5 rounded border border-[#800020]/10 text-xs">
+                                                                <span className="font-extrabold text-indigo-600 bg-rose-50 px-2 py-0.5 rounded border border-indigo-600/10 text-xs">
                                                                     {act.applicant}
                                                                 </span>
                                                             )}
                                                             {" "}
                                                             <span className="text-gray-300 mx-1">•</span>{" "}
-                                                            <span className="font-bold text-gray-800 bg-gray-50 px-2 py-0.5 rounded border border-gray-200/60 text-xs">{act.job}</span>
+                                                            <span className="font-bold text-slate-800 bg-gray-50 px-2 py-0.5 rounded border border-slate-200/60 text-xs">{act.job}</span>
                                                         </p>
-                                                        <div className="flex items-center gap-1 text-xs text-gray-400 flex-shrink-0 font-bold">
+                                                        <div className="flex items-center gap-1 text-xs text-slate-400 flex-shrink-0 font-bold">
                                                             <Clock className="w-3.5 h-3.5" />
                                                             <span>{act.timestamp}</span>
                                                         </div>
                                                     </div>
 
                                                     {/* Detail card */}
-                                                    <div className="mt-3 flex items-start gap-3 bg-gray-50/70 rounded-xl p-3.5 border border-gray-200/60 ">
+                                                    <div className="mt-3 flex items-start gap-3 bg-gray-50/70 rounded-xl p-3.5 border border-slate-200/60 ">
                                                         <div className={`p-1.5 rounded-lg ${act.iconBg} flex-shrink-0 mt-0.5 border `}>
                                                             <IconComponent className="w-4 h-4" />
                                                         </div>
                                                         <div className="min-w-0 flex-1">
-                                                            <p className="text-xs text-gray-700 leading-relaxed font-semibold">{act.details}</p>
+                                                            <p className="text-xs text-slate-700 leading-relaxed font-semibold">{act.details}</p>
                                                         </div>
                                                     </div>
                                                 </div>

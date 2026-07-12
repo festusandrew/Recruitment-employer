@@ -49,8 +49,8 @@ export function CandidateDetailsModal({ isOpen, onClose, candidate }: CandidateD
         } else if (lower.includes("pipeline") || lower.includes("active")) {
             return {
                 bg: "bg-indigo-50/80 backdrop-blur-xs",
-                text: "text-[#800020]",
-                border: "border-[#800020]/20",
+                text: "text-indigo-600",
+                border: "border-indigo-600/20",
                 icon: Sparkles
             };
         } else {
@@ -89,10 +89,10 @@ export function CandidateDetailsModal({ isOpen, onClose, candidate }: CandidateD
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.95, y: 25 }}
                         transition={{ type: "spring", damping: 25, stiffness: 300 }}
-                        className="bg-white/95 border border-gray-100  w-full max-w-3xl max-h-[90vh] overflow-hidden rounded-2xl flex flex-col z-10 relative text-left"
+                        className="bg-white/95 border border-slate-100  w-full max-w-3xl max-h-[90vh] overflow-hidden rounded-2xl flex flex-col z-10 relative text-left"
                     >
                         {/* Header Banner */}
-                        <div className="relative bg-primary  via-[#800020]  p-8 overflow-hidden">
+                        <div className="relative bg-indigo-600  via-[#005189]  p-8 overflow-hidden">
                             {/* Decorative Grid and Glow */}
                             <div className="absolute inset-0 opacity-10 bg-[linear-gradient(to_right,#808080_1px,transparent_1px),linear-gradient(to_bottom,#808080_1px,transparent_1px)] bg-[size:14px_24px]" />
                             <div className="absolute -left-16 -top-16 w-48 h-48 rounded-full bg-orange-400/20 blur-2xl" />
@@ -109,10 +109,10 @@ export function CandidateDetailsModal({ isOpen, onClose, candidate }: CandidateD
                             {/* Profile Information */}
                             <div className="flex flex-col sm:flex-row items-center sm:items-start gap-5 text-white relative z-10">
                                 <div className="relative group">
-                                    <div className="absolute -inset-0.5 bg-primary from-orange-400 to-rose-500 rounded-2xl blur-xs opacity-75 group-hover:opacity-100 transition duration-300" />
-                                    <Avatar className="w-20 h-20 rounded-2xl border-2 border-white/10 relative bg-[#800020] flex items-center justify-center">
+                                    <div className="absolute -inset-0.5 bg-indigo-600 from-orange-400 to-rose-500 rounded-2xl blur-xs opacity-75 group-hover:opacity-100 transition duration-300" />
+                                    <Avatar className="w-20 h-20 rounded-2xl border-2 border-white/10 relative bg-indigo-600 flex items-center justify-center">
                                         <AvatarImage src={candidate.avatar} className="object-cover" />
-                                        <AvatarFallback className="bg-primary   text-white font-bold text-2xl">
+                                        <AvatarFallback className="bg-indigo-600   text-white font-bold text-2xl">
                                             {initials}
                                         </AvatarFallback>
                                     </Avatar>
@@ -150,32 +150,32 @@ export function CandidateDetailsModal({ isOpen, onClose, candidate }: CandidateD
                         <div className="p-8 overflow-y-auto max-h-[calc(90vh-250px)] space-y-7 no-scrollbar">
                             {/* Contact Details Grid */}
                             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                                <div className="flex items-center gap-3.5 p-4 bg-gray-50/80 hover:bg-gray-100/50 border border-gray-100 rounded-xl transition-colors">
-                                    <div className="w-10 h-10 rounded-lg bg-rose-50 flex items-center justify-center text-[#800020] flex-shrink-0">
+                                <div className="flex items-center gap-3.5 p-4 bg-gray-50/80 hover:bg-gray-100/50 border border-slate-100 rounded-xl transition-colors">
+                                    <div className="w-10 h-10 rounded-lg bg-rose-50 flex items-center justify-center text-indigo-600 flex-shrink-0">
                                         <Mail className="w-4 h-4" />
                                     </div>
                                     <div className="min-w-0">
-                                        <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Email Address</p>
+                                        <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Email Address</p>
                                         <p className="text-xs font-bold text-gray-850 truncate">{candidate.email}</p>
                                     </div>
                                 </div>
 
-                                <div className="flex items-center gap-3.5 p-4 bg-gray-50/80 hover:bg-gray-100/50 border border-gray-100 rounded-xl transition-colors">
-                                    <div className="w-10 h-10 rounded-lg bg-rose-50 flex items-center justify-center text-[#800020] flex-shrink-0">
+                                <div className="flex items-center gap-3.5 p-4 bg-gray-50/80 hover:bg-gray-100/50 border border-slate-100 rounded-xl transition-colors">
+                                    <div className="w-10 h-10 rounded-lg bg-rose-50 flex items-center justify-center text-indigo-600 flex-shrink-0">
                                         <Phone className="w-4 h-4" />
                                     </div>
                                     <div className="min-w-0">
-                                        <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Phone Number</p>
+                                        <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Phone Number</p>
                                         <p className="text-xs font-bold text-gray-850 truncate">{candidate.phone}</p>
                                     </div>
                                 </div>
 
-                                <div className="flex items-center gap-3.5 p-4 bg-gray-50/80 hover:bg-gray-100/50 border border-gray-100 rounded-xl transition-colors">
-                                    <div className="w-10 h-10 rounded-lg bg-rose-50 flex items-center justify-center text-[#800020] flex-shrink-0">
+                                <div className="flex items-center gap-3.5 p-4 bg-gray-50/80 hover:bg-gray-100/50 border border-slate-100 rounded-xl transition-colors">
+                                    <div className="w-10 h-10 rounded-lg bg-rose-50 flex items-center justify-center text-indigo-600 flex-shrink-0">
                                         <MapPin className="w-4 h-4" />
                                     </div>
                                     <div className="min-w-0">
-                                        <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Office Location</p>
+                                        <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Office Location</p>
                                         <p className="text-xs font-bold text-gray-850 truncate">{candidate.location}</p>
                                     </div>
                                 </div>
@@ -184,25 +184,25 @@ export function CandidateDetailsModal({ isOpen, onClose, candidate }: CandidateD
                             {/* Two-Column split for Experience & Education */}
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 {/* Left: Experience */}
-                                <div className="p-5 bg-white border border-gray-100  rounded-xl relative overflow-hidden">
-                                    <div className="absolute top-0 left-0 w-1.5 h-full bg-[#800020]" />
+                                <div className="p-5 bg-white border border-slate-100  rounded-xl relative overflow-hidden">
+                                    <div className="absolute top-0 left-0 w-1.5 h-full bg-indigo-600" />
                                     <div className="flex items-center gap-2 mb-3.5">
-                                        <Briefcase className="w-4 h-4 text-[#800020]" />
-                                        <h4 className="text-sm font-extrabold text-gray-900 tracking-tight">Professional Experience</h4>
+                                        <Briefcase className="w-4 h-4 text-indigo-600" />
+                                        <h4 className="text-sm font-extrabold text-slate-900 tracking-tight">Professional Experience</h4>
                                     </div>
-                                    <p className="text-xs text-gray-600 leading-relaxed font-medium">
+                                    <p className="text-xs text-slate-600 leading-relaxed font-medium">
                                         {candidate.experience || "No experience summary provided."}
                                     </p>
                                 </div>
 
                                 {/* Right: Education */}
-                                <div className="p-5 bg-white border border-gray-100  rounded-xl relative overflow-hidden">
+                                <div className="p-5 bg-white border border-slate-100  rounded-xl relative overflow-hidden">
                                     <div className="absolute top-0 left-0 w-1.5 h-full bg-orange-400" />
                                     <div className="flex items-center gap-2 mb-3.5">
                                         <GraduationCap className="w-4 h-4 text-orange-500" />
-                                        <h4 className="text-sm font-extrabold text-gray-900 tracking-tight">Education & Certifications</h4>
+                                        <h4 className="text-sm font-extrabold text-slate-900 tracking-tight">Education & Certifications</h4>
                                     </div>
-                                    <p className="text-xs text-gray-600 leading-relaxed font-medium">
+                                    <p className="text-xs text-slate-600 leading-relaxed font-medium">
                                         {candidate.education || "No education history provided."}
                                     </p>
                                 </div>
@@ -211,15 +211,15 @@ export function CandidateDetailsModal({ isOpen, onClose, candidate }: CandidateD
                             {/* Skills Section */}
                             <div>
                                 <div className="flex items-center gap-2 mb-3">
-                                    <Award className="w-4 h-4 text-[#800020]" />
-                                    <h4 className="text-sm font-extrabold text-gray-950 tracking-tight">Highlighted Skills</h4>
+                                    <Award className="w-4 h-4 text-indigo-600" />
+                                    <h4 className="text-sm font-extrabold text-slate-900 tracking-tight">Highlighted Skills</h4>
                                 </div>
                                 <div className="flex flex-wrap gap-2">
                                     {["React", "TypeScript", "Node.js", "UI/UX Design", "Figma", "Tailwind CSS", "RESTful APIs"].map((skill) => (
                                         <motion.span
                                             key={skill}
                                             whileHover={{ scale: 1.05, translateY: -1 }}
-                                            className="px-3 py-1.5 bg-[#F5E6E8]/70 text-[#800020] rounded-xl text-xs font-bold border border-[#E9967A]/25  hover:bg-[#800020]/5 transition-colors cursor-default"
+                                            className="px-3 py-1.5 bg-indigo-50/70 text-indigo-600 rounded-xl text-xs font-bold border border-[#E9967A]/25  hover:bg-indigo-600/5 transition-colors cursor-default"
                                         >
                                             {skill}
                                         </motion.span>
@@ -232,20 +232,20 @@ export function CandidateDetailsModal({ isOpen, onClose, candidate }: CandidateD
                                 <div className="flex items-center justify-between flex-col sm:flex-row gap-3">
                                     <div className="flex items-center gap-3">
                                         <div className="w-11 h-11 bg-rose-50 rounded-xl flex items-center justify-center border border-rose-100 flex-shrink-0">
-                                            <FileText className="w-5 h-5 text-[#800020]" />
+                                            <FileText className="w-5 h-5 text-indigo-600" />
                                         </div>
                                         <div>
-                                            <p className="text-xs font-bold text-gray-900 truncate max-w-[200px] sm:max-w-none">
+                                            <p className="text-xs font-bold text-slate-900 truncate max-w-[200px] sm:max-w-none">
                                                 {candidate.name.replace(/\s+/g, "_")}_Resume.pdf
                                             </p>
-                                            <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider mt-0.5">PDF Document • 2.4 MB</p>
+                                            <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mt-0.5">PDF Document • 2.4 MB</p>
                                         </div>
                                     </div>
                                     <motion.button
                                         whileHover={{ scale: 1.02 }}
                                         whileTap={{ scale: 0.98 }}
                                         onClick={() => handleAction("Download CV")}
-                                        className="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2 text-[#800020] bg-white hover:bg-[#F5E6E8]/50 border border-gray-200 rounded-xl transition-all font-bold text-xs  cursor-pointer"
+                                        className="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2 text-indigo-600 bg-white hover:bg-indigo-50/50 border border-slate-200 rounded-xl transition-all font-bold text-xs  cursor-pointer"
                                     >
                                         <Download className="w-3.5 h-3.5" />
                                         <span>Download CV</span>
@@ -255,12 +255,12 @@ export function CandidateDetailsModal({ isOpen, onClose, candidate }: CandidateD
                         </div>
 
                         {/* Actions Footer */}
-                        <div className="p-6 border-t border-gray-100 bg-gray-50/70 flex flex-col sm:flex-row items-center gap-3 relative z-10">
+                        <div className="p-6 border-t border-slate-100 bg-gray-50/70 flex flex-col sm:flex-row items-center gap-3 relative z-10">
                             <motion.button
                                 whileHover={{ scale: 1.01, translateY: -1 }}
                                 whileTap={{ scale: 0.99 }}
                                 onClick={() => handleAction("Schedule Interview")}
-                                className="w-full sm:flex-1 py-3 bg-[#800020] hover:bg-[#600018] text-white rounded-xl transition-all flex items-center justify-center gap-2 text-xs font-extrabold  border border-[#800020]/10 cursor-pointer"
+                                className="w-full sm:flex-1 py-3 bg-indigo-600 hover:bg-indigo-800 text-white rounded-xl transition-all flex items-center justify-center gap-2 text-xs font-extrabold  border border-indigo-600/10 cursor-pointer"
                             >
                                 <Calendar className="w-4 h-4" />
                                 <span>Schedule Interview</span>
@@ -270,9 +270,9 @@ export function CandidateDetailsModal({ isOpen, onClose, candidate }: CandidateD
                                 whileHover={{ scale: 1.01, translateY: -1 }}
                                 whileTap={{ scale: 0.99 }}
                                 onClick={() => handleAction("Send Message")}
-                                className="w-full sm:flex-1 py-3 border border-gray-200 text-gray-700 bg-white hover:bg-gray-50 rounded-xl transition-all flex items-center justify-center gap-2 text-xs font-bold  cursor-pointer"
+                                className="w-full sm:flex-1 py-3 border border-slate-200 text-slate-700 bg-white hover:bg-gray-50 rounded-xl transition-all flex items-center justify-center gap-2 text-xs font-bold  cursor-pointer"
                             >
-                                <MessageSquare className="w-4 h-4 text-gray-400" />
+                                <MessageSquare className="w-4 h-4 text-slate-400" />
                                 <span>Send Message</span>
                             </motion.button>
 
@@ -280,7 +280,7 @@ export function CandidateDetailsModal({ isOpen, onClose, candidate }: CandidateD
                                 whileHover={{ scale: 1.01, translateY: -1 }}
                                 whileTap={{ scale: 0.99 }}
                                 onClick={() => handleAction("Move to Stage")}
-                                className="w-full sm:w-auto px-5 py-3 border border-gray-200 text-gray-750 bg-white hover:bg-gray-50 rounded-xl transition-all text-xs font-bold  cursor-pointer"
+                                className="w-full sm:w-auto px-5 py-3 border border-slate-200 text-gray-750 bg-white hover:bg-gray-50 rounded-xl transition-all text-xs font-bold  cursor-pointer"
                             >
                                 <span>Move to Stage</span>
                             </motion.button>

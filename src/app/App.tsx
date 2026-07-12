@@ -59,6 +59,21 @@ export default function App() {
     setIsAdminMode(window.location.pathname.startsWith("/admin-"));
   }, [location.pathname]);
 
+  useEffect(() => {
+    const applyTheme = () => {
+      const themeColor = localStorage.getItem("mployus_theme_color");
+      if (themeColor) {
+        document.documentElement.style.setProperty('--primary', themeColor);
+        document.documentElement.style.setProperty('--primary-fifty', themeColor + '10');
+        document.documentElement.style.setProperty('--primary-hundred', themeColor + '20');
+        document.documentElement.style.setProperty('--primary-hover', themeColor);
+      }
+    };
+    applyTheme();
+    window.addEventListener("storage", applyTheme);
+    return () => window.removeEventListener("storage", applyTheme);
+  }, []);
+
   const handleViewCandidate = (candidate: Candidate) => {
     handleViewApplicantProfile({
       ...candidate,
@@ -219,7 +234,7 @@ export default function App() {
             onClick={() => setIsMobileMenuOpen(false)}
           />
           {/* Drawer Content */}
-          <div className="fixed top-0 left-0 bottom-0 w-[260px] bg-[#800020] animate-in slide-in-from-left duration-200">
+          <div className="fixed top-0 left-0 bottom-0 w-[260px] bg-indigo-600 animate-in slide-in-from-left duration-200">
             {isAdminMode ? (
               <AdminSidebar
                 activePage={activePage}

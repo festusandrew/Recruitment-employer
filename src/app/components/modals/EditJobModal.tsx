@@ -199,16 +199,16 @@ export function EditJobModal({ isOpen, onClose, onSave, job }: EditJobModalProps
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.96, y: 20 }}
                         transition={{ type: "spring", damping: 25, stiffness: 350 }}
-                        className="bg-white/95 border border-gray-100  w-full max-w-6xl h-[85vh] overflow-hidden flex z-10 rounded-2xl relative text-left"
+                        className="bg-white/95 border border-slate-100  w-full max-w-6xl h-[85vh] overflow-hidden flex z-10 rounded-2xl relative text-left"
                     >
                         {/* Left Sidebar - Tabs */}
-                        <div className="w-64 bg-primary  via-[#4D0213]  border-r border-gray-200/10 flex flex-col flex-shrink-0 relative">
+                        <div className="w-64 bg-indigo-600  via-[#4D0213]  border-r border-slate-200/10 flex flex-col flex-shrink-0 relative">
                             {/* Decorative background glow */}
                             <div className="absolute top-0 left-0 w-32 h-32 rounded-full bg-orange-400/10 blur-2xl pointer-events-none" />
                             
                             <div className="p-6 border-b border-white/10 relative z-10">
                                 <div className="flex items-center gap-3.5">
-                                    <div className="w-10 h-10 bg-primary from-orange-400 to-rose-500 rounded-xl flex items-center justify-center text-white ">
+                                    <div className="w-10 h-10 bg-indigo-600 from-orange-400 to-rose-500 rounded-xl flex items-center justify-center text-white ">
                                         <Briefcase className="w-5 h-5" />
                                     </div>
                                     <div className="min-w-0">
@@ -256,10 +256,10 @@ export function EditJobModal({ isOpen, onClose, onSave, job }: EditJobModalProps
                         {/* Right Content Area */}
                         <div className="flex-1 flex flex-col min-w-0 bg-white">
                             {/* Header */}
-                            <div className="flex items-center justify-between p-6 border-b border-gray-100 bg-gray-50/50 flex-shrink-0">
+                            <div className="flex items-center justify-between p-6 border-b border-slate-100 bg-gray-50/50 flex-shrink-0">
                                 <div>
-                                    <h3 className="text-base font-extrabold text-gray-900 tracking-tight flex items-center gap-2">
-                                        <Sparkles className="w-4 h-4 text-[#800020]" />
+                                    <h3 className="text-base font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
+                                        <Sparkles className="w-4 h-4 text-indigo-600" />
                                         {activeTab === 'details' && 'Edit Job Details'}
                                         {activeTab === 'application' && 'Edit Application Form Setup'}
                                         {activeTab === 'boards' && 'Edit Job Boards Syndication'}
@@ -268,7 +268,7 @@ export function EditJobModal({ isOpen, onClose, onSave, job }: EditJobModalProps
                                         {activeTab === 'team' && 'Edit Hiring Team Members'}
                                         {activeTab === 'templates' && 'Edit Pipeline Email Templates'}
                                     </h3>
-                                    <p className="text-xs text-gray-400 font-semibold mt-0.5">
+                                    <p className="text-xs text-slate-400 font-semibold mt-0.5">
                                         {activeTab === 'details' && 'Update job title, description, benefits, and salary settings'}
                                         {activeTab === 'application' && 'Customize the questions applicants will answer during submission'}
                                         {activeTab === 'boards' && 'Select, edit, and publish this job to global recruitment boards'}
@@ -281,7 +281,7 @@ export function EditJobModal({ isOpen, onClose, onSave, job }: EditJobModalProps
                                 <button
                                     type="button"
                                     onClick={onClose}
-                                    className="w-9 h-9 flex items-center justify-center rounded-xl hover:bg-gray-100 text-gray-400 hover:text-gray-900 transition-colors border border-transparent hover:border-gray-200 cursor-pointer"
+                                    className="w-9 h-9 flex items-center justify-center rounded-xl hover:bg-gray-100 text-slate-400 hover:text-slate-900 transition-colors border border-transparent hover:border-slate-200 cursor-pointer"
                                 >
                                     <X className="w-4 h-4" />
                                 </button>
@@ -294,33 +294,33 @@ export function EditJobModal({ isOpen, onClose, onSave, job }: EditJobModalProps
                                     <div className="max-w-3xl space-y-6">
                                         {/* Job Title */}
                                         <div>
-                                            <label className="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-2">Job Title *</label>
+                                            <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">Job Title *</label>
                                             <input
                                                 type="text"
                                                 required
                                                 value={formData.title}
                                                 onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                                                 placeholder="e.g. Senior Software Engineer"
-                                                className="w-full px-4 py-3 bg-gray-50/50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#800020]/15 focus:border-[#800020] focus:bg-white transition-all text-sm font-medium"
+                                                className="w-full px-4 py-3 bg-gray-50/50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-600/15 focus:border-indigo-600 focus:bg-white transition-all text-sm font-medium"
                                             />
                                         </div>
 
                                         {/* Department & Location */}
                                         <div className="grid grid-cols-2 gap-4">
                                             <div>
-                                                <label className="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-2">Department *</label>
+                                                <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">Department *</label>
                                                 <input
                                                     type="text"
                                                     required
                                                     value={formData.department}
                                                     onChange={(e) => setFormData({ ...formData, department: e.target.value })}
                                                     placeholder="e.g. Engineering"
-                                                    className="w-full px-4 py-3 bg-gray-50/50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#800020]/15 focus:border-[#800020] focus:bg-white transition-all text-sm font-medium"
+                                                    className="w-full px-4 py-3 bg-gray-50/50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-600/15 focus:border-indigo-600 focus:bg-white transition-all text-sm font-medium"
                                                 />
                                             </div>
                                             <div>
-                                                <label className="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-2">
-                                                    <MapPin className="w-3.5 h-3.5 inline mr-1 text-gray-400" />
+                                                <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">
+                                                    <MapPin className="w-3.5 h-3.5 inline mr-1 text-slate-400" />
                                                     Location *
                                                 </label>
                                                 <input
@@ -329,7 +329,7 @@ export function EditJobModal({ isOpen, onClose, onSave, job }: EditJobModalProps
                                                     value={formData.location}
                                                     onChange={(e) => setFormData({ ...formData, location: e.target.value })}
                                                     placeholder="e.g. Dublin, Ireland (Hybrid)"
-                                                    className="w-full px-4 py-3 bg-gray-50/50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#800020]/15 focus:border-[#800020] focus:bg-white transition-all text-sm font-medium"
+                                                    className="w-full px-4 py-3 bg-gray-50/50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-600/15 focus:border-indigo-600 focus:bg-white transition-all text-sm font-medium"
                                                 />
                                             </div>
                                         </div>
@@ -337,34 +337,34 @@ export function EditJobModal({ isOpen, onClose, onSave, job }: EditJobModalProps
                                         {/* Job Type & Experience */}
                                         <div className="grid grid-cols-2 gap-4">
                                             <div>
-                                                <label className="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-2">
-                                                    <Clock className="w-3.5 h-3.5 inline mr-1 text-gray-400" />
+                                                <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">
+                                                    <Clock className="w-3.5 h-3.5 inline mr-1 text-slate-400" />
                                                     Job Type *
                                                 </label>
                                                 <div className="relative">
                                                     <select
                                                         value={formData.type}
                                                         onChange={(e) => setFormData({ ...formData, type: e.target.value })}
-                                                        className="w-full px-4 py-3 bg-gray-50/50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#800020]/15 focus:border-[#800020] focus:bg-white transition-all text-sm font-medium appearance-none"
+                                                        className="w-full px-4 py-3 bg-gray-50/50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-600/15 focus:border-indigo-600 focus:bg-white transition-all text-sm font-medium appearance-none"
                                                     >
                                                         <option>Full-time</option>
                                                         <option>Part-time</option>
                                                         <option>Contract</option>
                                                         <option>Internship</option>
                                                     </select>
-                                                    <ChevronDown className="w-4 h-4 text-gray-400 absolute right-4 top-3.5 pointer-events-none" />
+                                                    <ChevronDown className="w-4 h-4 text-slate-400 absolute right-4 top-3.5 pointer-events-none" />
                                                 </div>
                                             </div>
                                             <div>
-                                                <label className="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-2">
-                                                    <Users className="w-3.5 h-3.5 inline mr-1 text-gray-400" />
+                                                <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">
+                                                    <Users className="w-3.5 h-3.5 inline mr-1 text-slate-400" />
                                                     Experience Level *
                                                 </label>
                                                 <div className="relative">
                                                     <select
                                                         value={formData.experience}
                                                         onChange={(e) => setFormData({ ...formData, experience: e.target.value })}
-                                                        className="w-full px-4 py-3 bg-gray-50/50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#800020]/15 focus:border-[#800020] focus:bg-white transition-all text-sm font-medium appearance-none"
+                                                        className="w-full px-4 py-3 bg-gray-50/50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-600/15 focus:border-indigo-600 focus:bg-white transition-all text-sm font-medium appearance-none"
                                                     >
                                                         <option value="">Select level</option>
                                                         <option>Entry Level (0-2 years)</option>
@@ -372,15 +372,15 @@ export function EditJobModal({ isOpen, onClose, onSave, job }: EditJobModalProps
                                                         <option>Senior Level (5+ years)</option>
                                                         <option>Lead/Principal</option>
                                                     </select>
-                                                    <ChevronDown className="w-4 h-4 text-gray-400 absolute right-4 top-3.5 pointer-events-none" />
+                                                    <ChevronDown className="w-4 h-4 text-slate-400 absolute right-4 top-3.5 pointer-events-none" />
                                                 </div>
                                             </div>
                                         </div>
 
                                         {/* Salary */}
                                         <div>
-                                            <label className="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-2">
-                                                <DollarSign className="w-3.5 h-3.5 inline mr-1 text-gray-400" />
+                                            <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">
+                                                <DollarSign className="w-3.5 h-3.5 inline mr-1 text-slate-400" />
                                                 Salary Range
                                             </label>
                                             <input
@@ -388,56 +388,56 @@ export function EditJobModal({ isOpen, onClose, onSave, job }: EditJobModalProps
                                                 value={formData.salary}
                                                 onChange={(e) => setFormData({ ...formData, salary: e.target.value })}
                                                 placeholder="e.g. €85,000 - €110,000"
-                                                className="w-full px-4 py-3 bg-gray-50/50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#800020]/15 focus:border-[#800020] focus:bg-white transition-all text-sm font-medium"
+                                                className="w-full px-4 py-3 bg-gray-50/50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-600/15 focus:border-indigo-600 focus:bg-white transition-all text-sm font-medium"
                                             />
                                         </div>
 
                                         {/* Description */}
                                         <div>
-                                            <label className="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-2">Job Description *</label>
+                                            <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">Job Description *</label>
                                             <textarea
                                                 required
                                                 value={formData.description}
                                                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                                                 placeholder="Describe the role, responsibilities, and key metrics..."
                                                 rows={6}
-                                                className="w-full px-4 py-3 bg-gray-50/50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#800020]/15 focus:border-[#800020] focus:bg-white transition-all text-sm font-medium resize-none leading-relaxed"
+                                                className="w-full px-4 py-3 bg-gray-50/50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-600/15 focus:border-indigo-600 focus:bg-white transition-all text-sm font-medium resize-none leading-relaxed"
                                             />
                                         </div>
 
                                         {/* Requirements */}
                                         <div>
-                                            <label className="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-2">Requirements</label>
+                                            <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">Requirements</label>
                                             <textarea
                                                 value={formData.requirements}
                                                 onChange={(e) => setFormData({ ...formData, requirements: e.target.value })}
                                                 placeholder="List critical qualifications, frameworks, and tools needed..."
                                                 rows={4}
-                                                className="w-full px-4 py-3 bg-gray-50/50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#800020]/15 focus:border-[#800020] focus:bg-white transition-all text-sm font-medium resize-none leading-relaxed"
+                                                className="w-full px-4 py-3 bg-gray-50/50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-600/15 focus:border-indigo-600 focus:bg-white transition-all text-sm font-medium resize-none leading-relaxed"
                                             />
                                         </div>
 
                                         {/* Benefits */}
                                         <div>
-                                            <label className="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-2">Benefits</label>
+                                            <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">Benefits</label>
                                             <textarea
                                                 value={formData.benefits}
                                                 onChange={(e) => setFormData({ ...formData, benefits: e.target.value })}
                                                 placeholder="List company perks, health benefits, pension, and bonuses..."
                                                 rows={4}
-                                                className="w-full px-4 py-3 bg-gray-50/50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#800020]/15 focus:border-[#800020] focus:bg-white transition-all text-sm font-medium resize-none leading-relaxed"
+                                                className="w-full px-4 py-3 bg-gray-50/50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-600/15 focus:border-indigo-600 focus:bg-white transition-all text-sm font-medium resize-none leading-relaxed"
                                             />
                                         </div>
 
                                         {/* Status Toggle */}
-                                        <div className="p-5 bg-[#F5E6E8]/70 border border-[#800020]/10 rounded-2xl  flex items-center justify-between">
+                                        <div className="p-5 bg-indigo-50/70 border border-indigo-600/10 rounded-2xl  flex items-center justify-between">
                                             <div className="flex items-center gap-3">
-                                                <div className="w-10 h-10 bg-[#800020]/10 text-[#800020] rounded-xl flex items-center justify-center">
+                                                <div className="w-10 h-10 bg-indigo-600/10 text-indigo-600 rounded-xl flex items-center justify-center">
                                                     <Eye className="w-5 h-5" />
                                                 </div>
                                                 <div>
-                                                    <p className="text-xs font-bold text-gray-900 uppercase tracking-wider">Publish Immediately</p>
-                                                    <p className="text-[11px] text-gray-500 font-medium mt-0.5">Make this job active and visible to candidate listings</p>
+                                                    <p className="text-xs font-bold text-slate-900 uppercase tracking-wider">Publish Immediately</p>
+                                                    <p className="text-[11px] text-slate-500 font-medium mt-0.5">Make this job active and visible to candidate listings</p>
                                                 </div>
                                             </div>
                                             <label className="relative inline-flex items-center cursor-pointer select-none">
@@ -447,7 +447,7 @@ export function EditJobModal({ isOpen, onClose, onSave, job }: EditJobModalProps
                                                     onChange={(e) => setFormData({ ...formData, isActive: e.target.checked })}
                                                     className="sr-only peer"
                                                 />
-                                                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-[#800020]/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#800020]"></div>
+                                                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-600/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
                                             </label>
                                         </div>
                                     </div>
@@ -456,8 +456,8 @@ export function EditJobModal({ isOpen, onClose, onSave, job }: EditJobModalProps
                                 {/* APPLICATION FORM TAB */}
                                 {activeTab === 'application' && (
                                     <div className="max-w-3xl space-y-6">
-                                        <div className="flex items-start gap-3 p-4 bg-[#F5E6E8]/70 border border-[#800020]/15 rounded-xl text-xs font-semibold text-[#800020] leading-relaxed ">
-                                            <Info className="w-4 h-4 text-[#800020] flex-shrink-0 mt-0.5" />
+                                        <div className="flex items-start gap-3 p-4 bg-indigo-50/70 border border-indigo-600/15 rounded-xl text-xs font-semibold text-indigo-600 leading-relaxed ">
+                                            <Info className="w-4 h-4 text-indigo-600 flex-shrink-0 mt-0.5" />
                                             <p>Customize the screening questions applicants will answer when applying for this position to help filter submissions.</p>
                                         </div>
 
@@ -470,14 +470,14 @@ export function EditJobModal({ isOpen, onClose, onSave, job }: EditJobModalProps
                                                     className="bg-white border border-gray-150 rounded-xl p-5  hover:border-gray-250 transition-colors"
                                                 >
                                                     <div className="flex items-start gap-3">
-                                                        <div className="w-7 h-7 rounded-lg bg-gray-150 flex items-center justify-center text-gray-500 cursor-move mt-1">
+                                                        <div className="w-7 h-7 rounded-lg bg-gray-150 flex items-center justify-center text-slate-500 cursor-move mt-1">
                                                             <GripVertical className="w-4 h-4" />
                                                         </div>
                                                         <div className="flex-1">
                                                             <div className="flex items-center justify-between mb-3.5">
-                                                                <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">Question {index + 1}</span>
+                                                                <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Question {index + 1}</span>
                                                                 <div className="flex items-center gap-4">
-                                                                    <label className="flex items-center gap-2 text-xs font-bold text-gray-600 cursor-pointer select-none">
+                                                                    <label className="flex items-center gap-2 text-xs font-bold text-slate-600 cursor-pointer select-none">
                                                                         <input
                                                                             type="checkbox"
                                                                             checked={q.required}
@@ -487,7 +487,7 @@ export function EditJobModal({ isOpen, onClose, onSave, job }: EditJobModalProps
                                                                                 );
                                                                                 setApplicationQuestions(updated);
                                                                             }}
-                                                                            className="w-4 h-4 rounded text-[#800020] border-gray-300 focus:ring-[#800020]"
+                                                                            className="w-4 h-4 rounded text-indigo-600 border-gray-300 focus:ring-indigo-600"
                                                                         />
                                                                         Required Question
                                                                     </label>
@@ -509,7 +509,7 @@ export function EditJobModal({ isOpen, onClose, onSave, job }: EditJobModalProps
                                                                     );
                                                                     setApplicationQuestions(updated);
                                                                 }}
-                                                                className="w-full px-4 py-2.5 border border-gray-200 rounded-xl mb-3 focus:outline-none focus:ring-2 focus:ring-[#800020]/15 focus:border-[#800020] transition-all text-sm font-medium"
+                                                                className="w-full px-4 py-2.5 border border-slate-200 rounded-xl mb-3 focus:outline-none focus:ring-2 focus:ring-indigo-600/15 focus:border-indigo-600 transition-all text-sm font-medium"
                                                                 placeholder="e.g. How many years of experience do you have with React?"
                                                             />
                                                             <div className="relative w-48">
@@ -521,7 +521,7 @@ export function EditJobModal({ isOpen, onClose, onSave, job }: EditJobModalProps
                                                                         );
                                                                         setApplicationQuestions(updated);
                                                                     }}
-                                                                    className="w-full px-3 py-2 bg-gray-50 border border-gray-255 rounded-lg text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-[#800020]/15 appearance-none cursor-pointer"
+                                                                    className="w-full px-3 py-2 bg-gray-50 border border-gray-255 rounded-lg text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-600/15 appearance-none cursor-pointer"
                                                                 >
                                                                     <option value="text">Short Text</option>
                                                                     <option value="textarea">Long Text / Paragraph</option>
@@ -529,7 +529,7 @@ export function EditJobModal({ isOpen, onClose, onSave, job }: EditJobModalProps
                                                                     <option value="date">Date Picker</option>
                                                                     <option value="file">File Upload / Attachment</option>
                                                                 </select>
-                                                                <ChevronDown className="w-3.5 h-3.5 text-gray-400 absolute right-3 top-2.5 pointer-events-none" />
+                                                                <ChevronDown className="w-3.5 h-3.5 text-slate-400 absolute right-3 top-2.5 pointer-events-none" />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -547,9 +547,9 @@ export function EditJobModal({ isOpen, onClose, onSave, job }: EditJobModalProps
                                                 type: "text",
                                                 required: false
                                             }])}
-                                            className="flex items-center gap-2 px-4 py-3 border border-dashed border-gray-250 rounded-xl text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-all w-full justify-center text-xs font-bold cursor-pointer  bg-white"
+                                            className="flex items-center gap-2 px-4 py-3 border border-dashed border-gray-250 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-gray-50 transition-all w-full justify-center text-xs font-bold cursor-pointer  bg-white"
                                         >
-                                            <Plus className="w-4 h-4 text-[#800020]" />
+                                            <Plus className="w-4 h-4 text-indigo-600" />
                                             ADD CUSTOM APPLICATION QUESTION
                                         </motion.button>
                                     </div>
@@ -558,8 +558,8 @@ export function EditJobModal({ isOpen, onClose, onSave, job }: EditJobModalProps
                                 {/* JOB BOARDS TAB */}
                                 {activeTab === 'boards' && (
                                     <div className="max-w-5xl space-y-6">
-                                        <div className="flex items-start gap-3 p-4 bg-[#F5E6E8]/70 border border-[#800020]/15 rounded-xl text-xs font-semibold text-[#800020] leading-relaxed ">
-                                            <Info className="w-4 h-4 text-[#800020] flex-shrink-0 mt-0.5" />
+                                        <div className="flex items-start gap-3 p-4 bg-indigo-50/70 border border-indigo-600/15 rounded-xl text-xs font-semibold text-indigo-600 leading-relaxed ">
+                                            <Info className="w-4 h-4 text-indigo-600 flex-shrink-0 mt-0.5" />
                                             <p>Select which job boards to syndicate this posting onto. You can customize descriptions, salary formats, or location settings per board.</p>
                                         </div>
 
@@ -572,11 +572,11 @@ export function EditJobModal({ isOpen, onClose, onSave, job }: EditJobModalProps
                                                         <div className="p-4 flex items-center justify-between hover:bg-gray-50/50 transition-colors">
                                                             <div className="flex items-center gap-3.5 flex-1 min-w-0">
                                                                 <div className="w-10 h-10 bg-gray-50 rounded-lg flex items-center justify-center border border-gray-150 flex-shrink-0">
-                                                                    <LinkIcon className="w-4 h-4 text-gray-500" />
+                                                                    <LinkIcon className="w-4 h-4 text-slate-500" />
                                                                 </div>
                                                                 <div className="min-w-0">
-                                                                    <p className="text-sm font-bold text-gray-900">{board.name}</p>
-                                                                    <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider mt-0.5">
+                                                                    <p className="text-sm font-bold text-slate-900">{board.name}</p>
+                                                                    <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mt-0.5">
                                                                         {isSelected ? 'Syndication Active' : 'Not selected'}
                                                                     </p>
                                                                 </div>
@@ -586,7 +586,7 @@ export function EditJobModal({ isOpen, onClose, onSave, job }: EditJobModalProps
                                                                     <button
                                                                         type="button"
                                                                         onClick={() => setExpandedBoards({ ...expandedBoards, [board.name]: !isExpanded })}
-                                                                        className="text-[#800020] hover:text-[#600018] w-8 h-8 rounded-lg hover:bg-gray-100 flex items-center justify-center transition-colors cursor-pointer"
+                                                                        className="text-indigo-600 hover:text-indigo-800 w-8 h-8 rounded-lg hover:bg-gray-100 flex items-center justify-center transition-colors cursor-pointer"
                                                                     >
                                                                         {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
                                                                     </button>
@@ -637,7 +637,7 @@ export function EditJobModal({ isOpen, onClose, onSave, job }: EditJobModalProps
                                                                             setExpandedBoards({ ...expandedBoards, [board.name]: false });
                                                                         }
                                                                     }}
-                                                                    className="w-5 h-5 text-[#800020] rounded border-gray-300 focus:ring-[#800020] cursor-pointer"
+                                                                    className="w-5 h-5 text-indigo-600 rounded border-gray-300 focus:ring-indigo-600 cursor-pointer"
                                                                 />
                                                             </div>
                                                         </div>
@@ -653,12 +653,12 @@ export function EditJobModal({ isOpen, onClose, onSave, job }: EditJobModalProps
                                                                 >
                                                                     <div className="p-5 space-y-4">
                                                                         <div className="flex items-center justify-between">
-                                                                            <h4 className="text-xs font-bold text-gray-700 uppercase tracking-wider">Customize for {board.name}</h4>
-                                                                            <span className="text-[9px] text-gray-400 font-bold uppercase tracking-wide">Defaults used if left blank</span>
+                                                                            <h4 className="text-xs font-bold text-slate-700 uppercase tracking-wider">Customize for {board.name}</h4>
+                                                                            <span className="text-[9px] text-slate-400 font-bold uppercase tracking-wide">Defaults used if left blank</span>
                                                                         </div>
 
                                                                         <div>
-                                                                            <label className="block text-[10px] font-bold text-gray-500 uppercase mb-1">Board-Specific Title</label>
+                                                                            <label className="block text-[10px] font-bold text-slate-500 uppercase mb-1">Board-Specific Title</label>
                                                                             <input
                                                                                 type="text"
                                                                                 value={boardDescriptions[board.name]?.title || ''}
@@ -667,13 +667,13 @@ export function EditJobModal({ isOpen, onClose, onSave, job }: EditJobModalProps
                                                                                     [board.name]: { ...boardDescriptions[board.name], title: e.target.value }
                                                                                 })}
                                                                                 placeholder={formData.title || 'Job title...'}
-                                                                                className="w-full px-3 py-2 bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#800020]/10 focus:border-[#800020] text-xs"
+                                                                                className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600/10 focus:border-indigo-600 text-xs"
                                                                             />
                                                                         </div>
 
                                                                         <div className="grid grid-cols-2 gap-3">
                                                                             <div>
-                                                                                <label className="block text-[10px] font-bold text-gray-500 uppercase mb-1">Location override</label>
+                                                                                <label className="block text-[10px] font-bold text-slate-500 uppercase mb-1">Location override</label>
                                                                                 <input
                                                                                     type="text"
                                                                                     value={boardDescriptions[board.name]?.location || ''}
@@ -682,11 +682,11 @@ export function EditJobModal({ isOpen, onClose, onSave, job }: EditJobModalProps
                                                                                         [board.name]: { ...boardDescriptions[board.name], location: e.target.value }
                                                                                     })}
                                                                                     placeholder={formData.location || 'Location...'}
-                                                                                    className="w-full px-3 py-2 bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#800020]/10 focus:border-[#800020] text-xs"
+                                                                                    className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600/10 focus:border-indigo-600 text-xs"
                                                                                 />
                                                                             </div>
                                                                             <div>
-                                                                                <label className="block text-[10px] font-bold text-gray-500 uppercase mb-1">Salary override</label>
+                                                                                <label className="block text-[10px] font-bold text-slate-500 uppercase mb-1">Salary override</label>
                                                                                 <input
                                                                                     type="text"
                                                                                     value={boardDescriptions[board.name]?.salary || ''}
@@ -695,13 +695,13 @@ export function EditJobModal({ isOpen, onClose, onSave, job }: EditJobModalProps
                                                                                         [board.name]: { ...boardDescriptions[board.name], salary: e.target.value }
                                                                                     })}
                                                                                     placeholder={formData.salary || 'Salary...'}
-                                                                                    className="w-full px-3 py-2 bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#800020]/10 focus:border-[#800020] text-xs"
+                                                                                    className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600/10 focus:border-indigo-600 text-xs"
                                                                                 />
                                                                             </div>
                                                                         </div>
 
                                                                         <div>
-                                                                            <label className="block text-[10px] font-bold text-gray-500 uppercase mb-1">Custom Description</label>
+                                                                            <label className="block text-[10px] font-bold text-slate-500 uppercase mb-1">Custom Description</label>
                                                                             <textarea
                                                                                 value={boardDescriptions[board.name]?.description || ''}
                                                                                 onChange={(e) => setBoardDescriptions({
@@ -710,7 +710,7 @@ export function EditJobModal({ isOpen, onClose, onSave, job }: EditJobModalProps
                                                                                 })}
                                                                                 placeholder={formData.description || 'Provide board-specific details...'}
                                                                                 rows={4}
-                                                                                className="w-full px-3 py-2 bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#800020]/10 focus:border-[#800020] text-xs resize-none"
+                                                                                className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600/10 focus:border-indigo-600 text-xs resize-none"
                                                                             />
                                                                         </div>
 
@@ -729,7 +729,7 @@ export function EditJobModal({ isOpen, onClose, onSave, job }: EditJobModalProps
                                                                                         }
                                                                                     });
                                                                                 }}
-                                                                                className="text-[10px] text-gray-500 hover:text-gray-800 font-extrabold cursor-pointer"
+                                                                                className="text-[10px] text-slate-500 hover:text-slate-800 font-extrabold cursor-pointer"
                                                                             >
                                                                                 RESET TO DEFAULTS
                                                                             </button>
@@ -739,7 +739,7 @@ export function EditJobModal({ isOpen, onClose, onSave, job }: EditJobModalProps
                                                                                     toast.success(`Job listing customization for ${board.name} saved!`);
                                                                                     setExpandedBoards({ ...expandedBoards, [board.name]: false });
                                                                                 }}
-                                                                                className="px-3.5 py-1.5 bg-[#800020] text-white rounded-lg text-xs font-bold hover:bg-[#600018] transition-colors cursor-pointer"
+                                                                                className="px-3.5 py-1.5 bg-indigo-600 text-white rounded-lg text-xs font-bold hover:bg-indigo-800 transition-colors cursor-pointer"
                                                                             >
                                                                                 SAVE BOARD SETUP
                                                                             </button>
@@ -758,41 +758,41 @@ export function EditJobModal({ isOpen, onClose, onSave, job }: EditJobModalProps
                                             <motion.div
                                                 initial={{ opacity: 0, y: 10 }}
                                                 animate={{ opacity: 1, y: 0 }}
-                                                className="bg-gray-50 border border-gray-200 rounded-xl p-5"
+                                                className="bg-gray-50 border border-slate-200 rounded-xl p-5"
                                             >
                                                 <div className="flex items-center justify-between mb-4">
-                                                    <h4 className="text-xs font-bold text-gray-700 uppercase tracking-wider">Configure Custom Channel</h4>
+                                                    <h4 className="text-xs font-bold text-slate-700 uppercase tracking-wider">Configure Custom Channel</h4>
                                                     <button
                                                         type="button"
                                                         onClick={() => setIsAddingBoard(false)}
-                                                        className="text-gray-400 hover:text-gray-700 cursor-pointer"
+                                                        className="text-slate-400 hover:text-slate-700 cursor-pointer"
                                                     >
                                                         <X className="w-4 h-4" />
                                                     </button>
                                                 </div>
                                                 <div className="grid grid-cols-2 gap-4">
                                                     <div>
-                                                        <label className="block text-[10px] font-bold text-gray-500 uppercase mb-2">Board Name *</label>
+                                                        <label className="block text-[10px] font-bold text-slate-500 uppercase mb-2">Board Name *</label>
                                                         <input
                                                             type="text"
                                                             value={newBoardName}
                                                             onChange={(e) => setNewBoardName(e.target.value)}
-                                                            className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#800020]/15 focus:border-[#800020] text-xs font-medium"
+                                                            className="w-full px-4 py-2.5 bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-600/15 focus:border-indigo-600 text-xs font-medium"
                                                             placeholder="e.g. Dribbble Jobs"
                                                         />
                                                     </div>
                                                     <div>
-                                                        <label className="block text-[10px] font-bold text-gray-500 uppercase mb-2">Endpoint URL (Optional)</label>
+                                                        <label className="block text-[10px] font-bold text-slate-500 uppercase mb-2">Endpoint URL (Optional)</label>
                                                         <input
                                                             type="text"
                                                             value={newBoardUrl}
                                                             onChange={(e) => setNewBoardUrl(e.target.value)}
-                                                            className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#800020]/15 focus:border-[#800020] text-xs font-medium"
+                                                            className="w-full px-4 py-2.5 bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-600/15 focus:border-indigo-600 text-xs font-medium"
                                                             placeholder="e.g. https://dribbble.com/jobs"
                                                         />
                                                     </div>
                                                 </div>
-                                                <div className="flex items-center gap-3.5 mt-4 pt-3 border-t border-gray-200/60">
+                                                <div className="flex items-center gap-3.5 mt-4 pt-3 border-t border-slate-200/60">
                                                     <button
                                                         type="button"
                                                         onClick={() => {
@@ -808,7 +808,7 @@ export function EditJobModal({ isOpen, onClose, onSave, job }: EditJobModalProps
                                                                 toast.success(`Custom board ${newBoardName} added!`);
                                                             }
                                                         }}
-                                                        className="flex items-center gap-1.5 px-4 py-2 bg-[#800020] text-white rounded-lg hover:bg-[#600018] text-xs font-bold transition-all cursor-pointer"
+                                                        className="flex items-center gap-1.5 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-800 text-xs font-bold transition-all cursor-pointer"
                                                     >
                                                         <Save className="w-3.5 h-3.5" />
                                                         Add Channel
@@ -816,7 +816,7 @@ export function EditJobModal({ isOpen, onClose, onSave, job }: EditJobModalProps
                                                     <button
                                                         type="button"
                                                         onClick={() => setIsAddingBoard(false)}
-                                                        className="px-4 py-2 bg-white hover:bg-gray-100 border border-gray-200 text-gray-600 rounded-lg text-xs font-bold transition-colors cursor-pointer"
+                                                        className="px-4 py-2 bg-white hover:bg-gray-100 border border-slate-200 text-slate-600 rounded-lg text-xs font-bold transition-colors cursor-pointer"
                                                     >
                                                         Cancel
                                                     </button>
@@ -828,9 +828,9 @@ export function EditJobModal({ isOpen, onClose, onSave, job }: EditJobModalProps
                                                 whileTap={{ scale: 0.99 }}
                                                 type="button"
                                                 onClick={() => setIsAddingBoard(true)}
-                                                className="flex items-center gap-2 px-4 py-3 border border-dashed border-gray-255 rounded-xl text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-all w-full justify-center text-xs font-bold cursor-pointer  bg-white"
+                                                className="flex items-center gap-2 px-4 py-3 border border-dashed border-gray-255 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-gray-50 transition-all w-full justify-center text-xs font-bold cursor-pointer  bg-white"
                                             >
-                                                <Plus className="w-4 h-4 text-[#800020]" />
+                                                <Plus className="w-4 h-4 text-indigo-600" />
                                                 ADD NEW SYNDICATION CHANNEL
                                             </motion.button>
                                         )}
@@ -840,26 +840,26 @@ export function EditJobModal({ isOpen, onClose, onSave, job }: EditJobModalProps
                                 {/* RECRUITERS TAB */}
                                 {activeTab === 'recruiters' && (
                                     <div className="max-w-3xl space-y-6">
-                                        <div className="flex items-start gap-3 p-4 bg-[#F5E6E8]/70 border border-[#800020]/15 rounded-xl text-xs font-semibold text-[#800020] leading-relaxed ">
-                                            <Info className="w-4 h-4 text-[#800020] flex-shrink-0 mt-0.5" />
+                                        <div className="flex items-start gap-3 p-4 bg-indigo-50/70 border border-indigo-600/15 rounded-xl text-xs font-semibold text-indigo-600 leading-relaxed ">
+                                            <Info className="w-4 h-4 text-indigo-600 flex-shrink-0 mt-0.5" />
                                             <p>Assign dedicated recruiters who will be responsible for screening, reviewing applications, and conducting phone screenings for this position.</p>
                                         </div>
 
                                         <div className="grid grid-cols-1 gap-3.5">
                                             {['Sarah Johnson', 'Michael Chen', 'Emily Rodriguez', 'David Kim'].map((recruiter) => (
-                                                <div key={recruiter} className="bg-white border border-gray-150 rounded-xl p-4 flex items-center justify-between hover:border-[#800020]/40 transition-colors ">
+                                                <div key={recruiter} className="bg-white border border-gray-150 rounded-xl p-4 flex items-center justify-between hover:border-indigo-600/40 transition-colors ">
                                                     <div className="flex items-center gap-3.5">
-                                                        <div className="w-10 h-10 bg-primary   rounded-xl flex items-center justify-center text-white font-bold text-sm ">
+                                                        <div className="w-10 h-10 bg-indigo-600   rounded-xl flex items-center justify-center text-white font-bold text-sm ">
                                                             {recruiter.split(' ').map(n => n[0]).join('')}
                                                         </div>
                                                         <div>
-                                                            <p className="text-sm font-bold text-gray-900">{recruiter}</p>
-                                                            <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider mt-0.5">recruiter@mployus.com</p>
+                                                            <p className="text-sm font-bold text-slate-900">{recruiter}</p>
+                                                            <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mt-0.5">recruiter@mployus.com</p>
                                                         </div>
                                                     </div>
                                                     <input
                                                         type="checkbox"
-                                                        className="w-5 h-5 text-[#800020] border-gray-300 rounded focus:ring-[#800020] cursor-pointer"
+                                                        className="w-5 h-5 text-indigo-600 border-gray-300 rounded focus:ring-indigo-600 cursor-pointer"
                                                     />
                                                 </div>
                                             ))}
@@ -870,8 +870,8 @@ export function EditJobModal({ isOpen, onClose, onSave, job }: EditJobModalProps
                                 {/* HIRING FLOW TAB */}
                                 {activeTab === 'hiring-flow' && (
                                     <div className="max-w-3xl space-y-6">
-                                        <div className="flex items-start gap-3 p-4 bg-[#F5E6E8]/70 border border-[#800020]/15 rounded-xl text-xs font-semibold text-[#800020] leading-relaxed ">
-                                            <Info className="w-4 h-4 text-[#800020] flex-shrink-0 mt-0.5" />
+                                        <div className="flex items-start gap-3 p-4 bg-indigo-50/70 border border-indigo-600/15 rounded-xl text-xs font-semibold text-indigo-600 leading-relaxed ">
+                                            <Info className="w-4 h-4 text-indigo-600 flex-shrink-0 mt-0.5" />
                                             <p>Configure the Kanban stages applicants will move through during the active hiring process for this specific job pipeline.</p>
                                         </div>
 
@@ -879,15 +879,15 @@ export function EditJobModal({ isOpen, onClose, onSave, job }: EditJobModalProps
                                             {hiringStages.map((stage) => (
                                                 <motion.div
                                                     key={stage.id}
-                                                    className="bg-white border border-gray-150 rounded-xl p-4 hover:border-[#800020]/25 transition-all "
+                                                    className="bg-white border border-gray-150 rounded-xl p-4 hover:border-indigo-600/25 transition-all "
                                                 >
                                                     <div className="flex items-center justify-between">
                                                         <div className="flex items-center gap-4 flex-1 min-w-0">
                                                             <GripVertical className="w-4 h-4 text-gray-300 cursor-move" />
-                                                            <div className="w-9 h-9 bg-gray-50 border border-gray-150 rounded-lg flex items-center justify-center text-gray-500 flex-shrink-0">
-                                                                <GitBranch className="w-4 h-4 text-[#800020]" />
+                                                            <div className="w-9 h-9 bg-gray-50 border border-gray-150 rounded-lg flex items-center justify-center text-slate-500 flex-shrink-0">
+                                                                <GitBranch className="w-4 h-4 text-indigo-600" />
                                                             </div>
-                                                            <span className="text-xs font-extrabold text-gray-900 tracking-tight truncate">{stage.name}</span>
+                                                            <span className="text-xs font-extrabold text-slate-900 tracking-tight truncate">{stage.name}</span>
                                                         </div>
 
                                                         <div className="flex items-center gap-4">
@@ -903,7 +903,7 @@ export function EditJobModal({ isOpen, onClose, onSave, job }: EditJobModalProps
                                                                     }}
                                                                     className="sr-only peer"
                                                                 />
-                                                                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-[#800020]/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#800020]"></div>
+                                                                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-600/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
                                                             </label>
 
                                                             <button
@@ -929,13 +929,13 @@ export function EditJobModal({ isOpen, onClose, onSave, job }: EditJobModalProps
                                                 icon: "circle",
                                                 enabled: true
                                             }])}
-                                            className="flex items-center gap-2 px-4 py-3 border border-dashed border-gray-250 rounded-xl text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-all w-full justify-center text-xs font-bold cursor-pointer  bg-white"
+                                            className="flex items-center gap-2 px-4 py-3 border border-dashed border-gray-250 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-gray-50 transition-all w-full justify-center text-xs font-bold cursor-pointer  bg-white"
                                         >
-                                            <Plus className="w-4 h-4 text-[#800020]" />
+                                            <Plus className="w-4 h-4 text-indigo-600" />
                                             ADD PIPELINE STAGE
                                         </motion.button>
 
-                                        <div className="flex items-center gap-2 p-3 bg-gray-50 border border-gray-150 rounded-xl text-[10px] text-gray-500 font-bold uppercase tracking-wider">
+                                        <div className="flex items-center gap-2 p-3 bg-gray-50 border border-gray-150 rounded-xl text-[10px] text-slate-500 font-bold uppercase tracking-wider">
                                             <AlertCircle className="w-4 h-4 text-orange-400 flex-shrink-0" />
                                             <span>Hired and Rejected milestones are automatically added as the final stages of your job pipeline.</span>
                                         </div>
@@ -945,8 +945,8 @@ export function EditJobModal({ isOpen, onClose, onSave, job }: EditJobModalProps
                                 {/* HIRING TEAM TAB */}
                                 {activeTab === 'team' && (
                                     <div className="max-w-3xl space-y-6">
-                                        <div className="flex items-start gap-3 p-4 bg-[#F5E6E8]/70 border border-[#800020]/15 rounded-xl text-xs font-semibold text-[#800020] text-rose-800 leading-relaxed ">
-                                            <Info className="w-4 h-4 text-[#800020] flex-shrink-0 mt-0.5" />
+                                        <div className="flex items-start gap-3 p-4 bg-indigo-50/70 border border-indigo-600/15 rounded-xl text-xs font-semibold text-indigo-600 text-rose-800 leading-relaxed ">
+                                            <Info className="w-4 h-4 text-indigo-600 flex-shrink-0 mt-0.5" />
                                             <p>Add collaborative hiring team members. They can be invited to leave comments on applications, grade technical tasks, and rate interviews.</p>
                                         </div>
 
@@ -959,12 +959,12 @@ export function EditJobModal({ isOpen, onClose, onSave, job }: EditJobModalProps
                                                     className="bg-white border border-gray-150 rounded-xl p-4 flex items-center justify-between "
                                                 >
                                                     <div className="flex items-center gap-3.5">
-                                                        <div className="w-10 h-10 bg-primary  via-[#A52A2A]  rounded-xl flex items-center justify-center text-white font-bold text-sm ">
+                                                        <div className="w-10 h-10 bg-indigo-600  via-[#003E6B]  rounded-xl flex items-center justify-center text-white font-bold text-sm ">
                                                             {member.name.split(' ').map(n => n[0]).join('')}
                                                         </div>
                                                         <div>
-                                                            <p className="text-sm font-bold text-gray-900">{member.name}</p>
-                                                            <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider mt-0.5">
+                                                            <p className="text-sm font-bold text-slate-900">{member.name}</p>
+                                                            <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mt-0.5">
                                                                 {member.role} • {member.email}
                                                             </p>
                                                         </div>
@@ -998,9 +998,9 @@ export function EditJobModal({ isOpen, onClose, onSave, job }: EditJobModalProps
                                                     toast.success(`Hiring team member ${name} added!`);
                                                 }
                                             }}
-                                            className="flex items-center gap-2 px-4 py-3 border border-dashed border-gray-250 rounded-xl text-gray-600 hover:text-gray-900 hover:bg-gray-55 transition-all w-full justify-center text-xs font-bold cursor-pointer  bg-white"
+                                            className="flex items-center gap-2 px-4 py-3 border border-dashed border-gray-250 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-gray-55 transition-all w-full justify-center text-xs font-bold cursor-pointer  bg-white"
                                         >
-                                            <Plus className="w-4 h-4 text-[#800020]" />
+                                            <Plus className="w-4 h-4 text-indigo-600" />
                                             INVITE TEAM MEMBER
                                         </motion.button>
                                     </div>
@@ -1009,8 +1009,8 @@ export function EditJobModal({ isOpen, onClose, onSave, job }: EditJobModalProps
                                 {/* EMAIL TEMPLATES TAB */}
                                 {activeTab === 'templates' && (
                                     <div className="max-w-3xl space-y-6">
-                                        <div className="flex items-start gap-3 p-4 bg-[#F5E6E8]/70 border border-[#800020]/15 rounded-xl text-xs font-semibold text-[#800020] leading-relaxed ">
-                                            <Info className="w-4 h-4 text-[#800020] flex-shrink-0 mt-0.5" />
+                                        <div className="flex items-start gap-3 p-4 bg-indigo-50/70 border border-indigo-600/15 rounded-xl text-xs font-semibold text-indigo-600 leading-relaxed ">
+                                            <Info className="w-4 h-4 text-indigo-600 flex-shrink-0 mt-0.5" />
                                             <p>Manage and customize the email templates that will be dispatched as triggers when applicants move into key stages of this job's pipeline.</p>
                                         </div>
 
@@ -1018,16 +1018,16 @@ export function EditJobModal({ isOpen, onClose, onSave, job }: EditJobModalProps
                                             {emailTemplates.map((template) => (
                                                 <div
                                                     key={template.id}
-                                                    className="bg-white border border-gray-150 rounded-xl p-4 hover:border-[#800020]/25 transition-all "
+                                                    className="bg-white border border-gray-150 rounded-xl p-4 hover:border-indigo-600/25 transition-all "
                                                 >
                                                     <div className="flex items-center justify-between">
                                                         <div className="flex items-center gap-3.5 flex-1 min-w-0">
-                                                            <div className="w-9 h-9 bg-gray-50 border border-gray-150 rounded-lg flex items-center justify-center text-gray-500 flex-shrink-0">
-                                                                <Mail className="w-4 h-4 text-[#800020]" />
+                                                            <div className="w-9 h-9 bg-gray-50 border border-gray-150 rounded-lg flex items-center justify-center text-slate-500 flex-shrink-0">
+                                                                <Mail className="w-4 h-4 text-indigo-600" />
                                                             </div>
                                                             <div className="min-w-0">
-                                                                <span className="text-xs font-extrabold text-gray-900 tracking-tight block truncate">{template.name}</span>
-                                                                <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">{template.category} Category</span>
+                                                                <span className="text-xs font-extrabold text-slate-900 tracking-tight block truncate">{template.name}</span>
+                                                                <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">{template.category} Category</span>
                                                             </div>
                                                         </div>
 
@@ -1044,7 +1044,7 @@ export function EditJobModal({ isOpen, onClose, onSave, job }: EditJobModalProps
                                                                     }}
                                                                     className="sr-only peer"
                                                                 />
-                                                                <div className="w-11 h-6 bg-gray-255 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-[#800020]/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#800020]"></div>
+                                                                <div className="w-11 h-6 bg-gray-255 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-600/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
                                                             </label>
 
                                                             <button
@@ -1083,9 +1083,9 @@ export function EditJobModal({ isOpen, onClose, onSave, job }: EditJobModalProps
                                                     toast.success(`Custom template ${name} created!`);
                                                 }
                                             }}
-                                            className="flex items-center gap-2 px-4 py-3 border border-dashed border-gray-255 rounded-xl text-gray-650 hover:text-gray-900 hover:bg-gray-55 transition-all w-full justify-center text-xs font-bold cursor-pointer  bg-white"
+                                            className="flex items-center gap-2 px-4 py-3 border border-dashed border-gray-255 rounded-xl text-gray-650 hover:text-slate-900 hover:bg-gray-55 transition-all w-full justify-center text-xs font-bold cursor-pointer  bg-white"
                                         >
-                                            <Plus className="w-4 h-4 text-[#800020]" />
+                                            <Plus className="w-4 h-4 text-indigo-600" />
                                             CREATE NEW EMAIL TEMPLATE
                                         </motion.button>
 
@@ -1094,51 +1094,129 @@ export function EditJobModal({ isOpen, onClose, onSave, job }: EditJobModalProps
                                             <motion.div
                                                 initial={{ opacity: 0, y: 15 }}
                                                 animate={{ opacity: 1, y: 0 }}
-                                                className="mt-8 p-6 bg-gray-50 rounded-2xl border border-gray-200 "
+                                                className="mt-8 p-6 bg-gray-50 rounded-2xl border border-slate-200 w-full"
                                             >
-                                                <div className="flex items-center justify-between mb-4 pb-3 border-b border-gray-200">
-                                                    <h4 className="text-xs font-bold text-gray-700 uppercase tracking-wider">Edit Email Template</h4>
+                                                <div className="flex items-center justify-between mb-4 pb-3 border-b border-slate-200">
+                                                    <h4 className="text-xs font-bold text-slate-700 uppercase tracking-wider">Edit Email Template</h4>
                                                     <button
                                                         type="button"
                                                         onClick={() => setIsEditingTemplate(false)}
-                                                        className="text-gray-400 hover:text-gray-700 cursor-pointer"
+                                                        className="text-slate-400 hover:text-slate-700 cursor-pointer"
                                                     >
                                                         <X className="w-4 h-4" />
                                                     </button>
                                                 </div>
-                                                <div className="space-y-4">
-                                                    <div>
-                                                        <label className="block text-[10px] font-bold text-gray-500 uppercase mb-2">Template Name</label>
-                                                        <input
-                                                            type="text"
-                                                            value={selectedTemplate.name}
-                                                            onChange={(e) => setSelectedTemplate({ ...selectedTemplate, name: e.target.value })}
-                                                            className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#800020]/15 focus:border-[#800020] text-xs font-medium"
-                                                        />
+                                                <div className="flex flex-col lg:flex-row gap-6">
+                                                    {/* Left Form Controls */}
+                                                    <div className="w-full lg:w-1/2 space-y-4">
+                                                        <div>
+                                                            <label className="block text-[10px] font-bold text-slate-500 uppercase mb-2">Template Name</label>
+                                                            <input
+                                                                type="text"
+                                                                value={selectedTemplate.name}
+                                                                onChange={(e) => setSelectedTemplate({ ...selectedTemplate, name: e.target.value })}
+                                                                className="w-full px-4 py-2.5 bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-600/15 focus:border-indigo-600 text-xs font-medium"
+                                                            />
+                                                        </div>
+                                                        <div>
+                                                            <label className="block text-[10px] font-bold text-slate-500 uppercase mb-2">Email Subject Line</label>
+                                                            <input
+                                                                type="text"
+                                                                value={selectedTemplate.subject}
+                                                                onChange={(e) => setSelectedTemplate({ ...selectedTemplate, subject: e.target.value })}
+                                                                className="w-full px-4 py-2.5 bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-600/15 focus:border-indigo-600 text-xs font-medium"
+                                                            />
+                                                        </div>
+                                                        <div>
+                                                            <label className="block text-[10px] font-bold text-slate-500 uppercase mb-2">Email Message Body</label>
+                                                            <textarea
+                                                                value={selectedTemplate.body}
+                                                                onChange={(e) => setSelectedTemplate({ ...selectedTemplate, body: e.target.value })}
+                                                                rows={7}
+                                                                className="w-full px-4 py-2.5 bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-600/15 focus:border-indigo-600 text-xs font-medium resize-none leading-relaxed"
+                                                            />
+                                                            <span className="text-[9px] text-slate-400 font-bold uppercase tracking-wide mt-2 block">
+                                                                Available Variables: {"{{applicant_name}}"}, {"{{job_title}}"}, {"{{company_name}}"}, {"{{interview_date}}"}
+                                                            </span>
+                                                        </div>
                                                     </div>
-                                                    <div>
-                                                        <label className="block text-[10px] font-bold text-gray-500 uppercase mb-2">Email Subject Line</label>
-                                                        <input
-                                                            type="text"
-                                                            value={selectedTemplate.subject}
-                                                            onChange={(e) => setSelectedTemplate({ ...selectedTemplate, subject: e.target.value })}
-                                                            className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#800020]/15 focus:border-[#800020] text-xs font-medium"
-                                                        />
-                                                    </div>
-                                                    <div>
-                                                        <label className="block text-[10px] font-bold text-gray-500 uppercase mb-2">Email Message Body</label>
-                                                        <textarea
-                                                            value={selectedTemplate.body}
-                                                            onChange={(e) => setSelectedTemplate({ ...selectedTemplate, body: e.target.value })}
-                                                            rows={7}
-                                                            className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#800020]/15 focus:border-[#800020] text-xs font-medium resize-none leading-relaxed"
-                                                        />
-                                                        <span className="text-[9px] text-gray-400 font-bold uppercase tracking-wide mt-2 block">
-                                                            Available Variables: {"{{applicant_name}}"}, {"{{job_title}}"}, {"{{company_name}}"}, {"{{interview_date}}"}
-                                                        </span>
+
+                                                    {/* Right live branded corporate email template preview */}
+                                                    <div className="w-full lg:w-1/2 bg-white border border-slate-200 rounded-2xl overflow-hidden flex flex-col shadow-sm">
+                                                        <div className="px-4 py-2 border-b border-slate-100 bg-slate-50 flex items-center justify-between">
+                                                            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Live Corporate Preview</span>
+                                                            <div className="flex items-center gap-1">
+                                                                <div className="w-1.5 h-1.5 rounded-full bg-red-400"></div>
+                                                                <div className="w-1.5 h-1.5 rounded-full bg-amber-400"></div>
+                                                                <div className="w-1.5 h-1.5 rounded-full bg-green-400"></div>
+                                                            </div>
+                                                        </div>
+                                                        <div className="p-4 bg-slate-50/50 border-b border-slate-100 text-xs font-semibold text-slate-650 space-y-1">
+                                                            <p><span className="text-slate-400">From:</span> recruitment@mployus.com</p>
+                                                            <p><span className="text-slate-400">Subject:</span> {selectedTemplate.subject.replace(/\{\{job_title\}\}/g, "Senior Product Designer")}</p>
+                                                        </div>
+                                                        <div className="p-6 bg-slate-100 flex-1 overflow-y-auto min-h-[300px]">
+                                                            {(() => {
+                                                                const customName = localStorage.getItem("mployus_company_name") || "MployUs Inc.";
+                                                                const customLogo = localStorage.getItem("mployus_company_logo") || null;
+                                                                const customColor = localStorage.getItem("mployus_theme_color") || "#4f46e5";
+                                                                return (
+                                                                    <div className="max-w-md mx-auto bg-white rounded-xl shadow-premium border border-slate-200/40 overflow-hidden">
+                                                                        {/* Corporate Banner Banner */}
+                                                                        <div 
+                                                                            className="px-6 py-5 text-white flex items-center justify-between"
+                                                                            style={{ backgroundColor: customColor }}
+                                                                        >
+                                                                            <div className="flex items-center gap-2">
+                                                                                {customLogo ? (
+                                                                                    <div className="w-7 h-7 bg-white rounded-lg flex items-center justify-center overflow-hidden border border-white/20">
+                                                                                        <img src={customLogo} alt="Logo" className="w-full h-full object-contain" />
+                                                                                    </div>
+                                                                                ) : (
+                                                                                    <div className="w-7 h-7 bg-white/10 rounded-lg flex items-center justify-center border border-white/20">
+                                                                                        <Briefcase className="w-4 h-4 text-white" />
+                                                                                    </div>
+                                                                                )}
+                                                                                <span className="text-xs font-black tracking-wider uppercase font-sans">{customName}</span>
+                                                                            </div>
+                                                                            <span className="text-[9px] font-bold text-white/80 uppercase tracking-widest">Notification</span>
+                                                                        </div>
+                                                                        <div className="p-6 text-left">
+                                                                            {selectedTemplate.body.split('\n').map((line: string, i: number) => (
+                                                                                <p key={i} className="mb-2.5 text-xs text-slate-700 leading-relaxed font-semibold">
+                                                                                    {line.replace(/\{\{applicant_name\}\}/g, "Sarah Chen")
+                                                                                         .replace(/\{\{job_title\}\}/g, "Senior Product Designer")
+                                                                                         .replace(/\{\{company_name\}\}/g, customName)
+                                                                                         .replace(/\{\{interview_date\}\}/g, "July 16, 2026")
+                                                                                         .replace(/\{\{interview_time\}\}/g, "10:00 AM EST")
+                                                                                         .replace(/\{\{interview_location\}\}/g, "MployUs HQ (Google Meet)")
+                                                                                         .replace(/\{\{hiring_manager\}\}/g, "John Doe")
+                                                                                    }
+                                                                                </p>
+                                                                            ))}
+                                                                            <div className="mt-6 mb-4 text-center">
+                                                                                <button 
+                                                                                    type="button" 
+                                                                                    className="px-5 py-2.5 text-white rounded-xl text-[10px] font-extrabold transition-all cursor-pointer shadow-md"
+                                                                                    style={{ backgroundColor: customColor }}
+                                                                                >
+                                                                                    Confirm Details / View Portal
+                                                                                </button>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div className="px-6 py-4.5 bg-slate-50 border-t border-slate-100 text-[9px] text-slate-400 text-center font-semibold">
+                                                                            <p>© 2026 {customName}. All rights reserved.</p>
+                                                                            <p className="mt-1">
+                                                                                <span className="hover:text-indigo-650 cursor-pointer">Website</span> · <span className="hover:text-indigo-650 cursor-pointer">Help Center</span> · <span className="hover:text-indigo-650 cursor-pointer">Opt Out</span>
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+                                                                );
+                                                            })()}
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div className="flex items-center gap-3.5 mt-5 pt-4 border-t border-gray-200">
+                                                <div className="flex items-center gap-3.5 mt-5 pt-4 border-t border-slate-200">
                                                     <button
                                                         type="button"
                                                         onClick={() => {
@@ -1149,7 +1227,7 @@ export function EditJobModal({ isOpen, onClose, onSave, job }: EditJobModalProps
                                                             setIsEditingTemplate(false);
                                                             toast.success(`Template "${selectedTemplate.name}" updated!`);
                                                         }}
-                                                        className="flex items-center gap-1.5 px-4 py-2 bg-[#800020] text-white rounded-lg hover:bg-[#600018] text-xs font-bold transition-all cursor-pointer"
+                                                        className="flex items-center gap-1.5 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-800 text-xs font-bold transition-all cursor-pointer"
                                                     >
                                                         <Save className="w-3.5 h-3.5" />
                                                         Save Changes
@@ -1157,7 +1235,7 @@ export function EditJobModal({ isOpen, onClose, onSave, job }: EditJobModalProps
                                                     <button
                                                         type="button"
                                                         onClick={() => setIsEditingTemplate(false)}
-                                                        className="px-4 py-2 bg-white hover:bg-gray-100 border border-gray-250 text-gray-655 rounded-lg text-xs font-bold transition-colors cursor-pointer"
+                                                        className="px-4 py-2 bg-white hover:bg-gray-100 border border-gray-250 text-slate-600 rounded-lg text-xs font-bold transition-colors cursor-pointer"
                                                     >
                                                         Cancel
                                                     </button>
@@ -1169,11 +1247,11 @@ export function EditJobModal({ isOpen, onClose, onSave, job }: EditJobModalProps
                             </div>
 
                             {/* Footer */}
-                            <div className="flex items-center justify-end gap-3.5 p-6 border-t border-gray-100 bg-gray-50 flex-shrink-0">
+                            <div className="flex items-center justify-end gap-3.5 p-6 border-t border-slate-100 bg-gray-50 flex-shrink-0">
                                 <button
                                     type="button"
                                     onClick={onClose}
-                                    className="px-5 py-2.5 rounded-xl border border-gray-250 text-gray-700 bg-white hover:bg-gray-55 transition-all font-bold text-xs  cursor-pointer tracking-wider"
+                                    className="px-5 py-2.5 rounded-xl border border-gray-250 text-slate-700 bg-white hover:bg-gray-55 transition-all font-bold text-xs  cursor-pointer tracking-wider"
                                 >
                                     CANCEL
                                 </button>
@@ -1182,7 +1260,7 @@ export function EditJobModal({ isOpen, onClose, onSave, job }: EditJobModalProps
                                     whileTap={{ scale: 0.98 }}
                                     type="button"
                                     onClick={handleSubmit}
-                                    className="flex items-center gap-2 px-6 py-2.5 bg-[#800020] hover:bg-[#600018] text-white rounded-xl transition-all font-extrabold text-xs  border border-[#800020]/10 hover: cursor-pointer tracking-wider"
+                                    className="flex items-center gap-2 px-6 py-2.5 bg-indigo-600 hover:bg-indigo-800 text-white rounded-xl transition-all font-extrabold text-xs  border border-indigo-600/10 hover: cursor-pointer tracking-wider"
                                 >
                                     <Save className="w-4 h-4" />
                                     SAVE JOB CHANGES

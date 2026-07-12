@@ -38,28 +38,28 @@ export function HelpCenterPage() {
         <div className="p-8 text-left">
             <div className="max-w-[1200px] mx-auto">
                 {/* Header */}
-                <div className="text-center mb-12 bg-primary /40 to-transparent p-10 rounded-3xl border border-[#800020]/5 ">
+                <div className="text-center mb-12 bg-indigo-600 /40 to-transparent p-10 rounded-3xl border border-indigo-600/5 ">
                     <motion.div
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.4 }}
                     >
-                        <h1 className="text-4xl font-black text-gray-950 mb-3 tracking-tight flex items-center justify-center gap-2">
+                        <h1 className="text-4xl font-black text-slate-900 mb-3 tracking-tight flex items-center justify-center gap-2">
                             How can we help you?
-                            <Sparkles className="w-6 h-6 text-[#800020] animate-pulse" />
+                            <Sparkles className="w-6 h-6 text-indigo-600 animate-pulse" />
                         </h1>
-                        <p className="text-sm text-gray-500 mb-8 font-semibold">Search our knowledge base or browse help categories below.</p>
+                        <p className="text-sm text-slate-500 mb-8 font-semibold">Search our knowledge base or browse help categories below.</p>
                     </motion.div>
 
                     {/* Search Bar */}
                     <div className="max-w-[600px] mx-auto relative">
-                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
                         <input
                             type="text"
                             placeholder="Type keywords to search articles (e.g., pipeline, billing)..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="w-full pl-12 pr-4 py-4 border border-gray-250 rounded-2xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-[#800020] focus:border-transparent bg-white  transition-all"
+                            className="w-full pl-12 pr-4 py-4 border border-gray-250 rounded-2xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent bg-white  transition-all"
                         />
                     </div>
                 </div>
@@ -69,43 +69,43 @@ export function HelpCenterPage() {
                     <motion.button 
                         whileHover={{ y: -4 }}
                         onClick={() => showToast("Opening Video Tutorial Library...")}
-                        className="p-6 bg-white rounded-2xl border border-gray-200/80  hover: hover:border-[#800020]/30 transition-all group text-left cursor-pointer"
+                        className="p-6 bg-white rounded-2xl border border-slate-200/80  hover: hover:border-indigo-600/30 transition-all group text-left cursor-pointer"
                     >
-                        <div className="w-12 h-12 bg-[#F5E6E8] rounded-xl flex items-center justify-center mb-4 border border-[#800020]/10  group-hover:bg-[#800020] transition-colors">
-                            <Video className="w-6 h-6 text-[#800020] group-hover:text-white transition-colors" />
+                        <div className="w-12 h-12 bg-indigo-50 rounded-xl flex items-center justify-center mb-4 border border-indigo-600/10  group-hover:bg-indigo-600 transition-colors">
+                            <Video className="w-6 h-6 text-indigo-600 group-hover:text-white transition-colors" />
                         </div>
-                        <h3 className="text-gray-955 mb-1.5 font-black text-base">Video Tutorials</h3>
-                        <p className="text-xs text-gray-500 font-semibold leading-relaxed">Learn features visually through guided screencasts and webinars.</p>
+                        <h3 className="text-slate-900 font-extrabold mb-1.5 font-black text-base">Video Tutorials</h3>
+                        <p className="text-xs text-slate-500 font-semibold leading-relaxed">Learn features visually through guided screencasts and webinars.</p>
                     </motion.button>
 
                     <motion.button 
                         whileHover={{ y: -4 }}
                         onClick={() => showToast("Redirecting to support ticket portal...")}
-                        className="p-6 bg-white rounded-2xl border border-gray-200/80  hover: hover:border-[#800020]/30 transition-all group text-left cursor-pointer"
+                        className="p-6 bg-white rounded-2xl border border-slate-200/80  hover: hover:border-indigo-600/30 transition-all group text-left cursor-pointer"
                     >
-                        <div className="w-12 h-12 bg-[#F5E6E8] rounded-xl flex items-center justify-center mb-4 border border-[#800020]/10  group-hover:bg-[#800020] transition-colors">
-                            <MessageCircle className="w-6 h-6 text-[#800020] group-hover:text-white transition-colors" />
+                        <div className="w-12 h-12 bg-indigo-50 rounded-xl flex items-center justify-center mb-4 border border-indigo-600/10  group-hover:bg-indigo-600 transition-colors">
+                            <MessageCircle className="w-6 h-6 text-indigo-600 group-hover:text-white transition-colors" />
                         </div>
-                        <h3 className="text-gray-955 mb-1.5 font-black text-base">Contact Support</h3>
-                        <p className="text-xs text-gray-500 font-semibold leading-relaxed">Submit a ticket and get help from our technical support team.</p>
+                        <h3 className="text-slate-900 font-extrabold mb-1.5 font-black text-base">Contact Support</h3>
+                        <p className="text-xs text-slate-500 font-semibold leading-relaxed">Submit a ticket and get help from our technical support team.</p>
                     </motion.button>
 
                     <motion.button 
                         whileHover={{ y: -4 }}
                         onClick={() => showToast("Opening Technical Docs...")}
-                        className="p-6 bg-white rounded-2xl border border-gray-200/80  hover: hover:border-[#800020]/30 transition-all group text-left cursor-pointer"
+                        className="p-6 bg-white rounded-2xl border border-slate-200/80  hover: hover:border-indigo-600/30 transition-all group text-left cursor-pointer"
                     >
-                        <div className="w-12 h-12 bg-[#F5E6E8] rounded-xl flex items-center justify-center mb-4 border border-[#800020]/10  group-hover:bg-[#800020] transition-colors">
-                            <FileText className="w-6 h-6 text-[#800020] group-hover:text-white transition-colors" />
+                        <div className="w-12 h-12 bg-indigo-50 rounded-xl flex items-center justify-center mb-4 border border-indigo-600/10  group-hover:bg-indigo-600 transition-colors">
+                            <FileText className="w-6 h-6 text-indigo-600 group-hover:text-white transition-colors" />
                         </div>
-                        <h3 className="text-gray-955 mb-1.5 font-black text-base">API Documentation</h3>
-                        <p className="text-xs text-gray-500 font-semibold leading-relaxed">Integrate other platforms using webhooks and custom API tokens.</p>
+                        <h3 className="text-slate-900 font-extrabold mb-1.5 font-black text-base">API Documentation</h3>
+                        <p className="text-xs text-slate-500 font-semibold leading-relaxed">Integrate other platforms using webhooks and custom API tokens.</p>
                     </motion.button>
                 </div>
 
                 {/* Browse by Category */}
                 <div className="mb-12">
-                    <h2 className="text-xl font-black text-gray-900 mb-6 uppercase tracking-wider">Browse Help Topics</h2>
+                    <h2 className="text-xl font-black text-slate-900 mb-6 uppercase tracking-wider">Browse Help Topics</h2>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                         {categories.map((category, idx) => {
                             const Icon = category.icon;
@@ -114,7 +114,7 @@ export function HelpCenterPage() {
                                     key={category.title}
                                     whileHover={{ y: -4, scale: 1.01 }}
                                     onClick={() => showToast(`Loading articles in "${category.title}"...`)}
-                                    className="p-6 bg-white rounded-2xl border border-gray-200/80  hover: hover:border-[#800020]/25 transition-all text-left cursor-pointer flex flex-col justify-between"
+                                    className="p-6 bg-white rounded-2xl border border-slate-200/80  hover: hover:border-indigo-600/25 transition-all text-left cursor-pointer flex flex-col justify-between"
                                 >
                                     <div>
                                         <div className="flex items-start justify-between mb-4">
@@ -123,9 +123,9 @@ export function HelpCenterPage() {
                                             </div>
                                             <ExternalLink className="w-4 h-4 text-gray-300" />
                                         </div>
-                                        <h3 className="text-gray-955 mb-1 font-bold text-base">{category.title}</h3>
+                                        <h3 className="text-slate-900 font-extrabold mb-1 font-bold text-base">{category.title}</h3>
                                     </div>
-                                    <p className="text-xs text-gray-400 font-bold mt-4 uppercase tracking-wider">{category.count} Articles available</p>
+                                    <p className="text-xs text-slate-400 font-bold mt-4 uppercase tracking-wider">{category.count} Articles available</p>
                                 </motion.button>
                             );
                         })}
@@ -134,17 +134,17 @@ export function HelpCenterPage() {
 
                 {/* Popular Articles */}
                 <div>
-                    <h2 className="text-xl font-black text-gray-900 mb-6 uppercase tracking-wider">
+                    <h2 className="text-xl font-black text-slate-900 mb-6 uppercase tracking-wider">
                         {searchQuery ? "Search Results" : "Most Popular Articles"}
                     </h2>
-                    <div className="bg-white rounded-2xl border border-gray-200/80  divide-y divide-gray-100 overflow-hidden">
+                    <div className="bg-white rounded-2xl border border-slate-200/80  divide-y divide-gray-100 overflow-hidden">
                         <AnimatePresence mode="popLayout">
                             {filteredArticles.length === 0 ? (
                                 <motion.div 
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
                                     exit={{ opacity: 0 }}
-                                    className="p-10 text-center text-gray-400 font-bold text-sm"
+                                    className="p-10 text-center text-slate-400 font-bold text-sm"
                                 >
                                     No articles match your query. Try different terms.
                                 </motion.div>
@@ -159,19 +159,19 @@ export function HelpCenterPage() {
                                         className="w-full p-5 flex items-center justify-between hover:bg-rose-50/15 transition-all text-left cursor-pointer group"
                                     >
                                         <div className="flex items-start gap-4 flex-1 min-w-0">
-                                            <div className="w-10 h-10 bg-gray-50 rounded-xl flex items-center justify-center flex-shrink-0 border border-gray-200/60  text-gray-500 group-hover:bg-[#800020]/10 group-hover:text-[#800020] transition-colors">
+                                            <div className="w-10 h-10 bg-gray-50 rounded-xl flex items-center justify-center flex-shrink-0 border border-slate-200/60  text-slate-500 group-hover:bg-indigo-600/10 group-hover:text-indigo-600 transition-colors">
                                                 <BookOpen className="w-5 h-5" />
                                             </div>
                                             <div className="min-w-0 flex-1">
-                                                <h3 className="text-gray-955 mb-1 font-bold text-base truncate group-hover:text-[#800020] transition-colors">{article.title}</h3>
-                                                <div className="flex items-center gap-3 text-xs text-gray-400 font-semibold">
-                                                    <span className="text-[#800020] bg-rose-50 px-2 py-0.5 rounded border border-[#800020]/10 text-[10px] uppercase tracking-wider">{article.category}</span>
+                                                <h3 className="text-slate-900 font-extrabold mb-1 font-bold text-base truncate group-hover:text-indigo-600 transition-colors">{article.title}</h3>
+                                                <div className="flex items-center gap-3 text-xs text-slate-400 font-semibold">
+                                                    <span className="text-indigo-600 bg-rose-50 px-2 py-0.5 rounded border border-indigo-600/10 text-[10px] uppercase tracking-wider">{article.category}</span>
                                                     <span>•</span>
                                                     <span>{article.readTime} reading time</span>
                                                 </div>
                                             </div>
                                         </div>
-                                        <ArrowRight className="w-4 h-4 text-gray-300 group-hover:text-[#800020] group-hover:translate-x-1.5 transition-all flex-shrink-0" />
+                                        <ArrowRight className="w-4 h-4 text-gray-300 group-hover:text-indigo-600 group-hover:translate-x-1.5 transition-all flex-shrink-0" />
                                     </motion.button>
                                 ))
                             )}
@@ -180,7 +180,7 @@ export function HelpCenterPage() {
                 </div>
 
                 {/* Still Need Help */}
-                <div className="mt-12 bg-primary   rounded-2xl p-8 text-center text-white  border border-[#800020]/15 relative overflow-hidden">
+                <div className="mt-12 bg-indigo-600   rounded-2xl p-8 text-center text-white  border border-indigo-600/15 relative overflow-hidden">
                     <div className="relative z-10">
                         <h2 className="text-2xl font-black mb-2 tracking-tight">Still need assistance?</h2>
                         <p className="text-sm text-gray-200 mb-6 font-semibold max-w-md mx-auto leading-relaxed">Our support engineers are available to resolve technical issues and configure custom setups.</p>
@@ -188,7 +188,7 @@ export function HelpCenterPage() {
                             whileHover={{ scale: 1.02 }}
                             whileTap={{ scale: 0.98 }}
                             onClick={() => showToast("Redirecting to support desk...")}
-                            className="px-6 py-3 bg-white text-[#800020] rounded-xl font-black text-sm  cursor-pointer hover:bg-gray-55 transition-all border border-white/20"
+                            className="px-6 py-3 bg-white text-indigo-600 rounded-xl font-black text-sm  cursor-pointer hover:bg-gray-55 transition-all border border-white/20"
                         >
                             Contact Support Team
                         </motion.button>

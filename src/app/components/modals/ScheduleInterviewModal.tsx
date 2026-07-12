@@ -30,21 +30,21 @@ export function ScheduleInterviewModal({ isOpen, onClose }: ScheduleInterviewMod
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
             <div className="bg-white rounded-2xl  w-full max-w-2xl max-h-[90vh] overflow-hidden">
                 {/* Header */}
-                <div className="flex items-center justify-between p-6 border-b border-gray-200">
+                <div className="flex items-center justify-between p-6 border-b border-slate-200">
                     <div className="flex items-center gap-3">
                         <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
                             <Calendar className="w-5 h-5 text-blue-600" />
                         </div>
                         <div>
-                            <h2 className="text-gray-900">Schedule Interview</h2>
-                            <p className="text-sm text-gray-500">Set up a new interview</p>
+                            <h2 className="text-slate-900">Schedule Interview</h2>
+                            <p className="text-sm text-slate-500">Set up a new interview</p>
                         </div>
                     </div>
                     <button
                         onClick={onClose}
                         className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-100 transition-colors"
                     >
-                        <X className="w-5 h-5 text-gray-500" />
+                        <X className="w-5 h-5 text-slate-500" />
                     </button>
                 </div>
 
@@ -53,7 +53,7 @@ export function ScheduleInterviewModal({ isOpen, onClose }: ScheduleInterviewMod
                     <div className="space-y-5">
                         {/* Candidate */}
                         <div>
-                            <label className="block text-sm text-gray-700 mb-2">Candidate *</label>
+                            <label className="block text-sm text-slate-700 mb-2">Candidate *</label>
                             <select
                                 required
                                 value={formData.candidate}
@@ -71,7 +71,7 @@ export function ScheduleInterviewModal({ isOpen, onClose }: ScheduleInterviewMod
                         {/* Date & Time */}
                         <div className="grid grid-cols-2 gap-4">
                             <div>
-                                <label className="block text-sm text-gray-700 mb-2">
+                                <label className="block text-sm text-slate-700 mb-2">
                                     <Calendar className="w-4 h-4 inline mr-1" />
                                     Date *
                                 </label>
@@ -84,7 +84,7 @@ export function ScheduleInterviewModal({ isOpen, onClose }: ScheduleInterviewMod
                                 />
                             </div>
                             <div>
-                                <label className="block text-sm text-gray-700 mb-2">
+                                <label className="block text-sm text-slate-700 mb-2">
                                     <Clock className="w-4 h-4 inline mr-1" />
                                     Time *
                                 </label>
@@ -101,7 +101,7 @@ export function ScheduleInterviewModal({ isOpen, onClose }: ScheduleInterviewMod
                         {/* Duration & Type */}
                         <div className="grid grid-cols-2 gap-4">
                             <div>
-                                <label className="block text-sm text-gray-700 mb-2">Duration *</label>
+                                <label className="block text-sm text-slate-700 mb-2">Duration *</label>
                                 <select
                                     value={formData.duration}
                                     onChange={(e) => setFormData({ ...formData, duration: e.target.value })}
@@ -116,7 +116,7 @@ export function ScheduleInterviewModal({ isOpen, onClose }: ScheduleInterviewMod
                                 </select>
                             </div>
                             <div>
-                                <label className="block text-sm text-gray-700 mb-2">Interview Type *</label>
+                                <label className="block text-sm text-slate-700 mb-2">Interview Type *</label>
                                 <select
                                     value={formData.type}
                                     onChange={(e) => setFormData({ ...formData, type: e.target.value })}
@@ -131,7 +131,7 @@ export function ScheduleInterviewModal({ isOpen, onClose }: ScheduleInterviewMod
 
                         {/* Location/Link */}
                         <div>
-                            <label className="block text-sm text-gray-700 mb-2">
+                            <label className="block text-sm text-slate-700 mb-2">
                                 {formData.type === "video" ? (
                                     <><Video className="w-4 h-4 inline mr-1" />Meeting Link</>
                                 ) : (
@@ -149,7 +149,7 @@ export function ScheduleInterviewModal({ isOpen, onClose }: ScheduleInterviewMod
 
                         {/* Interviewers */}
                         <div>
-                            <label className="block text-sm text-gray-700 mb-2">
+                            <label className="block text-sm text-slate-700 mb-2">
                                 <Users className="w-4 h-4 inline mr-1" />
                                 Interviewers *
                             </label>
@@ -165,7 +165,7 @@ export function ScheduleInterviewModal({ isOpen, onClose }: ScheduleInterviewMod
 
                         {/* Notes */}
                         <div>
-                            <label className="block text-sm text-gray-700 mb-2">Interview Notes</label>
+                            <label className="block text-sm text-slate-700 mb-2">Interview Notes</label>
                             <textarea
                                 value={formData.notes}
                                 onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
@@ -183,7 +183,7 @@ export function ScheduleInterviewModal({ isOpen, onClose }: ScheduleInterviewMod
                                 defaultChecked
                                 className="w-4 h-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500"
                             />
-                            <label htmlFor="sendInvite" className="flex items-center gap-2 text-sm text-gray-700">
+                            <label htmlFor="sendInvite" className="flex items-center gap-2 text-sm text-slate-700">
                                 <Mail className="w-4 h-4 text-blue-600" />
                                 Send calendar invite to candidate and interviewers
                             </label>
@@ -191,11 +191,11 @@ export function ScheduleInterviewModal({ isOpen, onClose }: ScheduleInterviewMod
                     </div>
 
                     {/* Footer */}
-                    <div className="flex items-center justify-end gap-3 mt-6 pt-6 border-t border-gray-200">
+                    <div className="flex items-center justify-end gap-3 mt-6 pt-6 border-t border-slate-200">
                         <button
                             type="button"
                             onClick={onClose}
-                            className="px-5 py-2.5 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors"
+                            className="px-5 py-2.5 rounded-lg text-slate-700 hover:bg-gray-100 transition-colors"
                         >
                             Cancel
                         </button>

@@ -202,15 +202,15 @@ export function TemplatesPage() {
             {/* Header */}
             <div className="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
-                    <h1 className="text-3xl text-gray-900 mb-2 font-black tracking-tight">Email Templates</h1>
-                    <p className="text-gray-500 font-medium">Create, customize, and manage beautiful email templates for candidate and applicant communication.</p>
+                    <h1 className="text-3xl text-slate-900 mb-2 font-black tracking-tight">Email Templates</h1>
+                    <p className="text-slate-500 font-medium">Create, customize, and manage beautiful email templates for candidate and applicant communication.</p>
                 </div>
                 {!isEditingTemplate && !isPreviewMode && (
                     <motion.button
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                         onClick={handleCreateNewTemplate}
-                        className="flex items-center gap-2 px-5 py-3 bg-primary   text-white rounded-xl hover: transition-all font-bold text-sm cursor-pointer border border-[#800020]/20 "
+                        className="flex items-center gap-2 px-5 py-3 bg-indigo-600   text-white rounded-xl hover: transition-all font-bold text-sm cursor-pointer border border-indigo-600/20 "
                     >
                         <Plus className="w-5 h-5 stroke-[2.5]" />
                         New Template
@@ -220,17 +220,17 @@ export function TemplatesPage() {
 
             {/* Actions Bar */}
             {!isEditingTemplate && !isPreviewMode && (
-                <div className="mb-8 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 bg-white/50 backdrop-blur-md p-4 rounded-2xl border border-gray-200/60 ">
+                <div className="mb-8 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 bg-white/50 backdrop-blur-md p-4 rounded-2xl border border-slate-200/60 ">
                     <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 flex-1">
                         {/* Search */}
                         <div className="relative flex-1 max-w-md">
-                            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
                             <input
                                 type="text"
                                 placeholder="Search templates by name or subject..."
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
-                                className="w-full pl-11 pr-4 py-2.5 border border-gray-200/80 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#800020] focus:border-transparent  bg-white font-medium"
+                                className="w-full pl-11 pr-4 py-2.5 border border-slate-200/80 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent  bg-white font-medium"
                             />
                         </div>
 
@@ -239,17 +239,17 @@ export function TemplatesPage() {
                             <select
                                 value={filterCategory}
                                 onChange={(e) => setFilterCategory(e.target.value)}
-                                className="pl-4 pr-10 py-2.5 border border-gray-200/80 rounded-xl text-sm font-bold appearance-none focus:outline-none focus:ring-2 focus:ring-[#800020] focus:border-transparent bg-white  cursor-pointer text-gray-700 min-w-[150px]"
+                                className="pl-4 pr-10 py-2.5 border border-slate-200/80 rounded-xl text-sm font-bold appearance-none focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent bg-white  cursor-pointer text-slate-700 min-w-[150px]"
                             >
                                 {categories.map(cat => (
                                     <option key={cat} value={cat}>{cat} Category</option>
                                 ))}
                             </select>
-                            <ChevronDown className="absolute right-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
+                            <ChevronDown className="absolute right-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
                         </div>
                     </div>
 
-                    <div className="text-xs font-bold text-gray-400 self-end md:self-auto bg-gray-50 px-3 py-1.5 rounded-lg border border-gray-100">
+                    <div className="text-xs font-bold text-slate-400 self-end md:self-auto bg-gray-50 px-3 py-1.5 rounded-lg border border-slate-100">
                         {filteredTemplates.length} {filteredTemplates.length === 1 ? "Template" : "Templates"} Found
                     </div>
                 </div>
@@ -272,41 +272,41 @@ export function TemplatesPage() {
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.3, delay: idx * 0.05 }}
                                 whileHover={{ y: -4 }}
-                                className="bg-white border border-gray-200/80 rounded-2xl p-6 hover:border-[#800020]/40  hover: transition-all flex flex-col justify-between"
+                                className="bg-white border border-slate-200/80 rounded-2xl p-6 hover:border-indigo-600/40  hover: transition-all flex flex-col justify-between"
                             >
                                 <div>
                                     {/* Template Header */}
                                     <div className="flex items-start justify-between mb-4">
                                         <div className="flex items-center gap-3">
-                                            <div className="w-10 h-10 bg-[#F5E6E8] rounded-xl flex items-center justify-center flex-shrink-0  border border-[#800020]/10">
-                                                <Mail className="w-5 h-5 text-[#800020]" />
+                                            <div className="w-10 h-10 bg-indigo-50 rounded-xl flex items-center justify-center flex-shrink-0  border border-indigo-600/10">
+                                                <Mail className="w-5 h-5 text-indigo-600" />
                                             </div>
                                             <div className="min-w-0">
-                                                <h3 className="font-bold text-gray-900 truncate text-base mb-0.5">{template.name}</h3>
-                                                <span className="inline-flex items-center px-2 py-0.5 rounded-lg bg-rose-50 text-[#800020] text-xs font-extrabold border border-[#800020]/10">
+                                                <h3 className="font-bold text-slate-900 truncate text-base mb-0.5">{template.name}</h3>
+                                                <span className="inline-flex items-center px-2 py-0.5 rounded-lg bg-rose-50 text-indigo-600 text-xs font-extrabold border border-indigo-600/10">
                                                     {template.category}
                                                 </span>
                                             </div>
                                         </div>
                                         <div className="flex items-center gap-1.5">
                                             <div className={`w-2 h-2 rounded-full ${template.active ? 'bg-emerald-500 ring-4 ring-emerald-500/10' : 'bg-gray-300'}`} />
-                                            <span className="text-[11px] font-bold text-gray-400 uppercase tracking-wider">
+                                            <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
                                                 {template.active ? 'Active' : 'Draft'}
                                             </span>
                                         </div>
                                     </div>
 
                                     {/* Subject Preview */}
-                                    <div className="mb-4 bg-gray-50/70 p-3.5 rounded-xl border border-gray-100">
-                                        <p className="text-[10px] text-gray-400 mb-1 font-extrabold uppercase tracking-wider">Subject Line</p>
-                                        <p className="text-sm text-gray-800 truncate font-semibold">{template.subject}</p>
+                                    <div className="mb-4 bg-gray-50/70 p-3.5 rounded-xl border border-slate-100">
+                                        <p className="text-[10px] text-slate-400 mb-1 font-extrabold uppercase tracking-wider">Subject Line</p>
+                                        <p className="text-sm text-slate-800 truncate font-semibold">{template.subject}</p>
                                     </div>
                                 </div>
 
                                 <div>
                                     {/* Stats */}
-                                    <div className="flex items-center justify-between mb-4 pt-3 border-t border-gray-100">
-                                        <div className="flex items-center gap-1.5 text-xs font-bold text-gray-400">
+                                    <div className="flex items-center justify-between mb-4 pt-3 border-t border-slate-100">
+                                        <div className="flex items-center gap-1.5 text-xs font-bold text-slate-400">
                                             <FileText className="w-4 h-4" />
                                             <span>Used {template.usageCount || 0} times</span>
                                         </div>
@@ -318,7 +318,7 @@ export function TemplatesPage() {
                                             whileHover={{ scale: 1.01 }}
                                             whileTap={{ scale: 0.98 }}
                                             onClick={() => handleViewTemplate(template)}
-                                            className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2.5 bg-gray-50 text-gray-700 font-bold rounded-xl hover:bg-gray-100 transition-colors text-xs cursor-pointer border border-gray-200/60 "
+                                            className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2.5 bg-gray-50 text-slate-700 font-bold rounded-xl hover:bg-gray-100 transition-colors text-xs cursor-pointer border border-slate-200/60 "
                                         >
                                             <Eye className="w-3.5 h-3.5" />
                                             Preview
@@ -327,14 +327,14 @@ export function TemplatesPage() {
                                             whileHover={{ scale: 1.01 }}
                                             whileTap={{ scale: 0.98 }}
                                             onClick={() => handleEditTemplate(template)}
-                                            className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2.5 bg-primary   text-white font-bold rounded-xl hover: transition-all text-xs cursor-pointer "
+                                            className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2.5 bg-indigo-600   text-white font-bold rounded-xl hover: transition-all text-xs cursor-pointer "
                                         >
                                             <Edit className="w-3.5 h-3.5" />
                                             Edit
                                         </motion.button>
                                         <button
                                             onClick={() => handleDuplicateTemplate(template)}
-                                            className="p-2.5 bg-gray-50 hover:bg-gray-100 text-gray-500 rounded-xl transition-colors cursor-pointer border border-gray-200/60 "
+                                            className="p-2.5 bg-gray-50 hover:bg-gray-100 text-slate-500 rounded-xl transition-colors cursor-pointer border border-slate-200/60 "
                                             title="Duplicate Template"
                                         >
                                             <Copy className="w-3.5 h-3.5" />
@@ -357,15 +357,15 @@ export function TemplatesPage() {
                         initial={{ opacity: 0, scale: 0.98 }}
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, scale: 0.98 }}
-                        className="bg-white border border-gray-200/80 rounded-2xl p-8 max-w-4xl mx-auto "
+                        className="bg-white border border-slate-200/80 rounded-2xl p-8 max-w-4xl mx-auto "
                     >
-                        <div className="flex items-center justify-between mb-6 pb-6 border-b border-gray-100">
+                        <div className="flex items-center justify-between mb-6 pb-6 border-b border-slate-100">
                             <div>
-                                <h2 className="text-2xl font-black text-gray-900 flex items-center gap-2">
+                                <h2 className="text-2xl font-black text-slate-900 flex items-center gap-2">
                                     {selectedTemplate.name}
-                                    <Sparkles className="w-5 h-5 text-[#800020] animate-pulse" />
+                                    <Sparkles className="w-5 h-5 text-indigo-600 animate-pulse" />
                                 </h2>
-                                <span className="inline-flex items-center px-3 py-1 rounded-lg bg-rose-50 text-[#800020] text-xs font-black mt-2 border border-[#800020]/10 uppercase tracking-wide">
+                                <span className="inline-flex items-center px-3 py-1 rounded-lg bg-rose-50 text-indigo-600 text-xs font-black mt-2 border border-indigo-600/10 uppercase tracking-wide">
                                     {selectedTemplate.category} Template
                                 </span>
                             </div>
@@ -374,7 +374,7 @@ export function TemplatesPage() {
                                     whileHover={{ scale: 1.02 }}
                                     whileTap={{ scale: 0.98 }}
                                     onClick={() => handleEditTemplate(selectedTemplate)}
-                                    className="flex items-center gap-2 px-5 py-2.5 bg-primary   text-white rounded-xl transition-all font-bold text-sm  cursor-pointer"
+                                    className="flex items-center gap-2 px-5 py-2.5 bg-indigo-600   text-white rounded-xl transition-all font-bold text-sm  cursor-pointer"
                                 >
                                     <Edit className="w-4 h-4" />
                                     Edit Template
@@ -384,7 +384,7 @@ export function TemplatesPage() {
                                         setIsPreviewMode(false);
                                         setSelectedTemplate(null);
                                     }}
-                                    className="p-2.5 text-gray-500 hover:bg-gray-100 rounded-xl transition-colors cursor-pointer border border-gray-200"
+                                    className="p-2.5 text-slate-500 hover:bg-gray-100 rounded-xl transition-colors cursor-pointer border border-slate-200"
                                 >
                                     <X className="w-5 h-5" />
                                 </button>
@@ -393,24 +393,24 @@ export function TemplatesPage() {
 
                         <div className="space-y-6">
                             <div>
-                                <label className="block text-xs font-bold text-gray-400 mb-2 uppercase tracking-wider">Subject Line</label>
-                                <div className="px-5 py-4 bg-gray-50 rounded-xl border border-gray-200/80">
-                                    <p className="text-gray-900 font-bold text-base">{selectedTemplate.subject}</p>
+                                <label className="block text-xs font-bold text-slate-400 mb-2 uppercase tracking-wider">Subject Line</label>
+                                <div className="px-5 py-4 bg-gray-50 rounded-xl border border-slate-200/80">
+                                    <p className="text-slate-900 font-bold text-base">{selectedTemplate.subject}</p>
                                 </div>
                             </div>
 
                             <div>
-                                <label className="block text-xs font-bold text-gray-400 mb-2 uppercase tracking-wider">Email Body Preview</label>
-                                <div className="px-6 py-6 bg-gray-50 rounded-xl border border-gray-200/80 min-h-[250px] ">
-                                    <p className="text-gray-800 whitespace-pre-wrap leading-relaxed text-sm font-mono">{selectedTemplate.body}</p>
+                                <label className="block text-xs font-bold text-slate-400 mb-2 uppercase tracking-wider">Email Body Preview</label>
+                                <div className="px-6 py-6 bg-gray-50 rounded-xl border border-slate-200/80 min-h-[250px] ">
+                                    <p className="text-slate-800 whitespace-pre-wrap leading-relaxed text-sm font-mono">{selectedTemplate.body}</p>
                                 </div>
                             </div>
 
-                            <div className="bg-[#F5E6E8] border border-[#800020]/10 rounded-xl p-5 mt-6 flex items-start gap-3 text-[#800020]">
+                            <div className="bg-indigo-50 border border-indigo-600/10 rounded-xl p-5 mt-6 flex items-start gap-3 text-indigo-600">
                                 <Sparkles className="w-5 h-5 flex-shrink-0 mt-0.5" />
-                                <p className="text-xs leading-relaxed font-bold text-gray-700">
-                                    <strong className="font-extrabold text-[#800020] block mb-1 uppercase tracking-wider">Dynamic Fields Notice</strong>
-                                    All dynamic tokens formatted as <code className="font-mono bg-white/75 px-1 py-0.5 rounded border border-[#800020]/10 font-black text-xs">{"{{variable_name}}"}</code> will be auto-replaced with actual applicant records when sending messages.
+                                <p className="text-xs leading-relaxed font-bold text-slate-700">
+                                    <strong className="font-extrabold text-indigo-600 block mb-1 uppercase tracking-wider">Dynamic Fields Notice</strong>
+                                    All dynamic tokens formatted as <code className="font-mono bg-white/75 px-1 py-0.5 rounded border border-indigo-600/10 font-black text-xs">{"{{variable_name}}"}</code> will be auto-replaced with actual applicant records when sending messages.
                                 </p>
                             </div>
                         </div>
@@ -421,10 +421,10 @@ export function TemplatesPage() {
                         initial={{ opacity: 0, scale: 0.98 }}
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, scale: 0.98 }}
-                        className="bg-white border border-gray-200/80 rounded-2xl p-8 max-w-4xl mx-auto "
+                        className="bg-white border border-slate-200/80 rounded-2xl p-8 max-w-4xl mx-auto "
                     >
-                        <div className="flex items-center justify-between mb-6 pb-6 border-b border-gray-100">
-                            <h2 className="text-2xl font-black text-gray-900">
+                        <div className="flex items-center justify-between mb-6 pb-6 border-b border-slate-100">
+                            <h2 className="text-2xl font-black text-slate-900">
                                 {isCreatingTemplate ? "Create New Email Template" : "Edit Email Template"}
                             </h2>
                             <button
@@ -433,7 +433,7 @@ export function TemplatesPage() {
                                     setIsCreatingTemplate(false);
                                     setSelectedTemplate(null);
                                 }}
-                                className="p-2.5 text-gray-500 hover:bg-gray-100 rounded-xl transition-colors cursor-pointer border border-gray-200"
+                                className="p-2.5 text-slate-500 hover:bg-gray-100 rounded-xl transition-colors cursor-pointer border border-slate-200"
                             >
                                 <X className="w-5 h-5" />
                             </button>
@@ -442,22 +442,22 @@ export function TemplatesPage() {
                         <div className="space-y-6">
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
-                                    <label className="block text-sm font-bold text-gray-700 mb-2">Template Name *</label>
+                                    <label className="block text-sm font-bold text-slate-700 mb-2">Template Name *</label>
                                     <input
                                         type="text"
                                         value={selectedTemplate.name}
                                         onChange={(e) => setSelectedTemplate({ ...selectedTemplate, name: e.target.value })}
                                         placeholder="e.g. Technical Assessment Request"
-                                        className="w-full px-4 py-3 border border-gray-300 rounded-xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-[#800020] bg-white  transition-all"
+                                        className="w-full px-4 py-3 border border-gray-300 rounded-xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-600 bg-white  transition-all"
                                     />
                                 </div>
 
                                 <div>
-                                    <label className="block text-sm font-bold text-gray-700 mb-2">Category *</label>
+                                    <label className="block text-sm font-bold text-slate-700 mb-2">Category *</label>
                                     <select
                                         value={selectedTemplate.category}
                                         onChange={(e) => setSelectedTemplate({ ...selectedTemplate, category: e.target.value })}
-                                        className="w-full px-4 py-3 border border-gray-300 rounded-xl text-sm font-bold focus:outline-none focus:ring-2 focus:ring-[#800020] bg-white  transition-all text-gray-700 cursor-pointer"
+                                        className="w-full px-4 py-3 border border-gray-300 rounded-xl text-sm font-bold focus:outline-none focus:ring-2 focus:ring-indigo-600 bg-white  transition-all text-slate-700 cursor-pointer"
                                     >
                                         {categories.filter(c => c !== "All").map(cat => (
                                             <option key={cat} value={cat}>{cat}</option>
@@ -467,50 +467,50 @@ export function TemplatesPage() {
                             </div>
 
                             <div>
-                                <label className="block text-sm font-bold text-gray-700 mb-2">Email Subject *</label>
+                                <label className="block text-sm font-bold text-slate-700 mb-2">Email Subject *</label>
                                 <input
                                     type="text"
                                     value={selectedTemplate.subject}
                                     onChange={(e) => setSelectedTemplate({ ...selectedTemplate, subject: e.target.value })}
                                     placeholder="e.g. Next Steps: Interview Invitation - {{job_title}}"
-                                    className="w-full px-4 py-3 border border-gray-300 rounded-xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-[#800020] bg-white  transition-all"
+                                    className="w-full px-4 py-3 border border-gray-300 rounded-xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-600 bg-white  transition-all"
                                 />
                             </div>
 
                             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                                 {/* Editor Area */}
                                 <div className="lg:col-span-2 space-y-2">
-                                    <label className="block text-sm font-bold text-gray-700">Email Body Content *</label>
+                                    <label className="block text-sm font-bold text-slate-700">Email Body Content *</label>
                                     <textarea
                                         ref={textareaRef}
                                         value={selectedTemplate.body}
                                         onChange={(e) => setSelectedTemplate({ ...selectedTemplate, body: e.target.value })}
                                         placeholder="Dear {{applicant_name}},\n\nType the email message body here..."
                                         rows={14}
-                                        className="w-full p-4 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#800020] resize-none font-mono text-sm leading-relaxed bg-white  transition-all"
+                                        className="w-full p-4 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-600 resize-none font-mono text-sm leading-relaxed bg-white  transition-all"
                                     />
-                                    <div className="flex items-center gap-3 bg-gray-50/70 p-3.5 rounded-xl border border-gray-200/80 ">
+                                    <div className="flex items-center gap-3 bg-gray-50/70 p-3.5 rounded-xl border border-slate-200/80 ">
                                         <input
                                             type="checkbox"
                                             id="active"
                                             checked={selectedTemplate.active}
                                             onChange={(e) => setSelectedTemplate({ ...selectedTemplate, active: e.target.checked })}
-                                            className="w-5 h-5 text-[#800020] rounded border-gray-300 cursor-pointer focus:ring-[#800020] accent-[#800020]"
+                                            className="w-5 h-5 text-indigo-600 rounded border-gray-300 cursor-pointer focus:ring-indigo-600 accent-indigo-600"
                                         />
-                                        <label htmlFor="active" className="text-sm font-bold text-gray-700 cursor-pointer">
+                                        <label htmlFor="active" className="text-sm font-bold text-slate-700 cursor-pointer">
                                             Make this template active and available for all recruiters
                                         </label>
                                     </div>
                                 </div>
 
                                 {/* Dynamic Tokens Helper */}
-                                <div className="space-y-3 bg-gray-50/80 p-5 rounded-2xl border border-gray-200/80 ">
+                                <div className="space-y-3 bg-gray-50/80 p-5 rounded-2xl border border-slate-200/80 ">
                                     <div>
-                                        <h4 className="text-sm font-black text-gray-900 flex items-center gap-1.5 mb-1">
-                                            <Sparkles className="w-4 h-4 text-[#800020]" />
+                                        <h4 className="text-sm font-black text-slate-900 flex items-center gap-1.5 mb-1">
+                                            <Sparkles className="w-4 h-4 text-indigo-600" />
                                             Insert Tokens
                                         </h4>
-                                        <p className="text-[11px] text-gray-500 font-bold leading-normal">
+                                        <p className="text-[11px] text-slate-500 font-bold leading-normal">
                                             Click on any token below to insert it at your cursor's current position in the editor.
                                         </p>
                                     </div>
@@ -523,10 +523,10 @@ export function TemplatesPage() {
                                                 whileHover={{ scale: 1.02, x: 2 }}
                                                 whileTap={{ scale: 0.98 }}
                                                 onClick={() => insertToken(token.key)}
-                                                className="w-full flex items-center justify-between px-3.5 py-2 bg-white hover:bg-rose-50 hover:text-[#800020] rounded-xl border border-gray-200/80 text-left text-xs font-bold transition-all text-gray-700  cursor-pointer hover:border-[#800020]/30"
+                                                className="w-full flex items-center justify-between px-3.5 py-2 bg-white hover:bg-rose-50 hover:text-indigo-600 rounded-xl border border-slate-200/80 text-left text-xs font-bold transition-all text-slate-700  cursor-pointer hover:border-indigo-600/30"
                                             >
-                                                <code className="font-mono font-black text-[11px] text-[#800020]">{token.key}</code>
-                                                <span className="text-[10px] text-gray-400 font-bold">{token.label}</span>
+                                                <code className="font-mono font-black text-[11px] text-indigo-600">{token.key}</code>
+                                                <span className="text-[10px] text-slate-400 font-bold">{token.label}</span>
                                             </motion.button>
                                         ))}
                                     </div>
@@ -534,12 +534,12 @@ export function TemplatesPage() {
                             </div>
                         </div>
 
-                        <div className="flex items-center gap-3 mt-8 pt-6 border-t border-gray-200">
+                        <div className="flex items-center gap-3 mt-8 pt-6 border-t border-slate-200">
                             <motion.button
                                 whileHover={{ scale: 1.02 }}
                                 whileTap={{ scale: 0.98 }}
                                 onClick={handleSaveTemplate}
-                                className="flex items-center gap-2 px-6 py-3 bg-primary   text-white font-bold rounded-xl transition-all  cursor-pointer text-sm"
+                                className="flex items-center gap-2 px-6 py-3 bg-indigo-600   text-white font-bold rounded-xl transition-all  cursor-pointer text-sm"
                             >
                                 <Save className="w-4 h-4" />
                                 {isCreatingTemplate ? "Create Template" : "Save Template"}
@@ -550,7 +550,7 @@ export function TemplatesPage() {
                                     setIsCreatingTemplate(false);
                                     setSelectedTemplate(null);
                                 }}
-                                className="px-6 py-3 border border-gray-300 text-gray-700 font-bold hover:bg-gray-50 rounded-xl transition-colors cursor-pointer text-sm"
+                                className="px-6 py-3 border border-gray-300 text-slate-700 font-bold hover:bg-gray-50 rounded-xl transition-colors cursor-pointer text-sm"
                             >
                                 Cancel
                             </button>
@@ -564,13 +564,13 @@ export function TemplatesPage() {
                 <motion.div
                     initial={{ opacity: 0, scale: 0.98 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    className="text-center py-20 bg-white rounded-2xl border border-gray-200 p-8 "
+                    className="text-center py-20 bg-white rounded-2xl border border-slate-200 p-8 "
                 >
-                    <div className="w-20 h-20 bg-rose-50 rounded-2xl flex items-center justify-center text-[#800020] mx-auto mb-4 border border-[#800020]/10 ">
+                    <div className="w-20 h-20 bg-rose-50 rounded-2xl flex items-center justify-center text-indigo-600 mx-auto mb-4 border border-indigo-600/10 ">
                         <Mail className="w-10 h-10 stroke-[1.5]" />
                     </div>
-                    <h3 className="text-xl font-black text-gray-900 mb-2">No templates found</h3>
-                    <p className="text-gray-500 text-sm mb-6 max-w-sm mx-auto font-semibold leading-relaxed">
+                    <h3 className="text-xl font-black text-slate-900 mb-2">No templates found</h3>
+                    <p className="text-slate-500 text-sm mb-6 max-w-sm mx-auto font-semibold leading-relaxed">
                         {searchQuery || filterCategory !== "All"
                             ? "We couldn't find any templates matching your search criteria. Try modifying your filters."
                             : "Get started by creating your first automated email template for applicants."}
@@ -579,7 +579,7 @@ export function TemplatesPage() {
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                         onClick={handleCreateNewTemplate}
-                        className="inline-flex items-center gap-2 px-6 py-3 bg-primary   text-white rounded-xl transition-all font-bold text-sm  cursor-pointer"
+                        className="inline-flex items-center gap-2 px-6 py-3 bg-indigo-600   text-white rounded-xl transition-all font-bold text-sm  cursor-pointer"
                     >
                         <Plus className="w-5 h-5 stroke-[2.5]" />
                         Create Template
@@ -595,27 +595,27 @@ export function TemplatesPage() {
                             initial={{ opacity: 0, scale: 0.95, y: 10 }}
                             animate={{ opacity: 1, scale: 1, y: 0 }}
                             exit={{ opacity: 0, scale: 0.95, y: 10 }}
-                            className="bg-white rounded-2xl max-w-md w-full p-6  border border-gray-100 text-left"
+                            className="bg-white rounded-2xl max-w-md w-full p-6  border border-slate-100 text-left"
                         >
                             <div className="flex items-center gap-3 mb-4">
                                 <div className="w-10 h-10 rounded-xl bg-rose-50 flex items-center justify-center text-rose-600 flex-shrink-0 border border-rose-100">
                                     <AlertTriangle className="w-5 h-5" />
                                 </div>
                                 <div>
-                                    <h3 className="text-lg font-black text-gray-900">Confirm Template Deletion</h3>
-                                    <p className="text-xs text-gray-400 font-bold">This action cannot be undone</p>
+                                    <h3 className="text-lg font-black text-slate-900">Confirm Template Deletion</h3>
+                                    <p className="text-xs text-slate-400 font-bold">This action cannot be undone</p>
                                 </div>
                             </div>
 
-                            <div className="bg-gray-50 p-4 rounded-xl border border-gray-200/80 text-sm text-gray-600 mb-6 font-semibold leading-relaxed">
-                                Are you sure you want to delete <span className="font-bold text-gray-900">"{templateToDelete.name}"</span>? Any automated recruitment workflows using this template will fail.
+                            <div className="bg-gray-50 p-4 rounded-xl border border-slate-200/80 text-sm text-slate-600 mb-6 font-semibold leading-relaxed">
+                                Are you sure you want to delete <span className="font-bold text-slate-900">"{templateToDelete.name}"</span>? Any automated recruitment workflows using this template will fail.
                             </div>
 
-                            <div className="flex justify-end gap-3 pt-4 border-t border-gray-100">
+                            <div className="flex justify-end gap-3 pt-4 border-t border-slate-100">
                                 <button
                                     type="button"
                                     onClick={() => setTemplateToDelete(null)}
-                                    className="px-5 py-2.5 border border-gray-300 text-gray-500 font-bold rounded-xl hover:bg-gray-50 text-sm cursor-pointer transition-colors"
+                                    className="px-5 py-2.5 border border-gray-300 text-slate-500 font-bold rounded-xl hover:bg-gray-50 text-sm cursor-pointer transition-colors"
                                 >
                                     Cancel
                                 </button>
@@ -624,7 +624,7 @@ export function TemplatesPage() {
                                     whileTap={{ scale: 0.98 }}
                                     type="button"
                                     onClick={() => confirmDeleteTemplate(templateToDelete.id)}
-                                    className="px-6 py-2.5 bg-[#800020] text-white font-bold rounded-xl hover:bg-[#600018] text-sm  cursor-pointer transition-all"
+                                    className="px-6 py-2.5 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-800 text-sm  cursor-pointer transition-all"
                                 >
                                     Delete Template
                                 </motion.button>
