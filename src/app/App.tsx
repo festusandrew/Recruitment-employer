@@ -158,7 +158,7 @@ export default function App() {
       case "candidates":
         return <CandidatesPage onViewCandidate={handleViewCandidate} />;
       case "pipeline":
-        return <PipelinePage onAddJob={() => setIsAddJobModalOpen(true)} onNavigate={setActivePage} selectedJobId={selectedPipelineJob?.id} />;
+        return <PipelinePage onAddJob={() => setIsAddJobModalOpen(true)} onNavigate={setActivePage} selectedJobId={selectedPipelineJob?.id} onViewApplicantProfile={handleViewApplicantProfile} />;
       case "activity":
         return <ActivityPage />;
       case "tasks":

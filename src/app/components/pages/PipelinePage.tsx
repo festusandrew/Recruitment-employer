@@ -1,13 +1,15 @@
 import { useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { Plus, Search, Briefcase, ChevronDown, ChevronUp, Users, MoreHorizontal, X } from "lucide-react";
+import { Plus, Search, Briefcase, ChevronDown, ChevronUp, Users, MoreHorizontal, X, ArrowRight, CheckSquare, Square } from "lucide-react";
 import { toast } from "sonner";
 import { motion, AnimatePresence } from "motion/react";
+import { Applicant } from "../types";
 
 interface PipelinePageProps {
     onAddJob?: () => void;
     onNavigate?: (page: string) => void;
     selectedJobId?: number;
+    onViewApplicantProfile?: (applicant: Applicant) => void;
 }
 
 const mockJobs = [
@@ -74,11 +76,14 @@ const mockStages = [
 
 type StageType = typeof mockStages[0];
 
-export function PipelinePage({ onAddJob, onNavigate, selectedJobId }: PipelinePageProps) {
+export function PipelinePage({ onAddJob, onNavigate, selectedJobId, onViewApplicantProfile }: PipelinePageProps) {
     const displayedJobs = selectedJobId ? mockJobs.filter(job => job.id === selectedJobId) : mockJobs;
     const defaultJobId = displayedJobs.length > 0 ? displayedJobs[0].id : null;
     const [expandedJobId, setExpandedJobId] = useState<number | null>(defaultJobId);
     const [draggedApplicant, setDraggedApplicant] = useState<{ applicantId: number, sourceStageId: string, jobId: number } | null>(null);
+
+    // Multi-select state per job: Record<jobId, number[]> where numbers are applicant IDs
+    const [selectedApplicantIds, setSelectedApplicantIds] = useState<Record<number, number[]>>({});
 
     // Modal states
     const [isAddApplicantModalOpen, setIsAddApplicantModalOpen] = useState(false);
@@ -105,7 +110,157 @@ export function PipelinePage({ onAddJob, onNavigate, selectedJobId }: PipelinePa
         setExpandedJobId(prev => prev === id ? null : id);
     };
 
+    const toggleSelectApplicant = (jobId: number, applicantId: number) => {
+        setSelectedApplicantIds(prev => {
+            const currentSelected = prev[jobId] || [];
+            if (currentSelected.includes(applicantId)) {
+                return { ...prev, [jobId]: currentSelected.filter(id => id !== applicantId) };
+            } else {
+                return { ...prev, [jobId]: [...currentSelected, applicantId] };
+            }
+        });
+    };
+
+    const toggleSelectStageApplicants = (jobId: number, stageApplicantIds: number[]) => {
+        if (stageApplicantIds.length === 0) return;
+        setSelectedApplicantIds(prev => {
+            const currentSelected = prev[jobId] || [];
+            const allSelected = stageApplicantIds.every(id => currentSelected.includes(id));
+
+            if (allSelected) {
+                // Deselect all in stage
+                return { ...prev, [jobId]: currentSelected.filter(id => !stageApplicantIds.includes(id)) };
+            } else {
+                // Select all in stage
+                const newSet = new Set([...currentSelected, ...stageApplicantIds]);
+                return { ...prev, [jobId]: Array.from(newSet) };
+            }
+        });
+    };
+
+    const toggleSelectAllJobApplicants = (jobId: number, allJobApplicantIds: number[]) => {
+        setSelectedApplicantIds(prev => {
+            const currentSelected = prev[jobId] || [];
+            const allSelected = allJobApplicantIds.length > 0 && allJobApplicantIds.every(id => currentSelected.includes(id));
+            return { ...prev, [jobId]: allSelected ? [] : [...allJobApplicantIds] };
+        });
+    };
+
+    const handleMoveSelectedToTargetStage = (jobId: number, targetStageId: string) => {
+        const selectedIds = selectedApplicantIds[jobId] || [];
+        if (selectedIds.length === 0) return;
+
+        setPipelines(prev => {
+            const jobPipeline = [...prev[jobId]].map(stage => ({
+                ...stage,
+                applicants: [...stage.applicants]
+            }));
+
+            const targetStageObj = jobPipeline.find(s => s.id === targetStageId);
+            if (!targetStageObj) return prev;
+
+            const movedApplicants: any[] = [];
+
+            jobPipeline.forEach(stage => {
+                if (stage.id !== targetStageId) {
+                    const toMove = stage.applicants.filter(a => selectedIds.includes(a.id));
+                    if (toMove.length > 0) {
+                        stage.applicants = stage.applicants.filter(a => !selectedIds.includes(a.id));
+                        stage.count -= toMove.length;
+                        movedApplicants.push(...toMove);
+                    }
+                }
+            });
+
+            if (movedApplicants.length > 0) {
+                targetStageObj.applicants.push(...movedApplicants);
+                targetStageObj.count += movedApplicants.length;
+                toast.success(`Moved ${movedApplicants.length} selected applicant(s) to ${targetStageObj.name}!`);
+            }
+
+            return { ...prev, [jobId]: jobPipeline };
+        });
+
+        // Clear selection for this job
+        setSelectedApplicantIds(prev => ({ ...prev, [jobId]: [] }));
+    };
+
+    const handleMoveSelectedToNextStage = (jobId: number) => {
+        const selectedIds = selectedApplicantIds[jobId] || [];
+        if (selectedIds.length === 0) return;
+
+        setPipelines(prev => {
+            const jobPipeline = [...prev[jobId]].map(stage => ({
+                ...stage,
+                applicants: [...stage.applicants]
+            }));
+
+            let movedCount = 0;
+
+            for (let i = 0; i < jobPipeline.length - 1; i++) {
+                const currentStage = jobPipeline[i];
+                const nextStage = jobPipeline[i + 1];
+
+                const toMove = currentStage.applicants.filter(a => selectedIds.includes(a.id));
+                if (toMove.length > 0) {
+                    currentStage.applicants = currentStage.applicants.filter(a => !selectedIds.includes(a.id));
+                    currentStage.count -= toMove.length;
+
+                    nextStage.applicants.push(...toMove);
+                    nextStage.count += toMove.length;
+                    movedCount += toMove.length;
+                }
+            }
+
+            if (movedCount > 0) {
+                toast.success(`Moved ${movedCount} selected applicant(s) to their next stage!`);
+            } else {
+                toast.info("Selected applicants are already at the final stage!");
+            }
+
+            return { ...prev, [jobId]: jobPipeline };
+        });
+
+        // Clear selection for this job
+        setSelectedApplicantIds(prev => ({ ...prev, [jobId]: [] }));
+    };
+
+    const handleApplicantClick = (applicant: any, jobTitle: string) => {
+        if (onViewApplicantProfile) {
+            onViewApplicantProfile({
+                id: applicant.id,
+                name: applicant.name,
+                role: applicant.role,
+                avatar: applicant.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(applicant.name)}`,
+                appliedDate: "Recently",
+                status: "In Pipeline",
+                matchScore: applicant.match || 90,
+                match: applicant.match || 90,
+                email: `${applicant.name.toLowerCase().replace(/\s+/g, '.')}@example.com`,
+                phone: "+1 (555) 234-5678",
+                location: "San Francisco, CA",
+                experience: "5 years",
+                education: "B.S. Computer Science",
+                skills: ["React", "TypeScript", "UI/UX", "Tailwind CSS"],
+                appliedJob: jobTitle,
+                activeJob: jobTitle,
+                applied: "Recently",
+                summary: `${applicant.name} is an experienced ${applicant.role} currently in the pipeline for ${jobTitle}.`,
+                about: `Passionate ${applicant.role} dedicated to crafting scalable solutions and elegant user experiences.`,
+                resumeUrl: "#",
+                notes: "Candidate active in job pipeline."
+            });
+        } else {
+            toast.info(`Viewing profile for ${applicant.name}`);
+        }
+    };
+
     const handleDragStart = (e: React.DragEvent, applicantId: number, sourceStageId: string, jobId: number) => {
+        const currentSelected = selectedApplicantIds[jobId] || [];
+        // If dragged item is not part of selection, select just it or include it
+        if (!currentSelected.includes(applicantId)) {
+            setSelectedApplicantIds(prev => ({ ...prev, [jobId]: [applicantId] }));
+        }
         setDraggedApplicant({ applicantId, sourceStageId, jobId });
         e.dataTransfer.setData('text/plain', applicantId.toString());
         e.dataTransfer.effectAllowed = 'move';
@@ -127,30 +282,42 @@ export function PipelinePage({ onAddJob, onNavigate, selectedJobId }: PipelinePa
             return;
         }
 
+        const selectedIds = selectedApplicantIds[jobId] || [applicantId];
+        const idsToMove = selectedIds.length > 0 ? selectedIds : [applicantId];
+
         setPipelines(prev => {
-            const jobPipeline = [...prev[jobId]];
+            const jobPipeline = [...prev[jobId]].map(s => ({
+                ...s,
+                applicants: [...s.applicants]
+            }));
 
-            const sourceStageIndex = jobPipeline.findIndex(s => s.id === sourceStageId);
-            const targetStageIndex = jobPipeline.findIndex(s => s.id === targetStageId);
+            const targetStageObj = jobPipeline.find(s => s.id === targetStageId);
+            if (!targetStageObj) return prev;
 
-            const newSourceStage = { ...jobPipeline[sourceStageIndex], applicants: [...jobPipeline[sourceStageIndex].applicants] };
-            const newTargetStage = { ...jobPipeline[targetStageIndex], applicants: [...jobPipeline[targetStageIndex].applicants] };
+            const movedApplicants: any[] = [];
 
-            const applicantIndex = newSourceStage.applicants.findIndex(a => a.id === applicantId);
-            if (applicantIndex === -1) return prev;
+            jobPipeline.forEach(stage => {
+                if (stage.id !== targetStageId) {
+                    const toMove = stage.applicants.filter(a => idsToMove.includes(a.id));
+                    if (toMove.length > 0) {
+                        stage.applicants = stage.applicants.filter(a => !idsToMove.includes(a.id));
+                        stage.count -= toMove.length;
+                        movedApplicants.push(...toMove);
+                    }
+                }
+            });
 
-            const [applicant] = newSourceStage.applicants.splice(applicantIndex, 1);
-            newSourceStage.count--;
-
-            newTargetStage.applicants.push(applicant);
-            newTargetStage.count++;
-
-            jobPipeline[sourceStageIndex] = newSourceStage;
-            jobPipeline[targetStageIndex] = newTargetStage;
+            if (movedApplicants.length > 0) {
+                targetStageObj.applicants.push(...movedApplicants);
+                targetStageObj.count += movedApplicants.length;
+                toast.success(`Moved ${movedApplicants.length} applicant(s) to ${targetStageObj.name}!`);
+            }
 
             return { ...prev, [jobId]: jobPipeline };
         });
 
+        // Clear selection
+        setSelectedApplicantIds(prev => ({ ...prev, [jobId]: [] }));
         setDraggedApplicant(null);
     };
 
@@ -249,6 +416,7 @@ export function PipelinePage({ onAddJob, onNavigate, selectedJobId }: PipelinePa
                 {displayedJobs.map((job) => {
                     const isExpanded = expandedJobId === job.id;
                     const stages = pipelines[job.id];
+                    const currentSelectedIds = selectedApplicantIds[job.id] || [];
 
                     return (
                         <div 
@@ -312,8 +480,65 @@ export function PipelinePage({ onAddJob, onNavigate, selectedJobId }: PipelinePa
                                     >
                                         <div className="p-5">
                                             <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 gap-3">
-                                                <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Applicant Pipeline Stages</h4>
-                                                <div className="flex items-center gap-2">
+                                                <div className="flex items-center gap-3">
+                                                    <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Applicant Pipeline Stages</h4>
+                                                    {(() => {
+                                                        const allJobApplicantIds = stages.flatMap(s => s.applicants?.map(a => a.id) || []);
+                                                        const isAllSelected = allJobApplicantIds.length > 0 && allJobApplicantIds.every(id => currentSelectedIds.includes(id));
+                                                        return (
+                                                            <button
+                                                                onClick={() => toggleSelectAllJobApplicants(job.id, allJobApplicantIds)}
+                                                                className="text-xs text-indigo-600 hover:text-indigo-800 font-semibold flex items-center gap-1 bg-indigo-50 px-2.5 py-1 rounded-lg border border-indigo-100 transition-colors cursor-pointer"
+                                                            >
+                                                                <input 
+                                                                    type="checkbox" 
+                                                                    checked={isAllSelected} 
+                                                                    readOnly 
+                                                                    className="w-3.5 h-3.5 text-indigo-600 rounded cursor-pointer pointer-events-none" 
+                                                                />
+                                                                <span>{isAllSelected ? "Deselect All" : "Select All Cards"}</span>
+                                                            </button>
+                                                        );
+                                                    })()}
+                                                </div>
+                                                <div className="flex items-center gap-2 flex-wrap">
+                                                    {currentSelectedIds.length > 0 && (
+                                                        <div className="flex items-center gap-2 bg-indigo-50/80 border border-indigo-200 p-1.5 rounded-xl animate-in fade-in zoom-in-95">
+                                                            <span className="text-xs font-bold text-indigo-700 px-1">
+                                                                {currentSelectedIds.length} Selected
+                                                            </span>
+                                                            <select
+                                                                onChange={(e) => {
+                                                                    if (e.target.value) {
+                                                                        handleMoveSelectedToTargetStage(job.id, e.target.value);
+                                                                        e.target.value = "";
+                                                                    }
+                                                                }}
+                                                                defaultValue=""
+                                                                className="bg-white text-slate-700 text-xs font-semibold px-2.5 py-1 rounded-lg border border-indigo-200 focus:outline-none focus:ring-1 focus:ring-indigo-500 cursor-pointer"
+                                                            >
+                                                                <option value="" disabled>Move to stage...</option>
+                                                                {stages.map(stg => (
+                                                                    <option key={stg.id} value={stg.id}>{stg.name}</option>
+                                                                ))}
+                                                            </select>
+                                                            <button
+                                                                onClick={() => handleMoveSelectedToNextStage(job.id)}
+                                                                className="flex items-center gap-1 px-3 py-1 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors text-xs font-semibold cursor-pointer shadow-xs"
+                                                                title="Move all selected cards to their sequential next stage"
+                                                            >
+                                                                <ArrowRight className="w-3.5 h-3.5" />
+                                                                Next Stage
+                                                            </button>
+                                                            <button
+                                                                onClick={() => setSelectedApplicantIds(prev => ({ ...prev, [job.id]: [] }))}
+                                                                className="p-1 text-slate-400 hover:text-slate-600 rounded-md transition-colors cursor-pointer"
+                                                                title="Clear Selection"
+                                                            >
+                                                                <X className="w-4 h-4" />
+                                                            </button>
+                                                        </div>
+                                                    )}
                                                     <button 
                                                         onClick={() => {
                                                             setSelectedJobForCategory(job.id);
@@ -338,7 +563,11 @@ export function PipelinePage({ onAddJob, onNavigate, selectedJobId }: PipelinePa
                                             </div>
 
                                             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4 min-h-[260px] w-full pb-2 overflow-x-auto no-scrollbar">
-                                                {stages.map((stage) => (
+                                                {stages.map((stage) => {
+                                                    const stageApplicantIds = stage.applicants?.map(a => a.id) || [];
+                                                    const isStageAllSelected = stageApplicantIds.length > 0 && stageApplicantIds.every(id => currentSelectedIds.includes(id));
+                                                    
+                                                    return (
                                                     <div
                                                         key={stage.id}
                                                         className="flex flex-col h-full min-w-0"
@@ -349,6 +578,15 @@ export function PipelinePage({ onAddJob, onNavigate, selectedJobId }: PipelinePa
                                                         <div className="bg-white rounded-xl border border-gray-150  p-3 mb-2.5 flex-shrink-0">
                                                             <div className="flex items-center justify-between mb-2">
                                                                 <div className="flex items-center gap-1.5 min-w-0">
+                                                                    {stageApplicantIds.length > 0 && (
+                                                                        <input
+                                                                            type="checkbox"
+                                                                            checked={isStageAllSelected}
+                                                                            onChange={() => toggleSelectStageApplicants(job.id, stageApplicantIds)}
+                                                                            title={isStageAllSelected ? "Deselect column" : "Select all in column"}
+                                                                            className="w-3.5 h-3.5 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500 cursor-pointer flex-shrink-0"
+                                                                        />
+                                                                    )}
                                                                     <h3 className="text-[11px] font-bold text-gray-905 truncate tracking-wide uppercase">{stage.name}</h3>
                                                                     <span className={`px-1.5 py-0.2 rounded-md text-[9px] font-bold border ${stage.color} flex-shrink-0`}>
                                                                         {stage.count}
@@ -381,42 +619,71 @@ export function PipelinePage({ onAddJob, onNavigate, selectedJobId }: PipelinePa
 
                                                         {/* Applicants Cards Area */}
                                                         <div className="flex-1 space-y-2.5 max-h-[230px] overflow-y-auto pr-1 pb-2 scrollbar-thin scrollbar-thumb-gray-200">
-                                                            {stage.applicants?.map((applicant) => (
-                                                                <motion.div
-                                                                    key={applicant.id}
-                                                                    className={`bg-white rounded-xl border ${
-                                                                        draggedApplicant?.applicantId === applicant.id
-                                                                            ? 'border-indigo-600 opacity-45 scale-95'
-                                                                            : 'border-gray-150  hover:'
-                                                                    } transition-all duration-200 p-3 cursor-grab active:cursor-grabbing group`}
-                                                                    draggable
-                                                                    onDragStart={(e) => handleDragStart(e, applicant.id, stage.id, job.id)}
-                                                                    onDragEnd={() => setDraggedApplicant(null)}
-                                                                    whileHover={{ y: -2, scale: 1.01 }}
-                                                                    transition={{ duration: 0.15 }}
-                                                                >
-                                                                    <div className="flex items-start gap-2 mb-2 pointer-events-none">
-                                                                        <Avatar className="w-7.5 h-7.5 border border-slate-100 flex-shrink-0 ">
-                                                                            <AvatarFallback className="bg-indigo-50 text-indigo-700 font-extrabold text-[9px]">
-                                                                                {applicant.name.split(' ').map(n => n[0]).join('')}
-                                                                            </AvatarFallback>
-                                                                        </Avatar>
-                                                                        <div className="flex-1 min-w-0 pointer-events-none">
-                                                                            <h4 className="text-slate-900 font-bold text-xs truncate group-hover:text-indigo-600 transition-colors leading-tight">{applicant.name}</h4>
-                                                                            <p className="text-[9px] text-slate-500 truncate mt-0.5 font-medium">{applicant.role}</p>
+                                                            {stage.applicants?.map((applicant) => {
+                                                                const isSelected = currentSelectedIds.includes(applicant.id);
+                                                                return (
+                                                                    <motion.div
+                                                                        key={applicant.id}
+                                                                        className={`bg-white rounded-xl border ${
+                                                                            isSelected
+                                                                                ? 'border-indigo-600 bg-indigo-50/20 ring-1 ring-indigo-600/30'
+                                                                                : draggedApplicant?.applicantId === applicant.id
+                                                                                ? 'border-indigo-600 opacity-45 scale-95'
+                                                                                : 'border-gray-150 hover:border-gray-300'
+                                                                        } transition-all duration-200 p-3 cursor-grab active:cursor-grabbing group relative`}
+                                                                        draggable
+                                                                        onDragStart={(e) => handleDragStart(e, applicant.id, stage.id, job.id)}
+                                                                        onDragEnd={() => setDraggedApplicant(null)}
+                                                                        whileHover={{ y: -2, scale: 1.01 }}
+                                                                        transition={{ duration: 0.15 }}
+                                                                    >
+                                                                        <div className="flex items-start gap-2 mb-2">
+                                                                            <input
+                                                                                type="checkbox"
+                                                                                checked={isSelected}
+                                                                                onChange={(e) => {
+                                                                                    e.stopPropagation();
+                                                                                    toggleSelectApplicant(job.id, applicant.id);
+                                                                                }}
+                                                                                className="mt-1 w-3.5 h-3.5 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500 cursor-pointer flex-shrink-0"
+                                                                            />
+                                                                            <Avatar 
+                                                                                onClick={(e) => {
+                                                                                    e.stopPropagation();
+                                                                                    handleApplicantClick(applicant, job.title);
+                                                                                }}
+                                                                                className="w-7.5 h-7.5 border border-slate-100 flex-shrink-0 cursor-pointer hover:opacity-80 transition-opacity"
+                                                                            >
+                                                                                <AvatarImage src={applicant.avatar} />
+                                                                                <AvatarFallback className="bg-indigo-50 text-indigo-700 font-extrabold text-[9px]">
+                                                                                    {applicant.name.split(' ').map(n => n[0]).join('')}
+                                                                                </AvatarFallback>
+                                                                            </Avatar>
+                                                                            <div className="flex-1 min-w-0">
+                                                                                <h4 
+                                                                                    onClick={(e) => {
+                                                                                        e.stopPropagation();
+                                                                                        handleApplicantClick(applicant, job.title);
+                                                                                    }}
+                                                                                    className="text-slate-900 font-bold text-xs truncate hover:text-indigo-600 transition-colors leading-tight cursor-pointer underline-offset-2 hover:underline"
+                                                                                >
+                                                                                    {applicant.name}
+                                                                                </h4>
+                                                                                <p className="text-[9px] text-slate-500 truncate mt-0.5 font-medium">{applicant.role}</p>
+                                                                            </div>
                                                                         </div>
-                                                                    </div>
-                                                                    <div className="flex items-center justify-between pt-2 border-t border-slate-100 pointer-events-none">
-                                                                        <div className="flex items-center gap-1">
-                                                                            <div className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${
-                                                                                applicant.match >= 90 ? 'bg-emerald-500' :
-                                                                                applicant.match >= 85 ? 'bg-amber-500' : 'bg-orange-500'
-                                                                            }`}></div>
-                                                                            <span className="text-[9px] font-bold text-slate-600">{applicant.match}% match</span>
+                                                                        <div className="flex items-center justify-between pt-2 border-t border-slate-100">
+                                                                            <div className="flex items-center gap-1">
+                                                                                <div className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${
+                                                                                    applicant.match >= 90 ? 'bg-emerald-500' :
+                                                                                    applicant.match >= 85 ? 'bg-amber-500' : 'bg-orange-500'
+                                                                                }`}></div>
+                                                                                <span className="text-[9px] font-bold text-slate-600">{applicant.match}% match</span>
+                                                                            </div>
                                                                         </div>
-                                                                    </div>
-                                                                </motion.div>
-                                                            ))}
+                                                                    </motion.div>
+                                                                );
+                                                            })}
 
                                                             {/* Empty Stage Drop Zone */}
                                                             {stage.applicants?.length === 0 && (
@@ -424,9 +691,10 @@ export function PipelinePage({ onAddJob, onNavigate, selectedJobId }: PipelinePa
                                                                     Drop applicant
                                                                 </div>
                                                             )}
-                                                        </div>
+                                                         </div>
                                                     </div>
-                                                ))}
+                                                    );
+                                                })}
 
                                                 {/* Add New Category Column Button */}
                                                 <div className="flex flex-col h-full min-w-0">

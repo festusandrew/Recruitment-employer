@@ -245,13 +245,25 @@ export function ViewApplicantsPage({ jobTitle, onBack, onViewCandidate, fullScre
                                             {/* Card Top Block */}
                                             <div className="flex items-start justify-between gap-2.5 mb-2.5 relative">
                                                 <div className="flex items-start gap-2.5 min-w-0">
-                                                    <Avatar className="w-9 h-9 border border-slate-100 flex-shrink-0">
+                                                    <Avatar 
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            onViewCandidate(applicant);
+                                                        }}
+                                                        className="w-9 h-9 border border-slate-100 flex-shrink-0 cursor-pointer hover:opacity-80 transition-opacity"
+                                                    >
                                                         <AvatarFallback className="text-xs font-black bg-indigo-50 text-indigo-700">
                                                             {applicant.name.split(' ').map(n => n[0]).join('')}
                                                         </AvatarFallback>
                                                     </Avatar>
                                                     <div className="min-w-0">
-                                                        <h4 className="text-slate-900 text-xs font-extrabold truncate leading-tight hover:text-indigo-600 transition-colors">
+                                                        <h4 
+                                                            onClick={(e) => {
+                                                                e.stopPropagation();
+                                                                onViewCandidate(applicant);
+                                                            }}
+                                                            className="text-slate-900 text-xs font-extrabold truncate leading-tight hover:text-indigo-600 transition-colors cursor-pointer hover:underline underline-offset-2"
+                                                        >
                                                             {applicant.name}
                                                         </h4>
                                                         <p className="text-[10px] text-slate-500 truncate mt-0.5 font-semibold">{applicant.role}</p>

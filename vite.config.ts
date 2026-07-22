@@ -34,4 +34,7 @@ export default defineConfig({
             '@': path.resolve(__dirname, './src/app'),
         },
     },
+    optimizeDeps: {
+        include: ['react-dom/client', 'motion/react'],
+    },
 })
