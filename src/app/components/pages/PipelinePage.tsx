@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { Plus, Search, Briefcase, ChevronDown, ChevronUp, Users, MoreHorizontal, X, ArrowRight, CheckSquare, Square } from "lucide-react";
+import { Plus, Search, Briefcase, ChevronDown, ChevronUp, Users, MoreHorizontal, X, ArrowRight, CheckSquare, Square, Pencil, UserPlus, Copy, Link2, Download, Archive, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { motion, AnimatePresence } from "motion/react";
 import { Applicant } from "../types";
@@ -24,12 +24,29 @@ const mockStages = [
     {
         id: "review",
         name: "Review",
-        count: 3,
+        count: 20,
         color: "bg-indigo-600/10 text-indigo-600 border-indigo-600/20",
         applicants: [
             { id: 1, name: "Sarah Chen", role: "Product Designer", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=sarah1", match: 95 },
             { id: 2, name: "Mike Ross", role: "Frontend Dev", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=mike1", match: 88 },
             { id: 3, name: "Laura Palmer", role: "Marketing Manager", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=laura1", match: 92 },
+            { id: 101, name: "Alex Mercer", role: "Senior UX Specialist", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=alex1", match: 97 },
+            { id: 102, name: "Samantha Reed", role: "Product Designer", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=sam1", match: 94 },
+            { id: 103, name: "David Vance", role: "UI Lead", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=david1", match: 91 },
+            { id: 104, name: "Elena Rostova", role: "Design Systems Arch", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=elena1", match: 89 },
+            { id: 105, name: "Marcus Vance", role: "Interaction Designer", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=marcus1", match: 86 },
+            { id: 106, name: "Hannah Abbott", role: "Visual Designer", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=hannah1", match: 84 },
+            { id: 107, name: "Kevin Durant", role: "Product Strategist", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=kevin1", match: 93 },
+            { id: 108, name: "Rachel Zane", role: "UX Researcher", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=rachel1", match: 96 },
+            { id: 109, name: "Harvey Specter", role: "Product Director", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=harvey1", match: 90 },
+            { id: 110, name: "Louis Litt", role: "Compliance Lead", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=louis1", match: 79 },
+            { id: 111, name: "Jessica Pearson", role: "VP Product Design", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=jessica1", match: 98 },
+            { id: 112, name: "Donna Paulsen", role: "Operations Specialist", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=donna1", match: 92 },
+            { id: 113, name: "Katrina Bennett", role: "Senior Designer", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=katrina1", match: 87 },
+            { id: 114, name: "Brian Altman", role: "Product Designer", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=brian1", match: 83 },
+            { id: 115, name: "Sheila Sazs", role: "Talent Partner", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=sheila1", match: 81 },
+            { id: 116, name: "Robert Zane", role: "Managing Partner", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=robert1", match: 88 },
+            { id: 117, name: "Daniel Hardman", role: "Product Advisor", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=daniel1", match: 76 },
         ],
     },
     {
@@ -77,13 +94,36 @@ const mockStages = [
 type StageType = typeof mockStages[0];
 
 export function PipelinePage({ onAddJob, onNavigate, selectedJobId, onViewApplicantProfile }: PipelinePageProps) {
-    const displayedJobs = selectedJobId ? mockJobs.filter(job => job.id === selectedJobId) : mockJobs;
+    // Editable jobs list (seeded from mock data)
+    const [jobs, setJobs] = useState(mockJobs);
+    // Jobs archived/removed from the active board (kept in memory since data is mocked)
+    const [archivedJobIds, setArchivedJobIds] = useState<number[]>([]);
+    const [deletedJobIds, setDeletedJobIds] = useState<number[]>([]);
+
+    const displayedJobs = (selectedJobId ? jobs.filter(job => job.id === selectedJobId) : jobs)
+        .filter(job => !deletedJobIds.includes(job.id) && !archivedJobIds.includes(job.id));
     const defaultJobId = displayedJobs.length > 0 ? displayedJobs[0].id : null;
     const [expandedJobId, setExpandedJobId] = useState<number | null>(defaultJobId);
     const [draggedApplicant, setDraggedApplicant] = useState<{ applicantId: number, sourceStageId: string, jobId: number } | null>(null);
-
-    // Multi-select state per job: Record<jobId, number[]> where numbers are applicant IDs
+    // Multi-select state per job: Record<jobId, applicantId[]>
     const [selectedApplicantIds, setSelectedApplicantIds] = useState<Record<number, number[]>>({});
+    // Which job's "..." menu is currently open (null = none)
+    const [openMenuJobId, setOpenMenuJobId] = useState<number | null>(null);
+
+    // Density & View mode state per job: "standard" | "compact"
+    const [cardDensity, setCardDensity] = useState<"standard" | "compact">("standard");
+    // Column-level search state per stage: Record<stageId, string>
+    const [columnSearch, setColumnSearch] = useState<Record<string, string>>({});
+    // Column-level sort state per stage: Record<stageId, "match" | "name">
+    const [columnSort, setColumnSort] = useState<Record<string, "match" | "name">>({});
+
+    const handleColumnSearchChange = (stageId: string, query: string) => {
+        setColumnSearch(prev => ({ ...prev, [stageId]: query }));
+    };
+
+    const handleColumnSortChange = (stageId: string, sortKey: "match" | "name") => {
+        setColumnSort(prev => ({ ...prev, [stageId]: prev[stageId] === sortKey ? undefined as any : sortKey }));
+    };
 
     // Modal states
     const [isAddApplicantModalOpen, setIsAddApplicantModalOpen] = useState(false);
@@ -321,6 +361,94 @@ export function PipelinePage({ onAddJob, onNavigate, selectedJobId, onViewApplic
         setDraggedApplicant(null);
     };
 
+    // --- Job "..." menu actions ---
+    type JobType = typeof mockJobs[0];
+
+    const handleEditJob = (job: JobType) => {
+        setOpenMenuJobId(null);
+        if (onNavigate) {
+            onNavigate('jobs');
+        } else {
+            toast.info(`Editing "${job.title}"`);
+        }
+    };
+
+    const handleQuickAddApplicant = (job: JobType) => {
+        setOpenMenuJobId(null);
+        setSelectedJobForApplicant(job.id);
+        setIsAddApplicantModalOpen(true);
+    };
+
+    const handleDuplicateJob = (job: JobType) => {
+        setOpenMenuJobId(null);
+        toast.success(`Duplicated "${job.title}" — a copy is ready to edit.`);
+    };
+
+    const handleCopyPipelineLink = (job: JobType) => {
+        setOpenMenuJobId(null);
+        const url = `${window.location.origin}${window.location.pathname}#/pipeline/${job.id}`;
+        if (navigator.clipboard?.writeText) {
+            navigator.clipboard.writeText(url).then(
+                () => toast.success("Pipeline link copied to clipboard!"),
+                () => toast.error("Couldn't copy the link.")
+            );
+        } else {
+            toast.info(url);
+        }
+    };
+
+    const handleExportApplicants = (job: JobType) => {
+        setOpenMenuJobId(null);
+        const jobStages = pipelines[job.id] || mockStages;
+        const rows: string[][] = [["Name", "Role", "Stage", "Match %"]];
+        jobStages.forEach(stage => {
+            (stage.applicants || []).forEach(a => {
+                rows.push([a.name, a.role, stage.name, String(a.match)]);
+            });
+        });
+
+        if (rows.length === 1) {
+            toast.info("No applicants to export for this job.");
+            return;
+        }
+
+        const csv = rows
+            .map(r => r.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(","))
+            .join("\n");
+        const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `${job.title.replace(/\s+/g, "-").toLowerCase()}-applicants.csv`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+        toast.success(`Exported ${rows.length - 1} applicant(s) for ${job.title}!`);
+    };
+
+    const handleArchiveJob = (job: JobType) => {
+        setOpenMenuJobId(null);
+        setArchivedJobIds(prev => [...prev, job.id]);
+        toast.success(`"${job.title}" archived.`, {
+            action: {
+                label: "Undo",
+                onClick: () => setArchivedJobIds(prev => prev.filter(id => id !== job.id)),
+            },
+        });
+    };
+
+    const handleDeleteJob = (job: JobType) => {
+        setOpenMenuJobId(null);
+        setDeletedJobIds(prev => [...prev, job.id]);
+        toast.success(`"${job.title}" deleted.`, {
+            action: {
+                label: "Undo",
+                onClick: () => setDeletedJobIds(prev => prev.filter(id => id !== job.id)),
+            },
+        });
+    };
+
     const handleAddApplicant = (e: React.FormEvent) => {
         e.preventDefault();
         if (!newApplicantName.trim() || !newApplicantRole.trim()) return;
@@ -415,7 +543,7 @@ export function PipelinePage({ onAddJob, onNavigate, selectedJobId, onViewApplic
             <div className="flex-1 overflow-y-auto p-5 space-y-4 scrollbar-thin scrollbar-thumb-gray-200 scrollbar-track-transparent">
                 {displayedJobs.map((job) => {
                     const isExpanded = expandedJobId === job.id;
-                    const stages = pipelines[job.id];
+                    const stages = pipelines[job.id] || mockStages;
                     const currentSelectedIds = selectedApplicantIds[job.id] || [];
 
                     return (
@@ -455,12 +583,86 @@ export function PipelinePage({ onAddJob, onNavigate, selectedJobId, onViewApplic
                                     </div>
                                 </div>
                                 <div className="flex items-center gap-3">
-                                    <button 
-                                        onClick={(e) => { e.stopPropagation(); }} 
-                                        className="p-2 text-slate-400 hover:text-slate-600 hover:bg-gray-50 rounded-lg transition-colors cursor-pointer"
-                                    >
-                                        <MoreHorizontal className="w-4 h-4" />
-                                    </button>
+                                    <div className="relative" onClick={(e) => e.stopPropagation()}>
+                                        <button
+                                            onClick={() => setOpenMenuJobId(prev => prev === job.id ? null : job.id)}
+                                            className={`p-2 rounded-lg transition-colors cursor-pointer ${
+                                                openMenuJobId === job.id
+                                                    ? "text-indigo-600 bg-indigo-600/10"
+                                                    : "text-slate-400 hover:text-slate-600 hover:bg-gray-50"
+                                            }`}
+                                            title="Job options"
+                                        >
+                                            <MoreHorizontal className="w-4 h-4" />
+                                        </button>
+
+                                        {openMenuJobId === job.id && (
+                                            <>
+                                                {/* Click-away backdrop */}
+                                                <div
+                                                    className="fixed inset-0 z-40"
+                                                    onClick={() => setOpenMenuJobId(null)}
+                                                />
+                                                <div className="absolute right-0 top-full mt-1.5 w-56 bg-white rounded-xl border border-slate-200 shadow-lg shadow-slate-200/50 z-50 py-1.5 animate-in fade-in zoom-in-95 duration-150 origin-top-right">
+                                                    <div className="px-3 pb-1.5 mb-1 border-b border-slate-100">
+                                                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider truncate">{job.title}</p>
+                                                    </div>
+                                                    <button
+                                                        onClick={() => handleEditJob(job)}
+                                                        className="w-full flex items-center gap-2.5 px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-gray-50 transition-colors cursor-pointer"
+                                                    >
+                                                        <Pencil className="w-3.5 h-3.5 text-slate-400" />
+                                                        Edit Job
+                                                    </button>
+                                                    <button
+                                                        onClick={() => handleQuickAddApplicant(job)}
+                                                        className="w-full flex items-center gap-2.5 px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-gray-50 transition-colors cursor-pointer"
+                                                    >
+                                                        <UserPlus className="w-3.5 h-3.5 text-slate-400" />
+                                                        Add Applicant
+                                                    </button>
+                                                    <button
+                                                        onClick={() => handleDuplicateJob(job)}
+                                                        className="w-full flex items-center gap-2.5 px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-gray-50 transition-colors cursor-pointer"
+                                                    >
+                                                        <Copy className="w-3.5 h-3.5 text-slate-400" />
+                                                        Duplicate Job
+                                                    </button>
+                                                    <button
+                                                        onClick={() => handleCopyPipelineLink(job)}
+                                                        className="w-full flex items-center gap-2.5 px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-gray-50 transition-colors cursor-pointer"
+                                                    >
+                                                        <Link2 className="w-3.5 h-3.5 text-slate-400" />
+                                                        Copy Pipeline Link
+                                                    </button>
+                                                    <button
+                                                        onClick={() => handleExportApplicants(job)}
+                                                        className="w-full flex items-center gap-2.5 px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-gray-50 transition-colors cursor-pointer"
+                                                    >
+                                                        <Download className="w-3.5 h-3.5 text-slate-400" />
+                                                        Export Applicants (CSV)
+                                                    </button>
+
+                                                    <div className="my-1 border-t border-slate-100" />
+
+                                                    <button
+                                                        onClick={() => handleArchiveJob(job)}
+                                                        className="w-full flex items-center gap-2.5 px-3 py-2 text-xs font-semibold text-amber-700 hover:bg-amber-50 transition-colors cursor-pointer"
+                                                    >
+                                                        <Archive className="w-3.5 h-3.5 text-amber-500" />
+                                                        Archive Job
+                                                    </button>
+                                                    <button
+                                                        onClick={() => handleDeleteJob(job)}
+                                                        className="w-full flex items-center gap-2.5 px-3 py-2 text-xs font-semibold text-red-600 hover:bg-red-50 transition-colors cursor-pointer"
+                                                    >
+                                                        <Trash2 className="w-3.5 h-3.5 text-red-500" />
+                                                        Delete Job
+                                                    </button>
+                                                </div>
+                                            </>
+                                        )}
+                                    </div>
                                     <div className="w-px h-6 bg-gray-200"></div>
                                     <div className="p-1.5 text-slate-400 hover:text-indigo-600 hover:bg-indigo-600/5 rounded-lg transition-colors">
                                         {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
@@ -502,6 +704,28 @@ export function PipelinePage({ onAddJob, onNavigate, selectedJobId, onViewApplic
                                                     })()}
                                                 </div>
                                                 <div className="flex items-center gap-2 flex-wrap">
+                                                    {/* Density Mode Switcher */}
+                                                    <div className="flex items-center bg-gray-100 p-0.5 rounded-lg text-[11px] font-semibold text-slate-600 border border-slate-200/60">
+                                                        <button
+                                                            onClick={() => setCardDensity("standard")}
+                                                            className={`px-2 py-0.5 rounded-md transition-all cursor-pointer ${
+                                                                cardDensity === "standard" ? "bg-white text-indigo-600 shadow-xs font-bold" : "hover:text-slate-900"
+                                                            }`}
+                                                            title="Standard view mode"
+                                                        >
+                                                            Cards
+                                                        </button>
+                                                        <button
+                                                            onClick={() => setCardDensity("compact")}
+                                                            className={`px-2 py-0.5 rounded-md transition-all cursor-pointer ${
+                                                                cardDensity === "compact" ? "bg-white text-indigo-600 shadow-xs font-bold" : "hover:text-slate-900"
+                                                            }`}
+                                                            title="High-density compact view mode"
+                                                        >
+                                                            Compact
+                                                        </button>
+                                                    </div>
+
                                                     {currentSelectedIds.length > 0 && (
                                                         <div className="flex items-center gap-2 bg-indigo-50/80 border border-indigo-200 p-1.5 rounded-xl animate-in fade-in zoom-in-95">
                                                             <span className="text-xs font-bold text-indigo-700 px-1">
@@ -541,16 +765,6 @@ export function PipelinePage({ onAddJob, onNavigate, selectedJobId, onViewApplic
                                                     )}
                                                     <button 
                                                         onClick={() => {
-                                                            setSelectedJobForCategory(job.id);
-                                                            setIsAddCategoryModalOpen(true);
-                                                        }}
-                                                        className="flex items-center gap-1.5 px-3 py-1.5 bg-white border border-slate-200 text-slate-700 rounded-xl hover:bg-gray-50 transition-colors text-xs font-semibold cursor-pointer "
-                                                    >
-                                                        <Plus className="w-3.5 h-3.5 text-indigo-600" />
-                                                        Add Category
-                                                    </button>
-                                                    <button 
-                                                        onClick={() => {
                                                             setSelectedJobForApplicant(job.id);
                                                             setIsAddApplicantModalOpen(true);
                                                         }}
@@ -562,11 +776,25 @@ export function PipelinePage({ onAddJob, onNavigate, selectedJobId, onViewApplic
                                                 </div>
                                             </div>
 
-                                            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4 min-h-[260px] w-full pb-2 overflow-x-auto no-scrollbar">
+                                            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4 min-h-[300px] w-full pb-2 overflow-x-auto no-scrollbar">
                                                 {stages.map((stage) => {
                                                     const stageApplicantIds = stage.applicants?.map(a => a.id) || [];
                                                     const isStageAllSelected = stageApplicantIds.length > 0 && stageApplicantIds.every(id => currentSelectedIds.includes(id));
                                                     
+                                                    // Filter & Sort stage applicants
+                                                    const searchQ = (columnSearch[stage.id] || "").toLowerCase();
+                                                    const sortK = columnSort[stage.id];
+
+                                                    let processedApplicants = (stage.applicants || []).filter(a =>
+                                                        a.name.toLowerCase().includes(searchQ) || a.role.toLowerCase().includes(searchQ)
+                                                    );
+
+                                                    if (sortK === "match") {
+                                                        processedApplicants = [...processedApplicants].sort((a, b) => b.match - a.match);
+                                                    } else if (sortK === "name") {
+                                                        processedApplicants = [...processedApplicants].sort((a, b) => a.name.localeCompare(b.name));
+                                                    }
+
                                                     return (
                                                     <div
                                                         key={stage.id}
@@ -575,7 +803,7 @@ export function PipelinePage({ onAddJob, onNavigate, selectedJobId, onViewApplic
                                                         onDrop={(e) => handleDrop(e, stage.id, job.id)}
                                                     >
                                                         {/* Stage Header */}
-                                                        <div className="bg-white rounded-xl border border-gray-150  p-3 mb-2.5 flex-shrink-0">
+                                                        <div className="bg-white rounded-xl border border-gray-150 p-3 mb-2.5 flex-shrink-0">
                                                             <div className="flex items-center justify-between mb-2">
                                                                 <div className="flex items-center gap-1.5 min-w-0">
                                                                     {stageApplicantIds.length > 0 && (
@@ -592,17 +820,33 @@ export function PipelinePage({ onAddJob, onNavigate, selectedJobId, onViewApplic
                                                                         {stage.count}
                                                                     </span>
                                                                 </div>
-                                                                <button 
-                                                                    onClick={() => {
-                                                                        setSelectedJobForCategory(job.id);
-                                                                        setIsAddCategoryModalOpen(true);
-                                                                    }}
-                                                                    className="w-5 h-5 flex items-center justify-center rounded hover:bg-gray-100 text-slate-400 hover:text-slate-600 transition-colors flex-shrink-0 cursor-pointer"
-                                                                    title="Add Category"
-                                                                >
-                                                                    <Plus className="w-3.5 h-3.5" />
-                                                                </button>
                                                             </div>
+
+                                                            {/* Mini Column Search & Sort (Enabled when stage has > 5 candidates) */}
+                                                            {stage.applicants && stage.applicants.length > 5 && (
+                                                                <div className="flex items-center gap-1 mt-2 mb-2">
+                                                                    <div className="relative flex-1">
+                                                                        <Search className="absolute left-2 top-1/2 -translate-y-1/2 w-3 h-3 text-slate-400" />
+                                                                        <input
+                                                                            type="text"
+                                                                            placeholder={`Search ${stage.name}...`}
+                                                                            value={columnSearch[stage.id] || ""}
+                                                                            onChange={(e) => handleColumnSearchChange(stage.id, e.target.value)}
+                                                                            className="w-full pl-6 pr-2 py-1 bg-gray-50 border border-slate-200 rounded-lg text-[10px] focus:outline-none focus:bg-white focus:border-indigo-500 transition-colors"
+                                                                        />
+                                                                    </div>
+                                                                    <button
+                                                                        onClick={() => handleColumnSortChange(stage.id, "match")}
+                                                                        className={`px-1.5 py-1 rounded text-[9px] font-bold border transition-colors cursor-pointer ${
+                                                                            sortK === "match" ? "bg-indigo-50 text-indigo-700 border-indigo-200" : "bg-gray-50 text-slate-500 border-slate-200 hover:bg-gray-100"
+                                                                        }`}
+                                                                        title="Sort by match score"
+                                                                    >
+                                                                        Score
+                                                                    </button>
+                                                                </div>
+                                                            )}
+
                                                             {/* Progress bar */}
                                                             <div className="h-1.5 w-full bg-gray-100 rounded-full overflow-hidden">
                                                                 <div
@@ -618,9 +862,67 @@ export function PipelinePage({ onAddJob, onNavigate, selectedJobId, onViewApplic
                                                         </div>
 
                                                         {/* Applicants Cards Area */}
-                                                        <div className="flex-1 space-y-2.5 max-h-[230px] overflow-y-auto pr-1 pb-2 scrollbar-thin scrollbar-thumb-gray-200">
-                                                            {stage.applicants?.map((applicant) => {
+                                                        <div className="flex-1 space-y-2 max-h-[380px] overflow-y-auto pr-1 pb-2 scrollbar-thin scrollbar-thumb-gray-200">
+                                                            {processedApplicants.map((applicant) => {
                                                                 const isSelected = currentSelectedIds.includes(applicant.id);
+
+                                                                if (cardDensity === "compact") {
+                                                                    return (
+                                                                        <motion.div
+                                                                            key={applicant.id}
+                                                                            className={`bg-white rounded-lg border ${
+                                                                                isSelected
+                                                                                    ? 'border-indigo-600 bg-indigo-50/30 ring-1 ring-indigo-600/30'
+                                                                                    : draggedApplicant?.applicantId === applicant.id
+                                                                                    ? 'border-indigo-600 opacity-45'
+                                                                                    : 'border-gray-150 hover:border-gray-300'
+                                                                            } transition-all duration-150 p-2 cursor-grab active:cursor-grabbing flex items-center justify-between gap-2 group relative`}
+                                                                            draggable
+                                                                            onDragStart={(e) => handleDragStart(e, applicant.id, stage.id, job.id)}
+                                                                            onDragEnd={() => setDraggedApplicant(null)}
+                                                                            whileHover={{ y: -1 }}
+                                                                        >
+                                                                            <div className="flex items-center gap-2 min-w-0">
+                                                                                <input
+                                                                                    type="checkbox"
+                                                                                    checked={isSelected}
+                                                                                    onChange={(e) => {
+                                                                                        e.stopPropagation();
+                                                                                        toggleSelectApplicant(job.id, applicant.id);
+                                                                                    }}
+                                                                                    className="w-3 h-3 text-indigo-600 border-gray-300 rounded cursor-pointer flex-shrink-0"
+                                                                                />
+                                                                                <Avatar 
+                                                                                    onClick={(e) => {
+                                                                                        e.stopPropagation();
+                                                                                        handleApplicantClick(applicant, job.title);
+                                                                                    }}
+                                                                                    className="w-5.5 h-5.5 border border-slate-100 flex-shrink-0 cursor-pointer"
+                                                                                >
+                                                                                    <AvatarImage src={applicant.avatar} />
+                                                                                    <AvatarFallback className="bg-indigo-50 text-indigo-700 text-[8px] font-bold">
+                                                                                        {applicant.name.split(' ').map(n => n[0]).join('')}
+                                                                                    </AvatarFallback>
+                                                                                </Avatar>
+                                                                                <span 
+                                                                                    onClick={(e) => {
+                                                                                        e.stopPropagation();
+                                                                                        handleApplicantClick(applicant, job.title);
+                                                                                    }}
+                                                                                    className="text-slate-900 font-bold text-[11px] truncate cursor-pointer hover:text-indigo-600 transition-colors"
+                                                                                >
+                                                                                    {applicant.name}
+                                                                                </span>
+                                                                            </div>
+                                                                            <span className={`px-1 py-0.2 rounded text-[9px] font-bold ${
+                                                                                applicant.match >= 90 ? 'bg-emerald-50 text-emerald-700' : 'bg-amber-50 text-amber-700'
+                                                                            } flex-shrink-0`}>
+                                                                                {applicant.match}%
+                                                                            </span>
+                                                                        </motion.div>
+                                                                    );
+                                                                }
+
                                                                 return (
                                                                     <motion.div
                                                                         key={applicant.id}
